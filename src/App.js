@@ -1,8 +1,12 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import logo from "./logo.svg";
+import "./App.css";
+import firebase from "./services/firebase";
 
 function App() {
+  const getUser = () => {
+    firebase.firestore().collection("users");
+  };
   return (
     <div className="App">
       <header className="App-header">

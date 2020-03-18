@@ -1,38 +1,38 @@
-[debug] [2020-03-18T19:18:05.770Z] ----------------------------------------------------------------------
-[debug] [2020-03-18T19:18:05.776Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\matia\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js serve --only functions
-[debug] [2020-03-18T19:18:05.776Z] CLI Version:   7.15.1
-[debug] [2020-03-18T19:18:05.776Z] Platform:      win32
-[debug] [2020-03-18T19:18:05.776Z] Node Version:  v12.16.1
-[debug] [2020-03-18T19:18:05.779Z] Time:          Wed Mar 18 2020 16:18:05 GMT-0300 (GMT-03:00)
-[debug] [2020-03-18T19:18:05.779Z] ----------------------------------------------------------------------
-[debug] [2020-03-18T19:18:05.779Z] 
-[debug] [2020-03-18T19:18:05.794Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
-[debug] [2020-03-18T19:18:05.794Z] > authorizing via signed-in user
-[debug] [2020-03-18T19:18:05.795Z] [iam] checking project lovable-qr for permissions ["firebase.projects.get"]
-[debug] [2020-03-18T19:18:05.798Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/lovable-qr:testIamPermissions  
+[debug] [2020-03-18T21:36:39.191Z] ----------------------------------------------------------------------
+[debug] [2020-03-18T21:36:39.192Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\matia\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js serve --only functions
+[debug] [2020-03-18T21:36:39.192Z] CLI Version:   7.15.1
+[debug] [2020-03-18T21:36:39.192Z] Platform:      win32
+[debug] [2020-03-18T21:36:39.192Z] Node Version:  v12.16.1
+[debug] [2020-03-18T21:36:39.193Z] Time:          Wed Mar 18 2020 18:36:39 GMT-0300 (GMT-03:00)
+[debug] [2020-03-18T21:36:39.193Z] ----------------------------------------------------------------------
+[debug] [2020-03-18T21:36:39.193Z] 
+[debug] [2020-03-18T21:36:39.199Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-03-18T21:36:39.199Z] > authorizing via signed-in user
+[debug] [2020-03-18T21:36:39.199Z] [iam] checking project lovable-qr for permissions ["firebase.projects.get"]
+[debug] [2020-03-18T21:36:39.200Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/lovable-qr:testIamPermissions  
 
-[debug] [2020-03-18T19:18:06.959Z] <<< HTTP RESPONSE 200
-[debug] [2020-03-18T19:18:06.961Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/lovable-qr  
+[debug] [2020-03-18T21:36:40.405Z] <<< HTTP RESPONSE 200
+[debug] [2020-03-18T21:36:40.406Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/lovable-qr  
  
-[debug] [2020-03-18T19:18:08.108Z] <<< HTTP RESPONSE 200
+[debug] [2020-03-18T21:36:40.763Z] <<< HTTP RESPONSE 200
 [warn] !  Your requested "node" version "8" doesn't match your global version "12"
 [info] +  functions: functions emulator started at http://localhost:5000
 [info] i  functions: Watching "C:\Users\matia\OneDrive\Escritorio\Plataforma5\lovable\functions" for Cloud Functions...
-[debug] [2020-03-18T19:18:09.178Z] [worker-pool] addWorker(~diagnostic~)
-[debug] [2020-03-18T19:18:09.178Z] [worker-pool] Adding worker with key ~diagnostic~, total=1
-[debug] [2020-03-18T19:18:09.178Z] [worker-pool] submitWork(triggerId=)
-[debug] [2020-03-18T19:18:09.179Z] [worker-~diagnostic~-0b0fb3b3-ad88-4b77-8f4a-15609e639eb6]: Assigning socketPath: \\?\pipe\C:\Users\matia\OneDrive\Escritorio\Plataforma5\lovable\functions\18852
-[debug] [2020-03-18T19:18:09.180Z] [worker-~diagnostic~-0b0fb3b3-ad88-4b77-8f4a-15609e639eb6]: BUSY
-[debug] [2020-03-18T19:18:09.621Z] [runtime-status] [18852] Functions runtime initialized. {"cwd":"C:\\Users\\matia\\OneDrive\\Escritorio\\Plataforma5\\lovable\\functions","node_version":"12.16.1"}
-[debug] [2020-03-18T19:18:09.622Z] [runtime-status] [18852] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true,"pubsub_emulator":true}
-[debug] [2020-03-18T19:18:09.626Z] [runtime-status] [18852] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.10.0","resolution":"C:\\Users\\matia\\OneDrive\\Escritorio\\Plataforma5\\lovable\\functions\\node_modules\\firebase-admin\\lib\\index.js"}
-[debug] [2020-03-18T19:18:09.628Z] [runtime-status] [18852] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"C:\\Users\\matia\\OneDrive\\Escritorio\\Plataforma5\\lovable\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
-[debug] [2020-03-18T19:18:09.630Z] [runtime-status] [18852] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"C:\\Users\\matia\\OneDrive\\Escritorio\\Plataforma5\\lovable\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
-[warn] !  C:\Users\matia\OneDrive\Escritorio\Plataforma5\lovable\functions\index.js:5
-app.use("/api/get", (req, res) => {res.send("hello world")};
-                                                          ^
+[debug] [2020-03-18T21:36:41.791Z] [worker-pool] addWorker(~diagnostic~)
+[debug] [2020-03-18T21:36:41.791Z] [worker-pool] Adding worker with key ~diagnostic~, total=1
+[debug] [2020-03-18T21:36:41.791Z] [worker-pool] submitWork(triggerId=)
+[debug] [2020-03-18T21:36:41.792Z] [worker-~diagnostic~-2c7f287e-0e90-4b15-975b-16ca04d2d2e7]: Assigning socketPath: \\?\pipe\C:\Users\matia\OneDrive\Escritorio\Plataforma5\lovable\functions\15040
+[debug] [2020-03-18T21:36:41.792Z] [worker-~diagnostic~-2c7f287e-0e90-4b15-975b-16ca04d2d2e7]: BUSY
+[debug] [2020-03-18T21:36:42.061Z] [runtime-status] [15040] Functions runtime initialized. {"cwd":"C:\\Users\\matia\\OneDrive\\Escritorio\\Plataforma5\\lovable\\functions","node_version":"12.16.1"}
+[debug] [2020-03-18T21:36:42.061Z] [runtime-status] [15040] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true,"pubsub_emulator":true}
+[debug] [2020-03-18T21:36:42.063Z] [runtime-status] [15040] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.10.0","resolution":"C:\\Users\\matia\\OneDrive\\Escritorio\\Plataforma5\\lovable\\functions\\node_modules\\firebase-admin\\lib\\index.js"}
+[debug] [2020-03-18T21:36:42.065Z] [runtime-status] [15040] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"C:\\Users\\matia\\OneDrive\\Escritorio\\Plataforma5\\lovable\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
+[debug] [2020-03-18T21:36:42.065Z] [runtime-status] [15040] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"C:\\Users\\matia\\OneDrive\\Escritorio\\Plataforma5\\lovable\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
+[warn] !  C:\Users\matia\OneDrive\Escritorio\Plataforma5\lovable\functions\src\services\firebase.js:3
+​
 
-SyntaxError: missing ) after argument list
+
+SyntaxError: Invalid or unexpected token
     at wrapSafe (internal/modules/cjs/loader.js:1072:16)
     at Module._compile (internal/modules/cjs/loader.js:1122:27)
     at Object.Module._extensions..js (internal/modules/cjs/loader.js:1178:10)
@@ -40,81 +40,262 @@ SyntaxError: missing ) after argument list
     at Function.Module._load (internal/modules/cjs/loader.js:901:14)
     at Module.require (internal/modules/cjs/loader.js:1044:19)
     at require (internal/modules/cjs/helpers.js:77:18)
-    at C:\Users\matia\AppData\Roaming\npm\node_modules\firebase-tools\lib\emulator\functionsEmulatorRuntime.js:724:33
-    at Generator.next (<anonymous>)
-    at fulfilled (C:\Users\matia\AppData\Roaming\npm\node_modules\firebase-tools\lib\emulator\functionsEmulatorRuntime.js:5:58)
+    at Object.<anonymous> (C:\Users\matia\OneDrive\Escritorio\Plataforma5\lovable\functions\index.js:4:18)
+    at Module._compile (internal/modules/cjs/loader.js:1158:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:1178:10)
 [warn] !  We were unable to load your functions code. (see above)
-[debug] [2020-03-18T19:18:09.737Z] [worker-~diagnostic~-0b0fb3b3-ad88-4b77-8f4a-15609e639eb6]: exited
-[debug] [2020-03-18T19:18:09.737Z] [worker-~diagnostic~-0b0fb3b3-ad88-4b77-8f4a-15609e639eb6]: FINISHED
-[debug] [2020-03-18T19:18:55.033Z] File C:\Users\matia\OneDrive\Escritorio\Plataforma5\lovable\functions\index.js changed, reloading triggers
-[debug] [2020-03-18T19:18:56.035Z] [worker-pool] Cleaned up workers for ~diagnostic~: 1 --> 0
-[debug] [2020-03-18T19:18:56.053Z] [worker-pool] addWorker(~diagnostic~)
-[debug] [2020-03-18T19:18:56.053Z] [worker-pool] Adding worker with key ~diagnostic~, total=1
-[debug] [2020-03-18T19:18:56.054Z] [worker-pool] submitWork(triggerId=)
-[debug] [2020-03-18T19:18:56.054Z] [worker-~diagnostic~-22638d82-c9be-43f0-adfc-5be7114f72b4]: Assigning socketPath: \\?\pipe\C:\Users\matia\OneDrive\Escritorio\Plataforma5\lovable\functions\19772
-[debug] [2020-03-18T19:18:56.054Z] [worker-~diagnostic~-22638d82-c9be-43f0-adfc-5be7114f72b4]: BUSY
-[debug] [2020-03-18T19:18:56.551Z] [runtime-status] [19772] Functions runtime initialized. {"cwd":"C:\\Users\\matia\\OneDrive\\Escritorio\\Plataforma5\\lovable\\functions","node_version":"12.16.1"}
-[debug] [2020-03-18T19:18:56.553Z] [runtime-status] [19772] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true,"pubsub_emulator":true}
-[debug] [2020-03-18T19:18:56.556Z] [runtime-status] [19772] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.10.0","resolution":"C:\\Users\\matia\\OneDrive\\Escritorio\\Plataforma5\\lovable\\functions\\node_modules\\firebase-admin\\lib\\index.js"}
-[debug] [2020-03-18T19:18:56.558Z] [runtime-status] [19772] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"C:\\Users\\matia\\OneDrive\\Escritorio\\Plataforma5\\lovable\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
-[debug] [2020-03-18T19:18:56.559Z] [runtime-status] [19772] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"C:\\Users\\matia\\OneDrive\\Escritorio\\Plataforma5\\lovable\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
+[debug] [2020-03-18T21:36:42.216Z] [worker-~diagnostic~-2c7f287e-0e90-4b15-975b-16ca04d2d2e7]: exited
+[debug] [2020-03-18T21:36:42.216Z] [worker-~diagnostic~-2c7f287e-0e90-4b15-975b-16ca04d2d2e7]: FINISHED
+[debug] [2020-03-18T21:38:30.542Z] File C:\Users\matia\OneDrive\Escritorio\Plataforma5\lovable\functions\src\services\firebase.js changed, reloading triggers
+[debug] [2020-03-18T21:38:31.371Z] File C:\Users\matia\OneDrive\Escritorio\Plataforma5\lovable\functions\src\services\firebase.js changed, reloading triggers
+[debug] [2020-03-18T21:38:32.371Z] [worker-pool] Cleaned up workers for ~diagnostic~: 1 --> 0
+[debug] [2020-03-18T21:38:32.378Z] [worker-pool] addWorker(~diagnostic~)
+[debug] [2020-03-18T21:38:32.378Z] [worker-pool] Adding worker with key ~diagnostic~, total=1
+[debug] [2020-03-18T21:38:32.378Z] [worker-pool] submitWork(triggerId=)
+[debug] [2020-03-18T21:38:32.378Z] [worker-~diagnostic~-6f7bd338-dd5b-4144-b434-bf2561eb8bb0]: Assigning socketPath: \\?\pipe\C:\Users\matia\OneDrive\Escritorio\Plataforma5\lovable\functions\18264
+[debug] [2020-03-18T21:38:32.378Z] [worker-~diagnostic~-6f7bd338-dd5b-4144-b434-bf2561eb8bb0]: BUSY
+[debug] [2020-03-18T21:38:32.657Z] [runtime-status] [18264] Functions runtime initialized. {"cwd":"C:\\Users\\matia\\OneDrive\\Escritorio\\Plataforma5\\lovable\\functions","node_version":"12.16.1"}
+[debug] [2020-03-18T21:38:32.658Z] [runtime-status] [18264] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true,"pubsub_emulator":true}
+[debug] [2020-03-18T21:38:32.660Z] [runtime-status] [18264] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.10.0","resolution":"C:\\Users\\matia\\OneDrive\\Escritorio\\Plataforma5\\lovable\\functions\\node_modules\\firebase-admin\\lib\\index.js"}
+[debug] [2020-03-18T21:38:32.661Z] [runtime-status] [18264] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"C:\\Users\\matia\\OneDrive\\Escritorio\\Plataforma5\\lovable\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
+[debug] [2020-03-18T21:38:32.662Z] [runtime-status] [18264] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"C:\\Users\\matia\\OneDrive\\Escritorio\\Plataforma5\\lovable\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
+[warn] !  C:\Users\matia\OneDrive\Escritorio\Plataforma5\lovable\functions\src\services\firebase.js:7
+​
+
+
+SyntaxError: Invalid or unexpected token
+    at wrapSafe (internal/modules/cjs/loader.js:1072:16)
+    at Module._compile (internal/modules/cjs/loader.js:1122:27)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:1178:10)
+    at Module.load (internal/modules/cjs/loader.js:1002:32)
+    at Function.Module._load (internal/modules/cjs/loader.js:901:14)
+    at Module.require (internal/modules/cjs/loader.js:1044:19)
+    at require (internal/modules/cjs/helpers.js:77:18)
+    at Object.<anonymous> (C:\Users\matia\OneDrive\Escritorio\Plataforma5\lovable\functions\index.js:4:18)
+    at Module._compile (internal/modules/cjs/loader.js:1158:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:1178:10)
+[warn] !  We were unable to load your functions code. (see above)
+[debug] [2020-03-18T21:38:32.816Z] [worker-~diagnostic~-6f7bd338-dd5b-4144-b434-bf2561eb8bb0]: exited
+[debug] [2020-03-18T21:38:32.816Z] [worker-~diagnostic~-6f7bd338-dd5b-4144-b434-bf2561eb8bb0]: FINISHED
+[debug] [2020-03-18T21:38:41.132Z] File C:\Users\matia\OneDrive\Escritorio\Plataforma5\lovable\functions\src\services\firebase.js changed, reloading triggers
+[debug] [2020-03-18T21:38:42.133Z] [worker-pool] Cleaned up workers for ~diagnostic~: 1 --> 0
+[debug] [2020-03-18T21:38:42.137Z] [worker-pool] addWorker(~diagnostic~)
+[debug] [2020-03-18T21:38:42.137Z] [worker-pool] Adding worker with key ~diagnostic~, total=1
+[debug] [2020-03-18T21:38:42.137Z] [worker-pool] submitWork(triggerId=)
+[debug] [2020-03-18T21:38:42.137Z] [worker-~diagnostic~-75165803-6fb6-45e7-928f-aabbe294a6ff]: Assigning socketPath: \\?\pipe\C:\Users\matia\OneDrive\Escritorio\Plataforma5\lovable\functions\20504
+[debug] [2020-03-18T21:38:42.137Z] [worker-~diagnostic~-75165803-6fb6-45e7-928f-aabbe294a6ff]: BUSY
+[debug] [2020-03-18T21:38:42.412Z] [runtime-status] [20504] Functions runtime initialized. {"cwd":"C:\\Users\\matia\\OneDrive\\Escritorio\\Plataforma5\\lovable\\functions","node_version":"12.16.1"}
+[debug] [2020-03-18T21:38:42.413Z] [runtime-status] [20504] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true,"pubsub_emulator":true}
+[debug] [2020-03-18T21:38:42.415Z] [runtime-status] [20504] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.10.0","resolution":"C:\\Users\\matia\\OneDrive\\Escritorio\\Plataforma5\\lovable\\functions\\node_modules\\firebase-admin\\lib\\index.js"}
+[debug] [2020-03-18T21:38:42.416Z] [runtime-status] [20504] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"C:\\Users\\matia\\OneDrive\\Escritorio\\Plataforma5\\lovable\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
+[debug] [2020-03-18T21:38:42.417Z] [runtime-status] [20504] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"C:\\Users\\matia\\OneDrive\\Escritorio\\Plataforma5\\lovable\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
 [info] +  functions[app]: http function initialized (http://localhost:5000/lovable-qr/us-central1/app).
-[debug] [2020-03-18T19:18:56.738Z] [worker-~diagnostic~-22638d82-c9be-43f0-adfc-5be7114f72b4]: IDLE
-[debug] [2020-03-18T19:20:02.242Z] [work-queue] {"queueLength":1,"workRunningCount":0}
-[debug] [2020-03-18T19:20:02.243Z] [work-queue] {"queueLength":0,"workRunningCount":1}
-[debug] [2020-03-18T19:20:02.243Z] Accepted request GET /lovable-qr/us-central1/app --> app
-[debug] [2020-03-18T19:20:02.252Z] [worker-pool] addWorker(app)
-[debug] [2020-03-18T19:20:02.252Z] [worker-pool] Adding worker with key app, total=1
-[debug] [2020-03-18T19:20:02.252Z] [worker-pool] submitWork(triggerId=app)
-[debug] [2020-03-18T19:20:02.252Z] [worker-app-0802bf9d-1ce8-4346-90c8-c03081a4644b]: Assigning socketPath: \\?\pipe\C:\Users\matia\OneDrive\Escritorio\Plataforma5\lovable\functions\6164
-[debug] [2020-03-18T19:20:02.252Z] [worker-app-0802bf9d-1ce8-4346-90c8-c03081a4644b]: BUSY
-[debug] [2020-03-18T19:20:02.677Z] [runtime-status] [6164] Functions runtime initialized. {"cwd":"C:\\Users\\matia\\OneDrive\\Escritorio\\Plataforma5\\lovable\\functions","node_version":"12.16.1"}
-[debug] [2020-03-18T19:20:02.679Z] [runtime-status] [6164] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true,"pubsub_emulator":true}
-[debug] [2020-03-18T19:20:02.681Z] [runtime-status] [6164] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.10.0","resolution":"C:\\Users\\matia\\OneDrive\\Escritorio\\Plataforma5\\lovable\\functions\\node_modules\\firebase-admin\\lib\\index.js"}
-[debug] [2020-03-18T19:20:02.683Z] [runtime-status] [6164] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"C:\\Users\\matia\\OneDrive\\Escritorio\\Plataforma5\\lovable\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
-[debug] [2020-03-18T19:20:02.684Z] [runtime-status] [6164] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"C:\\Users\\matia\\OneDrive\\Escritorio\\Plataforma5\\lovable\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
-[debug] [2020-03-18T19:20:02.999Z] [runtime-status] [6164] Trigger "app" has been found, beginning invocation!
+[debug] [2020-03-18T21:38:42.856Z] [worker-~diagnostic~-75165803-6fb6-45e7-928f-aabbe294a6ff]: IDLE
+[debug] [2020-03-18T21:39:23.733Z] [work-queue] {"queueLength":1,"workRunningCount":0}
+[debug] [2020-03-18T21:39:23.734Z] [work-queue] {"queueLength":0,"workRunningCount":1}
+[debug] [2020-03-18T21:39:23.734Z] Accepted request GET /lovable-qr/us-central1/app/api --> app
+[debug] [2020-03-18T21:39:23.738Z] [worker-pool] addWorker(app)
+[debug] [2020-03-18T21:39:23.738Z] [worker-pool] Adding worker with key app, total=1
+[debug] [2020-03-18T21:39:23.738Z] [worker-pool] submitWork(triggerId=app)
+[debug] [2020-03-18T21:39:23.739Z] [worker-app-0bbbcca0-a56c-456a-8064-eb2a5ebf7574]: Assigning socketPath: \\?\pipe\C:\Users\matia\OneDrive\Escritorio\Plataforma5\lovable\functions\7328
+[debug] [2020-03-18T21:39:23.739Z] [worker-app-0bbbcca0-a56c-456a-8064-eb2a5ebf7574]: BUSY
+[debug] [2020-03-18T21:39:23.994Z] [runtime-status] [7328] Functions runtime initialized. {"cwd":"C:\\Users\\matia\\OneDrive\\Escritorio\\Plataforma5\\lovable\\functions","node_version":"12.16.1"}
+[debug] [2020-03-18T21:39:23.995Z] [runtime-status] [7328] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true,"pubsub_emulator":true}
+[debug] [2020-03-18T21:39:23.997Z] [runtime-status] [7328] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.10.0","resolution":"C:\\Users\\matia\\OneDrive\\Escritorio\\Plataforma5\\lovable\\functions\\node_modules\\firebase-admin\\lib\\index.js"}
+[debug] [2020-03-18T21:39:23.999Z] [runtime-status] [7328] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"C:\\Users\\matia\\OneDrive\\Escritorio\\Plataforma5\\lovable\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
+[debug] [2020-03-18T21:39:23.999Z] [runtime-status] [7328] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"C:\\Users\\matia\\OneDrive\\Escritorio\\Plataforma5\\lovable\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
+[debug] [2020-03-18T21:39:24.417Z] [runtime-status] [7328] Trigger "app" has been found, beginning invocation!
 [info] i  functions: Beginning execution of "app"
-[debug] [2020-03-18T19:20:03.003Z] [runtime-status] [6164] triggerDefinition {"httpsTrigger":{},"name":"app","entryPoint":"app"}
-[debug] [2020-03-18T19:20:03.004Z] [runtime-status] [6164] Running app in mode HTTPS
-[debug] [2020-03-18T19:20:03.008Z] [runtime-status] [6164] Attempting to listen to socketPath: \\?\pipe\C:\Users\matia\OneDrive\Escritorio\Plataforma5\lovable\functions\6164
-[debug] [2020-03-18T19:20:03.017Z] [functions] Runtime ready! Sending request!
-[debug] [2020-03-18T19:20:03.030Z] [runtime-status] [6164] Ephemeral server handling GET request
-[debug] [2020-03-18T19:20:03.042Z] [runtime-status] [6164] Ephemeral server survived.
+[debug] [2020-03-18T21:39:24.418Z] [runtime-status] [7328] triggerDefinition {"httpsTrigger":{},"name":"app","entryPoint":"app"}
+[debug] [2020-03-18T21:39:24.418Z] [runtime-status] [7328] Running app in mode HTTPS
+[debug] [2020-03-18T21:39:24.419Z] [runtime-status] [7328] Attempting to listen to socketPath: \\?\pipe\C:\Users\matia\OneDrive\Escritorio\Plataforma5\lovable\functions\7328
+[debug] [2020-03-18T21:39:24.421Z] [functions] Runtime ready! Sending request!
+[debug] [2020-03-18T21:39:24.426Z] [runtime-status] [7328] Ephemeral server handling GET request
+[info] >  {
+[info] >    firestore: undefined,
+[info] >    admin: FirebaseApp {
+[info] >      firebaseInternals_: FirebaseNamespaceInternals {
+[info] >        firebase_: [FirebaseNamespace],
+[info] >        serviceFactories: {},
+[info] >        apps_: [Object],
+[info] >        appHooks_: {}
+[info] >      },
+[info] >      services_: { firestore: [FirestoreService] },
+[info] >      isDeleted_: false,
+[info] >      name_: '[DEFAULT]',
+[info] >      options_: {
+[info] >        credential: [ServiceAccountCredential],
+[info] >        databaseURL: 'https://lovable-qr.firebaseio.com'
+[info] >      },
+[info] >      INTERNAL: FirebaseAppInternals {
+[info] >        credential_: [ServiceAccountCredential],
+[info] >        isDeleted_: false,
+[info] >        tokenListeners_: []
+[info] >      }
+[info] >    }
+[info] >  }
+[debug] [2020-03-18T21:39:24.443Z] [runtime-status] [7328] Ephemeral server survived.
 [info] i  functions: Finished "app" in ~1s
-[debug] [2020-03-18T19:20:03.052Z] [worker-app-0802bf9d-1ce8-4346-90c8-c03081a4644b]: IDLE
-[debug] [2020-03-18T19:20:03.052Z] [work-queue] {"queueLength":0,"workRunningCount":0}
-[debug] [2020-03-18T19:20:19.711Z] [work-queue] {"queueLength":1,"workRunningCount":0}
-[debug] [2020-03-18T19:20:19.711Z] [work-queue] {"queueLength":0,"workRunningCount":1}
-[debug] [2020-03-18T19:20:19.711Z] Accepted request GET /lovable-qr/us-central1/app/api/get --> app
-[debug] [2020-03-18T19:20:19.712Z] [worker-pool] submitWork(triggerId=app)
-[debug] [2020-03-18T19:20:19.712Z] [worker-app-0802bf9d-1ce8-4346-90c8-c03081a4644b]: Assigning socketPath: \\?\pipe\C:\Users\matia\OneDrive\Escritorio\Plataforma5\lovable\functions\6164
-[debug] [2020-03-18T19:20:19.712Z] [worker-app-0802bf9d-1ce8-4346-90c8-c03081a4644b]: BUSY
-[debug] [2020-03-18T19:20:19.712Z] [runtime-status] [6164] Trigger "app" has been found, beginning invocation!
+[debug] [2020-03-18T21:39:24.445Z] [worker-app-0bbbcca0-a56c-456a-8064-eb2a5ebf7574]: IDLE
+[debug] [2020-03-18T21:39:24.445Z] [work-queue] {"queueLength":0,"workRunningCount":0}
+[debug] [2020-03-18T21:40:54.282Z] File C:\Users\matia\OneDrive\Escritorio\Plataforma5\lovable\functions\index.js changed, reloading triggers
+[debug] [2020-03-18T21:40:55.282Z] [worker-pool] Shutting down IDLE worker (~diagnostic~)
+[debug] [2020-03-18T21:40:55.282Z] [worker-~diagnostic~-75165803-6fb6-45e7-928f-aabbe294a6ff]: FINISHING
+[debug] [2020-03-18T21:40:55.283Z] [worker-pool] Shutting down IDLE worker (app)
+[debug] [2020-03-18T21:40:55.283Z] [worker-app-0bbbcca0-a56c-456a-8064-eb2a5ebf7574]: FINISHING
+[debug] [2020-03-18T21:40:55.288Z] [worker-pool] addWorker(~diagnostic~)
+[debug] [2020-03-18T21:40:55.288Z] [worker-pool] Adding worker with key ~diagnostic~, total=2
+[debug] [2020-03-18T21:40:55.288Z] [worker-pool] submitWork(triggerId=)
+[debug] [2020-03-18T21:40:55.288Z] [worker-~diagnostic~-248319f7-504d-43c7-9527-f178b084c9ff]: Assigning socketPath: \\?\pipe\C:\Users\matia\OneDrive\Escritorio\Plataforma5\lovable\functions\20044
+[debug] [2020-03-18T21:40:55.288Z] [worker-~diagnostic~-248319f7-504d-43c7-9527-f178b084c9ff]: BUSY
+[debug] [2020-03-18T21:40:55.295Z] [worker-app-0bbbcca0-a56c-456a-8064-eb2a5ebf7574]: exited
+[debug] [2020-03-18T21:40:55.295Z] [worker-app-0bbbcca0-a56c-456a-8064-eb2a5ebf7574]: FINISHED
+[debug] [2020-03-18T21:40:55.295Z] [worker-~diagnostic~-75165803-6fb6-45e7-928f-aabbe294a6ff]: exited
+[debug] [2020-03-18T21:40:55.295Z] [worker-~diagnostic~-75165803-6fb6-45e7-928f-aabbe294a6ff]: FINISHED
+[debug] [2020-03-18T21:40:55.569Z] [runtime-status] [20044] Functions runtime initialized. {"cwd":"C:\\Users\\matia\\OneDrive\\Escritorio\\Plataforma5\\lovable\\functions","node_version":"12.16.1"}
+[debug] [2020-03-18T21:40:55.570Z] [runtime-status] [20044] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true,"pubsub_emulator":true}
+[debug] [2020-03-18T21:40:55.573Z] [runtime-status] [20044] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.10.0","resolution":"C:\\Users\\matia\\OneDrive\\Escritorio\\Plataforma5\\lovable\\functions\\node_modules\\firebase-admin\\lib\\index.js"}
+[debug] [2020-03-18T21:40:55.574Z] [runtime-status] [20044] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"C:\\Users\\matia\\OneDrive\\Escritorio\\Plataforma5\\lovable\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
+[debug] [2020-03-18T21:40:55.575Z] [runtime-status] [20044] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"C:\\Users\\matia\\OneDrive\\Escritorio\\Plataforma5\\lovable\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
+[debug] [2020-03-18T21:40:56.023Z] [worker-~diagnostic~-248319f7-504d-43c7-9527-f178b084c9ff]: IDLE
+[debug] [2020-03-18T21:41:20.234Z] File C:\Users\matia\OneDrive\Escritorio\Plataforma5\lovable\functions\index.js changed, reloading triggers
+[debug] [2020-03-18T21:41:21.236Z] [worker-pool] Shutting down IDLE worker (~diagnostic~)
+[debug] [2020-03-18T21:41:21.237Z] [worker-~diagnostic~-248319f7-504d-43c7-9527-f178b084c9ff]: FINISHING
+[debug] [2020-03-18T21:41:21.237Z] [worker-pool] Cleaned up workers for ~diagnostic~: 2 --> 1
+[debug] [2020-03-18T21:41:21.237Z] [worker-pool] Cleaned up workers for app: 1 --> 0
+[debug] [2020-03-18T21:41:21.243Z] [worker-pool] addWorker(~diagnostic~)
+[debug] [2020-03-18T21:41:21.244Z] [worker-pool] Adding worker with key ~diagnostic~, total=2
+[debug] [2020-03-18T21:41:21.244Z] [worker-pool] submitWork(triggerId=)
+[debug] [2020-03-18T21:41:21.244Z] [worker-~diagnostic~-6c6d6f6e-abde-45c6-986c-093d6357cf23]: Assigning socketPath: \\?\pipe\C:\Users\matia\OneDrive\Escritorio\Plataforma5\lovable\functions\19628
+[debug] [2020-03-18T21:41:21.244Z] [worker-~diagnostic~-6c6d6f6e-abde-45c6-986c-093d6357cf23]: BUSY
+[debug] [2020-03-18T21:41:21.251Z] [worker-~diagnostic~-248319f7-504d-43c7-9527-f178b084c9ff]: exited
+[debug] [2020-03-18T21:41:21.251Z] [worker-~diagnostic~-248319f7-504d-43c7-9527-f178b084c9ff]: FINISHED
+[debug] [2020-03-18T21:41:21.540Z] [runtime-status] [19628] Functions runtime initialized. {"cwd":"C:\\Users\\matia\\OneDrive\\Escritorio\\Plataforma5\\lovable\\functions","node_version":"12.16.1"}
+[debug] [2020-03-18T21:41:21.541Z] [runtime-status] [19628] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true,"pubsub_emulator":true}
+[debug] [2020-03-18T21:41:21.543Z] [runtime-status] [19628] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.10.0","resolution":"C:\\Users\\matia\\OneDrive\\Escritorio\\Plataforma5\\lovable\\functions\\node_modules\\firebase-admin\\lib\\index.js"}
+[debug] [2020-03-18T21:41:21.544Z] [runtime-status] [19628] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"C:\\Users\\matia\\OneDrive\\Escritorio\\Plataforma5\\lovable\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
+[debug] [2020-03-18T21:41:21.545Z] [runtime-status] [19628] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"C:\\Users\\matia\\OneDrive\\Escritorio\\Plataforma5\\lovable\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
+[debug] [2020-03-18T21:41:22.042Z] [worker-~diagnostic~-6c6d6f6e-abde-45c6-986c-093d6357cf23]: IDLE
+[debug] [2020-03-18T21:41:26.250Z] [work-queue] {"queueLength":1,"workRunningCount":0}
+[debug] [2020-03-18T21:41:26.250Z] [work-queue] {"queueLength":0,"workRunningCount":1}
+[debug] [2020-03-18T21:41:26.250Z] Accepted request GET /lovable-qr/us-central1/app/api --> app
+[debug] [2020-03-18T21:41:26.250Z] [worker-pool] Cleaned up workers for ~diagnostic~: 2 --> 1
+[debug] [2020-03-18T21:41:26.255Z] [worker-pool] addWorker(app)
+[debug] [2020-03-18T21:41:26.255Z] [worker-pool] Adding worker with key app, total=1
+[debug] [2020-03-18T21:41:26.255Z] [worker-pool] submitWork(triggerId=app)
+[debug] [2020-03-18T21:41:26.255Z] [worker-app-7a0e0dbf-c12a-4d1e-9827-fd32f0657cae]: Assigning socketPath: \\?\pipe\C:\Users\matia\OneDrive\Escritorio\Plataforma5\lovable\functions\8876
+[debug] [2020-03-18T21:41:26.255Z] [worker-app-7a0e0dbf-c12a-4d1e-9827-fd32f0657cae]: BUSY
+[debug] [2020-03-18T21:41:26.524Z] [runtime-status] [8876] Functions runtime initialized. {"cwd":"C:\\Users\\matia\\OneDrive\\Escritorio\\Plataforma5\\lovable\\functions","node_version":"12.16.1"}
+[debug] [2020-03-18T21:41:26.525Z] [runtime-status] [8876] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true,"pubsub_emulator":true}
+[debug] [2020-03-18T21:41:26.527Z] [runtime-status] [8876] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.10.0","resolution":"C:\\Users\\matia\\OneDrive\\Escritorio\\Plataforma5\\lovable\\functions\\node_modules\\firebase-admin\\lib\\index.js"}
+[debug] [2020-03-18T21:41:26.528Z] [runtime-status] [8876] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"C:\\Users\\matia\\OneDrive\\Escritorio\\Plataforma5\\lovable\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
+[debug] [2020-03-18T21:41:26.529Z] [runtime-status] [8876] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"C:\\Users\\matia\\OneDrive\\Escritorio\\Plataforma5\\lovable\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
+[debug] [2020-03-18T21:41:27.058Z] [runtime-status] [8876] Trigger "app" has been found, beginning invocation!
 [info] i  functions: Beginning execution of "app"
-[debug] [2020-03-18T19:20:19.714Z] [runtime-status] [6164] triggerDefinition {"httpsTrigger":{},"name":"app","entryPoint":"app"}
-[debug] [2020-03-18T19:20:19.714Z] [runtime-status] [6164] Running app in mode HTTPS
-[debug] [2020-03-18T19:20:19.715Z] [runtime-status] [6164] Attempting to listen to socketPath: \\?\pipe\C:\Users\matia\OneDrive\Escritorio\Plataforma5\lovable\functions\6164
-[debug] [2020-03-18T19:20:19.715Z] [functions] Runtime ready! Sending request!
-[debug] [2020-03-18T19:20:19.718Z] [runtime-status] [6164] Ephemeral server handling GET request
-[debug] [2020-03-18T19:20:19.721Z] [runtime-status] [6164] Ephemeral server survived.
+[debug] [2020-03-18T21:41:27.060Z] [runtime-status] [8876] triggerDefinition {"httpsTrigger":{},"name":"app","entryPoint":"app"}
+[debug] [2020-03-18T21:41:27.060Z] [runtime-status] [8876] Running app in mode HTTPS
+[debug] [2020-03-18T21:41:27.062Z] [runtime-status] [8876] Attempting to listen to socketPath: \\?\pipe\C:\Users\matia\OneDrive\Escritorio\Plataforma5\lovable\functions\8876
+[debug] [2020-03-18T21:41:27.066Z] [functions] Runtime ready! Sending request!
+[debug] [2020-03-18T21:41:27.078Z] [runtime-status] [8876] Ephemeral server handling GET request
+[debug] [2020-03-18T21:41:27.087Z] [runtime-status] [8876] Ephemeral server survived.
+[info] >  QuerySnapshot {
+[info] >    _query: CollectionReference {
+[info] >      _firestore: Firestore {
+[info] >        _settings: [Object],
+[info] >        _settingsFrozen: true,
+[info] >        _serializer: [Serializer],
+[info] >        _projectId: 'lovable-qr',
+[info] >        registeredListenersCount: 0,
+[info] >        _lastSuccessfulRequest: 1584567688093,
+[info] >        _backoffSettings: [Object],
+[info] >        _preferTransactions: false,
+[info] >        _clientPool: [ClientPool]
+[info] >      },
+[info] >      _queryOptions: QueryOptions {
+[info] >        parentPath: [ResourcePath],
+[info] >        collectionId: 'users',
+[info] >        converter: [Object],
+[info] >        allDescendants: false,
+[info] >        fieldFilters: [],
+[info] >        fieldOrders: [],
+[info] >        startAt: undefined,
+[info] >        endAt: undefined,
+[info] >        limit: undefined,
+[info] >        limitType: undefined,
+[info] >        offset: undefined,
+[info] >        projection: undefined
+[info] >      },
+[info] >      _serializer: Serializer { createReference: [Function] }
+[info] >    },
+[info] >    _readTime: Timestamp { _seconds: 1584567688, _nanoseconds: 608489000 },
+[info] >    _size: 2,
+[info] >    _materializedDocs: null,
+[info] >    _materializedChanges: null,
+[info] >    _docs: [Function],
+[info] >    _changes: [Function]
+[info] >  }
 [info] i  functions: Finished "app" in ~1s
-[debug] [2020-03-18T19:20:19.723Z] [worker-app-0802bf9d-1ce8-4346-90c8-c03081a4644b]: IDLE
-[debug] [2020-03-18T19:20:19.723Z] [work-queue] {"queueLength":0,"workRunningCount":0}
-[debug] [2020-03-18T19:21:54.517Z] [work-queue] {"queueLength":1,"workRunningCount":0}
-[debug] [2020-03-18T19:21:54.517Z] [work-queue] {"queueLength":0,"workRunningCount":1}
-[debug] [2020-03-18T19:21:54.517Z] Accepted request GET /lovable-qr/us-central1/app/api/get --> app
-[debug] [2020-03-18T19:21:54.518Z] [worker-pool] submitWork(triggerId=app)
-[debug] [2020-03-18T19:21:54.518Z] [worker-app-0802bf9d-1ce8-4346-90c8-c03081a4644b]: Assigning socketPath: \\?\pipe\C:\Users\matia\OneDrive\Escritorio\Plataforma5\lovable\functions\6164
-[debug] [2020-03-18T19:21:54.518Z] [worker-app-0802bf9d-1ce8-4346-90c8-c03081a4644b]: BUSY
-[debug] [2020-03-18T19:21:54.519Z] [runtime-status] [6164] Trigger "app" has been found, beginning invocation!
+[debug] [2020-03-18T21:41:28.128Z] [worker-app-7a0e0dbf-c12a-4d1e-9827-fd32f0657cae]: IDLE
+[debug] [2020-03-18T21:41:28.128Z] [work-queue] {"queueLength":0,"workRunningCount":0}
+[debug] [2020-03-18T21:42:30.188Z] File C:\Users\matia\OneDrive\Escritorio\Plataforma5\lovable\functions\index.js changed, reloading triggers
+[debug] [2020-03-18T21:42:31.188Z] [worker-pool] Shutting down IDLE worker (~diagnostic~)
+[debug] [2020-03-18T21:42:31.188Z] [worker-~diagnostic~-6c6d6f6e-abde-45c6-986c-093d6357cf23]: FINISHING
+[debug] [2020-03-18T21:42:31.188Z] [worker-pool] Shutting down IDLE worker (app)
+[debug] [2020-03-18T21:42:31.188Z] [worker-app-7a0e0dbf-c12a-4d1e-9827-fd32f0657cae]: FINISHING
+[debug] [2020-03-18T21:42:31.193Z] [worker-pool] addWorker(~diagnostic~)
+[debug] [2020-03-18T21:42:31.193Z] [worker-pool] Adding worker with key ~diagnostic~, total=2
+[debug] [2020-03-18T21:42:31.193Z] [worker-pool] submitWork(triggerId=)
+[debug] [2020-03-18T21:42:31.193Z] [worker-~diagnostic~-9cead10a-7cee-4656-a636-cd53f2efdc26]: Assigning socketPath: \\?\pipe\C:\Users\matia\OneDrive\Escritorio\Plataforma5\lovable\functions\17912
+[debug] [2020-03-18T21:42:31.193Z] [worker-~diagnostic~-9cead10a-7cee-4656-a636-cd53f2efdc26]: BUSY
+[debug] [2020-03-18T21:42:31.198Z] [worker-~diagnostic~-6c6d6f6e-abde-45c6-986c-093d6357cf23]: exited
+[debug] [2020-03-18T21:42:31.198Z] [worker-~diagnostic~-6c6d6f6e-abde-45c6-986c-093d6357cf23]: FINISHED
+[debug] [2020-03-18T21:42:31.200Z] [worker-app-7a0e0dbf-c12a-4d1e-9827-fd32f0657cae]: exited
+[debug] [2020-03-18T21:42:31.200Z] [worker-app-7a0e0dbf-c12a-4d1e-9827-fd32f0657cae]: FINISHED
+[debug] [2020-03-18T21:42:31.514Z] [runtime-status] [17912] Functions runtime initialized. {"cwd":"C:\\Users\\matia\\OneDrive\\Escritorio\\Plataforma5\\lovable\\functions","node_version":"12.16.1"}
+[debug] [2020-03-18T21:42:31.515Z] [runtime-status] [17912] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true,"pubsub_emulator":true}
+[debug] [2020-03-18T21:42:31.517Z] [runtime-status] [17912] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.10.0","resolution":"C:\\Users\\matia\\OneDrive\\Escritorio\\Plataforma5\\lovable\\functions\\node_modules\\firebase-admin\\lib\\index.js"}
+[debug] [2020-03-18T21:42:31.519Z] [runtime-status] [17912] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"C:\\Users\\matia\\OneDrive\\Escritorio\\Plataforma5\\lovable\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
+[debug] [2020-03-18T21:42:31.520Z] [runtime-status] [17912] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"C:\\Users\\matia\\OneDrive\\Escritorio\\Plataforma5\\lovable\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
+[debug] [2020-03-18T21:42:32.001Z] [worker-~diagnostic~-9cead10a-7cee-4656-a636-cd53f2efdc26]: IDLE
+[debug] [2020-03-18T21:42:33.456Z] File C:\Users\matia\OneDrive\Escritorio\Plataforma5\lovable\functions\index.js changed, reloading triggers
+[debug] [2020-03-18T21:42:34.456Z] [worker-pool] Shutting down IDLE worker (~diagnostic~)
+[debug] [2020-03-18T21:42:34.456Z] [worker-~diagnostic~-9cead10a-7cee-4656-a636-cd53f2efdc26]: FINISHING
+[debug] [2020-03-18T21:42:34.457Z] [worker-pool] Cleaned up workers for ~diagnostic~: 2 --> 1
+[debug] [2020-03-18T21:42:34.457Z] [worker-pool] Cleaned up workers for app: 1 --> 0
+[debug] [2020-03-18T21:42:34.460Z] [worker-pool] addWorker(~diagnostic~)
+[debug] [2020-03-18T21:42:34.460Z] [worker-pool] Adding worker with key ~diagnostic~, total=2
+[debug] [2020-03-18T21:42:34.460Z] [worker-pool] submitWork(triggerId=)
+[debug] [2020-03-18T21:42:34.460Z] [worker-~diagnostic~-e3b9cab8-f65b-4205-8197-67f1874a0950]: Assigning socketPath: \\?\pipe\C:\Users\matia\OneDrive\Escritorio\Plataforma5\lovable\functions\10628
+[debug] [2020-03-18T21:42:34.460Z] [worker-~diagnostic~-e3b9cab8-f65b-4205-8197-67f1874a0950]: BUSY
+[debug] [2020-03-18T21:42:34.470Z] [worker-~diagnostic~-9cead10a-7cee-4656-a636-cd53f2efdc26]: exited
+[debug] [2020-03-18T21:42:34.470Z] [worker-~diagnostic~-9cead10a-7cee-4656-a636-cd53f2efdc26]: FINISHED
+[debug] [2020-03-18T21:42:34.710Z] [runtime-status] [10628] Functions runtime initialized. {"cwd":"C:\\Users\\matia\\OneDrive\\Escritorio\\Plataforma5\\lovable\\functions","node_version":"12.16.1"}
+[debug] [2020-03-18T21:42:34.711Z] [runtime-status] [10628] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true,"pubsub_emulator":true}
+[debug] [2020-03-18T21:42:34.715Z] [runtime-status] [10628] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.10.0","resolution":"C:\\Users\\matia\\OneDrive\\Escritorio\\Plataforma5\\lovable\\functions\\node_modules\\firebase-admin\\lib\\index.js"}
+[debug] [2020-03-18T21:42:34.718Z] [runtime-status] [10628] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"C:\\Users\\matia\\OneDrive\\Escritorio\\Plataforma5\\lovable\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
+[debug] [2020-03-18T21:42:34.719Z] [runtime-status] [10628] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"C:\\Users\\matia\\OneDrive\\Escritorio\\Plataforma5\\lovable\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
+[debug] [2020-03-18T21:42:35.120Z] [worker-~diagnostic~-e3b9cab8-f65b-4205-8197-67f1874a0950]: IDLE
+[debug] [2020-03-18T21:42:36.956Z] [work-queue] {"queueLength":1,"workRunningCount":0}
+[debug] [2020-03-18T21:42:36.956Z] [work-queue] {"queueLength":0,"workRunningCount":1}
+[debug] [2020-03-18T21:42:36.956Z] Accepted request GET /lovable-qr/us-central1/app/api --> app
+[debug] [2020-03-18T21:42:36.956Z] [worker-pool] Cleaned up workers for ~diagnostic~: 2 --> 1
+[debug] [2020-03-18T21:42:36.963Z] [worker-pool] addWorker(app)
+[debug] [2020-03-18T21:42:36.963Z] [worker-pool] Adding worker with key app, total=1
+[debug] [2020-03-18T21:42:36.963Z] [worker-pool] submitWork(triggerId=app)
+[debug] [2020-03-18T21:42:36.963Z] [worker-app-d2150773-37bf-4709-8dde-a1f0aba30fcf]: Assigning socketPath: \\?\pipe\C:\Users\matia\OneDrive\Escritorio\Plataforma5\lovable\functions\21552
+[debug] [2020-03-18T21:42:36.963Z] [worker-app-d2150773-37bf-4709-8dde-a1f0aba30fcf]: BUSY
+[debug] [2020-03-18T21:42:37.223Z] [runtime-status] [21552] Functions runtime initialized. {"cwd":"C:\\Users\\matia\\OneDrive\\Escritorio\\Plataforma5\\lovable\\functions","node_version":"12.16.1"}
+[debug] [2020-03-18T21:42:37.224Z] [runtime-status] [21552] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true,"pubsub_emulator":true}
+[debug] [2020-03-18T21:42:37.226Z] [runtime-status] [21552] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.10.0","resolution":"C:\\Users\\matia\\OneDrive\\Escritorio\\Plataforma5\\lovable\\functions\\node_modules\\firebase-admin\\lib\\index.js"}
+[debug] [2020-03-18T21:42:37.228Z] [runtime-status] [21552] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"C:\\Users\\matia\\OneDrive\\Escritorio\\Plataforma5\\lovable\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
+[debug] [2020-03-18T21:42:37.228Z] [runtime-status] [21552] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"C:\\Users\\matia\\OneDrive\\Escritorio\\Plataforma5\\lovable\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
+[debug] [2020-03-18T21:42:37.621Z] [runtime-status] [21552] Trigger "app" has been found, beginning invocation!
 [info] i  functions: Beginning execution of "app"
-[debug] [2020-03-18T19:21:54.525Z] [runtime-status] [6164] triggerDefinition {"httpsTrigger":{},"name":"app","entryPoint":"app"}
-[debug] [2020-03-18T19:21:54.525Z] [runtime-status] [6164] Running app in mode HTTPS
-[debug] [2020-03-18T19:21:54.525Z] [runtime-status] [6164] Attempting to listen to socketPath: \\?\pipe\C:\Users\matia\OneDrive\Escritorio\Plataforma5\lovable\functions\6164
-[debug] [2020-03-18T19:21:54.528Z] [functions] Runtime ready! Sending request!
-[debug] [2020-03-18T19:21:54.534Z] [runtime-status] [6164] Ephemeral server handling GET request
-[debug] [2020-03-18T19:21:54.538Z] [runtime-status] [6164] Ephemeral server survived.
-[info] i  functions: Finished "app" in ~1s
-[debug] [2020-03-18T19:21:54.542Z] [worker-app-0802bf9d-1ce8-4346-90c8-c03081a4644b]: IDLE
-[debug] [2020-03-18T19:21:54.543Z] [work-queue] {"queueLength":0,"workRunningCount":0}
+[debug] [2020-03-18T21:42:37.622Z] [runtime-status] [21552] triggerDefinition {"httpsTrigger":{},"name":"app","entryPoint":"app"}
+[debug] [2020-03-18T21:42:37.622Z] [runtime-status] [21552] Running app in mode HTTPS
+[debug] [2020-03-18T21:42:37.624Z] [runtime-status] [21552] Attempting to listen to socketPath: \\?\pipe\C:\Users\matia\OneDrive\Escritorio\Plataforma5\lovable\functions\21552
+[debug] [2020-03-18T21:42:37.626Z] [functions] Runtime ready! Sending request!
+[debug] [2020-03-18T21:42:37.630Z] [runtime-status] [21552] Ephemeral server handling GET request
+[debug] [2020-03-18T21:42:37.634Z] [runtime-status] [21552] Ephemeral server survived.
+[info] >  { lastName: 'Ortiz', email: 'lucas@hotmail.com', name: 'Lucas' }
+[info] >  { email: 'luz@gmail.com', name: 'yenien' }
