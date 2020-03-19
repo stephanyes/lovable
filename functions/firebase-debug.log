@@ -1,0 +1,31 @@
+[debug] [2020-03-19T20:06:41.244Z] ----------------------------------------------------------------------
+[debug] [2020-03-19T20:06:41.245Z] Command:       /usr/local/bin/node /usr/local/bin/firebase serve --only functions
+[debug] [2020-03-19T20:06:41.245Z] CLI Version:   7.15.1
+[debug] [2020-03-19T20:06:41.245Z] Platform:      linux
+[debug] [2020-03-19T20:06:41.245Z] Node Version:  v13.11.0
+[debug] [2020-03-19T20:06:41.246Z] Time:          Thu Mar 19 2020 17:06:41 GMT-0300 (hora estándar de Argentina)
+[debug] [2020-03-19T20:06:41.246Z] ----------------------------------------------------------------------
+[debug] [2020-03-19T20:06:41.246Z] 
+[debug] [2020-03-19T20:06:41.251Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-03-19T20:06:41.251Z] > authorizing via signed-in user
+[debug] [2020-03-19T20:06:41.251Z] [iam] checking project lovable-qr for permissions ["firebase.projects.get"]
+[debug] [2020-03-19T20:06:41.252Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/lovable-qr:testIamPermissions  
+
+[debug] [2020-03-19T20:06:42.490Z] <<< HTTP RESPONSE 200
+[debug] [2020-03-19T20:06:42.495Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/lovable-qr  
+ 
+[debug] [2020-03-19T20:06:42.879Z] <<< HTTP RESPONSE 200
+[warn] ⚠  Your requested "node" version "8" doesn't match your global version "13"
+[info] ✔  functions: functions emulator started at http://localhost:5000
+[info] i  functions: Watching "/home/ivan/local/PersonalRepository/bootcamp/01-Estructura-de-datos/lovable/functions" for Cloud Functions...
+[debug] [2020-03-19T20:06:42.950Z] [worker-pool] addWorker(~diagnostic~)
+[debug] [2020-03-19T20:06:42.950Z] [worker-pool] Adding worker with key ~diagnostic~, total=1
+[debug] [2020-03-19T20:06:42.951Z] [worker-pool] submitWork(triggerId=)
+[debug] [2020-03-19T20:06:42.951Z] [worker-~diagnostic~-67740d9d-ad8a-4d35-a944-81ec7c285487]: Assigning socketPath: /tmp/fire_emu_29077.sock
+[debug] [2020-03-19T20:06:42.951Z] [worker-~diagnostic~-67740d9d-ad8a-4d35-a944-81ec7c285487]: BUSY
+[debug] [2020-03-19T20:06:43.180Z] [runtime-status] [29077] Functions runtime initialized. {"cwd":"/home/ivan/local/PersonalRepository/bootcamp/01-Estructura-de-datos/lovable/functions","node_version":"13.11.0"}
+[debug] [2020-03-19T20:06:43.181Z] [runtime-status] [29077] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true,"pubsub_emulator":true}
+[warn] ⚠  The Cloud Functions emulator requires the module "firebase-admin" to be installed. This package is in your package.json, but it's not available. You probably need to run "npm install" in your functions directory.
+[info] i  functions: Your functions could not be parsed due to an issue with your node_modules (see above)
+[debug] [2020-03-19T20:06:43.195Z] [worker-~diagnostic~-67740d9d-ad8a-4d35-a944-81ec7c285487]: exited
+[debug] [2020-03-19T20:06:43.195Z] [worker-~diagnostic~-67740d9d-ad8a-4d35-a944-81ec7c285487]: FINISHED
