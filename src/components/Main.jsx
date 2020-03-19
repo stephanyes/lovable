@@ -2,8 +2,9 @@ import React from "react";
 //import axios from "axios";
 //import { connect } from "react-redux";
 import { Route, Redirect, Switch, Link } from "react-router-dom";
-import Navbar from "../components/Navbar";
-import Tables from "../components/Tables";
+import Navbar from "./Navbar";
+import Tables from "./Tables";
+import SidebarContainer from "../containers/SidebarContainer";
 
 export default class Main extends React.Component {
   constructor(props) {
@@ -14,6 +15,7 @@ export default class Main extends React.Component {
       <div>
         <Navbar />
         <Tables />
+        <SidebarContainer />
       </div>
     );
   }
