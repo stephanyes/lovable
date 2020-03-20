@@ -3,11 +3,7 @@ import { Link } from "react-router-dom";
 
 export default ({}) => {
   return (
-    <div
-      style={{
-        backgroundColor: "#ffffff"
-      }}
-    >
+    <div>
       <nav
         className="navbar navbar-expand-lg navbar-light"
         style={{
