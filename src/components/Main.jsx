@@ -5,7 +5,7 @@ import { Route, Redirect, Switch, Link } from "react-router-dom";
 import Navbar from "./Navbar";
 import Tables from "./Tables";
 import SidebarContainer from "../containers/SidebarContainer";
-import Login from "./Login";
+import LoginContainer from "../containers/LoginContainer";
 
 export default class Main extends React.Component {
   constructor(props) {
@@ -14,10 +14,12 @@ export default class Main extends React.Component {
   render() {
     return (
       <div>
-        <Login />
-        <Navbar />
-        <Tables />
-        <SidebarContainer />
+      <Navbar />
+        <Switch>
+          <Route exact path="/home" component={SidebarContainer}></Route>
+          <Route exact path="/" component={LoginContainer}></Route>
+        </Switch>
+        {/* <Tables /> */}
       </div>
     );
   }

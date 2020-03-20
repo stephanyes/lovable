@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default ({}) => {
+export default ({ handlerSubmit, handlerChange}) => {
   return (
     <div>
       <div
@@ -13,7 +13,8 @@ export default ({}) => {
         <div className="col">
           <img
             style={{
-              height: "760px"
+              height: "760px",
+              opacity: "0.85"
             }}
             src="https://insideone.s3-sa-east-1.amazonaws.com/login-lovable-image.png"
             className="img-fluid"
@@ -22,7 +23,7 @@ export default ({}) => {
         </div>
         <div className="col">
           <form
-            //   onSubmit={e => handleSubmit(e)}
+            onSubmit={e => handlerSubmit(e)}
             style={{
               padding: "40px",
               marginRight: "20px"
@@ -44,7 +45,7 @@ export default ({}) => {
                 className="form-control"
                 id="exampleInputEmail1"
                 aria-describedby="emailHelp"
-                //   onChange={handleChange1}
+                onChange={handlerChange}
                 // style={
                 //   state.error && !state.email
                 //     ? {
@@ -69,7 +70,7 @@ export default ({}) => {
                 type="password"
                 className="form-control"
                 id="exampleInputPassword1"
-                // onChange={handleChange2}
+                onChange={handlerChange}
                 // style={
                 //   state.error && !state.password
                 //     ? {
@@ -79,16 +80,18 @@ export default ({}) => {
                 // }
               />
             </div>
-            <button
-              type="submit"
-              className="btn btn-primary"
-              style={{
-                backgroundColor: "#FF2068",
-                borderColor: "#FF2068"
-              }}
-            >
-              Submit
-            </button>
+            <Link to="/home">
+              <button
+                type="submit"
+                className="btn btn-primary"
+                style={{
+                  backgroundColor: "#FF2068",
+                  borderColor: "#FF2068"
+                }}
+              >
+                Submit
+              </button>
+            </Link>
             {/* {state.error ? (
               <div>
                 <br />

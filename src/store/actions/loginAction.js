@@ -1,4 +1,4 @@
-import { SET_LOGIN } from "./constant";
+import { SET_LOGIN } from "../reducers/constant";
 import axios from "axios";
 
 export const addLogin = user => ({
@@ -6,7 +6,6 @@ export const addLogin = user => ({
   user
 });
 
-export const loginUser = user => dispatch =>
-  axios.post("/api/login", { user }).then(user => {
-    dispatch(addLogin(user.data));
-  });
+export const loginUser = user => dispatch => 
+  dispatch(addLogin(user));
+

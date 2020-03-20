@@ -1,16 +1,20 @@
 import React from "react";
 import Login from "../components/Login";
-import { loginUser } from "../actions/loginAction";
+import firebase from "../services/firebase"
+import { loginUser } from "../store/actions/loginAction";
 import { connect } from "react-redux";
 
-const mapDispatchToProps = (dispatch, state) => {
-  return {
-    loginUser: user => dispatch(loginUser(user))
-  };
-};
+const DB_users = firebase.firestore().collection('users');
+
 const mapStateToProps = (state, ownprops) => {
   return {
     userLogin: state.user.loginUser
+  };
+};
+
+const mapDispatchToProps = (dispatch, state) => {
+  return {
+    loggeado: user => dispatch(loginUser(user))
   };
 };
 
@@ -32,10 +36,18 @@ class LoginContainer extends React.Component {
       [key]: value
     });
   }
-
+  
   handlerSubmit(e) {
     e.preventDefault();
-    this.props.loginUser(this.state);
+    const auth = firebase.auth()
+    const promise = auth.signInWithEmailAndPassword(this.state.email, this.state.password)
+    promise.then(user => {
+      DB_users.doc(user.user.uid)
+      .get().then(rest => {
+        this.props.loggeado(rest.data());
+      })
+    })
+    .catch(e => console.error(e))
   }
 
   render() {
@@ -44,10 +56,11 @@ class LoginContainer extends React.Component {
         <Login
           handlerChange={this.handlerChange}
           handlerSubmit={this.handlerSubmit}
-        />
+          />
       </div>
     );
   }
 }
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginContainer);
