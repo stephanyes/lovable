@@ -1,7 +1,7 @@
 import { SET_LOGIN } from "./constant";
 
 const initialState = {
-  loginUser: []
+  loginUser: {}
 };
 
 export default (state = initialState, action) => {
