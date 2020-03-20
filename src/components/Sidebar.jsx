@@ -7,7 +7,6 @@ export default ({}) => {
       <nav
         id="sidebar"
         style={{
-          //backgroundColor: "#909090"
           backgroundImage:
             "https://insideone.s3-sa-east-1.amazonaws.com/experience-extreme-bridge-x3.png"
         }}
@@ -26,32 +25,50 @@ export default ({}) => {
 
         <ul class="list-unstyled components">
           {/* // <p>Dashboard</p> */}
-          <li class="active">
+          {/* <li class="active">
             <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false">
               Dashboard
             </a>
-          </li>
+          </li> */}
           <li>
-            <a href="#">Orders</a>
+            <Link
+              className="nav-link"
+              style={{
+                padding: "20px",
+                paddingLeft: "20px"
+              }}
+              to="/"
+            >
+              Dashboard
+            </Link>
           </li>
-          <li>
-            <a href="#">Configuration</a>
+
+          <li className="nav-item active">
+            <Link
+              className="nav-link"
+              style={{
+                padding: "20px",
+                paddingLeft: "20px"
+              }}
+              to="/orders"
+            >
+              Orders
+            </Link>
+          </li>
+          <li className="nav-item active">
+            <Link
+              className="nav-link"
+              style={{
+                padding: "20px",
+                paddingLeft: "20px"
+              }}
+              to="/configuration"
+            >
+              Configuration
+            </Link>
           </li>
         </ul>
       </nav>
-
-      {/* <div id="content">
-
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container-fluid">
-
-                <button type="button" id="sidebarCollapse" class="btn btn-info">
-                    <i class="fas fa-align-left"></i>
-                    <span>Toggle Sidebar</span>
-                </button>
-            </div>
-        </nav>
-    </div> */}
 
       <div class="overlay"></div>
     </div>
