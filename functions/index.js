@@ -4,6 +4,7 @@ const app = express();
 const firebase = require("./src/services/firebase");
 
 app.use("/api", (req, res) => {
+  console.log(firebase);
   firebase.admin
     .firestore()
     .collection("users")
