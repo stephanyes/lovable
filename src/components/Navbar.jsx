@@ -7,8 +7,15 @@ export default ({}) => {
       <nav
         className="navbar navbar-expand-lg navbar-light"
         style={{
-          backgroundColor: "#ffffff",
-          marginLeft: "250px"
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "space-between",
+          alignItems: "center"
+          // display: "flex",
+          // justifyContent: "space-between"
+          // backgroundColor: "#999999",
+          // marginLeft: "250px",
+          // flexWrap: "wrap"
         }}
       >
         {/* <Link className="navbar-brand" to="/">
