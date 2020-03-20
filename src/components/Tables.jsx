@@ -10,80 +10,77 @@ export default ({ products }) => {
         marginLeft: "250px"
       }}
     >
-      <h4 style={{marginLeft:"30px", marginTop:"30px"}}>Dashboards</h4>
-      <div style={{ marginLeft : "50px"}}>
+      <h1>Mesas</h1>
 
-        <div class="row row-cols-1 row-cols-md-3">
-          <div className="card mb-3" style={{ width: "450px", margin: "30px" }}>
-            <div className="row no-gutters">
-              <div className="col-md-4">
-                <img src="..." className="card-img" alt="..." />
-              </div>
-              <div className="col-md-8">
-                <div className="card-body">
-                  <p className="card-text">Libre</p>
-                  <h5 className="card-title">Mesa 1</h5>
+      <div class="row row-cols-1 row-cols-md-3">
+        <div className="card mb-3" style={{ width: "450px", margin: "30px" }}>
+          <div className="row no-gutters">
+            <div className="col-md-4">
+              <img src="..." className="card-img" alt="..." />
+            </div>
+            <div className="col-md-8">
+              <div className="card-body">
+                <p className="card-text">Libre</p>
+                <h5 className="card-title">Mesa 1</h5>
 
-                  <p className="card-text">
-                    <small class="text-muted">Mozo</small>
-                  </p>
-                </div>
+                <p className="card-text">
+                  <small class="text-muted">Mozo</small>
+                </p>
               </div>
             </div>
           </div>
-          <div className="card mb-3" style={{ width: "450px", margin: "30px" }}>
-            <div className="row no-gutters">
-              <div className="col-md-4">
-                <img src="..." className="card-img" alt="..." />
-              </div>
-              <div className="col-md-8">
-                <div className="card-body">
-                  <p className="card-text">Libre</p>
-                  <h5 className="card-title">Mesa 1</h5>
+        </div>
+        <div className="card mb-3" style={{ width: "450px", margin: "30px" }}>
+          <div className="row no-gutters">
+            <div className="col-md-4">
+              <img src="..." className="card-img" alt="..." />
+            </div>
+            <div className="col-md-8">
+              <div className="card-body">
+                <p className="card-text">Libre</p>
+                <h5 className="card-title">Mesa 1</h5>
 
-                  <p className="card-text">
-                    <small class="text-muted">Mozo</small>
-                  </p>
-                </div>
+                <p className="card-text">
+                  <small class="text-muted">Mozo</small>
+                </p>
               </div>
             </div>
           </div>
-          <div className="card mb-3" style={{ width: "450px", margin: "30px" }}>
-            <div className="row no-gutters">
-              <div className="col-md-4">
-                <img src="..." className="card-img" alt="..." />
-              </div>
-              <div className="col-md-8">
-                <div className="card-body">
-                  <p className="card-text">Libre</p>
-                  <h5 className="card-title">Mesa 1</h5>
+        </div>
+        <div className="card mb-3" style={{ width: "450px", margin: "30px" }}>
+          <div className="row no-gutters">
+            <div className="col-md-4">
+              <img src="..." className="card-img" alt="..." />
+            </div>
+            <div className="col-md-8">
+              <div className="card-body">
+                <p className="card-text">Libre</p>
+                <h5 className="card-title">Mesa 1</h5>
 
-                  <p className="card-text">
-                    <small class="text-muted">Mozo</small>
-                  </p>
-                </div>
+                <p className="card-text">
+                  <small class="text-muted">Mozo</small>
+                </p>
               </div>
             </div>
           </div>
-          <div className="card mb-3" style={{ width: "450px", margin: "30px" }}>
-            <div className="row no-gutters">
-              <div className="col-md-4">
-                <img src="..." className="card-img" alt="..." />
-              </div>
-              <div className="col-md-8">
-                <div className="card-body">
-                  <p className="card-text">Libre</p>
-                  <h5 className="card-title">Mesa 1</h5>
+        </div>
+        <div className="card mb-3" style={{ width: "450px", margin: "30px" }}>
+          <div className="row no-gutters">
+            <div className="col-md-4">
+              <img src="..." className="card-img" alt="..." />
+            </div>
+            <div className="col-md-8">
+              <div className="card-body">
+                <p className="card-text">Libre</p>
+                <h5 className="card-title">Mesa 1</h5>
 
-                  <p className="card-text">
-                    <small class="text-muted">Mozo</small>
-                  </p>
-                </div>
+                <p className="card-text">
+                  <small class="text-muted">Mozo</small>
+                </p>
               </div>
             </div>
           </div>
-
-      </div>
+        </div>
       </div>
     </div>
   );
