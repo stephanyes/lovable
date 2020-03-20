@@ -7,6 +7,6 @@ export const addLogin = user => ({
 });
 
 export const loginUser = user => dispatch =>
-  axios.post("/api/login").then(user => {
+  axios.post("/api/login", { user }).then(user => {
     dispatch(addLogin(user.data));
   });
