@@ -35,18 +35,3 @@ export default class TablesContainer extends React.Component {
     );
   }
 }
-
-// const mapStateToProps = (state, ownProps) => {
-//   return {
-//     peli: state.peliculasReducers.peli,
-//     user: state.user.user
-//   };
-// };
-
-// const mapDispatchToProps = (dispatch, ownProps) => {
-//   return {
-//     fetchPelicula: id => dispatch(fetchPelicula(id)),
-//     fetchFavoritos: pelicula => dispatch(fetchFavoritos(pelicula))
-//   };
-// };
-// export default connect(mapStateToProps, mapDispatchToProps)(DetalleContainer);

@@ -7,7 +7,8 @@ export default ({}) => {
       <nav
         className="navbar navbar-expand-lg navbar-light"
         style={{
-          backgroundColor: "#999999"
+          backgroundColor: "#ffffff",
+          marginLeft: "250px"
         }}
       >
         {/* <Link className="navbar-brand" to="/">
