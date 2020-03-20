@@ -4,36 +4,43 @@ import { Link } from "react-router-dom";
 export default ({}) => {
   return (
     <div class="wrapper">
-
-    <nav id="sidebar">
-
+      <nav
+        id="sidebar"
+        style={{
+          //backgroundColor: "#909090"
+          backgroundImage:
+            "https://insideone.s3-sa-east-1.amazonaws.com/experience-extreme-bridge-x3.png"
+        }}
+      >
         <div id="dismiss">
-            <i class="fas fa-arrow-left"></i>
+          <i class="fas fa-arrow-left"></i>
         </div>
 
         <div class="sidebar-header">
-            <h3>Lovable Service</h3>
+          <img
+            src="https://insideone.s3-sa-east-1.amazonaws.com/logo-lovable.png"
+            height="50"
+            alt=""
+          />
         </div>
 
         <ul class="list-unstyled components">
-            <p>Dashboard</p>
-            <li class="active">
-                <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false">Home</a>
-            </li>
-            <li>
-                <a href="#">About</a>
-                <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false">Pages</a>
-            </li>
-            <li>
-                <a href="#">Portfolio</a>
-            </li>
-            <li>
-                <a href="#">Contact</a>
-            </li>
+          {/* // <p>Dashboard</p> */}
+          <li class="active">
+            <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false">
+              Dashboard
+            </a>
+          </li>
+          <li>
+            <a href="#">Orders</a>
+          </li>
+          <li>
+            <a href="#">Configuration</a>
+          </li>
         </ul>
-    </nav>
+      </nav>
 
-    {/* <div id="content">
+      {/* <div id="content">
 
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
@@ -46,7 +53,7 @@ export default ({}) => {
         </nav>
     </div> */}
 
-    <div class="overlay"></div>
-</div>
+      <div class="overlay"></div>
+    </div>
   );
 };
