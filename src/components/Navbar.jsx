@@ -10,12 +10,23 @@ export default ({}) => {
           display: "flex",
           flexWrap: "wrap",
           justifyContent: "space-between",
-          alignItems: "center"
-          // display: "flex",
-          // justifyContent: "space-between"
+          alignItems: "center",
+          display: "flex",
+          justifyContent: "space-between",
           // backgroundColor: "#999999",
           // marginLeft: "250px",
           // flexWrap: "wrap"
+
+            // height: "100%",
+            // minHeight: "100%",
+            // display: "flex",
+            // flexDirection: "column",
+            // textAlign: "center",
+            // color: "white",
+            // fontFamily: "sans-serif",
+            // fontSize: "36px",
+            // padding: "20px", 
+            // justifyContent: "center"
         }}
       >
         {/* <Link className="navbar-brand" to="/">
