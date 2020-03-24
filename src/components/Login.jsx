@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default ({ handlerSubmit, handlerChange}) => {
+export default ({ handlerSubmit, handlerChange }) => {
   return (
     <div>
       <div
@@ -80,7 +80,7 @@ export default ({ handlerSubmit, handlerChange}) => {
                 // }
               />
             </div>
-            <Link to="/home">
+            <Link to="/dashboard">
               <button
                 type="submit"
                 className="btn btn-primary"

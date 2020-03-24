@@ -1,13 +1,12 @@
 import React from "react";
-//import axios from "axios";
-//import { connect } from "react-redux";
-//import { Route, Redirect, Switch, Link } from "react-router-dom";
-import Navbar from "./Navbar";
-import Tables from "../containers/TablesContainer";
-import SidebarContainer from "../containers/SidebarContainer";
-
+import axios from "axios";
+import { connect } from "react-redux";
+import { Route, Redirect, Switch, Link } from "react-router-dom";
+import TablesContainer from "../containers/TablesContainer";
 import LoginContainer from "../containers/LoginContainer";
-
+import ClientViewContainer from "../containers/ClientViewContainer";
+import OrdersContainer from "../containers/OrdersContainer";
+import ConfigurationsContainer from "../containers/ConfigurationsContainer";
 
 export default class Main extends React.Component {
   constructor(props) {
@@ -16,12 +15,16 @@ export default class Main extends React.Component {
   render() {
     return (
       <div>
-      <Navbar />
         <Switch>
-          <Route exact path="/home" component={SidebarContainer}></Route>
           <Route exact path="/" component={LoginContainer}></Route>
+          <Route path="/dashboard" component={TablesContainer}></Route>
+          <Route path="/tables" component={ClientViewContainer}></Route>
+          <Route path="/orders" component={OrdersContainer}></Route>
+          <Route
+            path="/configuration"
+            component={ConfigurationsContainer}
+          ></Route>
         </Switch>
-        {/* <Tables /> */}
       </div>
     );
   }

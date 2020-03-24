@@ -10,7 +10,8 @@ export default ({}) => {
           display: "flex",
           flexWrap: "wrap",
           justifyContent: "space-between",
-          alignItems: "center"
+          alignItems: "center",
+          backgroundColor: "#ffffff"
           // display: "flex",
           // justifyContent: "space-between"
           // backgroundColor: "#999999",
@@ -28,11 +29,7 @@ export default ({}) => {
 
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav mr-auto">
-            <li className="nav-item active">
-              <Link className="nav-link" to="/">
-                Tables
-              </Link>
-            </li>
+            <li className="nav-item active"></li>
           </ul>
           <form
             //onSubmit={handleSubmit}

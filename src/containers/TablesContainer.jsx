@@ -1,7 +1,12 @@
 import React from "react";
-import Tables from "../components/Tables";
 import firebase from "../services/firebase";
+import SidebarContainer from "../containers/SidebarContainer";
+import NavbarContainer from "../containers/NavbarContainer";
+import Tables from "../components/Tables";
 const DB = firebase.firestore();
+let doc = DB.collection("restaurants")
+  .doc("QtLVkjHLnXZPDj4pbWKw")
+  .collection("tables");
 
 export default class TablesContainer extends React.Component {
   constructor(props) {
@@ -12,24 +17,33 @@ export default class TablesContainer extends React.Component {
   }
 
   componentDidMount() {
-    let tables = [];
-    let algo = DB.collection("restaurants")
-      .doc("QtLVkjHLnXZPDj4pbWKw")
-      .collection("tables");
-    algo.get().then(algo => {
-      console.log(algo);
-      algo.forEach(doc => {
+    doc.onSnapshot(docSnapshot => {
+      let tables = [];
+      docSnapshot.forEach(doc => {
         tables.push(doc.data());
         this.setState({ tables });
       });
     });
   }
 
+  componentWillUnmount() {
+    doc.onSnapshot(() => {});
+  }
+
+  //     // algo.get().then(algo => {
+  //     //   console.log(algo);
+  //     //   algo.forEach(doc => {
+  //     //     tables.push(doc.data());
+  //     //     this.setState({ tables });
+  //     //   });
+  //     // });
+  //   };
+
   render() {
-    console.log(this.state.tables);
     return (
       <div>
-        <h1>Mesas</h1>
+        <SidebarContainer />
+        <NavbarContainer />
         <Tables tables={this.state.tables} />
       </div>
     );
