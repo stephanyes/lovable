@@ -9,6 +9,7 @@ import ConfigurationsContainer from "../containers/ConfigurationsContainer";
 import ClientViewContainer from "../containers/ClientViewContainer";
 import OrdersContainer from "../containers/OrdersContainer";
 import FooterContainer from "../containers/FooterContainer";
+import RecoverPassword from "./RecoverPassword";
 
 const mapStateToProps = state => {
   return {
@@ -55,6 +56,7 @@ class Main extends React.Component {
             path="/configuration"
             component={ConfigurationsContainer}
           ></Route>
+          <Route path="/recover" component={RecoverPassword}></Route>
         </Switch>
         <FooterContainer />
       </div>

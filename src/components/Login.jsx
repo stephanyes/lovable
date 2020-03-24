@@ -91,6 +91,8 @@ export default ({ handlerSubmit, handlerChange, buttonClick }) => {
             >
               Log in
             </button>
+
+            <Link to="/recover">Forgot password?</Link>
             {/* {state.error ? (
               <div>
                 <br />
