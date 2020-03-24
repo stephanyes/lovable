@@ -1,5 +1,5 @@
 import React from "react";
-//import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 // let random1 = Math.floor(Math.random() * 10) //va del 0 - 9
 export default ({ tables }) => {
   // console.log(products);
@@ -8,7 +8,8 @@ export default ({ tables }) => {
     <div
       style={{
         backgroundColor: "white",
-        marginLeft: "250px"
+        marginLeft: "250px",
+        paddingBottom: "400px"
       }}
     >
       <div
@@ -19,10 +20,12 @@ export default ({ tables }) => {
       >
         <h1 className="font-weight-bold">Tables</h1>
       </div>
-      {tables.length ? (
-        tables.map(table => (
-          <div class="row row-cols-1 row-cols-md-3">
+
+      <div class="row row-cols-1 row-cols-md-3">
+        {tables.length ? (
+          tables.map(table => (
             <div
+              //  key={table.id}
               className="card mb-3"
               style={{
                 width: "300px",
@@ -36,17 +39,19 @@ export default ({ tables }) => {
             >
               <div className="row no-gutters">
                 <div className="col-md-5">
-                  <img
-                    style={
-                      {
-                        // height: "140px",
-                        // width: "140px"
-                      }
-                    }
-                    src="https://insideone.s3-sa-east-1.amazonaws.com/services-table-busy.png"
-                    className="card-img"
-                    alt="..."
-                  />
+                  {table.waiter ? (
+                    <img
+                      src="https://insideone.s3-sa-east-1.amazonaws.com/services-table-waiter.png"
+                      className="card-img"
+                      alt="..."
+                    />
+                  ) : (
+                    <img
+                      src="https://insideone.s3-sa-east-1.amazonaws.com/services-table-busy.png"
+                      className="card-img"
+                      alt="..."
+                    />
+                  )}
                 </div>
                 <div className="col-md-7">
                   <div
@@ -55,15 +60,10 @@ export default ({ tables }) => {
                       padding: "15px"
                     }}
                   >
-                    <h6
-                      className="font-weight-normal"
-                      //   style={{
-                      //     margin: "0px"
-                      //   }}
-                    >
-                      {table.state === "free" ? "On" : "Off"}
+                    <h6 className="font-weight-normal">
+                      {table.state === "free" ? "Libre" : "Ocupada"}
                     </h6>
-                    <h3 className="font-weight-bold">Mesa: {table.number}</h3>
+                    <h3 className="font-weight-bold">Mesa {table.number}</h3>
 
                     <p
                       className="font-weight-normal"
@@ -72,18 +72,18 @@ export default ({ tables }) => {
                       }}
                     >
                       <small class="text-muted">
-                        Mozo: {table.waiter ? "Available" : "Occupied"}
+                        {table.waiter ? "Mozo" : ""}
                       </small>
                     </p>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        ))
-      ) : (
-        <h1>No hay tablas</h1>
-      )}
+          ))
+        ) : (
+          <h1></h1>
+        )}
+      </div>
     </div>
   );
 };
