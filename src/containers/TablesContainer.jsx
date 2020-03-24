@@ -1,7 +1,7 @@
 import React from "react";
 import Tables from "../components/Tables";
 import firebase from "../services/firebase";
-const DB = firebase.firestore();
+const DB = firebase.db
 
 export default class TablesContainer extends React.Component {
   constructor(props) {

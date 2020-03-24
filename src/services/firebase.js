@@ -1,4 +1,5 @@
-import * as firebase from "firebase";
+import app from "firebase/app";
+import "firebase/auth";
 import "firebase/firestore";
 
 const firebaseConfig = {
@@ -11,6 +12,35 @@ const firebaseConfig = {
   appId: "1:34303700789:web:7e3ad4f8cf2d2a380c267c"
 };
 
-const service = firebase.initializeApp(firebaseConfig);
+//Utility class
+class Firebase {
+  constructor() {
+    app.initializeApp(firebaseConfig);
+    //reference to auth api
+    this.auth = app.auth()
+    //access to cloud firestore
+    this.db = app.firestore()
+  }
 
-export default service;
+  login(email, password) {
+    //Nos retorna una promesa, lo manejamos mas adelante
+    return this.auth.signInWithEmailAndPassword(email, password)
+  }
+
+  logout() {
+    return this.auth.signOut()
+  }
+  isInitialized() {
+    return new Promise(resolve => {
+      this.auth.onAuthStateChanged(resolve)
+    })
+  }
+
+  getCurrentUsername() {
+    return this.auth.currentUser.displayName
+  }
+
+
+}
+
+export default new Firebase()

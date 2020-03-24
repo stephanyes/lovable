@@ -1,9 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default ({}) => {
+export default ({ }) => {
   return (
-    <div class="wrapper">
+    <div className="wrapper">
       <nav
         id="sidebar"
         style={{
@@ -12,10 +12,10 @@ export default ({}) => {
         }}
       >
         <div id="dismiss">
-          <i class="fas fa-arrow-left"></i>
+          <i className="fas fa-arrow-left"></i>
         </div>
 
-        <div class="sidebar-header">
+        <div className="sidebar-header">
           <img
             src="https://insideone.s3-sa-east-1.amazonaws.com/logo-lovable.png"
             height="50"
@@ -23,7 +23,7 @@ export default ({}) => {
           />
         </div>
 
-        <ul class="list-unstyled components">
+        <ul className="list-unstyled components">
           {/* // <p>Dashboard</p> */}
           {/* <li class="active">
             <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false">
@@ -70,7 +70,7 @@ export default ({}) => {
         </ul>
       </nav>
 
-      <div class="overlay"></div>
+      <div className="overlay"></div>
     </div>
   );
 };

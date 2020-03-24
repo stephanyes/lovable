@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default ({ handlerSubmit, handlerChange}) => {
+export default ({ handlerSubmit, handlerChange, buttonClick }) => {
   return (
     <div>
       <div
@@ -18,7 +18,7 @@ export default ({ handlerSubmit, handlerChange}) => {
             }}
             src="https://insideone.s3-sa-east-1.amazonaws.com/login-lovable-image.png"
             className="img-fluid"
-            alt="Responsive image"
+            alt="Responsive"
           />
         </div>
         <div className="col">
@@ -46,13 +46,13 @@ export default ({ handlerSubmit, handlerChange}) => {
                 id="exampleInputEmail1"
                 aria-describedby="emailHelp"
                 onChange={handlerChange}
-                // style={
-                //   state.error && !state.email
-                //     ? {
-                //         borderColor: "red"
-                //       }
-                //     : null
-                // }
+              // style={
+              //   state.error && !state.email
+              //     ? {
+              //         borderColor: "red"
+              //       }
+              //     : null
+              // }
               />
               <small id="emailHelp" className="form-text text-muted">
                 We'll never share your email with anyone else.
@@ -71,27 +71,26 @@ export default ({ handlerSubmit, handlerChange}) => {
                 className="form-control"
                 id="exampleInputPassword1"
                 onChange={handlerChange}
-                // style={
-                //   state.error && !state.password
-                //     ? {
-                //         borderColor: "red"
-                //       }
-                //     : null
-                // }
+              // style={
+              //   state.error && !state.password
+              //     ? {
+              //         borderColor: "red"
+              //       }
+              //     : null
+              // }
               />
             </div>
-            <Link to="/home">
-              <button
-                type="submit"
-                className="btn btn-primary"
-                style={{
-                  backgroundColor: "#FF2068",
-                  borderColor: "#FF2068"
-                }}
-              >
-                Submit
+            <button
+              //onClick={buttonClick}
+              type="submit"
+              className="btn btn-primary"
+              style={{
+                backgroundColor: "#FF2068",
+                borderColor: "#FF2068"
+              }}
+            >
+              Log in
               </button>
-            </Link>
             {/* {state.error ? (
               <div>
                 <br />
