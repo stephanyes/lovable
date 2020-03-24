@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default ({ handlerSubmit, handlerChange }) => {
+export default ({ handlerSubmit, handlerChange, buttonClick }) => {
   return (
     <div>
       <div
@@ -18,7 +18,7 @@ export default ({ handlerSubmit, handlerChange }) => {
             }}
             src="https://insideone.s3-sa-east-1.amazonaws.com/login-lovable-image.png"
             className="img-fluid"
-            alt="Responsive image"
+            alt="Responsive"
           />
         </div>
         <div className="col">
@@ -80,18 +80,17 @@ export default ({ handlerSubmit, handlerChange }) => {
                 // }
               />
             </div>
-            <Link to="/dashboard">
-              <button
-                type="submit"
-                className="btn btn-primary"
-                style={{
-                  backgroundColor: "#FF2068",
-                  borderColor: "#FF2068"
-                }}
-              >
-                Submit
-              </button>
-            </Link>
+            <button
+              //onClick={buttonClick}
+              type="submit"
+              className="btn btn-primary"
+              style={{
+                backgroundColor: "#FF2068",
+                borderColor: "#FF2068"
+              }}
+            >
+              Log in
+            </button>
             {/* {state.error ? (
               <div>
                 <br />

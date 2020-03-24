@@ -3,7 +3,7 @@ import firebase from "../services/firebase";
 import { Route, Redirect, Switch, Link } from "react-router-dom";
 import ClientView from "../components/ClientView";
 import Axios from "axios";
-const DB = firebase.firestore();
+const DB = firebase.db;
 let doc = DB.collection("restaurants")
   .doc("QtLVkjHLnXZPDj4pbWKw")
   .collection("tables");
@@ -46,13 +46,6 @@ class ClientViewContainer extends React.Component {
         console.log("Mozo false");
       });
     }
-
-    // option.get().then(option => {
-    // //   acciones.forEach(doc => {
-    // console.log(option.data().waiter);
-    // // this.setState({ tables });
-    // //   });
-    // });
   }
 
   render() {

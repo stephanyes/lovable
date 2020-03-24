@@ -1,19 +1,50 @@
 import React from "react";
-import axios from "axios";
 import { connect } from "react-redux";
 import { Route, Redirect, Switch, Link } from "react-router-dom";
-import TablesContainer from "../containers/TablesContainer";
+import Loader from "react-loader-spinner";
+import firebase from "../services/firebase";
 import LoginContainer from "../containers/LoginContainer";
+import TablesContainer from "../containers/TablesContainer";
+import ConfigurationsContainer from "../containers/ConfigurationsContainer";
 import ClientViewContainer from "../containers/ClientViewContainer";
 import OrdersContainer from "../containers/OrdersContainer";
-import ConfigurationsContainer from "../containers/ConfigurationsContainer";
+import FooterContainer from "../containers/FooterContainer";
 
-export default class Main extends React.Component {
-  constructor(props) {
+const mapStateToProps = state => {
+  return {
+    userLogin: state.user.loginUser,
+    isAuth: state.user.isAuth
+  };
+};
+class Main extends React.Component {
+  constructor() {
     super();
+    this.state = {
+      firebaseInitialized: false
+    };
   }
+
+  componentDidMount() {
+    firebase.isInitialized().then(val => {
+      this.setState({
+        firebaseInitialized: val
+      });
+    });
+  }
+
+  // componentDidUpdate(prevProps) {
+  //   console.log(prevProps)
+  //   if (this.props.userLogin !== prevProps.userLogin) {
+  //     this.setState({
+  //       isAuth: "Logged"
+  //     })
+  //   }
+  // }
+  //Object.keys(this.props.userLogin).length === 0 ? <Redirect to="/" />
+
   render() {
-    return (
+    console.log(this.props.isAuth);
+    return this.state.firebaseInitialized !== false ? (
       <div>
         <Switch>
           <Route exact path="/" component={LoginContainer}></Route>
@@ -25,7 +56,17 @@ export default class Main extends React.Component {
             component={ConfigurationsContainer}
           ></Route>
         </Switch>
+        <FooterContainer />
+      </div>
+    ) : (
+      <div
+        className="container"
+        style={{ textAlign: "center", alignContent: "center" }}
+      >
+        <Loader type="Hearts" color="red" height={80} width={80} />
       </div>
     );
   }
 }
+
+export default connect(mapStateToProps)(Main);

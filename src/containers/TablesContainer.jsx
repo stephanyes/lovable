@@ -3,7 +3,7 @@ import firebase from "../services/firebase";
 import SidebarContainer from "../containers/SidebarContainer";
 import NavbarContainer from "../containers/NavbarContainer";
 import Tables from "../components/Tables";
-const DB = firebase.firestore();
+const DB = firebase.db;
 let doc = DB.collection("restaurants")
   .doc("QtLVkjHLnXZPDj4pbWKw")
   .collection("tables");
@@ -43,7 +43,7 @@ export default class TablesContainer extends React.Component {
     return (
       <div>
         <SidebarContainer />
-        <NavbarContainer />
+
         <Tables tables={this.state.tables} />
       </div>
     );

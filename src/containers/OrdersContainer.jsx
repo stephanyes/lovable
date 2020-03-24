@@ -3,7 +3,6 @@ import firebase from "../services/firebase";
 import SidebarContainer from "../containers/SidebarContainer";
 import NavbarContainer from "../containers/NavbarContainer";
 import Orders from "../components/Orders";
-const DB = firebase.firestore();
 
 export default class OrdersContainer extends React.Component {
   constructor(props) {
@@ -13,7 +12,7 @@ export default class OrdersContainer extends React.Component {
     return (
       <div>
         <SidebarContainer />
-        <NavbarContainer />
+
         <Orders />
       </div>
     );
