@@ -1,11 +1,18 @@
-import { SET_LOGIN } from "../reducers/constant";
+import { SET_LOGIN, SET_LOGOUT } from "../reducers/constant";
 import axios from "axios";
 
-export const addLogin = user => ({
+const addLogin = user => ({
   type: SET_LOGIN,
   user
 });
 
-export const loginUser = user => dispatch => 
+const logoutUser = () => ({
+  type: SET_LOGOUT,
+  logout: {}
+})
+
+export const loginUser = user => dispatch =>
   dispatch(addLogin(user));
 
+export const userLogout = () => dispatch =>
+  dispatch(logoutUser())

@@ -1,7 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import firebase from "../services/firebase"
 
-export default ({}) => {
+export default ({ buttonClick }) => {
   return (
     <div>
       <nav
@@ -58,9 +59,7 @@ export default ({}) => {
             />
             <ul className="navbar-nav mr-auto">
               <li className="nav-item active">
-                <Link className="nav-link" to="/">
-                  LogOut
-                </Link>
+                <button onClick={(e) => buttonClick(e)}>Log out</button>
               </li>
             </ul>
           </form>
