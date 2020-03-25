@@ -1,13 +1,13 @@
 import React from "react";
-import { withRouter } from 'react-router-dom'
+import { withRouter } from "react-router-dom";
 import Login from "../components/Login";
-import firebase from "../services/firebase"
+import firebase from "../services/firebase";
 import { loginUser } from "../store/actions/loginAction";
 import { connect } from "react-redux";
-import Swal from 'sweetalert2'
-import withReactContent from 'sweetalert2-react-content'
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
-const DB_users = firebase.db.collection('users');
+const DB_users = firebase.db.collection("users");
 
 const mapStateToProps = (state, ownprops) => {
   return {
@@ -20,7 +20,7 @@ const mapDispatchToProps = (dispatch, state) => {
     loggeado: user => dispatch(loginUser(user))
   };
 };
-const MySwal = withReactContent(Swal)
+const MySwal = withReactContent(Swal);
 
 class LoginContainer extends React.Component {
   constructor() {
@@ -53,16 +53,21 @@ class LoginContainer extends React.Component {
 
   handlerSubmit(e) {
     e.preventDefault();
-    const auth = firebase.auth
-    const promise = auth.signInWithEmailAndPassword(this.state.email, this.state.password)
-    promise.then(user => {
-      DB_users.doc(user.user.uid)
-        .get().then(rest => {
-          this.props.loggeado(rest.data());
-          this.props.history.push('/home')
-        })
-    })
-      .catch(e => MySwal.fire(e.message))
+    const auth = firebase.auth;
+    const promise = auth.signInWithEmailAndPassword(
+      this.state.email,
+      this.state.password
+    );
+    promise
+      .then(user => {
+        DB_users.doc(user.user.uid)
+          .get()
+          .then(rest => {
+            this.props.loggeado(rest.data());
+            this.props.history.push("/dashboard");
+          });
+      })
+      .catch(e => MySwal.fire(e.message));
   }
 
   render() {
@@ -72,12 +77,13 @@ class LoginContainer extends React.Component {
         <Login
           handlerChange={this.handlerChange}
           handlerSubmit={this.handlerSubmit}
-        //buttonClick={this.handlerButton}
+          //buttonClick={this.handlerButton}
         />
       </div>
     );
   }
 }
 
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(LoginContainer));
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(LoginContainer)
+);

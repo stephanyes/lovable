@@ -1,14 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default ({ }) => {
+export default ({}) => {
   return (
     <div className="wrapper">
       <nav
         id="sidebar"
         style={{
-          backgroundImage:
-            "https://insideone.s3-sa-east-1.amazonaws.com/experience-extreme-bridge-x3.png"
+          backgroundColor: "#000000"
         }}
       >
         <div id="dismiss">
@@ -37,7 +36,7 @@ export default ({ }) => {
                 padding: "20px",
                 paddingLeft: "20px"
               }}
-              to="/"
+              to="/dashboard"
             >
               Dashboard
             </Link>
@@ -69,8 +68,6 @@ export default ({ }) => {
           </li>
         </ul>
       </nav>
-
-      <div className="overlay"></div>
     </div>
   );
 };

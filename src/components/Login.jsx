@@ -46,13 +46,13 @@ export default ({ handlerSubmit, handlerChange, buttonClick }) => {
                 id="exampleInputEmail1"
                 aria-describedby="emailHelp"
                 onChange={handlerChange}
-              // style={
-              //   state.error && !state.email
-              //     ? {
-              //         borderColor: "red"
-              //       }
-              //     : null
-              // }
+                // style={
+                //   state.error && !state.email
+                //     ? {
+                //         borderColor: "red"
+                //       }
+                //     : null
+                // }
               />
               <small id="emailHelp" className="form-text text-muted">
                 We'll never share your email with anyone else.
@@ -71,13 +71,13 @@ export default ({ handlerSubmit, handlerChange, buttonClick }) => {
                 className="form-control"
                 id="exampleInputPassword1"
                 onChange={handlerChange}
-              // style={
-              //   state.error && !state.password
-              //     ? {
-              //         borderColor: "red"
-              //       }
-              //     : null
-              // }
+                // style={
+                //   state.error && !state.password
+                //     ? {
+                //         borderColor: "red"
+                //       }
+                //     : null
+                // }
               />
             </div>
             <button
@@ -90,7 +90,7 @@ export default ({ handlerSubmit, handlerChange, buttonClick }) => {
               }}
             >
               Log in
-              </button>
+            </button>
             {/* {state.error ? (
               <div>
                 <br />
