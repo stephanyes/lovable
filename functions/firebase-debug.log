@@ -1,0 +1,32 @@
+[debug] [2020-03-24T20:57:46.663Z] ----------------------------------------------------------------------
+[debug] [2020-03-24T20:57:46.665Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\matia\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js serve --only functions
+[debug] [2020-03-24T20:57:46.665Z] CLI Version:   7.15.1
+[debug] [2020-03-24T20:57:46.666Z] Platform:      win32
+[debug] [2020-03-24T20:57:46.666Z] Node Version:  v12.16.1
+[debug] [2020-03-24T20:57:46.666Z] Time:          Tue Mar 24 2020 17:57:46 GMT-0300 (GMT-03:00)
+[debug] [2020-03-24T20:57:46.666Z] ----------------------------------------------------------------------
+[debug] [2020-03-24T20:57:46.666Z] 
+[debug] [2020-03-24T20:57:46.673Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-03-24T20:57:46.673Z] > authorizing via signed-in user
+[debug] [2020-03-24T20:57:46.673Z] [iam] checking project lovable-qr for permissions ["firebase.projects.get"]
+[debug] [2020-03-24T20:57:46.675Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/lovable-qr:testIamPermissions  
+
+[debug] [2020-03-24T20:57:47.853Z] <<< HTTP RESPONSE 200
+[debug] [2020-03-24T20:57:47.855Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/lovable-qr  
+ 
+[debug] [2020-03-24T20:57:48.267Z] <<< HTTP RESPONSE 200
+[warn] !  Your requested "node" version "8" doesn't match your global version "12"
+[info] +  functions: functions emulator started at http://localhost:5000
+[info] i  functions: Watching "C:\Users\matia\OneDrive\Escritorio\Plataforma5\lovable\functions" for Cloud Functions...
+[debug] [2020-03-24T20:57:49.292Z] [worker-pool] addWorker(~diagnostic~)
+[debug] [2020-03-24T20:57:49.292Z] [worker-pool] Adding worker with key ~diagnostic~, total=1
+[debug] [2020-03-24T20:57:49.292Z] [worker-pool] submitWork(triggerId=)
+[debug] [2020-03-24T20:57:49.293Z] [worker-~diagnostic~-2755a26c-c0dc-484e-9010-f6dc5c8cb38f]: Assigning socketPath: \\?\pipe\C:\Users\matia\OneDrive\Escritorio\Plataforma5\lovable\functions\18200
+[debug] [2020-03-24T20:57:49.293Z] [worker-~diagnostic~-2755a26c-c0dc-484e-9010-f6dc5c8cb38f]: BUSY
+[debug] [2020-03-24T20:57:49.560Z] [runtime-status] [18200] Functions runtime initialized. {"cwd":"C:\\Users\\matia\\OneDrive\\Escritorio\\Plataforma5\\lovable\\functions","node_version":"12.16.1"}
+[debug] [2020-03-24T20:57:49.562Z] [runtime-status] [18200] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true,"pubsub_emulator":true}
+[debug] [2020-03-24T20:57:49.566Z] [runtime-status] [18200] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.10.0","resolution":"C:\\Users\\matia\\OneDrive\\Escritorio\\Plataforma5\\lovable\\functions\\node_modules\\firebase-admin\\lib\\index.js"}
+[debug] [2020-03-24T20:57:49.568Z] [runtime-status] [18200] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"C:\\Users\\matia\\OneDrive\\Escritorio\\Plataforma5\\lovable\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
+[debug] [2020-03-24T20:57:49.570Z] [runtime-status] [18200] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"C:\\Users\\matia\\OneDrive\\Escritorio\\Plataforma5\\lovable\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
+[info] +  functions[app]: http function initialized (http://localhost:5000/lovable-qr/us-central1/app).
+[debug] [2020-03-24T20:57:50.018Z] [worker-~diagnostic~-2755a26c-c0dc-484e-9010-f6dc5c8cb38f]: IDLE
