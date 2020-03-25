@@ -1,9 +1,7 @@
 import React from "react";
-import { Link } from "react-router-dom";
+
 // let random1 = Math.floor(Math.random() * 10) //va del 0 - 9
 export default ({ tables }) => {
-  // console.log(products);
-
   return (
     <div
       style={{
@@ -81,7 +79,7 @@ export default ({ tables }) => {
             </div>
           ))
         ) : (
-          <h1></h1>
+          <h1> </h1>
         )}
       </div>
     </div>
