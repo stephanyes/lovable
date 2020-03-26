@@ -1,9 +1,7 @@
 import React from "react";
-import { Link } from "react-router-dom";
+
 // let random1 = Math.floor(Math.random() * 10) //va del 0 - 9
 export default ({ tables }) => {
-  // console.log(products);
-
   return (
     <div
       style={{
@@ -20,70 +18,70 @@ export default ({ tables }) => {
         }}
       >
         <h1 className="font-weight-bold">Dashboard</h1>
+      </div>
 
-        <div class="row row-cols-1 row-cols-md-3">
-          {tables.length ? (
-            tables.map(table => (
-              <div
-                //  key={table.id}
-                className="card mb-3"
-                style={{
-                  width: "300px",
-                  height: "125px",
-                  margin: "20px",
-                  padding: "0px",
-                  borderStyle: "none",
-                  boxShadow:
-                    "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"
-                }}
-              >
-                <div className="row no-gutters">
-                  <div className="col-md-5">
-                    {table.waiter ? (
-                      <img
-                        src="https://insideone.s3-sa-east-1.amazonaws.com/services-table-waiter.png"
-                        className="card-img"
-                        alt="..."
-                      />
-                    ) : (
-                      <img
-                        src="https://insideone.s3-sa-east-1.amazonaws.com/services-table-busy.png"
-                        className="card-img"
-                        alt="..."
-                      />
-                    )}
-                  </div>
-                  <div className="col-md-7">
-                    <div
-                      className="card-body"
+      <div class="row row-cols-1 row-cols-md-3">
+        {tables.length ? (
+          tables.map(table => (
+            <div
+              key={table.id}
+              className="card mb-3"
+              style={{
+                width: "300px",
+                height: "125px",
+                margin: "30px",
+                padding: "0px",
+                borderStyle: "none",
+                boxShadow:
+                  "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"
+              }}
+            >
+              <div className="row no-gutters">
+                <div className="col-md-5">
+                  {table.waiter ? (
+                    <img
+                      src="https://insideone.s3-sa-east-1.amazonaws.com/services-table-waiter.png"
+                      className="card-img"
+                      alt="..."
+                    />
+                  ) : (
+                    <img
+                      src="https://insideone.s3-sa-east-1.amazonaws.com/services-table-busy.png"
+                      className="card-img"
+                      alt="..."
+                    />
+                  )}
+                </div>
+                <div className="col-md-7">
+                  <div
+                    className="card-body"
+                    style={{
+                      padding: "15px"
+                    }}
+                  >
+                    <h6 className="font-weight-normal">
+                      {table.state === "free" ? "Free" : "Busy"}
+                    </h6>
+                    <h3 className="font-weight-bold">Table {table.number}</h3>
+
+                    <p
+                      className="font-weight-normal"
                       style={{
-                        padding: "15px"
+                        margin: "0px"
                       }}
                     >
-                      <h6 className="font-weight-normal">
-                        {table.state === "free" ? "Free" : "Busy"}
-                      </h6>
-                      <h3 className="font-weight-bold">Table {table.number}</h3>
-
-                      <p
-                        className="font-weight-normal"
-                        style={{
-                          margin: "0px"
-                        }}
-                      >
-                        <small class="text-muted">
-                          {table.waiter ? "Waiter" : ""}
-                        </small>
-                      </p>
-                    </div>
+                      <small class="text-muted">
+                        {table.waiter ? "Waiter" : ""}
+                      </small>
+                    </p>
                   </div>
                 </div>
               </div>
-            ))
-          ) : (
-            <h1></h1>
-          )}
-        </div>
+            </div>
+          ))
+        ) : (
+          <h1> </h1>
+        )}
       </div>
     </div>
   );

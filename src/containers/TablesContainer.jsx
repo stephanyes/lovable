@@ -3,31 +3,58 @@ import firebase from "../services/firebase";
 import SidebarContainer from "../containers/SidebarContainer";
 import FooterContainer from "./FooterContainer";
 import Tables from "../components/Tables";
-const DB = firebase.db;
-let doc = DB.collection("restaurants")
-  .doc("QtLVkjHLnXZPDj4pbWKw")
-  .collection("tables");
+import { connect } from "react-redux";
 
-export default class TablesContainer extends React.Component {
+const DB = firebase.db;
+let tablesDoc;
+
+const mapStateToProps = (state, ownprops) => {
+  return {
+    userLogin: state.user.loginUser.restaurantID
+  };
+};
+class TablesContainer extends React.Component {
   constructor(props) {
     super();
     this.state = {
       tables: []
     };
+
+    this.ordenar = this.ordenar.bind(this);
   }
 
   componentDidMount() {
-    doc.onSnapshot(docSnapshot => {
+    tablesDoc = DB.collection("restaurants")
+      .doc(`${this.props.userLogin}`)
+      .collection("tables");
+    tablesDoc.onSnapshot(docSnapshot => {
       let tables = [];
+
       docSnapshot.forEach(doc => {
-        tables.push(doc.data());
+        tables.push({
+          nameOfUser: doc.data().nameOfUser,
+          number: doc.data().number,
+          orderActual: doc.data().orderActual,
+          secretCode: doc.data().secretCode,
+          state: doc.data().state,
+          waiter: doc.data().waiter,
+          id: doc.id
+        });
+
         this.setState({ tables });
+        this.ordenar(this.state.tables);
       });
     });
   }
 
+  ordenar = function(arr) {
+    arr.sort(function(a, b) {
+      return a.number - b.number;
+    });
+  };
+
   componentWillUnmount() {
-    doc.onSnapshot(() => {});
+    tablesDoc.onSnapshot(() => {});
   }
 
   //     // algo.get().then(algo => {
@@ -40,6 +67,7 @@ export default class TablesContainer extends React.Component {
   //   };
 
   render() {
+    console.log(this.props.userLogin);
     return (
       <div>
         <SidebarContainer />
@@ -49,3 +77,5 @@ export default class TablesContainer extends React.Component {
     );
   }
 }
+
+export default connect(mapStateToProps)(TablesContainer);

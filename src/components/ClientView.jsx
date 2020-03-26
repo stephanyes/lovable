@@ -36,6 +36,7 @@ export default ({ handleClick, tables }) => {
         }}
       >
         <Link
+          to="/menu"
           style={{
             display: "flex",
             justifyContent: "center",
@@ -46,7 +47,6 @@ export default ({ handleClick, tables }) => {
             marginTop: "70px",
             marginLeft: "-70px"
           }}
-          to="/"
         >
           <img
             src="https://insideone.s3-sa-east-1.amazonaws.com/icon-food-x2.png"
