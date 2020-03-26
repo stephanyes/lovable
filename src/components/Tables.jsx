@@ -23,7 +23,7 @@ export default ({ tables }) => {
         {tables.length ? (
           tables.map(table => (
             <div
-              //  key={table.id}
+              key={table.id}
               className="card mb-3"
               style={{
                 width: "300px",
