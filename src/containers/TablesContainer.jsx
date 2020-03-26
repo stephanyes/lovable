@@ -42,7 +42,6 @@ class TablesContainer extends React.Component {
           waiter: doc.data().waiter,
           id: doc.id
         });
-
         this.setState({ tables });
         this.ordenar(this.state.tables);
       });
