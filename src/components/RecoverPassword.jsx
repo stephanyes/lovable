@@ -56,12 +56,19 @@ const RecoverPassword = props => {
               <h1
                 className="font-weight-bold"
                 style={{
-                  paddingBottom: "20px"
+                  paddingBottom: "10px", 
                 }}
               >
                 Recover Password
               </h1>
-              <label>Email address</label>
+              <p id="emailHelp" className="form-text text-muted" style={{ width : "60%"}}>
+              For restore your password, enter your email address.
+              You may have to check your spam folder or unblock the address <i>noreply@lovable-qr.firebaseapp.com.</i>
+              </p>
+              {/* <label style={{
+                fontSize : "15px",
+                margin: "center"
+              }}>Email address</label> */}
               <input
                 onChange={e => handleInput(e)}
                 name="email"
@@ -69,20 +76,21 @@ const RecoverPassword = props => {
                 className="form-control"
                 id="exampleInputEmail1"
                 aria-describedby="emailHelp"
+                style={{ 
+                  // width : "60%",
+                  marginBottom : "2.5%"}}
+                  placeholder= "lovable@solutions.com"
               />
               <button
                 type="submit"
                 className="btn btn-primary"
                 style={{
                   backgroundColor: "#FF2068",
-                  borderColor: "#FF2068"
+                  borderColor: "#FF2068",
                 }}
               >
                 Recover password
               </button>
-              <small id="emailHelp" className="form-text text-muted">
-                We'll never share your email with anyone else.
-              </small>
             </div>
           </form>
         </div>
