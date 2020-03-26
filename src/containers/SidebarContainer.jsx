@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Route, Redirect, Switch, Link } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
+import TablesContainer from "../containers/TablesContainer";
 import NavbarContainer from "../containers/NavbarContainer";
 import FooterContainer from "../containers/FooterContainer";
 import { connect, useSelector } from "react-redux";

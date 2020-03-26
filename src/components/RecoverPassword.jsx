@@ -56,7 +56,7 @@ const RecoverPassword = props => {
               <h1
                 className="font-weight-bold"
                 style={{
-                  paddingBottom: "20px"
+                  paddingBottom: "10px", 
                 }}
               >
                 Recover Password
@@ -92,7 +92,7 @@ const RecoverPassword = props => {
                 className="btn btn-primary"
                 style={{
                   backgroundColor: "#FF2068",
-                  borderColor: "#FF2068"
+                  borderColor: "#FF2068",
                 }}
               >
                 Recover password
