@@ -58,7 +58,7 @@ class ClientViewContainer extends React.Component {
     console.log(this.props.userLogin, "sakjdlkaHola");
     return (
       <div>
-        <ClientView handleClick={this.handleClick} />
+        <ClientView handleClick={this.handleClick} tables={this.state.tables} />
       </div>
     );
   }

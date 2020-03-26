@@ -6,8 +6,13 @@ export default ({}) => {
     <div>
       <div className="card">
         <footer>
-          <div className="footer-copyright text-center py-3">
-            All right reserved. © 2020 Copyright: Lovable
+          <div
+            className="footer-copyright text-center py-3"
+            style={{
+              backgroundColor: "#909090"
+            }}
+          >
+            © 2020 Lovable. All right reserved.
           </div>
         </footer>
       </div>

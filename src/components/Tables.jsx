@@ -13,10 +13,11 @@ export default ({ tables }) => {
       <div
         className="container"
         style={{
-          padding: "20px"
+          marginLeft: "20px",
+          paddingTop: "20px"
         }}
       >
-        <h1 className="font-weight-bold">Tables</h1>
+        <h1 className="font-weight-bold">Dashboard</h1>
       </div>
 
       <div class="row row-cols-1 row-cols-md-3">
@@ -59,9 +60,9 @@ export default ({ tables }) => {
                     }}
                   >
                     <h6 className="font-weight-normal">
-                      {table.state === "free" ? "Libre" : "Ocupada"}
+                      {table.state === "free" ? "Free" : "Busy"}
                     </h6>
-                    <h3 className="font-weight-bold">Mesa {table.number}</h3>
+                    <h3 className="font-weight-bold">Table {table.number}</h3>
 
                     <p
                       className="font-weight-normal"
@@ -70,7 +71,7 @@ export default ({ tables }) => {
                       }}
                     >
                       <small class="text-muted">
-                        {table.waiter ? "Mozo" : ""}
+                        {table.waiter ? "Waiter" : ""}
                       </small>
                     </p>
                   </div>

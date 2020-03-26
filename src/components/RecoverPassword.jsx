@@ -61,15 +61,32 @@ const RecoverPassword = props => {
               >
                 Recover Password
               </h1>
-              <label>Email address</label>
-              <input
-                onChange={e => handleInput(e)}
-                name="email"
-                type="email"
-                className="form-control"
-                id="exampleInputEmail1"
-                aria-describedby="emailHelp"
-              />
+              <p
+                id="emailHelp"
+                className="form-text text-muted"
+                style={{ fontSize: "15px", marginBottom: "30px" }}
+              >
+                For restore your password, enter your email address. You may
+                have to check your spam folder or unblock the address{" "}
+                <i>no-reply@lovable.solutions</i>
+              </p>
+              <div
+                className="form-group"
+                style={{
+                  paddingBottom: "20px"
+                }}
+              >
+                <label>Email address</label>
+                <input
+                  onChange={e => handleInput(e)}
+                  name="email"
+                  type="email"
+                  className="form-control"
+                  id="exampleInputEmail1"
+                  aria-describedby="emailHelp"
+                  placeholder="email@lovable.solutions"
+                />
+              </div>
               <button
                 type="submit"
                 className="btn btn-primary"
@@ -80,9 +97,6 @@ const RecoverPassword = props => {
               >
                 Recover password
               </button>
-              <small id="emailHelp" className="form-text text-muted">
-                We'll never share your email with anyone else.
-              </small>
             </div>
           </form>
         </div>

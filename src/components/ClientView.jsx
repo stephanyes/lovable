@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default ({ handleClick }) => {
+export default ({ handleClick, tables }) => {
   return (
     <div
       style={{
@@ -30,6 +30,7 @@ export default ({ handleClick }) => {
         style={{
           display: "flex",
           justifyContent: "center",
+          //   flexWrap: "wrap",
           position: "absolute",
           marginTop: "150px"
         }}
@@ -83,7 +84,6 @@ export default ({ handleClick }) => {
             height="75"
             alt=""
           />
-
           {/* <h6
             style={{
               position: "center",
