@@ -1,7 +1,7 @@
 import React from "react";
 import firebase from "../services/firebase";
 import SidebarContainer from "../containers/SidebarContainer";
-import NavbarContainer from "../containers/NavbarContainer";
+import FooterContainer from "./FooterContainer";
 import Orders from "../components/Orders";
 
 export default class OrdersContainer extends React.Component {
@@ -12,8 +12,8 @@ export default class OrdersContainer extends React.Component {
     return (
       <div>
         <SidebarContainer />
-
         <Orders />
+        <FooterContainer />
       </div>
     );
   }

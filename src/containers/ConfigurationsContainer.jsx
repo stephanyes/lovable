@@ -1,10 +1,17 @@
 import React from "react";
 import firebase from "../services/firebase";
 import SidebarContainer from "./SidebarContainer";
-import NavbarContainer from "./NavbarContainer";
+import FooterContainer from "./FooterContainer";
 import Configurations from "../components/Configurations";
+import { connect } from "react-redux";
 
-export default class ConfigurationsContainer extends React.Component {
+const mapStateToProps = state => {
+  return {
+    restaurantId: state.user.loginUser.restaurantID
+  };
+};
+
+class ConfigurationsContainer extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -12,9 +19,11 @@ export default class ConfigurationsContainer extends React.Component {
     return (
       <div>
         <SidebarContainer />
-
-        <Configurations />
+        <Configurations restaurantId={this.props.restaurantId} />
+        <FooterContainer />
       </div>
     );
   }
 }
+
+export default connect(mapStateToProps)(ConfigurationsContainer);
