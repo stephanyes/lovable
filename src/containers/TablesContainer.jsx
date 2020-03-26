@@ -6,6 +6,7 @@ import Tables from "../components/Tables";
 import { connect } from "react-redux";
 
 const DB = firebase.db;
+
 let tablesDoc;
 
 const mapStateToProps = (state, ownprops) => {
@@ -21,6 +22,7 @@ class TablesContainer extends React.Component {
     };
 
     this.ordenar = this.ordenar.bind(this);
+    this.handlerButton = this.handlerButton.bind(this);
   }
 
   componentDidMount() {
@@ -47,6 +49,12 @@ class TablesContainer extends React.Component {
     });
   }
 
+  handlerButton(e, tableId) {
+    e.preventDefault();
+    let newCode = Math.round(Math.random() * 9000 + 1000);
+    tablesDoc.doc(tableId).update({ secretCode: newCode, state: "busy" });
+  }
+
   ordenar = function(arr) {
     arr.sort(function(a, b) {
       return a.number - b.number;
@@ -71,7 +79,7 @@ class TablesContainer extends React.Component {
     return (
       <div>
         <SidebarContainer />
-        <Tables tables={this.state.tables} />
+        <Tables tables={this.state.tables} buttonClick={this.handlerButton} />
         <FooterContainer />
       </div>
     );

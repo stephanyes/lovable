@@ -1,7 +1,7 @@
 import React from "react";
 
 // let random1 = Math.floor(Math.random() * 10) //va del 0 - 9
-export default ({ tables }) => {
+export default ({ tables, buttonClick }) => {
   return (
     <div
       style={{
@@ -73,6 +73,25 @@ export default ({ tables }) => {
                       <small class="text-muted">
                         {table.waiter ? "Waiter" : ""}
                       </small>
+
+                      {table.state === "free" ? (
+                        <button
+                          type="button"
+                          className="btn btn-primary"
+                          style={{
+                            backgroundColor: "#ff2068",
+                            borderColor: "#ff2068"
+                            // height: "30%"
+                          }}
+                          onClick={e => buttonClick(e, table.id)}
+                        >
+                          New code
+                        </button>
+                      ) : (
+                        <small class="text-muted">
+                          Code {table.secretCode}
+                        </small>
+                      )}
                     </p>
                   </div>
                 </div>
