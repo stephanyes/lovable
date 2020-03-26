@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import firebase from "../services/firebase"
+import firebase from "../services/firebase";
 
 export default ({ buttonClick }) => {
   return (
@@ -56,7 +56,17 @@ export default ({ buttonClick }) => {
             />
             <ul className="navbar-nav mr-auto">
               <li className="nav-item active">
-                <button onClick={(e) => buttonClick(e)}>Log out</button>
+                <button
+                  type="button"
+                  className="btn btn-primary"
+                  style={{
+                    backgroundColor: "#ff2068",
+                    borderColor: "#ff2068"
+                  }}
+                  onClick={e => buttonClick(e)}
+                >
+                  Log out
+                </button>
               </li>
             </ul>
           </form>

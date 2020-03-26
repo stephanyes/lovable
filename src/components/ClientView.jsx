@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default ({ handleClick }) => {
+export default ({ handleClick, tables }) => {
   return (
     <div
       style={{
@@ -30,11 +30,13 @@ export default ({ handleClick }) => {
         style={{
           display: "flex",
           justifyContent: "center",
+          //   flexWrap: "wrap",
           position: "absolute",
           marginTop: "150px"
         }}
       >
         <Link
+          to="/menu"
           style={{
             display: "flex",
             justifyContent: "center",
@@ -45,7 +47,6 @@ export default ({ handleClick }) => {
             marginTop: "70px",
             marginLeft: "-70px"
           }}
-          to="/"
         >
           <img
             src="https://insideone.s3-sa-east-1.amazonaws.com/icon-food-x2.png"
@@ -83,7 +84,6 @@ export default ({ handleClick }) => {
             height="75"
             alt=""
           />
-
           {/* <h6
             style={{
               position: "center",

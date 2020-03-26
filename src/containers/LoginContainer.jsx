@@ -64,7 +64,7 @@ class LoginContainer extends React.Component {
           .get()
           .then(rest => {
             this.props.loggeado(rest.data());
-            this.props.history.push("/dashboard");
+            this.props.history.push(`/dashboard/`);
           });
       })
       .catch(e => MySwal.fire(e.message));

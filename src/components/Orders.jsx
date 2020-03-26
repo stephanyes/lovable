@@ -7,13 +7,14 @@ export default ({}) => {
       style={{
         backgroundColor: "white",
         marginLeft: "250px",
-        paddingBottom: "400px"
+        paddingBottom: "532px"
       }}
     >
       <div
         className="container"
         style={{
-          padding: "20px"
+          marginLeft: "20px",
+          paddingTop: "20px"
         }}
       >
         <h1 className="font-weight-bold">Orders</h1>

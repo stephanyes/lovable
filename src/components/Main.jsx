@@ -7,9 +7,11 @@ import LoginContainer from "../containers/LoginContainer";
 import TablesContainer from "../containers/TablesContainer";
 import ConfigurationsContainer from "../containers/ConfigurationsContainer";
 import ClientViewContainer from "../containers/ClientViewContainer";
+import ClientLoginContainer from "../containers/ClientLoginContainer";
 import OrdersContainer from "../containers/OrdersContainer";
 import FooterContainer from "../containers/FooterContainer";
 import RecoverPassword from "./RecoverPassword";
+import MenuContainer from "../containers/MenuContainer";
 
 const mapStateToProps = state => {
   return {
@@ -44,21 +46,24 @@ class Main extends React.Component {
   //Object.keys(this.props.userLogin).length === 0 ? <Redirect to="/" />
 
   render() {
-    console.log(this.props.isAuth);
     return this.state.firebaseInitialized !== false ? (
       <div>
         <Switch>
           <Route exact path="/" component={LoginContainer}></Route>
           <Route path="/dashboard" component={TablesContainer}></Route>
-          <Route path="/tables" component={ClientViewContainer}></Route>
+          <Route path="/tables/:id" component={ClientViewContainer}></Route>
           <Route path="/orders" component={OrdersContainer}></Route>
+          <Route path="/menu" component={MenuContainer}></Route>
           <Route
             path="/configuration"
             component={ConfigurationsContainer}
           ></Route>
           <Route path="/recover" component={RecoverPassword}></Route>
+          <Route
+            path="/:idRestaurant/tables"
+            component={ClientLoginContainer}
+          ></Route>
         </Switch>
-        <FooterContainer />
       </div>
     ) : (
       <div

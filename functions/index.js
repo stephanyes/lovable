@@ -2,6 +2,7 @@ const functions = require("firebase-functions");
 const express = require("express");
 const app = express();
 const firebase = require("./src/services/firebase");
+//const src = require("./src");
 //const firestore = require("firebase");
 
 app.use("/api/login", (req, res) => {
@@ -15,6 +16,7 @@ app.use("/api/login", (req, res) => {
   console.log("click lick");
 });
 
+//app.use("/", src);
 
 // // Create and Deploy Your First Cloud Functions
 // // https://firebase.google.com/docs/functions/write-firebase-functions

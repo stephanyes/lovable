@@ -61,26 +61,32 @@ const RecoverPassword = props => {
               >
                 Recover Password
               </h1>
-              <p id="emailHelp" className="form-text text-muted" style={{ width : "60%"}}>
-              For restore your password, enter your email address.
-              You may have to check your spam folder or unblock the address <i>noreply@lovable-qr.firebaseapp.com.</i>
+              <p
+                id="emailHelp"
+                className="form-text text-muted"
+                style={{ fontSize: "15px", marginBottom: "30px" }}
+              >
+                For restore your password, enter your email address. You may
+                have to check your spam folder or unblock the address{" "}
+                <i>no-reply@lovable.solutions</i>
               </p>
-              {/* <label style={{
-                fontSize : "15px",
-                margin: "center"
-              }}>Email address</label> */}
-              <input
-                onChange={e => handleInput(e)}
-                name="email"
-                type="email"
-                className="form-control"
-                id="exampleInputEmail1"
-                aria-describedby="emailHelp"
-                style={{ 
-                  // width : "60%",
-                  marginBottom : "2.5%"}}
-                  placeholder= "lovable@solutions.com"
-              />
+              <div
+                className="form-group"
+                style={{
+                  paddingBottom: "20px"
+                }}
+              >
+                <label>Email address</label>
+                <input
+                  onChange={e => handleInput(e)}
+                  name="email"
+                  type="email"
+                  className="form-control"
+                  id="exampleInputEmail1"
+                  aria-describedby="emailHelp"
+                  placeholder="email@lovable.solutions"
+                />
+              </div>
               <button
                 type="submit"
                 className="btn btn-primary"
