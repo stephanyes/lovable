@@ -3,11 +3,17 @@ import firebase from "../services/firebase";
 import { Route, Redirect, Switch, Link } from "react-router-dom";
 import ClientView from "../components/ClientView";
 import Axios from "axios";
+import { connect } from "react-redux";
 const DB = firebase.db;
 let doc = DB.collection("restaurants")
   .doc("QtLVkjHLnXZPDj4pbWKw")
   .collection("tables");
 
+const mapStateToProps = (state, ownprops) => {
+  return {
+    userLogin: state.user.loginUser.restaurantID
+  };
+};
 class ClientViewContainer extends React.Component {
   constructor(props) {
     super(props);
@@ -49,6 +55,7 @@ class ClientViewContainer extends React.Component {
   }
 
   render() {
+    console.log(this.props.userLogin, "sakjdlkaHola");
     return (
       <div>
         <ClientView handleClick={this.handleClick} />
@@ -57,4 +64,4 @@ class ClientViewContainer extends React.Component {
   }
 }
 
-export default ClientViewContainer;
+export default connect(mapStateToProps)(ClientViewContainer);

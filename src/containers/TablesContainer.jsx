@@ -3,9 +3,16 @@ import firebase from "../services/firebase";
 import SidebarContainer from "../containers/SidebarContainer";
 
 import Tables from "../components/Tables";
+import { connect } from "react-redux";
 
 const DB = firebase.db;
 let tablesDoc;
+
+const mapStateToProps = (state, ownprops) => {
+  return {
+    userLogin: state.user.loginUser.restaurantID
+  };
+};
 class TablesContainer extends React.Component {
   constructor(props) {
     super();
@@ -17,14 +24,22 @@ class TablesContainer extends React.Component {
   }
 
   componentDidMount() {
-    let idR = this.props.location.state.restaurantID;
     tablesDoc = DB.collection("restaurants")
-      .doc(`${idR}`)
+      .doc(`${this.props.userLogin}`)
       .collection("tables");
     tablesDoc.onSnapshot(docSnapshot => {
       let tables = [];
+
       docSnapshot.forEach(doc => {
-        tables.push(doc.data());
+        tables.push({
+          nameOfUser: doc.data().nameOfUser,
+          number: doc.data().number,
+          orderActual: doc.data().orderActual,
+          secretCode: doc.data().secretCode,
+          state: doc.data().state,
+          waiter: doc.data().waiter,
+          id: doc.id
+        });
 
         this.setState({ tables });
         this.ordenar(this.state.tables);
@@ -52,7 +67,7 @@ class TablesContainer extends React.Component {
   //   };
 
   render() {
-    console.log("hola", this.state.tables);
+    console.log(this.props.userLogin);
     return (
       <div>
         <SidebarContainer />
@@ -63,10 +78,4 @@ class TablesContainer extends React.Component {
   }
 }
 
-// const mapStateToProps = (state, ownprops) => {
-//   return {
-//     userLogin: state.user.loginUser
-//   };
-// };
-
-export default TablesContainer;
+export default connect(mapStateToProps)(TablesContainer);
