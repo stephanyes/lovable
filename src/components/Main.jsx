@@ -7,6 +7,7 @@ import LoginContainer from "../containers/LoginContainer";
 import TablesContainer from "../containers/TablesContainer";
 import ConfigurationsContainer from "../containers/ConfigurationsContainer";
 import ClientViewContainer from "../containers/ClientViewContainer";
+import ClientLoginContainer from "../containers/ClientLoginContainer";
 import OrdersContainer from "../containers/OrdersContainer";
 import FooterContainer from "../containers/FooterContainer";
 import RecoverPassword from "./RecoverPassword";
@@ -21,6 +22,8 @@ import CreateProductContainer from "../containers/CreateProductContainer"
 import EditProductContainer from "../containers/EditProductContainer"
 import EditCategoryContainer from "../containers/EditCategoryContainer"
 import EditMenuContainer from "../containers/EditMenuContainer"
+
+import MenuContainerCliente from "../containers/MenuClienteContainer";
 
 const mapStateToProps = state => {
   return {
@@ -44,23 +47,13 @@ class Main extends React.Component {
     });
   }
 
-  // componentDidUpdate(prevProps) {
-  //   console.log(prevProps)
-  //   if (this.props.userLogin !== prevProps.userLogin) {
-  //     this.setState({
-  //       isAuth: "Logged"
-  //     })
-  //   }
-  // }
-  //Object.keys(this.props.userLogin).length === 0 ? <Redirect to="/" />
-
   render() {
     return this.state.firebaseInitialized !== false ? (
       <div>
         <Switch>
           <Route exact path="/" component={LoginContainer}></Route>
           <Route path="/dashboard" component={TablesContainer}></Route>
-          <Route path="/tables" component={ClientViewContainer}></Route>
+
           <Route path="/orders" component={OrdersContainer}></Route>
           <Route path="/configuration" component={ConfigurationsContainer}></Route>
           <Route path="/recover" component={RecoverPassword}></Route>
@@ -76,8 +69,23 @@ class Main extends React.Component {
           <Route exact path="/menu" component={MenuContainer}></Route>
           <Route exact path="/menu/:id/:categoryId" component={ProductsContainer}></Route>
           <Route path="/menu/:id" component={MenuIndividualContainer}></Route>
+          <Route
+            path="/configuration"
+            component={ConfigurationsContainer}
+          ></Route>
+          <Route
+            path="/:idRestaurant/tables"
+            component={ClientLoginContainer}
+          ></Route>
+          <Route
+            path="/:idRestaurant/:idTable/menu"
+            component={MenuContainerCliente}
+          ></Route>
+          <Route
+            path="/:idRestaurant/:idTable"
+            component={ClientViewContainer}
+          ></Route>
         </Switch>
-        <FooterContainer />
       </div>
     ) : (
         <div

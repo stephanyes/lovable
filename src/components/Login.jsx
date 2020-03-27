@@ -71,13 +71,6 @@ export default ({ handlerSubmit, handlerChange, buttonClick }) => {
                 className="form-control"
                 id="exampleInputPassword1"
                 onChange={handlerChange}
-                // style={
-                //   state.error && !state.password
-                //     ? {
-                //         borderColor: "red"
-                //       }
-                //     : null
-                // }
               />
             </div>
             <button
@@ -92,7 +85,14 @@ export default ({ handlerSubmit, handlerChange, buttonClick }) => {
               Log in
             </button>
 
-            <Link to="/recover">Forgot password?</Link>
+            <Link
+              style={{
+                marginLeft: "20px"
+              }}
+              to="/recover"
+            >
+              Forgot password?
+            </Link>
             {/* {state.error ? (
               <div>
                 <br />

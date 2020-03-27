@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import firebase from "../services/firebase"
+import firebase from "../services/firebase";
 
 export default ({ buttonClick }) => {
   return (
@@ -18,6 +18,17 @@ export default ({ buttonClick }) => {
           // backgroundColor: "#999999",
           // marginLeft: "250px",
           // flexWrap: "wrap"
+
+            // height: "100%",
+            // minHeight: "100%",
+            // display: "flex",
+            // flexDirection: "column",
+            // textAlign: "center",
+            // color: "white",
+            // fontFamily: "sans-serif",
+            // fontSize: "36px",
+            // padding: "20px", 
+            // justifyContent: "center"
         }}
       >
         {/* <Link className="navbar-brand" to="/">
@@ -27,7 +38,7 @@ export default ({ buttonClick }) => {
             alt=""
           />
         </Link> */}
-
+  
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav mr-auto">
             <li className="nav-item active"></li>
@@ -45,7 +56,17 @@ export default ({ buttonClick }) => {
             />
             <ul className="navbar-nav mr-auto">
               <li className="nav-item active">
-                <button onClick={(e) => buttonClick(e)}>Log out</button>
+                <button
+                  type="button"
+                  className="btn btn-primary"
+                  style={{
+                    backgroundColor: "#ff2068",
+                    borderColor: "#ff2068"
+                  }}
+                  onClick={e => buttonClick(e)}
+                >
+                  Log out
+                </button>
               </li>
             </ul>
           </form>

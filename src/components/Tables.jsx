@@ -1,9 +1,7 @@
 import React from "react";
-import { Link } from "react-router-dom";
-// let random1 = Math.floor(Math.random() * 10) //va del 0 - 9
-export default ({ tables }) => {
-  // console.log(products);
 
+// let random1 = Math.floor(Math.random() * 10) //va del 0 - 9
+export default ({ tables, buttonClick }) => {
   return (
     <div
       style={{
@@ -15,17 +13,18 @@ export default ({ tables }) => {
       <div
         className="container"
         style={{
-          padding: "20px"
+          marginLeft: "20px",
+          paddingTop: "20px"
         }}
       >
-        <h1 className="font-weight-bold">Tables</h1>
+        <h1 className="font-weight-bold">Dashboard</h1>
       </div>
 
       <div className="row row-cols-1 row-cols-md-3">
         {tables.length ? (
           tables.map((table, index) => (
             <div
-              key={index}
+              key={table.id}
               className="card mb-3"
               style={{
                 width: "300px",
@@ -39,19 +38,53 @@ export default ({ tables }) => {
             >
               <div className="row no-gutters">
                 <div className="col-md-5">
-                  {table.waiter ? (
+                  {table.state === "free" ? (
                     <img
-                      src="https://insideone.s3-sa-east-1.amazonaws.com/services-table-waiter.png"
+                      src="https://insideone.s3-sa-east-1.amazonaws.com/services-table-free.png"
                       className="card-img"
                       alt="..."
                     />
                   ) : (
-                      <img
-                        src="https://insideone.s3-sa-east-1.amazonaws.com/services-table-busy.png"
-                        className="card-img"
-                        alt="..."
-                      />
-                    )}
+                    <div>
+                      {/* //aca tengo que cambiar el condicional a que si la orden
+                      esta en 'pending' */}
+                      {table.orderActual !== "" ? (
+                        <img
+                          src="https://insideone.s3-sa-east-1.amazonaws.com/services-table-order.png"
+                          className="card-img"
+                          alt="..."
+                        />
+                      ) : (
+                        <div>
+                          {table.waiter == true ? (
+                            <img
+                              src="https://insideone.s3-sa-east-1.amazonaws.com/services-table-waiter.png"
+                              className="card-img"
+                              alt="..."
+                            />
+                          ) : (
+                            <div>
+                              {table.pay == true ? (
+                                <img
+                                  src="https://insideone.s3-sa-east-1.amazonaws.com/services-table-pay.png"
+                                  className="card-img"
+                                  alt="..."
+                                />
+                              ) : (
+                                <div>
+                                  <img
+                                    src="https://insideone.s3-sa-east-1.amazonaws.com/services-table-busy.png"
+                                    className="card-img"
+                                    alt="..."
+                                  />
+                                </div>
+                              )}
+                            </div>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  )}
                 </div>
                 <div className="col-md-7">
                   <div
@@ -61,9 +94,9 @@ export default ({ tables }) => {
                     }}
                   >
                     <h6 className="font-weight-normal">
-                      {table.state === "free" ? "Libre" : "Ocupada"}
+                      {table.state === "free" ? "Free" : "Busy"}
                     </h6>
-                    <h3 className="font-weight-bold">Mesa {table.number}</h3>
+                    <h3 className="font-weight-bold">Table {table.number}</h3>
 
                     <p
                       className="font-weight-normal"
@@ -71,16 +104,55 @@ export default ({ tables }) => {
                         margin: "0px"
                       }}
                     >
-                      <small className="text-muted">
-                        {table.waiter ? "Mozo" : ""}
+                      <small class="text-muted">
+                        {table.state === "free" ? (
+                          ""
+                        ) : (
+                          <div>
+                            {table.orderActual !== "" ? (
+                              "Order Pending"
+                            ) : (
+                              <div>
+                                {table.waiter == true ? (
+                                  "Waiter"
+                                ) : (
+                                  <div>
+                                    {table.pay == true ? "Payment" : ""}
+                                  </div>
+                                )}
+                              </div>
+                            )}
+                          </div>
+                        )}
                       </small>
+
+                      {table.state === "free" ? (
+                        <button
+                          type="button"
+                          className="btn btn-primary"
+                          style={{
+                            backgroundColor: "#ff2068",
+                            borderColor: "#ff2068"
+                            // height: "30%"
+                          }}
+                          onClick={e => buttonClick(e, table.id)}
+                        >
+                          New code
+                        </button>
+                      ) : (
+                        <small class="text-muted">
+                          Code {table.secretCode}
+                        </small>
+                      )}
                     </p>
                   </div>
                 </div>
               </div>
             </div>
           ))
-        ) : null}
+        ) : (
+          <h1> </h1>
+        )}
       </div>
     </div>
   );
