@@ -1,7 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default ({ handleClick, tables }) => {
+export default ({
+  handleClick,
+  tables,
+  propsOfRestaurantId,
+  propsOfTabletId
+}) => {
   return (
     <div
       style={{
@@ -36,7 +41,7 @@ export default ({ handleClick, tables }) => {
         }}
       >
         <Link
-          to="/menu"
+          to={`/${propsOfRestaurantId}/${propsOfTabletId}/menu`}
           style={{
             display: "flex",
             justifyContent: "center",

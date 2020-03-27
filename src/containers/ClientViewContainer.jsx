@@ -38,19 +38,14 @@ class ClientViewContainer extends React.Component {
   }
 
   handleClick() {
-    console.log(this.state.tables[0].waiter);
     let option = DB.collection("restaurants").doc(
       "QtLVkjHLnXZPDj4pbWKw/tables/CHvrMSpQE65dGNyCH2tM"
     );
 
     if (this.state.tables[0].waiter === false) {
-      option.update({ waiter: true }).then(option => {
-        console.log("Mozo true");
-      });
+      option.update({ waiter: true }).then(option => {});
     } else {
-      option.update({ waiter: false }).then(option => {
-        console.log("Mozo false");
-      });
+      option.update({ waiter: false }).then(option => {});
     }
   }
 
@@ -58,7 +53,12 @@ class ClientViewContainer extends React.Component {
     console.log(this.props.userLogin, "sakjdlkaHola");
     return (
       <div>
-        <ClientView handleClick={this.handleClick} tables={this.state.tables} />
+        <ClientView
+          handleClick={this.handleClick}
+          tables={this.state.tables}
+          propsOfRestaurantId={this.props.match.params.idRestaurant}
+          propsOfTabletId={this.props.match.params.idTable}
+        />
       </div>
     );
   }
