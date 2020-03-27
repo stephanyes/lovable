@@ -35,23 +35,13 @@ class Main extends React.Component {
     });
   }
 
-  // componentDidUpdate(prevProps) {
-  //   console.log(prevProps)
-  //   if (this.props.userLogin !== prevProps.userLogin) {
-  //     this.setState({
-  //       isAuth: "Logged"
-  //     })
-  //   }
-  // }
-  //Object.keys(this.props.userLogin).length === 0 ? <Redirect to="/" />
-
   render() {
     return this.state.firebaseInitialized !== false ? (
       <div>
         <Switch>
           <Route exact path="/" component={LoginContainer}></Route>
           <Route path="/dashboard" component={TablesContainer}></Route>
-          <Route path="/tables/:id" component={ClientViewContainer}></Route>
+
           <Route path="/orders" component={OrdersContainer}></Route>
           <Route path="/menu" component={MenuContainer}></Route>
           <Route
@@ -62,6 +52,10 @@ class Main extends React.Component {
           <Route
             path="/:idRestaurant/tables"
             component={ClientLoginContainer}
+          ></Route>
+          <Route
+            path="/:idRestaurant/:idTable"
+            component={ClientViewContainer}
           ></Route>
         </Switch>
       </div>

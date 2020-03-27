@@ -46,6 +46,8 @@ export default ({ tables, buttonClick }) => {
                     />
                   ) : (
                     <div>
+                      {/* //aca tengo que cambiar el condicional a que si la orden
+                      esta en 'pending' */}
                       {table.orderActual !== "" ? (
                         <img
                           src="https://insideone.s3-sa-east-1.amazonaws.com/services-table-order.png"
@@ -103,14 +105,22 @@ export default ({ tables, buttonClick }) => {
                       }}
                     >
                       <small class="text-muted">
-                        {table.orderActual !== "" ? (
-                          "Order Pending"
+                        {table.state === "free" ? (
+                          ""
                         ) : (
                           <div>
-                            {table.waiter == true ? (
-                              "Waiter"
+                            {table.orderActual !== "" ? (
+                              "Order Pending"
                             ) : (
-                              <div>{table.pay == true ? "Payment" : ""}</div>
+                              <div>
+                                {table.waiter == true ? (
+                                  "Waiter"
+                                ) : (
+                                  <div>
+                                    {table.pay == true ? "Payment" : ""}
+                                  </div>
+                                )}
+                              </div>
                             )}
                           </div>
                         )}

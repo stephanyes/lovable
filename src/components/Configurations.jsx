@@ -32,7 +32,7 @@ export default ({ restaurantId }) => {
         </h3>
         {/* reemplazar el ID del restaurante por el del Store de Redux! */}
 
-        <QRCode size="256" includeMargin="true" value={restaurantURL} />
+        <QRCode size="128" includeMargin="true" value={restaurantURL} />
       </div>
     </div>
   );
