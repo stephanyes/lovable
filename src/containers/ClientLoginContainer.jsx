@@ -3,25 +3,20 @@ import { withRouter } from "react-router-dom";
 import firebase from "../services/firebase";
 import { Route, Redirect, Switch, Link } from "react-router-dom";
 import { connect } from "react-redux";
-//import { loginUser } from "../store/actions/loginAction";
 import ClientLogin from "../components/ClientLogin";
-
+import {
+  saveClient,
+  saveTable,
+  saveRestaurant
+} from "../store/actions/loginClientAction";
 const DB = firebase.db;
 
-let docs = DB.collection("restaurants")
-  .doc("QtLVkjHLnXZPDj4pbWKw")
-  .collection("tables");
-
-const mapStateToProps = (state, ownprops) => {
-  //     return {
-  //       userLogin: state.user.loginUser
-  //     };
-};
-
 const mapDispatchToProps = (dispatch, state) => {
-  //     return {
-  //       loggeado: user => dispatch(loginUser(user))
-  //     };
+  return {
+    saveClientID: client => dispatch(saveClient(client)),
+    saveTableID: table => dispatch(saveTable(table)),
+    saveRestaurantID: restaurant => dispatch(saveRestaurant(restaurant))
+  };
 };
 
 class ClientLoginContainer extends React.Component {
@@ -29,25 +24,10 @@ class ClientLoginContainer extends React.Component {
     super(props);
     this.state = {
       numberOfTable: "",
-      code: "",
-      orderActual: 0
+      code: ""
     };
     this.handlerChange = this.handlerChange.bind(this);
     this.handlerSubmit = this.handlerSubmit.bind(this);
-  }
-
-  componentDidMount() {
-    // docs.onSnapshot(docSnapshot => {
-    //   let tables = [];
-    //   docSnapshot.forEach(doc => {
-    //     tables.push(doc.data());
-    //     this.setState({ tables });
-    //   });
-    // });
-  }
-
-  componentWillUnmount() {
-    // docs.onSnapshot(() => {});
   }
 
   handlerChange(e) {
@@ -58,93 +38,85 @@ class ClientLoginContainer extends React.Component {
     });
   }
 
-  //   algo.get().then(algo => {
-  //     console.log(algo);
-  //     algo.forEach(doc => {
-  //       tables.push(doc.data());
-  //       this.setState({ tables });
-  //     });
-  //   })
-
-  asignNewClient() {}
-
   handlerSubmit(e) {
     e.preventDefault();
-    docs.get().then(result => {
+    //Guardamos en la variable el RestaurantId que viene por URL
+    let RestaurantId = this.props.match.params.idRestaurant;
+    //Aca lo envia el RestaurantId al Store
+    this.props.saveRestaurantID(RestaurantId);
+    //Aca crea la variable para buscar todas las mesas y busca la ingresada
+    let TablesRestaurant = DB.collection("restaurants")
+      .doc(RestaurantId)
+      .collection("tables");
+    TablesRestaurant.get().then(result => {
       result.forEach(doc => {
+        //Aca comparamos si el numero de mesa y el codigo secreto son correctos.
         if (
           doc.data().number == this.state.numberOfTable &&
           doc.data().secretCode == this.state.code
         ) {
-          //En esta parte le sumamos 1 al indicador total de clientes en la info. del restaurante.
-          //REEMPLAZAR esta comparacion por el numero de restaurante que trae Redux del Store!
-          DB.collection("restaurants")
-            .doc("QtLVkjHLnXZPDj4pbWKw")
-            .get()
-            .then(result => {
-              let res = result.data();
-              let pasaNumero = res.orderTotalNumber;
-              let doc2 = DB.collection("restaurants").doc(
-                "QtLVkjHLnXZPDj4pbWKw"
-              );
-              doc2.update({ orderTotalNumber: pasaNumero + 1 });
+          //Aca envia el TableId actual al Store
+          this.props.saveTableID(doc.id);
+          //Aca asigna el TableId a una variable para usarla despues.
+          let TableIdActual = doc.id;
 
-              console.log("doc es", doc);
-              //doc.update({ clientActual: pasaNumero - 1 });
+          ////
+          ////
+          //// 1. ELIMINAR LAS SUBIDAS AL STORE INDIVIDUALES.
+          //// 2. CAMBIAR EL TIPO DE SUBIDA A UN SOLO OBJETO INDIVIDUAL.
+          //// 3. CAMBIAR REDUCER Y TODO ESO!
+          //// 4. Ir al Store. Preguntar en cada objeto si las propiedad Table y Restaurant son iguales a las actuales.
+          ////
+          ////(REMPLAZAR POR IF)
+          //// SI NO ENCUENTRA NINGUN OBJETO CON LA TABLE Y EL RESTAURANT HACE EL IF.
+          ////
+          ////
+          ////
+          ////
 
-              //DEBERIAMOS REEMPLAZAR EL PATH ENTERO POR UNA VARIABLE QUE LO CONTENGO Y QUE NO SEA HARDCODE!
-              docs.get().then(result => {
-                result.forEach(doc => {
-                  if (doc.data().number == this.state.numberOfTable) {
-                    let doc3 = DB.collection("restaurants")
-                      .doc("QtLVkjHLnXZPDj4pbWKw")
-                      .collection("tables")
-                      .doc("EFqFXqnq7N1eZ3hFHzdO");
-
-                    //     console.log("doc.ref es", doc.ref.path);
-                    //  let doc3 = DB.collection(toString(doc.ref.path));
-
-                    doc3.update({ clientActual: pasaNumero });
-                  }
-                });
+          //En esta parte, entramos al restaurante actual y buscamos el ultimo numero preparado para cliente. Le asignamos ese numero a la mesa actual. Y le sumamos 1 a ese indicador para dejarlo listo para el proximo cliente.
+          let RestaurantDoc = DB.collection("restaurants").doc(RestaurantId);
+          RestaurantDoc.get().then(result => {
+            let res = result.data();
+            //Esta variable toma el valor preparado para el proximo cliente
+            let clientTotal = res.clientTotalNumber;
+            //Aca enviamos el Client ID nuevo al Store de Redux.
+            this.props.saveClientID(clientTotal);
+            //Aca asignamos ese numero de cliente actual a la mesa actual.
+            RestaurantDoc.update({ clientTotalNumber: clientTotal + 1 });
+            //Aca buscamos otra vez todas las mesas con el numero de mesa ingresado en el form y le asignamos el numero de cliente.
+            TablesRestaurant.get().then(result => {
+              result.forEach(doc => {
+                if (doc.data().number == this.state.numberOfTable) {
+                  //En esta variable creamos la ruta para actualizar la mesa actual.
+                  let TableActual = DB.collection("restaurants")
+                    .doc(RestaurantId)
+                    .collection("tables")
+                    .doc(TableIdActual);
+                  //Actualizamos en la mesa actual el numero de cliente.
+                  TableActual.update({ clientActual: clientTotal });
+                }
               });
-
-              //data().clientactual
-
-              //     result3.forEach(doc => {
-              //       //  if (doc.data().number == this.state.numberOfTable) {
-              //       console.log("Llegue re bien!");
-              //       //}
-              //     });
-              //   });
             });
 
-          this.props.history.push(`/tables/${doc.id}`);
+            ///
+            ///SI ENTRO EN EL IF (ES DECIR QUE NO HAY CLIENTE ACTUAL), DISPATCHEAR EL OBJETO CON LOS 3 PARAMETROS
+            ///
+
+            /////
+            /////
+            /////
+            /////CERRAR EL IF DE ARRIBA
+            /////
+            /////
+            /////
+          });
+          //Le agrega a la URL la mesa ingresada si es correcto.
+          this.props.history.push(`/${RestaurantId}/${doc.id}`);
         }
-        // tables.push(doc.data());
-        // this.setState({ tables });
       });
     });
   }
-
-  //   handlerSubmit(e) {
-  //     e.preventDefault();
-  //     const auth = firebase.auth;
-  //     const promise = auth.signInWithEmailAndPassword(
-  //         this.state.email,
-  //         this.state.password
-  //     );
-  //     promise
-  //       .then(user => {
-  //         DB_users.doc(user.user.uid)
-  //           .get()
-  //           .then(rest => {
-  //             this.props.loggeado(rest.data());
-  //             this.props.history.push("/dashboard");
-  //           });
-  //       })
-  //       .catch(e => MySwal.fire(e.message));
-  //   }
 
   render() {
     return (
@@ -160,5 +132,5 @@ class ClientLoginContainer extends React.Component {
 }
 
 export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(ClientLoginContainer)
+  connect(null, mapDispatchToProps)(ClientLoginContainer)
 );
