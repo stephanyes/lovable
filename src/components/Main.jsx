@@ -54,6 +54,10 @@ class Main extends React.Component {
             component={ClientLoginContainer}
           ></Route>
           <Route
+            path="/:idRestaurant/:idTable/menu"
+            component={MenuContainer}
+          ></Route>
+          <Route
             path="/:idRestaurant/:idTable"
             component={ClientViewContainer}
           ></Route>
