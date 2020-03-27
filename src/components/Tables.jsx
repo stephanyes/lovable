@@ -38,18 +38,50 @@ export default ({ tables, buttonClick }) => {
             >
               <div className="row no-gutters">
                 <div className="col-md-5">
-                  {table.waiter ? (
+                  {table.state === "free" ? (
                     <img
-                      src="https://insideone.s3-sa-east-1.amazonaws.com/services-table-waiter.png"
+                      src="https://insideone.s3-sa-east-1.amazonaws.com/services-table-free.png"
                       className="card-img"
                       alt="..."
                     />
                   ) : (
-                    <img
-                      src="https://insideone.s3-sa-east-1.amazonaws.com/services-table-busy.png"
-                      className="card-img"
-                      alt="..."
-                    />
+                    <div>
+                      {table.orderActual !== "" ? (
+                        <img
+                          src="https://insideone.s3-sa-east-1.amazonaws.com/services-table-order.png"
+                          className="card-img"
+                          alt="..."
+                        />
+                      ) : (
+                        <div>
+                          {table.waiter == true ? (
+                            <img
+                              src="https://insideone.s3-sa-east-1.amazonaws.com/services-table-waiter.png"
+                              className="card-img"
+                              alt="..."
+                            />
+                          ) : (
+                            <div>
+                              {table.pay == true ? (
+                                <img
+                                  src="https://insideone.s3-sa-east-1.amazonaws.com/services-table-pay.png"
+                                  className="card-img"
+                                  alt="..."
+                                />
+                              ) : (
+                                <div>
+                                  <img
+                                    src="https://insideone.s3-sa-east-1.amazonaws.com/services-table-busy.png"
+                                    className="card-img"
+                                    alt="..."
+                                  />
+                                </div>
+                              )}
+                            </div>
+                          )}
+                        </div>
+                      )}
+                    </div>
                   )}
                 </div>
                 <div className="col-md-7">
@@ -71,7 +103,17 @@ export default ({ tables, buttonClick }) => {
                       }}
                     >
                       <small class="text-muted">
-                        {table.waiter ? "Waiter" : ""}
+                        {table.orderActual !== "" ? (
+                          "Order Pending"
+                        ) : (
+                          <div>
+                            {table.waiter == true ? (
+                              "Waiter"
+                            ) : (
+                              <div>{table.pay == true ? "Payment" : ""}</div>
+                            )}
+                          </div>
+                        )}
                       </small>
 
                       {table.state === "free" ? (

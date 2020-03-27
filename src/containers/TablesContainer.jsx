@@ -34,12 +34,13 @@ class TablesContainer extends React.Component {
 
       docSnapshot.forEach(doc => {
         tables.push({
-          nameOfUser: doc.data().nameOfUser,
+          clientActual: doc.data().clientActual,
           number: doc.data().number,
           orderActual: doc.data().orderActual,
           secretCode: doc.data().secretCode,
           state: doc.data().state,
           waiter: doc.data().waiter,
+          pay: doc.data().pay,
           id: doc.id
         });
         this.setState({ tables });
