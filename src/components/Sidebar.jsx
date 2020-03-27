@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default ({}) => {
+export default ({ }) => {
   return (
     <div className="wrapper">
       <nav
@@ -52,6 +52,18 @@ export default ({}) => {
               to="/orders"
             >
               Orders
+            </Link>
+          </li>
+          <li className="nav-item active">
+            <Link
+              className="nav-link"
+              style={{
+                padding: "20px",
+                paddingLeft: "20px"
+              }}
+              to="/menu"
+            >
+              Menu
             </Link>
           </li>
           <li className="nav-item active">

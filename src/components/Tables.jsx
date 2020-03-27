@@ -20,9 +20,9 @@ export default ({ tables, buttonClick }) => {
         <h1 className="font-weight-bold">Dashboard</h1>
       </div>
 
-      <div class="row row-cols-1 row-cols-md-3">
+      <div className="row row-cols-1 row-cols-md-3">
         {tables.length ? (
-          tables.map(table => (
+          tables.map((table, index) => (
             <div
               key={table.id}
               className="card mb-3"
