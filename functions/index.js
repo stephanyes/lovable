@@ -15,6 +15,10 @@ app.use("/api/login", (req, res) => {
   console.log("click lick");
 });
 
+app.get('/api/testeando', (req, res) => {
+  console.log("segui!")
+  res.send("OKOKOK")
+})
 
 // // Create and Deploy Your First Cloud Functions
 // // https://firebase.google.com/docs/functions/write-firebase-functions

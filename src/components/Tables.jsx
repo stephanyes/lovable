@@ -21,11 +21,11 @@ export default ({ tables }) => {
         <h1 className="font-weight-bold">Tables</h1>
       </div>
 
-      <div class="row row-cols-1 row-cols-md-3">
+      <div className="row row-cols-1 row-cols-md-3">
         {tables.length ? (
-          tables.map(table => (
+          tables.map((table, index) => (
             <div
-              //  key={table.id}
+              key={index}
               className="card mb-3"
               style={{
                 width: "300px",
@@ -46,12 +46,12 @@ export default ({ tables }) => {
                       alt="..."
                     />
                   ) : (
-                    <img
-                      src="https://insideone.s3-sa-east-1.amazonaws.com/services-table-busy.png"
-                      className="card-img"
-                      alt="..."
-                    />
-                  )}
+                      <img
+                        src="https://insideone.s3-sa-east-1.amazonaws.com/services-table-busy.png"
+                        className="card-img"
+                        alt="..."
+                      />
+                    )}
                 </div>
                 <div className="col-md-7">
                   <div
@@ -71,7 +71,7 @@ export default ({ tables }) => {
                         margin: "0px"
                       }}
                     >
-                      <small class="text-muted">
+                      <small className="text-muted">
                         {table.waiter ? "Mozo" : ""}
                       </small>
                     </p>
@@ -80,9 +80,7 @@ export default ({ tables }) => {
               </div>
             </div>
           ))
-        ) : (
-          <h1></h1>
-        )}
+        ) : null}
       </div>
     </div>
   );

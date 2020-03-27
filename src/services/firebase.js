@@ -1,6 +1,10 @@
 import app from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+
+const MySwal = withReactContent(Swal);
 
 const firebaseConfig = {
   apiKey: "AIzaSyDm_K3WydbYT6OIJ0Saz0dE_dC66SX2M48",
@@ -40,6 +44,15 @@ class Firebase {
     return this.auth.currentUser.displayName
   }
 
+  succesfullMsg(param) {
+    MySwal.fire({
+      position: 'center',
+      icon: 'success',
+      title: param,
+      showConfirmButton: false,
+      timer: 1500
+    })
+  }
 
 }
 
