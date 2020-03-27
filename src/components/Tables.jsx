@@ -27,8 +27,8 @@ export default ({ tables, buttonClick }) => {
               key={table.id}
               className="card mb-3"
               style={{
-                width: "475px",
-                height: "200px",
+                width: "300px",
+                height: "125px",
                 margin: "30px",
                 padding: "0px",
                 borderStyle: "none",
@@ -38,18 +38,50 @@ export default ({ tables, buttonClick }) => {
             >
               <div className="row no-gutters">
                 <div className="col-md-5">
-                  {table.waiter ? (
+                  {table.state === "free" ? (
                     <img
-                      src="https://insideone.s3-sa-east-1.amazonaws.com/services-table-waiter.png"
+                      src="https://insideone.s3-sa-east-1.amazonaws.com/services-table-free.png"
                       className="card-img"
                       alt="..."
                     />
                   ) : (
-                    <img
-                      src="https://insideone.s3-sa-east-1.amazonaws.com/services-table-busy.png"
-                      className="card-img"
-                      alt="..."
-                    />
+                    <div>
+                      {table.orderActual !== "" ? (
+                        <img
+                          src="https://insideone.s3-sa-east-1.amazonaws.com/services-table-order.png"
+                          className="card-img"
+                          alt="..."
+                        />
+                      ) : (
+                        <div>
+                          {table.waiter == true ? (
+                            <img
+                              src="https://insideone.s3-sa-east-1.amazonaws.com/services-table-waiter.png"
+                              className="card-img"
+                              alt="..."
+                            />
+                          ) : (
+                            <div>
+                              {table.pay == true ? (
+                                <img
+                                  src="https://insideone.s3-sa-east-1.amazonaws.com/services-table-pay.png"
+                                  className="card-img"
+                                  alt="..."
+                                />
+                              ) : (
+                                <div>
+                                  <img
+                                    src="https://insideone.s3-sa-east-1.amazonaws.com/services-table-busy.png"
+                                    className="card-img"
+                                    alt="..."
+                                  />
+                                </div>
+                              )}
+                            </div>
+                          )}
+                        </div>
+                      )}
+                    </div>
                   )}
                 </div>
                 <div className="col-md-7">
@@ -64,90 +96,45 @@ export default ({ tables, buttonClick }) => {
                     </h6>
                     <h3 className="font-weight-bold">Table {table.number}</h3>
 
-                    <hr></hr>
-                   
-                    {table.state !== "busy" ?
-                      (<div className="row">
-                        <div className="col-md-6">
-                          <small class="text-muted">
-                            {table.waiter ? "Waiter" : ""}
-                          </small>
-                        </div>
-                        <div className="col-md-6">
-                          {table.state === "free" ? (
-                            <button
-                              type="button"
-                              className="btn btn-sm"
-                              style={{
-                                backgroundColor: "#ff2068",
-                                borderColor: "#ff2068",
-                                color: "white",
-                                marginLeft: "25px"
-                              }}
-                              onClick={e => buttonClick(e, table.id)}
-                            >
-                              New code
-                            </button>
-                          ) : (
-                            <small class="text-muted">
-                              <strong>Code: {table.secretCode}</strong>
-                            </small>
-                          )} 
-                        </div>
-                      </div>)
-                    :
-                    (<div className="row">
-                        <div className="col-md-3">
-                          <small class="text-muted">
-                            {table.waiter ? "Waiter" : ""}
-                          </small>
-                        </div>
-                        <div className="col-md-5">
-                          {table.state === "free" ? (
-                            <button
-                              type="button"
-                              className="btn btn-sm"
-                              style={{
-                                backgroundColor: "#ff2068",
-                                borderColor: "#ff2068",
-                                color: "white",
-                                marginRight: "2px",
-                              }}
-                              onClick={e => buttonClick(e, table.id)}
-                            >
-                              New code
-                            </button>
-                          ) : (
-                            <small className="text-muted"
-                            style={{
-                              justifyItems: "center"
-                            }}>
-                              <strong>Code: {table.secretCode}</strong>
-                            </small>
-                          )} 
-                        </div>
+                    <p
+                      className="font-weight-normal"
+                      style={{
+                        margin: "0px"
+                      }}
+                    >
+                      <small class="text-muted">
+                        {table.orderActual !== "" ? (
+                          "Order Pending"
+                        ) : (
+                          <div>
+                            {table.waiter == true ? (
+                              "Waiter"
+                            ) : (
+                              <div>{table.pay == true ? "Payment" : ""}</div>
+                            )}
+                          </div>
+                        )}
+                      </small>
 
-                        <div className="col-md-4">
-                          {table.state === "busy" ? (
-                            <button
-                              type="button"
-                              className="btn btn-sm"
-                              style={{
-                                backgroundColor: "#ff2068",
-                                borderColor: "#ff2068",
-                                color: "white",
-                                marginRight: "10px"
-                              }}
-                              // onClick={e => buttonClick(e, table.id)}
-                            >
-                              Details
-                            </button>
-                          ) : (
-                            null
-                          )} 
-                        </div>
-                      </div>)
-                  }
+                      {table.state === "free" ? (
+                        <button
+                          type="button"
+                          className="btn btn-primary"
+                          style={{
+                            backgroundColor: "#ff2068",
+                            borderColor: "#ff2068"
+                            // height: "30%"
+                          }}
+                          onClick={e => buttonClick(e, table.id)}
+                        >
+                          New code
+                        </button>
+                      ) : (
+                        <small class="text-muted">
+                          Code {table.secretCode}
+                        </small>
+                      )}
+                    </p>
                   </div>
                 </div>
               </div>
