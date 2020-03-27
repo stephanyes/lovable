@@ -31,10 +31,11 @@ export default ({}) => {
           </li> */}
           <li>
             <Link
-              className="nav-link"
+              className="nav-link active"
               style={{
                 padding: "20px",
-                paddingLeft: "20px"
+                paddingLeft: "20px",
+                
               }}
               to="/dashboard"
             >
@@ -44,7 +45,7 @@ export default ({}) => {
 
           <li className="nav-item active">
             <Link
-              className="nav-link"
+              className="nav-link active"
               style={{
                 padding: "20px",
                 paddingLeft: "20px"
