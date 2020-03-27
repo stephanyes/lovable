@@ -18,6 +18,17 @@ export default ({ buttonClick }) => {
           // backgroundColor: "#999999",
           // marginLeft: "250px",
           // flexWrap: "wrap"
+
+            // height: "100%",
+            // minHeight: "100%",
+            // display: "flex",
+            // flexDirection: "column",
+            // textAlign: "center",
+            // color: "white",
+            // fontFamily: "sans-serif",
+            // fontSize: "36px",
+            // padding: "20px", 
+            // justifyContent: "center"
         }}
       >
         {/* <Link className="navbar-brand" to="/">
@@ -27,7 +38,7 @@ export default ({ buttonClick }) => {
             alt=""
           />
         </Link> */}
-
+  
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav mr-auto">
             <li className="nav-item active"></li>
