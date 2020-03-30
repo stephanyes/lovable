@@ -1,7 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default ({ handlerSubmit, handlerChange, handleClick, tables }) => {
+export default ({ handlerSubmit, handlerChange, handleClick, tables, dataClient }) => {
+  console.log(dataClient)
   return (
     <div
       style={{

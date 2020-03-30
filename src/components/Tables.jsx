@@ -20,20 +20,22 @@ export default ({ tables, buttonClick }) => {
         <h1 className="font-weight-bold">Dashboard</h1>
       </div>
 
-      <div className="row row-cols-1 row-cols-md-3">
+      <div class="row row-cols-1 row-cols-md-3"
+          style={{margin: "0"}}
+      >
         {tables.length ? (
           tables.map((table, index) => (
             <div
               key={table.id}
-              className="card mb-3"
+              className="card md-3 remark"
               style={{
-                width: "300px",
-                height: "125px",
+                width: "400px",
+                height: "167px",
                 margin: "30px",
                 padding: "0px",
                 borderStyle: "none",
                 boxShadow:
-                  "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"
+                  "0 20px 40px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"
               }}
             >
               <div className="row no-gutters">
