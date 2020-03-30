@@ -24,7 +24,7 @@ export default ({ tables, buttonClick }) => {
           style={{margin: "0"}}
       >
         {tables.length ? (
-          tables.map(table => (
+          tables.map((table, index) => (
             <div
               key={table.id}
               className="card md-3 remark"

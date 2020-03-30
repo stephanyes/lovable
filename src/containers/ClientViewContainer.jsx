@@ -43,18 +43,21 @@ class ClientViewContainer extends React.Component {
     );
 
     if (this.state.tables[0].waiter === false) {
-        option.update({ waiter: true }).then(option => {
-      });
+      option.update({ waiter: true }).then(option => {});
     } else {
-        option.update({ waiter: false }).then(option => {
-      });
+      option.update({ waiter: false }).then(option => {});
     }
   }
 
   render() {
     return (
       <div>
-        <ClientView handleClick={this.handleClick} tables={this.state.tables} />
+        <ClientView
+          handleClick={this.handleClick}
+          tables={this.state.tables}
+          propsOfRestaurantId={this.props.match.params.idRestaurant}
+          propsOfTabletId={this.props.match.params.idTable}
+        />
       </div>
     );
   }

@@ -1,75 +1,99 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import ProductsContainer from "../containers/ProductsContainer";
 
-export default () => {
+export default ({ productos, categoria }) => {
   return (
     <div
       style={{
-        display: "flex",
-        justifyContent: "center"
+        backgroundColor: "#ffffff"
       }}
     >
-      <div className="card mb-3" style={{ maxWidth: "540px;" }}>
-        <div className="row no-gutters">
-          <div className="col-md-4">
-            <img src="..." className="card-img" alt="..." />
-          </div>
-          <div className="col-md-8">
-            <div className="card-body">
-              <h5 className="card-title">Card title</h5>
-              <p className="card-text">
-                This is a wider card with supporting text below as a natural
-                lead-in to additional content. This content is a little bit
-                longer.
-              </p>
-              <p className="card-text">
-                <small className="text-muted">Last updated 3 mins ago</small>
-              </p>
-            </div>
-          </div>
+      <div
+        className="card text-center"
+        style={{
+          borderColor: "#ffffff"
+        }}
+      >
+        <div
+          className="card-body"
+          style={{
+            padding: "20px",
+            paddingBottom: "0px"
+          }}
+        >
+          <h1
+            className="font-weight-bold"
+            style={{
+              padding: "10px",
+              paddingBottom: "0px",
+              marginBottom: "0px"
+            }}
+          >
+            Menu
+          </h1>
         </div>
       </div>
+      <div>
+        {categoria ? (
+          categoria.map(categ => {
+            return (
+              <div>
+                <h3
+                  className="font-weight-bold"
+                  style={{
+                    margin: "20px",
+                    marginTop: "40px"
+                  }}
+                >
+                  {categ.nameCategoria} :
+                </h3>
+                {productos ? (
+                  productos.map(product => {
+                    return (
+                      <div>
+                        {product.nameCateg === categ.nameCategoria ? (
+                          <li
+                            class="list-group-item d-flex justify-content-between align-items-center"
+                            style={{
+                              padding: "12px"
+                            }}
+                          >
+                            <div>
+                              <img
+                                src={product.imageProduct}
+                                className="card-img"
+                                alt="..."
+                                style={{
+                                  width: "60px",
+                                  marginRight: "10px"
+                                }}
+                              />
+                              <span
+                                style={{
+                                  margin: "20px",
+                                  marginLeft: "0px"
+                                }}
+                              >
+                                {product.name}
+                              </span>
+                            </div>
 
-      <div className="card mb-3" style={{ maxWidth: "540px;" }}>
-        <div className="row no-gutters">
-          <div className="col-md-4">
-            <img src="..." className="card-img" alt="..." />
-          </div>
-          <div className="col-md-8">
-            <div className="card-body">
-              <h5 className="card-title">Card title</h5>
-              <p className="card-text">
-                This is a wider card with supporting text below as a natural
-                lead-in to additional content. This content is a little bit
-                longer.
-              </p>
-              <p className="card-text">
-                <small className="text-muted">Last updated 3 mins ago</small>
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="card mb-3" style={{ maxWidth: "540px;" }}>
-        <div className="row no-gutters">
-          <div className="col-md-4">
-            <img src="..." className="card-img" alt="..." />
-          </div>
-          <div className="col-md-8">
-            <div className="card-body">
-              <h5 className="card-title">Card title</h5>
-              <p className="card-text">
-                This is a wider card with supporting text below as a natural
-                lead-in to additional content. This content is a little bit
-                longer.
-              </p>
-              <p className="card-text">
-                <small className="text-muted">Last updated 3 mins ago</small>
-              </p>
-            </div>
-          </div>
-        </div>
+                            <div>$ {product.price}</div>
+                          </li>
+                        ) : null}
+                      </div>
+                    );
+                  })
+                ) : (
+                  <h1> No hay Productos</h1>
+                )}
+              </div>
+            );
+          })
+        ) : (
+          <h1>---</h1>
+        )}
       </div>
     </div>
   );
