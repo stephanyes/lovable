@@ -1,27 +1,25 @@
 import {
-  SET_ID_CLIENT,
-  SET_ID_TABLE,
-  SET_ID_RESTAURANT
+  SET_LOGIN_CLIENT,
 } from "../reducers/constant";
 
-const addIdClient = client => ({
-  type: SET_ID_CLIENT,
-  client
+const addLoginClient = clientData => ({
+  type: SET_LOGIN_CLIENT,
+  clientData
 });
 
-const addIdTable = table => ({
-  type: SET_ID_TABLE,
-  table
-});
+// const addIdTable = table => ({
+//   type: SET_ID_TABLE,
+//   table
+// });
 
-const addIdRestaurant = restaurant => ({
-  type: SET_ID_RESTAURANT,
-  restaurant
-});
+// const addIdRestaurant = restaurant => ({
+//   type: SET_ID_RESTAURANT,
+//   restaurant
+// });
 
-export const saveClient = client => dispatch => dispatch(addIdClient(client));
+export const saveLoginClient = client => dispatch => dispatch(addLoginClient(client));
 
-export const saveTable = table => dispatch => dispatch(addIdTable(table));
+// export const saveTable = table => dispatch => dispatch(addIdTable(table));
 
-export const saveRestaurant = restaurant => dispatch =>
-  dispatch(addIdRestaurant(restaurant));
+// export const saveRestaurant = restaurant => dispatch =>
+//   dispatch(addIdRestaurant(restaurant));

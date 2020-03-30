@@ -1,7 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import ProductsContainer from "../containers/ProductsContainer";
 
-export default () => {
+export default ({ productos, categoria }) => {
   return (
     <div
       style={{
@@ -33,136 +34,69 @@ export default () => {
           </h1>
         </div>
       </div>
-      <h3
-        className="font-weight-bold"
-        style={{
-          margin: "20px",
-          marginTop: "40px"
-        }}
-      >
-        Sandwiches
-      </h3>
-      <li
-        class="list-group-item d-flex justify-content-between align-items-center"
-        style={{
-          padding: "12px"
-        }}
-      >
-        <div>
-          <img
-            src="https://insideone.s3-sa-east-1.amazonaws.com/services-table-pay.png"
-            className="card-img"
-            alt="..."
-            style={{
-              width: "60px",
-              marginRight: "10px"
-            }}
-          />
-          <span
-            style={{
-              margin: "20px",
-              marginLeft: "0px"
-            }}
-          >
-            Burger extreme
-          </span>
-        </div>
+      <div>
+        {categoria ? (
+          categoria.map(categ => {
+            return (
+              <div>
+                <h3
+                  className="font-weight-bold"
+                  style={{
+                    margin: "20px",
+                    marginTop: "40px"
+                  }}
+                >
+                  {categ.nameCategoria} :
+                </h3>
+                {productos ? (
+                  productos.map(product => {
+                    return (
+                      <Link
+                        to={`/${product.idRestaurant}/${product.idMenu}/${product.idCategoria}/${product.idProduct}/client`}
+                      >
+                        {product.nameCateg === categ.nameCategoria ? (
+                          <li
+                            class="list-group-item d-flex justify-content-between align-items-center"
+                            style={{
+                              padding: "12px"
+                            }}
+                          >
+                            <div>
+                              <img
+                                src={product.imageProduct}
+                                className="card-img"
+                                alt="..."
+                                style={{
+                                  width: "60px",
+                                  marginRight: "10px"
+                                }}
+                              />
+                              <span
+                                style={{
+                                  margin: "20px",
+                                  marginLeft: "0px"
+                                }}
+                              >
+                                {product.name}
+                              </span>
+                            </div>
 
-        <div>$150</div>
-      </li>
-      <li
-        class="list-group-item d-flex justify-content-between align-items-center"
-        style={{
-          padding: "12px"
-        }}
-      >
-        <div>
-          <img
-            src="https://insideone.s3-sa-east-1.amazonaws.com/services-table-pay.png"
-            className="card-img"
-            alt="..."
-            style={{
-              width: "60px",
-              marginRight: "10px"
-            }}
-          />
-          <span
-            style={{
-              margin: "20px",
-              marginLeft: "0px"
-            }}
-          >
-            Burger extreme
-          </span>
-        </div>
-
-        <div>$150</div>
-      </li>
-      <h3
-        className="font-weight-bold"
-        style={{
-          margin: "20px",
-          marginTop: "40px"
-        }}
-      >
-        Salads
-      </h3>
-      <li
-        class="list-group-item d-flex justify-content-between align-items-center"
-        style={{
-          padding: "12px"
-        }}
-      >
-        <div>
-          <img
-            src="https://insideone.s3-sa-east-1.amazonaws.com/services-table-pay.png"
-            className="card-img"
-            alt="..."
-            style={{
-              width: "60px",
-              marginRight: "10px"
-            }}
-          />
-          <span
-            style={{
-              margin: "20px",
-              marginLeft: "0px"
-            }}
-          >
-            Burger extreme
-          </span>
-        </div>
-
-        <div>$150</div>
-      </li>
-      <li
-        class="list-group-item d-flex justify-content-between align-items-center"
-        style={{
-          padding: "12px"
-        }}
-      >
-        <div>
-          <img
-            src="https://insideone.s3-sa-east-1.amazonaws.com/services-table-pay.png"
-            className="card-img"
-            alt="..."
-            style={{
-              width: "60px",
-              marginRight: "10px"
-            }}
-          />
-          <span
-            style={{
-              margin: "20px",
-              marginLeft: "0px"
-            }}
-          >
-            Burger extreme
-          </span>
-        </div>
-
-        <div>$150</div>
-      </li>
+                            <div>$ {product.price}</div>
+                          </li>
+                        ) : null}
+                      </Link>
+                    );
+                  })
+                ) : (
+                  <h1> No hay Productos</h1>
+                )}
+              </div>
+            );
+          })
+        ) : (
+          <h1>---</h1>
+        )}
+      </div>
     </div>
   );
 };
