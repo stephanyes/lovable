@@ -50,7 +50,6 @@ class ClientViewContainer extends React.Component {
   }
 
   render() {
-    console.log(this.props.userLogin, "sakjdlkaHola");
     return (
       <div>
         <ClientView
