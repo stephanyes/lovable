@@ -1,5 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Carousel from '@brainhubeu/react-carousel';
+import '@brainhubeu/react-carousel/lib/style.css';
 
 export default ({ nombre, categories, menuId, deleteFunc }) => {
     return (
@@ -17,25 +19,45 @@ export default ({ nombre, categories, menuId, deleteFunc }) => {
                 }}
             >
                 <h1 className="font-weight-bold">{nombre}</h1>
-                <Link to={`/menu/${menuId}/createCategory`}>Create Category</Link>
+                <div>
+                    <ul className="navbar-nav mr-auto">
+                        <li className="nav-item active">
+                            <Link to={`/menu/${menuId}/createCategory`}>Create Category</Link>
+                        </li>
 
-                <Link to={`/menu/${menuId}/editMenu`}>Edit Menu</Link>
+                    </ul>
+                </div>
+
                 <hr />
-                {categories ? (
-                    categories.map(individual => (
-                        <div key={individual.categoryId}>
-                            <div>
-                                <h5>{individual.name}</h5>
+                {categories.length ?
+                    (<Carousel
+                        centered
+                        infinite
+                        arrows
+                        slidesPerPage={1}
+                    >
+
+                        {categories.map(individual => (
+                            <div key={individual.categoryId}>
+                                <h5 style={{ textAlign: "center" }}>{individual.name}</h5>
+                                <ul>
+                                    <li>
+                                        <Link to={`/menu/${menuId}/${individual.categoryId}/editCategory`}>Edit Category</Link>
+                                    </li>
+                                    <li>
+                                        <button onClick={e => deleteFunc(e, individual.categoryId)} type="button" className="btn btn-pill btn-danger">Delete Category</button>
+
+                                    </li>
+                                </ul>
                                 <Link to={`/menu/${menuId}/${individual.categoryId}`}>
-                                    <img src={individual.imageCategory} alt="category img"></img>
+                                    <img style={{ width: "auto", height: "auto" }} src={individual.imageCategory} alt="category img"></img>
                                 </Link>
                             </div>
-                            <Link to={`/menu/${menuId}/${individual.categoryId}/editCategory`}>Edit Category</Link>
-                            <button onClick={e => deleteFunc(e, individual.categoryId)} type="button" className="btn btn-pill btn-danger">Delete Category</button>
-                        </div>
-                    ))
-                ) : null}
+                        ))}
 
+                    </Carousel>
+                    )
+                    : null}
             </div>
         </div>
     );
