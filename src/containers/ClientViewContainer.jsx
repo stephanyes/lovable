@@ -2,7 +2,6 @@ import React from "react";
 import firebase from "../services/firebase";
 import { Route, Redirect, Switch, Link } from "react-router-dom";
 import ClientView from "../components/ClientView";
-import Axios from "axios";
 import { connect } from "react-redux";
 const DB = firebase.db;
 let doc = DB.collection("restaurants")

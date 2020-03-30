@@ -10,6 +10,7 @@ import {
   saveRestaurant
 } from "../store/actions/loginClientAction";
 const DB = firebase.db;
+let ClientActualApp;
 
 const mapDispatchToProps = (dispatch, state) => {
   return {
@@ -42,8 +43,6 @@ class ClientLoginContainer extends React.Component {
     e.preventDefault();
     //Guardamos en la variable el RestaurantId que viene por URL
     let RestaurantId = this.props.match.params.idRestaurant;
-    //Aca lo envia el RestaurantId al Store
-    this.props.saveRestaurantID(RestaurantId);
     //Aca crea la variable para buscar todas las mesas y busca la ingresada
     let TablesRestaurant = DB.collection("restaurants")
       .doc(RestaurantId)
@@ -55,62 +54,45 @@ class ClientLoginContainer extends React.Component {
           doc.data().number == this.state.numberOfTable &&
           doc.data().secretCode == this.state.code
         ) {
-          //Aca envia el TableId actual al Store
-          this.props.saveTableID(doc.id);
           //Aca asigna el TableId a una variable para usarla despues.
           let TableIdActual = doc.id;
 
-          ////
-          ////
-          //// 1. ELIMINAR LAS SUBIDAS AL STORE INDIVIDUALES.
-          //// 2. CAMBIAR EL TIPO DE SUBIDA A UN SOLO OBJETO INDIVIDUAL.
-          //// 3. CAMBIAR REDUCER Y TODO ESO!
-          //// 4. Ir al Store. Preguntar en cada objeto si las propiedad Table y Restaurant son iguales a las actuales.
-          ////
-          ////(REMPLAZAR POR IF)
-          //// SI NO ENCUENTRA NINGUN OBJETO CON LA TABLE Y EL RESTAURANT HACE EL IF.
-          ////
-          ////
-          ////
-          ////
-
-          //En esta parte, entramos al restaurante actual y buscamos el ultimo numero preparado para cliente. Le asignamos ese numero a la mesa actual. Y le sumamos 1 a ese indicador para dejarlo listo para el proximo cliente.
-          let RestaurantDoc = DB.collection("restaurants").doc(RestaurantId);
-          RestaurantDoc.get().then(result => {
-            let res = result.data();
-            //Esta variable toma el valor preparado para el proximo cliente
-            let clientTotal = res.clientTotalNumber;
-            //Aca enviamos el Client ID nuevo al Store de Redux.
-            this.props.saveClientID(clientTotal);
-            //Aca asignamos ese numero de cliente actual a la mesa actual.
-            RestaurantDoc.update({ clientTotalNumber: clientTotal + 1 });
-            //Aca buscamos otra vez todas las mesas con el numero de mesa ingresado en el form y le asignamos el numero de cliente.
-            TablesRestaurant.get().then(result => {
-              result.forEach(doc => {
-                if (doc.data().number == this.state.numberOfTable) {
-                  //En esta variable creamos la ruta para actualizar la mesa actual.
-                  let TableActual = DB.collection("restaurants")
-                    .doc(RestaurantId)
-                    .collection("tables")
-                    .doc(TableIdActual);
-                  //Actualizamos en la mesa actual el numero de cliente.
-                  TableActual.update({ clientActual: clientTotal });
-                }
+          // Va a la base de datos y pregunta si en la Table hay numero actual de cliente. Si no hay, crea y lo asigna.
+          // Si ya hay uno asignado, lo que hace es enviar al Store de Redux el client de la DB.
+          if (doc.data().clientActual !== 0) {
+            ClientActualApp = doc.data().clientActual;
+            //Aca lo envia el RestaurantId al Store
+            this.props.saveRestaurantID(RestaurantId);
+            //Aca envia el TableId actual al Store
+            this.props.saveTableID(doc.id);
+            this.props.saveClientID(ClientActualApp);
+          } else {
+            //En esta parte, entramos al restaurante actual y buscamos el ultimo numero preparado para cliente. Le asignamos ese numero a la mesa actual. Y le sumamos 1 a ese indicador para dejarlo listo para el proximo cliente.
+            let RestaurantDoc = DB.collection("restaurants").doc(RestaurantId);
+            RestaurantDoc.get().then(result => {
+              let res = result.data();
+              //Esta variable toma el valor preparado para el proximo cliente
+              let clientTotal = res.clientTotalNumber;
+              //Aca enviamos el Client ID nuevo al Store de Redux.
+              this.props.saveClientID(clientTotal);
+              //Aca asignamos ese numero de cliente actual a la mesa actual.
+              RestaurantDoc.update({ clientTotalNumber: clientTotal + 1 });
+              //Aca buscamos otra vez todas las mesas con el numero de mesa ingresado en el form y le asignamos el numero de cliente.
+              TablesRestaurant.get().then(result => {
+                result.forEach(doc => {
+                  if (doc.data().number == this.state.numberOfTable) {
+                    //En esta variable creamos la ruta para actualizar la mesa actual.
+                    let TableActual = DB.collection("restaurants")
+                      .doc(RestaurantId)
+                      .collection("tables")
+                      .doc(TableIdActual);
+                    //Actualizamos en la mesa actual el numero de cliente.
+                    TableActual.update({ clientActual: clientTotal });
+                  }
+                });
               });
             });
-
-            ///
-            ///SI ENTRO EN EL IF (ES DECIR QUE NO HAY CLIENTE ACTUAL), DISPATCHEAR EL OBJETO CON LOS 3 PARAMETROS
-            ///
-
-            /////
-            /////
-            /////
-            /////CERRAR EL IF DE ARRIBA
-            /////
-            /////
-            /////
-          });
+          }
           //Le agrega a la URL la mesa ingresada si es correcto.
           this.props.history.push(`/${RestaurantId}/${doc.id}`);
         }
