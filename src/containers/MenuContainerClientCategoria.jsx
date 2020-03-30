@@ -42,6 +42,10 @@ class MenuContainerCliente extends React.Component {
               producto: [
                 ...this.state.producto,
                 {
+                  idProduct: product.id,
+                  idCategoria: categ.id,
+                  idRestaurant: this.props.match.params.idRestaurant,
+                  idMenu: this.props.match.params.idMenu,
                   nameCateg: categ.data().name,
                   description: product.data().description,
                   imageProduct: product.data().imageProduct,
@@ -57,6 +61,7 @@ class MenuContainerCliente extends React.Component {
   }
 
   render() {
+    console.log(this.state.producto);
     return (
       <div>
         <Menu

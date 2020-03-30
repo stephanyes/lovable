@@ -25,6 +25,7 @@ import EditMenuContainer from "../containers/EditMenuContainer";
 
 import MenuContainerCliente from "../containers/MenuClienteContainer";
 import MenuContainerClientCategoria from "../containers/MenuContainerClientCategoria";
+import ProductClientIndividual from "../containers/ProductClientIndividual";
 
 const mapStateToProps = state => {
   return {
@@ -110,6 +111,10 @@ class Main extends React.Component {
           <Route
             path="/:idRestaurant/menu/:idMenu"
             component={MenuContainerClientCategoria}
+          ></Route>
+          <Route
+            path="/:idRestaurant/:idMenu/:idCategoria/:idProduct/client"
+            component={ProductClientIndividual}
           ></Route>
           <Route
             path="/:idRestaurant/:idTable"

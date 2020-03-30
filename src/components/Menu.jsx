@@ -51,7 +51,9 @@ export default ({ productos, categoria }) => {
                 {productos ? (
                   productos.map(product => {
                     return (
-                      <div>
+                      <Link
+                        to={`/${product.idRestaurant}/${product.idMenu}/${product.idCategoria}/${product.idProduct}/client`}
+                      >
                         {product.nameCateg === categ.nameCategoria ? (
                           <li
                             class="list-group-item d-flex justify-content-between align-items-center"
@@ -82,7 +84,7 @@ export default ({ productos, categoria }) => {
                             <div>$ {product.price}</div>
                           </li>
                         ) : null}
-                      </div>
+                      </Link>
                     );
                   })
                 ) : (
