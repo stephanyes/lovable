@@ -1,55 +1,24 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 import firebase from "../services/firebase";
-import { Route, Redirect, Switch, Link } from "react-router-dom";
 import { connect } from "react-redux";
-//import { loginUser } from "../store/actions/loginAction";
+import { saveLoginClient } from "../store/actions/loginClientAction";
 import ClientLogin from "../components/ClientLogin";
 
 const DB = firebase.db;
-
-let docs = DB.collection("restaurants")
-  .doc("QtLVkjHLnXZPDj4pbWKw")
-  .collection("tables");
-
-const mapStateToProps = (state, ownprops) => {
-  //     return {
-  //       userLogin: state.user.loginUser
-  //     };
-};
-
-const mapDispatchToProps = (dispatch, state) => {
-  //     return {
-  //       loggeado: user => dispatch(loginUser(user))
-  //     };
-};
+let ClientActualApp = 0
 
 class ClientLoginContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       numberOfTable: "",
-      code: "",
-      orderActual: 0
+      code: ""
     };
     this.handlerChange = this.handlerChange.bind(this);
     this.handlerSubmit = this.handlerSubmit.bind(this);
   }
-
-  componentDidMount() {
-    // docs.onSnapshot(docSnapshot => {
-    //   let tables = [];
-    //   docSnapshot.forEach(doc => {
-    //     tables.push(doc.data());
-    //     this.setState({ tables });
-    //   });
-    // });
-  }
-
-  componentWillUnmount() {
-    // docs.onSnapshot(() => {});
-  }
-
+  
   handlerChange(e) {
     const key = e.target.name;
     const value = e.target.value;
@@ -57,108 +26,90 @@ class ClientLoginContainer extends React.Component {
       [key]: value
     });
   }
-
-  //   algo.get().then(algo => {
-  //     console.log(algo);
-  //     algo.forEach(doc => {
-  //       tables.push(doc.data());
-  //       this.setState({ tables });
-  //     });
-  //   })
-
-  asignNewClient() {}
-
+  
   handlerSubmit(e) {
     e.preventDefault();
-    docs.get().then(result => {
+    //Guardamos en la variable el RestaurantId que viene por URL
+    let RestaurantId = this.props.match.params.idRestaurant;
+    //Aca crea la variable para buscar todas las mesas y busca la ingresada
+    let TablesRestaurant = DB.collection("restaurants")
+    .doc(RestaurantId)
+    .collection("tables");
+    TablesRestaurant.get().then(result => {
       result.forEach(doc => {
+        //Aca comparamos si el numero de mesa y el codigo secreto son correctos.
         if (
           doc.data().number == this.state.numberOfTable &&
           doc.data().secretCode == this.state.code
-        ) {
-          //En esta parte le sumamos 1 al indicador total de clientes en la info. del restaurante.
-          //REEMPLAZAR esta comparacion por el numero de restaurante que trae Redux del Store!
-          DB.collection("restaurants")
-            .doc("QtLVkjHLnXZPDj4pbWKw")
-            .get()
-            .then(result => {
-              let res = result.data();
-              let pasaNumero = res.orderTotalNumber;
-              let doc2 = DB.collection("restaurants").doc(
-                "QtLVkjHLnXZPDj4pbWKw"
-              );
-              doc2.update({ orderTotalNumber: pasaNumero + 1 });
-
-              console.log("doc es", doc);
-              //doc.update({ clientActual: pasaNumero - 1 });
-
-              //DEBERIAMOS REEMPLAZAR EL PATH ENTERO POR UNA VARIABLE QUE LO CONTENGO Y QUE NO SEA HARDCODE!
-              docs.get().then(result => {
-                result.forEach(doc => {
-                  if (doc.data().number == this.state.numberOfTable) {
-                    let doc3 = DB.collection("restaurants")
-                      .doc("QtLVkjHLnXZPDj4pbWKw")
+          ) {
+            //Aca asigna el TableId a una variable para usarla despues.
+            let TableIdActual = doc.id;            
+            
+            // Va a la base de datos y pregunta si en la Table hay numero actual de cliente. Si no hay, crea y lo asigna.
+            // Si ya hay uno asignado, lo que hace es enviar al Store de Redux el client de la DB.
+            if(doc.data().clientActual !== 0) {
+              ClientActualApp = doc.data().clientActual;
+              const client = {RestaurantId, TableIdActual, ClientActualApp}
+              this.props.saveLoginClient(client);
+              //Le agrega a la URL la mesa ingresada si es correcto.
+              this.props.history.push(`/${RestaurantId}/${doc.id}`);
+            }
+            else{
+              //En esta parte, entramos al restaurante actual y buscamos el ultimo numero preparado para cliente. Le asignamos ese numero a la mesa actual. Y le sumamos 1 a ese indicador para dejarlo listo para el proximo cliente.
+              let clientTotal
+              let arr = []
+              const RestaurantDoc = DB.collection("restaurants").doc(RestaurantId);
+              RestaurantDoc.get().then(result => {
+                let res = result.data();
+                //Esta variable toma el valor preparado para el proximo cliente
+                clientTotal = res.clientTotalNumber
+                //Aca asignamos ese numero de cliente actual a la mesa actual.
+                RestaurantDoc.update({ clientTotalNumber: clientTotal + 1 });
+                //Aca buscamos otra vez todas las mesas con el numero de mesa ingresado en el form y le asignamos el numero de cliente.
+                ClientActualApp = clientTotal;
+                const client = {RestaurantId, TableIdActual, ClientActualApp}
+                this.props.saveLoginClient(client);
+                TablesRestaurant.get().then(result => {
+                  result.forEach(doc => {
+                    if (doc.data().number == this.state.numberOfTable) {
+                      //En esta variable creamos la ruta para actualizar la mesa actual.
+                      const TableActual = DB.collection("restaurants")
+                      .doc(RestaurantId)
                       .collection("tables")
-                      .doc("EFqFXqnq7N1eZ3hFHzdO");
-
-                    //     console.log("doc.ref es", doc.ref.path);
-                    //  let doc3 = DB.collection(toString(doc.ref.path));
-
-                    doc3.update({ clientActual: pasaNumero });
-                  }
+                      .doc(TableIdActual);
+                      //Actualizamos en la mesa actual el numero de cliente.
+                      TableActual.update({ clientActual: clientTotal });
+                    }
+                  });
                 });
-              });
-
-              //data().clientactual
-
-              //     result3.forEach(doc => {
-              //       //  if (doc.data().number == this.state.numberOfTable) {
-              //       console.log("Llegue re bien!");
-              //       //}
-              //     });
-              //   });
-            });
-
-          this.props.history.push(`/tables/${doc.id}`);
-        }
-        // tables.push(doc.data());
-        // this.setState({ tables });
+              })
+              //Le agrega a la URL la mesa ingresada si es correcto.
+              this.props.history.push(`/${RestaurantId}/${doc.id}`);
+            };
+          }
+        });
       });
-    });
-  }
+    }
 
-  //   handlerSubmit(e) {
-  //     e.preventDefault();
-  //     const auth = firebase.auth;
-  //     const promise = auth.signInWithEmailAndPassword(
-  //         this.state.email,
-  //         this.state.password
-  //     );
-  //     promise
-  //       .then(user => {
-  //         DB_users.doc(user.user.uid)
-  //           .get()
-  //           .then(rest => {
-  //             this.props.loggeado(rest.data());
-  //             this.props.history.push("/dashboard");
-  //           });
-  //       })
-  //       .catch(e => MySwal.fire(e.message));
-  //   }
-
-  render() {
+    render() {
     return (
       <div>
         <ClientLogin
           handleClick={this.handleClick}
           handlerChange={this.handlerChange}
           handlerSubmit={this.handlerSubmit}
-        />
+          />
       </div>
     );
-  }
+  } 
 }
+  
+const mapDispatchToProps = (dispatch, state) => {
+  return {
+    saveLoginClient: client => dispatch(saveLoginClient(client))
+  };
+};
 
 export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(ClientLoginContainer)
-);
+  connect(null, mapDispatchToProps)(ClientLoginContainer)
+  );

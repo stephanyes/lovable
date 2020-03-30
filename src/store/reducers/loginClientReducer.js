@@ -1,15 +1,13 @@
 import { SET_LOGIN_CLIENT } from "./constant";
 
 const initialState = {
-  loginClient: {}
+  clientData : []
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
     case SET_LOGIN_CLIENT:
-      return Object.assign({}, state, {
-        loginUser: action.client
-      });
+      return {clientData: [action.clientData]};
     default:
       return state;
   }
