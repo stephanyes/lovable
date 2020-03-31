@@ -45,12 +45,10 @@ class SingleOrderContainer extends React.Component {
       .collection("products")
       .get()
       .then(products => {
-        console.log(products);
         let array = [];
         products.forEach(product => {
-          console.log(product);
           array.push({
-            nameOfProduct: product.data().nameOfProduct,
+            name: product.data().name,
             price: product.data().price,
             quantity: product.data().quantity
           });

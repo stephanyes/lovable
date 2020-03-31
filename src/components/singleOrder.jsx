@@ -30,7 +30,7 @@ export default ({ order }) => {
             {order.productsArray
               ? order.productsArray.map(product => (
                   <tr key={product.idUser}>
-                    <td>{product.nameOfProduct}</td>
+                    <td>{product.name}</td>
                     <td>{product.price}</td>
                     <td>{product.quantity}</td>
                   </tr>
