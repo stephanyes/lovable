@@ -21,39 +21,47 @@ class Firebase {
   constructor() {
     app.initializeApp(firebaseConfig);
     //reference to auth api
-    this.auth = app.auth()
+    this.auth = app.auth();
     //access to cloud firestore
-    this.db = app.firestore()
+    this.db = app.firestore();
   }
 
   login(email, password) {
     //Nos retorna una promesa, lo manejamos mas adelante
-    return this.auth.signInWithEmailAndPassword(email, password)
+    return this.auth.signInWithEmailAndPassword(email, password);
   }
 
   logout() {
-    return this.auth.signOut()
+    return this.auth.signOut();
   }
   isInitialized() {
     return new Promise(resolve => {
-      this.auth.onAuthStateChanged(resolve)
-    })
+      this.auth.onAuthStateChanged(resolve);
+    });
   }
 
   getCurrentUsername() {
-    return this.auth.currentUser.displayName
+    return this.auth.currentUser.displayName;
   }
 
   succesfullMsg(param) {
     MySwal.fire({
-      position: 'center',
-      icon: 'success',
+      position: "center",
+      icon: "success",
       title: param,
       showConfirmButton: false,
       timer: 1500
-    })
+    });
   }
 
+  succesfullMsgOrders(param) {
+    MySwal.fire({
+      position: "center",
+      icon: "success",
+      title: param,
+      showConfirmButton: true
+    });
+  }
 }
 
-export default new Firebase()
+export default new Firebase();
