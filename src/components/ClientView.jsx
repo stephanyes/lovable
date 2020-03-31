@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export default ({
   handleClick,
-  tables,
+  table,
   propsOfRestaurantId,
   propsOfTabletId
 }) => {
@@ -70,7 +70,7 @@ export default ({
           </h6> */}
         </Link>
         <Link
-          onClick={() => handleClick()}
+          onClick={() => handleClick("waiter")}
           style={{
             display: "flex",
             justifyContent: "center",
@@ -81,14 +81,24 @@ export default ({
             marginTop: "70px",
             marginLeft: "70px"
           }}
-          to="/tables"
+          to={`/${propsOfRestaurantId}/${propsOfTabletId}`}
         >
-          <img
-            src="https://insideone.s3-sa-east-1.amazonaws.com/icon-waiter-x2.png"
-            style={{}}
-            height="75"
-            alt=""
-          />
+          {table.waiter === true ? (
+            <img
+              src="https://insideone.s3-sa-east-1.amazonaws.com/icon-waiter-red.png"
+              style={{}}
+              height="75"
+              alt=""
+            />
+          ) : (
+            <img
+              src="https://insideone.s3-sa-east-1.amazonaws.com/icon-waiter-x2.png"
+              style={{}}
+              height="75"
+              alt=""
+            />
+          )}
+
           {/* <h6
             style={{
               position: "center",
@@ -100,6 +110,7 @@ export default ({
           </h6> */}
         </Link>
         <Link
+          onClick={() => handleClick("payment")}
           style={{
             display: "flex",
             justifyContent: "center",
@@ -110,14 +121,23 @@ export default ({
             marginTop: "200px",
             marginLeft: "-70px"
           }}
-          to="/"
+          to={`/${propsOfRestaurantId}/${propsOfTabletId}`}
         >
-          <img
-            src="https://insideone.s3-sa-east-1.amazonaws.com/icon-price-x2.png"
-            style={{}}
-            height="75"
-            alt=""
-          />
+          {table.pay === true ? (
+            <img
+              src="https://insideone.s3-sa-east-1.amazonaws.com/icon-price-red.png"
+              style={{}}
+              height="75"
+              alt=""
+            />
+          ) : (
+            <img
+              src="https://insideone.s3-sa-east-1.amazonaws.com/icon-price-x2.png"
+              style={{}}
+              height="75"
+              alt=""
+            />
+          )}
           {/* <h6
             style={{
               position: "center",
@@ -139,7 +159,7 @@ export default ({
             marginTop: "200px",
             marginLeft: "70px"
           }}
-          to="/"
+          to="/forms"
         >
           <img
             src="https://insideone.s3-sa-east-1.amazonaws.com/icon-survey-x2.png"
@@ -165,7 +185,7 @@ export default ({
             color: "white"
           }}
         >
-          MESA 22
+          MESA {table.number}
         </h2>
       </div>
     </div>

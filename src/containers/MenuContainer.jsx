@@ -25,7 +25,7 @@ class MenuContainer extends React.Component {
 
   componentDidMount() {
     let doc = DB.collection("restaurants")
-      .doc(this.props.userLogin)
+      .doc(`${this.props.match.params.idRestaurant}`)
       .collection("menu");
     doc.get().then(algo => {
       algo.forEach(menuesFB => {

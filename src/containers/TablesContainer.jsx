@@ -31,7 +31,6 @@ class TablesContainer extends React.Component {
       .collection("tables");
     tablesDoc.onSnapshot(docSnapshot => {
       let tables = [];
-
       docSnapshot.forEach(doc => {
         tables.push({
           clientActual: doc.data().clientActual,
@@ -41,13 +40,18 @@ class TablesContainer extends React.Component {
           state: doc.data().state,
           waiter: doc.data().waiter,
           pay: doc.data().pay,
+          orderStatus:doc.data().orderStatus,
           id: doc.id
         });
-        this.setState({ tables });
-        this.ordenar(this.state.tables);
-      });
+        this.setState({ tables },
+          this.ordenar(this.state.tables))
+      })
+      
+      
     });
   }
+
+
 
   handlerButton(e, tableId) {
     e.preventDefault();

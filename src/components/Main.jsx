@@ -13,6 +13,7 @@ import RecoverPassword from "./RecoverPassword";
 import MenuContainer from "../containers/MenuContainer";
 import MenuIndividualContainer from "../containers/MenuIndividualContainer";
 import ProductsContainer from "../containers/ProductsContainer";
+import SingleTableContainer from "../containers/SingleTableContainer";
 import CreateMenuContainer from "../containers/CreateMenuContainer";
 import CreateCategoryContainer from "../containers/CreateCategoryContainer";
 import CreateProductContainer from "../containers/CreateProductContainer";
@@ -23,7 +24,6 @@ import MenuContainerCliente from "../containers/MenuClienteContainer";
 import MenuContainerClientCategoria from "../containers/MenuContainerClientCategoria";
 import ProductClientIndividual from "../containers/ProductClientIndividual";
 import ViewCartContainer from "../containers/ViewCartContainer";
-
 
 import SingleOrderContainer from "../containers/singleOrderContainer";
 
@@ -104,6 +104,18 @@ class Main extends React.Component {
           <Route
             path="/configuration"
             component={ConfigurationsContainer}
+          ></Route>
+          <Route
+            path="/forms"
+            component={() => {
+              window.location.href =
+                "https://alexk321099.typeform.com/to/BxGprT";
+              return null;
+            }}
+          ></Route>
+          <Route
+            path="/tables/:idTable"
+            component={SingleTableContainer}
           ></Route>
           <Route
             path="/:idRestaurant/cart/:idTable"
