@@ -27,12 +27,15 @@ import MenuContainerCliente from "../containers/MenuClienteContainer";
 import MenuContainerClientCategoria from "../containers/MenuContainerClientCategoria";
 import ProductClientIndividual from "../containers/ProductClientIndividual";
 
+import SingleOrderContainer from "../containers/singleOrderContainer";
+
 const mapStateToProps = state => {
   return {
     userLogin: state.user.loginUser,
     isAuth: state.user.isAuth
   };
 };
+
 class Main extends React.Component {
   constructor() {
     super();
@@ -56,7 +59,11 @@ class Main extends React.Component {
           <Route exact path="/" component={LoginContainer}></Route>
           <Route path="/dashboard" component={TablesContainer}></Route>
 
-          <Route path="/orders" component={OrdersContainer}></Route>
+          <Route
+            path="/orders/:orderId"
+            component={SingleOrderContainer}
+          ></Route>
+          <Route exact path="/orders" component={OrdersContainer}></Route>
           <Route
             path="/configuration"
             component={ConfigurationsContainer}
