@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default ({ menuObject, idRestaurant }) => {
+export default ({ menuObject, idRestaurant, idTable }) => {
   return (
     <div
       style={{
@@ -19,7 +19,7 @@ export default ({ menuObject, idRestaurant }) => {
         {menuObject
           ? menuObject.map(menu => (
               <div key={menu.id}>
-                <Link to={`/${idRestaurant}/menu/${menu.id}`}>{menu.name}</Link>
+                <Link to={`/${idRestaurant}/menu/${menu.id}/${idTable}`}>{menu.name}</Link>
               </div>
             ))
           : null}

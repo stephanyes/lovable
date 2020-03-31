@@ -61,10 +61,11 @@ class MenuContainerCliente extends React.Component {
   }
 
   render() {
-    console.log(this.state.producto);
     return (
       <div>
         <Menu
+          idTable={this.props.match.params.idTable}
+          idRestaurant={this.props.match.params.idRestaurant}
           categoria={this.state.categorias}
           productos={this.state.producto}
         />

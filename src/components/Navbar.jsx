@@ -1,6 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import firebase from "../services/firebase";
 
 export default ({ buttonClick }) => {
   return (
