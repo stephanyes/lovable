@@ -20,7 +20,7 @@ export default ({ tables, buttonClick }) => {
         <h1 className="font-weight-bold">Dashboard</h1>
       </div>
 
-      <div className="row row-cols-1 row-cols-md-3">
+      <div class="row row-cols-1 row-cols-md-3" style={{ margin: "0" }}>
         {tables.length ? (
           tables.map((table, index) => (
             <Link
@@ -54,9 +54,7 @@ export default ({ tables, buttonClick }) => {
                       />
                     ) : (
                       <div>
-                        {/* //aca tengo que cambiar el condicional a que si la orden
-                      esta en 'pending' */}
-                        {table.orderActual !== "" ? (
+                        {table.orderStatus === "pending" ? (
                           <img
                             src="https://insideone.s3-sa-east-1.amazonaws.com/services-table-order.png"
                             className="card-img"
@@ -130,7 +128,7 @@ export default ({ tables, buttonClick }) => {
                             </button>
                           ) : (
                             <div>
-                              {table.orderActual !== "" ? (
+                              {table.orderStatus === "pending" ? (
                                 "Order Pending"
                               ) : (
                                 <div>

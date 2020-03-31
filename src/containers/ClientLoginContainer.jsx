@@ -1,24 +1,12 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 import firebase from "../services/firebase";
-import { Route, Redirect, Switch, Link } from "react-router-dom";
 import { connect } from "react-redux";
+import { saveLoginClient } from "../store/actions/loginClientAction";
 import ClientLogin from "../components/ClientLogin";
-import {
-  saveClient,
-  saveTable,
-  saveRestaurant
-} from "../store/actions/loginClientAction";
-const DB = firebase.db;
-let ClientActualApp;
 
-const mapDispatchToProps = (dispatch, state) => {
-  return {
-    saveClientID: client => dispatch(saveClient(client)),
-    saveTableID: table => dispatch(saveTable(table)),
-    saveRestaurantID: restaurant => dispatch(saveRestaurant(restaurant))
-  };
-};
+const DB = firebase.db;
+let ClientActualApp = 0;
 
 class ClientLoginContainer extends React.Component {
   constructor(props) {
@@ -61,28 +49,32 @@ class ClientLoginContainer extends React.Component {
           // Si ya hay uno asignado, lo que hace es enviar al Store de Redux el client de la DB.
           if (doc.data().clientActual !== 0) {
             ClientActualApp = doc.data().clientActual;
-            //Aca lo envia el RestaurantId al Store
-            this.props.saveRestaurantID(RestaurantId);
-            //Aca envia el TableId actual al Store
-            this.props.saveTableID(doc.id);
-            this.props.saveClientID(ClientActualApp);
+            const client = { RestaurantId, TableIdActual, ClientActualApp };
+            this.props.saveLoginClient(client);
+            //Le agrega a la URL la mesa ingresada si es correcto.
+            this.props.history.push(`/${RestaurantId}/${doc.id}`);
           } else {
             //En esta parte, entramos al restaurante actual y buscamos el ultimo numero preparado para cliente. Le asignamos ese numero a la mesa actual. Y le sumamos 1 a ese indicador para dejarlo listo para el proximo cliente.
-            let RestaurantDoc = DB.collection("restaurants").doc(RestaurantId);
+            let clientTotal;
+            let arr = [];
+            const RestaurantDoc = DB.collection("restaurants").doc(
+              RestaurantId
+            );
             RestaurantDoc.get().then(result => {
               let res = result.data();
               //Esta variable toma el valor preparado para el proximo cliente
-              let clientTotal = res.clientTotalNumber;
-              //Aca enviamos el Client ID nuevo al Store de Redux.
-              this.props.saveClientID(clientTotal);
+              clientTotal = res.clientTotalNumber;
               //Aca asignamos ese numero de cliente actual a la mesa actual.
               RestaurantDoc.update({ clientTotalNumber: clientTotal + 1 });
               //Aca buscamos otra vez todas las mesas con el numero de mesa ingresado en el form y le asignamos el numero de cliente.
+              ClientActualApp = clientTotal;
+              const client = { RestaurantId, TableIdActual, ClientActualApp };
+              this.props.saveLoginClient(client);
               TablesRestaurant.get().then(result => {
                 result.forEach(doc => {
                   if (doc.data().number == this.state.numberOfTable) {
                     //En esta variable creamos la ruta para actualizar la mesa actual.
-                    let TableActual = DB.collection("restaurants")
+                    const TableActual = DB.collection("restaurants")
                       .doc(RestaurantId)
                       .collection("tables")
                       .doc(TableIdActual);
@@ -92,9 +84,9 @@ class ClientLoginContainer extends React.Component {
                 });
               });
             });
+            //Le agrega a la URL la mesa ingresada si es correcto.
+            this.props.history.push(`/${RestaurantId}/${doc.id}`);
           }
-          //Le agrega a la URL la mesa ingresada si es correcto.
-          this.props.history.push(`/${RestaurantId}/${doc.id}`);
         }
       });
     });
@@ -112,6 +104,12 @@ class ClientLoginContainer extends React.Component {
     );
   }
 }
+
+const mapDispatchToProps = (dispatch, state) => {
+  return {
+    saveLoginClient: client => dispatch(saveLoginClient(client))
+  };
+};
 
 export default withRouter(
   connect(null, mapDispatchToProps)(ClientLoginContainer)

@@ -4,5 +4,5 @@ import loginClientReducer from "./loginClientReducer";
 
 export default combineReducers({
   user: loginReducer,
-  client: loginClientReducer
+  saveLoginClient: loginClientReducer
 });

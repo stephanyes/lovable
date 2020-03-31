@@ -4,9 +4,7 @@ import { Route, Redirect, Switch, Link } from "react-router-dom";
 import ClientView from "../components/ClientView";
 import { connect } from "react-redux";
 const DB = firebase.db;
-let doc = DB.collection("restaurants")
-  .doc("QtLVkjHLnXZPDj4pbWKw")
-  .collection("tables");
+let tablesOfRestaurant;
 
 const mapStateToProps = (state, ownprops) => {
   return {
@@ -17,44 +15,65 @@ class ClientViewContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      tables: []
+      table: {}
     };
     this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() {
-    doc.onSnapshot(docSnapshot => {
-      let tables = [];
+    let tablesOfRestaurant = DB.collection("restaurants")
+  .doc(`${this.props.match.params.idRestaurant}`)
+  .collection("tables");
+    tablesOfRestaurant.onSnapshot(docSnapshot => {
       docSnapshot.forEach(doc => {
-        tables.push(doc.data());
-        this.setState({ tables });
+        if (doc.id == this.props.match.params.idTable) {
+          this.setState({
+            table: {
+              clientActual: doc.data().clientActual,
+              number: doc.data().number,
+              orderActual: doc.data().orderActual,
+              secretCode: doc.data().secretCode,
+              state: doc.data().state,
+              waiter: doc.data().waiter,
+              pay: doc.data().pay,
+              orderStatus:doc.data().orderStatus,
+              id: doc.id
+            }
+          });
+        }
       });
     });
   }
 
   componentWillUnmount() {
-    doc.onSnapshot(() => {});
+    tablesOfRestaurant.onSnapshot(() => {});
   }
 
-  handleClick() {
-    let option = DB.collection("restaurants").doc(
-      "QtLVkjHLnXZPDj4pbWKw/tables/CHvrMSpQE65dGNyCH2tM"
+  handleClick(type) {
+    let tableActual = DB.collection("restaurants").doc(
+      `${this.props.match.params.idRestaurant}/tables/${this.props.match.params.idTable}`
     );
-
-    if (this.state.tables[0].waiter === false) {
-      option.update({ waiter: true }).then(option => {});
+    if(type==="waiter"){
+    if (this.state.table.waiter === false) {
+      tableActual.update({ waiter: true })
     } else {
-      option.update({ waiter: false }).then(option => {});
+      tableActual.update({ waiter: false })
     }
+  } else if ((type==="payment")){
+    if (this.state.table.pay === false) {
+      tableActual.update({ pay: true })
+    } else {
+      tableActual.update({ pay: false })
+    }
+  }
   }
 
   render() {
-    console.log(this.props.userLogin, "sakjdlkaHola");
     return (
       <div>
         <ClientView
           handleClick={this.handleClick}
-          tables={this.state.tables}
+          table={this.state.table}
           propsOfRestaurantId={this.props.match.params.idRestaurant}
           propsOfTabletId={this.props.match.params.idTable}
         />

@@ -25,6 +25,8 @@ import EditCategoryContainer from "../containers/EditCategoryContainer";
 import EditMenuContainer from "../containers/EditMenuContainer";
 
 import MenuContainerCliente from "../containers/MenuClienteContainer";
+import MenuContainerClientCategoria from "../containers/MenuContainerClientCategoria";
+import ProductClientIndividual from "../containers/ProductClientIndividual";
 
 const mapStateToProps = state => {
   return {
@@ -100,6 +102,11 @@ class Main extends React.Component {
             component={ConfigurationsContainer}
           ></Route>
           <Route
+            path="/forms"
+            component={()=>{window.location.href = 'https://alexk321099.typeform.com/to/BxGprT'; 
+            return null;}}
+          ></Route>
+          <Route
             path="/tables/:idTable"
             component={SingleTableContainer}
           ></Route>
@@ -110,6 +117,14 @@ class Main extends React.Component {
           <Route
             path="/:idRestaurant/:idTable/menu"
             component={MenuContainerCliente}
+          ></Route>
+          <Route
+            path="/:idRestaurant/menu/:idMenu"
+            component={MenuContainerClientCategoria}
+          ></Route>
+          <Route
+            path="/:idRestaurant/:idMenu/:idCategoria/:idProduct/client"
+            component={ProductClientIndividual}
           ></Route>
           <Route
             path="/:idRestaurant/:idTable"
