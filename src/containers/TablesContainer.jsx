@@ -75,7 +75,6 @@ class TablesContainer extends React.Component {
   //   };
 
   render() {
-    console.log(this.props.userLogin);
     return (
       <div>
         <SidebarContainer />
