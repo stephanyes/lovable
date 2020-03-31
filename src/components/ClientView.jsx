@@ -83,20 +83,21 @@ export default ({
           }}
           to={`/${propsOfRestaurantId}/${propsOfTabletId}`}
         >
-          {table.waiter === false ? (
-                      <img
-                      src="https://insideone.s3-sa-east-1.amazonaws.com/icon-waiter-x2.png"
-                      style={{}}
-                      height="75"
-                      alt=""
-                    />
-                    ) : (
-                      <img
-            src="https://insideone.s3-sa-east-1.amazonaws.com/icon-waiter-red.png"
-            style={{}}
-            height="75"
-            alt=""
-          />)}
+          {table.waiter === true ? (
+            <img
+              src="https://insideone.s3-sa-east-1.amazonaws.com/icon-waiter-red.png"
+              style={{}}
+              height="75"
+              alt=""
+            />
+          ) : (
+            <img
+              src="https://insideone.s3-sa-east-1.amazonaws.com/icon-waiter-x2.png"
+              style={{}}
+              height="75"
+              alt=""
+            />
+          )}
 
           {/* <h6
             style={{
@@ -109,7 +110,7 @@ export default ({
           </h6> */}
         </Link>
         <Link
-        onClick={() => handleClick("payment")}
+          onClick={() => handleClick("payment")}
           style={{
             display: "flex",
             justifyContent: "center",
@@ -122,20 +123,21 @@ export default ({
           }}
           to={`/${propsOfRestaurantId}/${propsOfTabletId}`}
         >
-          {table.pay === false ? (
-                      <img
-                      src="https://insideone.s3-sa-east-1.amazonaws.com/icon-price-x2.png"
-                      style={{}}
-                      height="75"
-                      alt=""
-                    />
-                    ) : (
-                      <img
-                      src="https://insideone.s3-sa-east-1.amazonaws.com/icon-price-red.png"
-                      style={{}}
-                      height="75"
-                      alt=""
-                    />)}
+          {table.pay === true ? (
+            <img
+              src="https://insideone.s3-sa-east-1.amazonaws.com/icon-price-red.png"
+              style={{}}
+              height="75"
+              alt=""
+            />
+          ) : (
+            <img
+              src="https://insideone.s3-sa-east-1.amazonaws.com/icon-price-x2.png"
+              style={{}}
+              height="75"
+              alt=""
+            />
+          )}
           {/* <h6
             style={{
               position: "center",

@@ -21,9 +21,9 @@ class ClientViewContainer extends React.Component {
   }
 
   componentDidMount() {
-    let tablesOfRestaurant = DB.collection("restaurants")
-  .doc(`${this.props.match.params.idRestaurant}`)
-  .collection("tables");
+    tablesOfRestaurant = DB.collection("restaurants")
+      .doc(`${this.props.match.params.idRestaurant}`)
+      .collection("tables");
     tablesOfRestaurant.onSnapshot(docSnapshot => {
       docSnapshot.forEach(doc => {
         if (doc.id == this.props.match.params.idTable) {
@@ -36,7 +36,7 @@ class ClientViewContainer extends React.Component {
               state: doc.data().state,
               waiter: doc.data().waiter,
               pay: doc.data().pay,
-              orderStatus:doc.data().orderStatus,
+              orderStatus: doc.data().orderStatus,
               id: doc.id
             }
           });
@@ -53,19 +53,19 @@ class ClientViewContainer extends React.Component {
     let tableActual = DB.collection("restaurants").doc(
       `${this.props.match.params.idRestaurant}/tables/${this.props.match.params.idTable}`
     );
-    if(type==="waiter"){
-    if (this.state.table.waiter === false) {
-      tableActual.update({ waiter: true })
-    } else {
-      tableActual.update({ waiter: false })
+    if (type === "waiter") {
+      if (this.state.table.waiter === false) {
+        tableActual.update({ waiter: true });
+      } else {
+        tableActual.update({ waiter: false });
+      }
+    } else if (type === "payment") {
+      if (this.state.table.pay === false) {
+        tableActual.update({ pay: true });
+      } else {
+        tableActual.update({ pay: false });
+      }
     }
-  } else if ((type==="payment")){
-    if (this.state.table.pay === false) {
-      tableActual.update({ pay: true })
-    } else {
-      tableActual.update({ pay: false })
-    }
-  }
   }
 
   render() {
