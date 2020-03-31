@@ -1,6 +1,5 @@
 import React from "react";
 
-// let random1 = Math.floor(Math.random() * 10) //va del 0 - 9
 export default ({ tables, buttonClick }) => {
   return (
     <div
@@ -50,7 +49,7 @@ export default ({ tables, buttonClick }) => {
                     <div>
                       {/* //aca tengo que cambiar el condicional a que si la orden
                       esta en 'pending' */}
-                      {table.orderActual !== "" ? (
+                      {table.orderActual !== 0 ? (
                         <img
                           src="https://insideone.s3-sa-east-1.amazonaws.com/services-table-order.png"
                           className="card-img"

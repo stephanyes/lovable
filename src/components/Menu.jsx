@@ -1,8 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import ProductsContainer from "../containers/ProductsContainer";
 
-export default ({ productos, categoria }) => {
+export default ({ productos, categoria , idTable, idRestaurant}) => {
   return (
     <div
       style={{
@@ -32,6 +31,7 @@ export default ({ productos, categoria }) => {
           >
             Menu
           </h1>
+          <Link to={`/${idRestaurant}/cart/${idTable}`}> Cart </Link>
         </div>
       </div>
       <div>
@@ -52,7 +52,7 @@ export default ({ productos, categoria }) => {
                   productos.map(product => {
                     return (
                       <Link
-                        to={`/${product.idRestaurant}/${product.idMenu}/${product.idCategoria}/${product.idProduct}/client`}
+                        to={`/${product.idRestaurant}/${product.idMenu}/${product.idCategoria}/${product.idProduct}/${idTable}/client`}
                       >
                         {product.nameCateg === categ.nameCategoria ? (
                           <li

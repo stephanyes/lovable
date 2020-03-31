@@ -9,23 +9,21 @@ import ConfigurationsContainer from "../containers/ConfigurationsContainer";
 import ClientViewContainer from "../containers/ClientViewContainer";
 import ClientLoginContainer from "../containers/ClientLoginContainer";
 import OrdersContainer from "../containers/OrdersContainer";
-import FooterContainer from "../containers/FooterContainer";
 import RecoverPassword from "./RecoverPassword";
 import MenuContainer from "../containers/MenuContainer";
 import MenuIndividualContainer from "../containers/MenuIndividualContainer";
 import ProductsContainer from "../containers/ProductsContainer";
-
 import CreateMenuContainer from "../containers/CreateMenuContainer";
 import CreateCategoryContainer from "../containers/CreateCategoryContainer";
 import CreateProductContainer from "../containers/CreateProductContainer";
-
 import EditProductContainer from "../containers/EditProductContainer";
 import EditCategoryContainer from "../containers/EditCategoryContainer";
 import EditMenuContainer from "../containers/EditMenuContainer";
-
 import MenuContainerCliente from "../containers/MenuClienteContainer";
 import MenuContainerClientCategoria from "../containers/MenuContainerClientCategoria";
 import ProductClientIndividual from "../containers/ProductClientIndividual";
+import ViewCartContainer from "../containers/ViewCartContainer";
+
 
 const mapStateToProps = state => {
   return {
@@ -101,6 +99,10 @@ class Main extends React.Component {
             component={ConfigurationsContainer}
           ></Route>
           <Route
+            path="/:idRestaurant/cart/:idTable"
+            component={ViewCartContainer}
+          ></Route>
+          <Route
             path="/:idRestaurant/tables"
             component={ClientLoginContainer}
           ></Route>
@@ -109,11 +111,11 @@ class Main extends React.Component {
             component={MenuContainerCliente}
           ></Route>
           <Route
-            path="/:idRestaurant/menu/:idMenu"
+            path="/:idRestaurant/menu/:idMenu/:idTable"
             component={MenuContainerClientCategoria}
           ></Route>
           <Route
-            path="/:idRestaurant/:idMenu/:idCategoria/:idProduct/client"
+            path="/:idRestaurant/:idMenu/:idCategoria/:idProduct/:idTable/client"
             component={ProductClientIndividual}
           ></Route>
           <Route
