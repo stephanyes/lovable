@@ -13,60 +13,80 @@ export default ({ orders, handleClickStatus }) => {
       <div
         className="container"
         style={{
-          padding: "20px"
+          marginLeft: "20px",
+          paddingTop: "20px"
         }}
       >
         <h1 className="font-weight-bold">Orders</h1>
 
         <hr />
 
-        <table className="table table-striped table-bordered">
-          <thead>
-            <th>idUser</th>
-            <th>numberOfOrder</th>
-            <th>numberOfTable</th>
-            <th>status</th>
-            <th>totalPrice</th>
-            <th>Options</th>
-          </thead>
-          <tbody>
-            {orders
-              ? orders.map(order => (
-                  <tr key={order.idUser}>
-                    <Link to={`/orders/${order.id}`}>
-                      <td>{order.id}</td>
-                    </Link>
-                    <td>{order.numberOfOrder}</td>
-                    <td>{order.numberOfTable}</td>
-                    <td>{order.status}</td>
-                    <td>{order.totalPrice}</td>
-                    <td className="pull-right">
-                      <button
-                        onClick={e =>
-                          handleClickStatus(e, order.id, "completed")
-                        }
-                        type="button"
-                        style={{ marginLeft: "10px", marginRight: "10px" }}
-                        className="btn btn-pill btn-success"
-                      >
-                        Complete
-                      </button>
-                      <button
-                        onClick={e =>
-                          handleClickStatus(e, order.id, "canceled")
-                        }
-                        type="button"
-                        style={{ marginLeft: "10px", marginRight: "10px" }}
-                        className="btn btn-pill btn-danger"
-                      >
-                        Cancel
-                      </button>
-                    </td>
-                  </tr>
-                ))
-              : null}
-          </tbody>
-        </table>
+        <ul
+          class="list-group"
+          style={{
+            marginTop: "30px"
+          }}
+        >
+          {orders
+            ? orders.map(order => (
+                <li
+                  key={order.idUser}
+                  class="list-group-item d-flex justify-content-between align-items-center"
+                >
+                  <div
+                    style={{
+                      marginTop: "10px"
+                    }}
+                  >
+                    <div
+                      style={{
+                        paddingBottom: "10px"
+                      }}
+                    >
+                      <Link to={`/orders/${order.id}`}>Pedido #{order.id}</Link>
+                    </div>
+                    {/* <td>{order.numberOfOrder}</td> */}
+
+                    <h5 className="font-weight-bold">
+                      Table {order.numberOfTable}
+                    </h5>
+                    <h6 className="font-weight-normal">
+                      Status: {order.status}
+                    </h6>
+                    <h6 className="font-weight-normal">
+                      Price: ${order.totalPrice}
+                    </h6>
+                  </div>
+
+                  <div>
+                    <button
+                      onClick={e => handleClickStatus(e, order.id, "completed")}
+                      style={{
+                        backgroundColor: "#2EC4B6",
+                        borderColor: "#2EC4B6",
+                        marginRight: "20px"
+                      }}
+                      className="btn btn-primary btn-lg"
+                    >
+                      Accept
+                    </button>
+
+                    <button
+                      onClick={e => handleClickStatus(e, order.id, "canceled")}
+                      style={{
+                        backgroundColor: "#ff2068",
+                        borderColor: "#ff2068"
+                        //marginRight: "20px"
+                      }}
+                      className="btn btn-primary btn-lg"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </li>
+              ))
+            : null}
+        </ul>
       </div>
     </div>
   );

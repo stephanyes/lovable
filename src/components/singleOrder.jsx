@@ -1,7 +1,6 @@
 import React from "react";
 
 export default ({ order }) => {
-  console.log(order.order);
   return (
     <div
       style={{
@@ -13,31 +12,53 @@ export default ({ order }) => {
       <div
         className="container"
         style={{
-          padding: "20px"
+          marginLeft: "20px",
+          paddingTop: "20px"
         }}
       >
-        <h1 className="font-weight-bold">Orders</h1>
+        <h1 className="font-weight-bold">Order</h1>
 
         <hr />
 
-        <table className="table table-striped table-bordered">
-          <thead>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Quantity</th>
-          </thead>
-          <tbody>
-            {order.productsArray
-              ? order.productsArray.map(product => (
-                  <tr key={product.idUser}>
-                    <td>{product.name}</td>
-                    <td>{product.price}</td>
-                    <td>{product.quantity}</td>
-                  </tr>
-                ))
-              : null}
-          </tbody>
-        </table>
+        <ul
+          class="list-group"
+          style={{
+            marginTop: "30px"
+          }}
+        >
+          {order.productsArray
+            ? order.productsArray.map(product => (
+                <li
+                  key={order.idUser}
+                  class="list-group-item d-flex justify-content-between align-items-center"
+                >
+                  <div
+                    style={{
+                      marginTop: "10px"
+                    }}
+                  >
+                    <div
+                      style={{
+                        paddingBottom: "10px"
+                      }}
+                    >
+                      <h5 className="font-weight-bold">{product.name}</h5>
+                    </div>
+
+                    <h6 className="font-weight-normal">
+                      Quantity: {product.quantity}
+                    </h6>
+                  </div>
+
+                  <div>
+                    <h6 className="font-weight-normal">
+                      Price: ${product.price}
+                    </h6>
+                  </div>
+                </li>
+              ))
+            : null}
+        </ul>
       </div>
     </div>
   );

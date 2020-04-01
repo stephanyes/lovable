@@ -75,7 +75,6 @@ class OrdersContainer extends React.Component {
           orders={this.state.ordersArray}
           handleClickStatus={this.handleClickStatus}
         />
-        <FooterContainer />
       </div>
     );
   }
