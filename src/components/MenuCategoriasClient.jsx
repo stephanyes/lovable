@@ -5,24 +5,55 @@ export default ({ menuObject, idRestaurant, idTable }) => {
   return (
     <div
       style={{
-        backgroundColor: "white",
-        marginLeft: "250px",
-        paddingBottom: "400px"
+        backgroundColor: "#ffffff"
       }}
     >
       <div
-        className="container"
+        className="card text-center"
         style={{
-          padding: "20px"
+          borderColor: "#ffffff"
         }}
       >
-        {menuObject
-          ? menuObject.map(menu => (
-              <div key={menu.id}>
-                <Link to={`/${idRestaurant}/menu/${menu.id}/${idTable}`}>{menu.name}</Link>
-              </div>
-            ))
-          : null}
+        <div
+          className="card-body"
+          style={{
+            padding: "20px",
+            paddingBottom: "0px"
+          }}
+        >
+          <h1
+            className="font-weight-bold"
+            style={{
+              //padding: "10px",
+              paddingTop: "10px",
+              marginBottom: "80px"
+            }}
+          >
+            Menu´s
+          </h1>
+          {menuObject
+            ? menuObject.map(menu => (
+                <div key={menu.id}>
+                  <Link
+                    style={{
+                      textDecoration: "none",
+                      color: "grey"
+                    }}
+                    to={`/${idRestaurant}/menu/${menu.id}/${idTable}`}
+                  >
+                    <h4
+                      className="font-weight-bold"
+                      style={{
+                        margin: "30px"
+                      }}
+                    >
+                      {menu.name}
+                    </h4>
+                  </Link>
+                </div>
+              ))
+            : null}
+        </div>
       </div>
     </div>
   );

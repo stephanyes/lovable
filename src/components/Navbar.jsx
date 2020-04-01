@@ -17,16 +17,16 @@ export default ({ buttonClick }) => {
           // marginLeft: "250px",
           // flexWrap: "wrap"
 
-            // height: "100%",
-            // minHeight: "100%",
-            // display: "flex",
-            // flexDirection: "column",
-            // textAlign: "center",
-            // color: "white",
-            // fontFamily: "sans-serif",
-            // fontSize: "36px",
-            // padding: "20px", 
-            // justifyContent: "center"
+          // height: "100%",
+          // minHeight: "100%",
+          // display: "flex",
+          // flexDirection: "column",
+          // textAlign: "center",
+          // color: "white",
+          // fontFamily: "sans-serif",
+          // fontSize: "36px",
+          // padding: "20px",
+          // justifyContent: "center"
         }}
       >
         {/* <Link className="navbar-brand" to="/">
@@ -36,7 +36,7 @@ export default ({ buttonClick }) => {
             alt=""
           />
         </Link> */}
-  
+
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav mr-auto">
             <li className="nav-item active"></li>
@@ -45,13 +45,13 @@ export default ({ buttonClick }) => {
             //onSubmit={handleSubmit}
             className="form-inline my-2 my-lg-0"
           >
-            <input
+            {/* <input
               //onChange={handleChange}
               className="form-control mr-sm-2"
               type="search"
               placeholder="Search"
               aria-label="Search"
-            />
+            /> */}
             <ul className="navbar-nav mr-auto">
               <li className="nav-item active">
                 <button

@@ -25,7 +25,7 @@ class MenuContainer extends React.Component {
 
   componentDidMount() {
     let doc = DB.collection("restaurants")
-      .doc(`${this.props.match.params.idRestaurant}`)
+      .doc(`${this.props.userLogin}`)
       .collection("menu");
     doc.get().then(algo => {
       algo.forEach(menuesFB => {
@@ -67,7 +67,6 @@ class MenuContainer extends React.Component {
   //     doc.onSnapshot(() => { });
   // }
   render() {
-    // const { menuID } = this.state
     return (
       <div>
         <SidebarContainer />

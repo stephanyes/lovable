@@ -1,83 +1,133 @@
 import React from "react";
 
-export default ({productos, priceTotal, deleteClick, handlerSubmit}) => {
-    return (
+export default ({ productos, priceTotal, deleteClick, handlerSubmit }) => {
+  return (
+    <div
+      style={{
+        backgroundColor: "#ffffff"
+      }}
+    >
+      <div
+        className="card text-center"
+        style={{
+          borderColor: "#ffffff"
+        }}
+      >
         <div
+          className="card-body"
           style={{
-            backgroundColor: "#ffffff"
+            padding: "20px",
+            paddingBottom: "0px"
           }}
         >
-          <div
-            className="card text-center"
+          <h1
+            className="font-weight-bold"
             style={{
-              borderColor: "#ffffff"
+              //padding: "10px",
+              paddingTop: "10px",
+              marginBottom: "40px"
             }}
           >
-            <div
-              className="card-body"
-              style={{
-                padding: "20px",
-                paddingBottom: "0px"
-              }}
-            >
-              <h1
-                className="font-weight-bold"
+            Cart
+          </h1>
+        </div>
+      </div>
+      {productos
+        ? productos.map(product => {
+            return (
+              <li
+                class="list-group-item d-flex justify-content-between align-items-center"
                 style={{
-                  padding: "10px",
-                  paddingBottom: "0px",
-                  marginBottom: "0px"
+                  padding: "12px"
                 }}
               >
-                Cart
-              </h1>
-            
-            </div>
-          </div>
-          {productos ? (
-            productos.map(product => {
-            return (
-                    
-                    <li
-                    class="list-group-item d-flex justify-content-between align-items-center"
+                <div>
+                  <img
+                    src={product.imageProduct}
+                    className="card-img"
+                    alt="..."
                     style={{
-                        padding: "12px"
+                      width: "60px",
+                      marginRight: "10px"
                     }}
-                    >
-                    <div>
-                        <img
-                        src={product.imageProduct}
-                        className="card-img"
-                        alt="..."
-                        style={{
-                            width: "60px",
-                            marginRight: "10px"
-                        }}
-                        />
-                        <span
-                        style={{
-                            margin: "20px",
-                            marginLeft: "0px"
-                        }}
-                        >
-                        {product.name}
-                        </span>
-                    </div>
+                  />
+                  <span
+                    style={{
+                      margin: "20px",
+                      marginLeft: "0px"
+                    }}
+                  >
+                    {product.name}
+                  </span>
+                </div>
 
-                    <div>$ {product.price}</div>
-                        <button onClick={(e)=> deleteClick(e,product.id)}>Delete</button>
-                    </li>
-                )
-            })
-        ) : null }
-            <h2>{priceTotal}</h2>
-            <button onClick={(e)=> handlerSubmit(e)}>Send</button>
+                <div>
+                  <h6>$ {product.price}</h6>
+                </div>
+                <div>
+                  <button
+                    style={{
+                      textDecoration: "none",
+                      color: "#ffffff",
+                      backgroundColor: "#ff2068",
+                      borderColor: "#ff2068",
+                      padding: "3px 12px",
+                      //margin: "10px",
+                      //marginBottom: "40px",
+                      fontSize: "20px"
+                    }}
+                    className="btn btn-primary"
+                    onClick={e => deleteClick(e, product.id)}
+                  >
+                    X
+                  </button>
+                </div>
+              </li>
+            );
+          })
+        : null}
+
+      <div
+        className="card text-center"
+        style={{
+          borderColor: "#ffffff"
+        }}
+      >
+        <div
+          className="card-body"
+          style={{
+            padding: "20px",
+            paddingBottom: "0px"
+          }}
+        >
+          <h2
+            className="font-weight-bold"
+            style={{
+              margin: "40px"
+            }}
+          >
+            Total ${priceTotal}
+          </h2>
+
+          <button
+            style={{
+              textDecoration: "none",
+              color: "#ffffff",
+              backgroundColor: "#ff2068",
+              borderColor: "#ff2068",
+              padding: "15px 110px",
+              margin: "10px",
+              marginBottom: "40px",
+              fontSize: "20px"
+            }}
+            className="btn btn-primary"
+            onClick={e => handlerSubmit(e)}
+          >
+            {" "}
+            Send Order
+          </button>
         </div>
-      );
-}
-
-//------------------> 1- Cuando creo una orden de 0 ("" --> Draft) --> cambia el estado en orders y en tables
-//------------------> 2- Listado de los productos + en c/u boton de eliminar indiviadual (elimina de la order Firebase + state)
-//------------------> 3- Indicador de total --> <h2></h2>
-//------------------> 4- Boton --> enviar orden (Draft --> Pending) --> cambia el estado en orders y en tables
-
-//------------------> 5 - stephan - totalPrice
+      </div>
+    </div>
+  );
+};
