@@ -3,6 +3,7 @@ import firebase from "../services/firebase";
 import ViewCart from "../components/ViewCart";
 
 const DB = firebase.db;
+let newOrder;
 
 class ViewCartContainer extends React.Component {
   constructor(props) {
@@ -15,6 +16,7 @@ class ViewCartContainer extends React.Component {
   this.deleteClick = this.deleteClick.bind(this)
   this.handlerSubmit = this.handlerSubmit.bind(this)
 }
+    
     componentDidMount(){
         const doc = DB.collection("restaurants")
         .doc(this.props.match.params.idRestaurant)
@@ -36,8 +38,7 @@ class ViewCartContainer extends React.Component {
 
            order.get().then(
 
-               result => { result.forEach(
-                   product => {
+               result => { result.forEach(product => {
                     let total = this.state.priceTotal
                     total += parseInt(product.data().price)
                     this.setState({ priceTotal: total})
@@ -58,10 +59,41 @@ class ViewCartContainer extends React.Component {
                             description: product.data().description
                     }]})
                 })
-            } 
-            ) 
+            }) 
+        })
+
+        newOrder = DB.collection("restaurants")
+        .doc(this.props.match.params.idRestaurant)
+        .collection("orders")
+        .doc(`${this.props.match.params.orderId}`)
+        .collection("products")
+
+        newOrder.onSnapshot(docSnapshot => {
+            docSnapshot.forEach(product => {
+
+                    let orderPrice = DB.collection("restaurants")
+                    .doc(this.props.match.params.idRestaurant)
+                    .collection("orders")
+                    .doc(`${this.state.idOrder}`)
+                    orderPrice.update({totalPrice: this.state.priceTotal})
+
+                    this.setState({ 
+                        productos: [...this.state.productos, {
+                            id: product.id,
+                            imageProduct: product.data().imageProduct,
+                            name: product.data().name,
+                            price: product.data().price, 
+                            description: product.data().description
+                    }]
+                })
+            })    
         })
     }
+
+    componentWillUnmount() {
+        newOrder.onSnapshot(() => {});
+    }
+
     deleteClick(e, id){
         e.preventDefault()
         const order = DB.collection("restaurants")
@@ -69,21 +101,20 @@ class ViewCartContainer extends React.Component {
         .collection("orders")
         .doc(`${this.state.idOrder}`)
         .collection("products")
-
         order.doc(`${id}`).delete()
-        .then(() =>{
+        .then(() => {
             console.log("Document successfully deleted!")
-            this.props.history.push(`/${this.props.match.params.idRestaurant}/${this.props.match.params.idTable}/menu`)}).catch(error => 
+            })
+        .catch(error => 
              console.error("Error removing document: ", error)
-         );
-
-        
+        )
     }
 
-   
+    // this.props.history.push(`/${this.props.match.params.idRestaurant}/${this.props.match.params.idTable}/menu`)
+
+
     handlerSubmit(e){
         e.preventDefault()
-        console.log(this.state.idOrder)
         const order = DB.collection("restaurants")
         .doc(this.props.match.params.idRestaurant)
         .collection("orders")
