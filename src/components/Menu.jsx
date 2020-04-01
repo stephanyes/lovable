@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default ({ productos, categoria , idTable, idRestaurant}) => {
+export default ({ productos, categoria, idTable, idRestaurant }) => {
   return (
     <div
       style={{
@@ -31,7 +31,6 @@ export default ({ productos, categoria , idTable, idRestaurant}) => {
           >
             Menu
           </h1>
-          <Link to={`/${idRestaurant}/cart/${idTable}`}> Cart </Link>
         </div>
       </div>
       <div>
@@ -46,12 +45,16 @@ export default ({ productos, categoria , idTable, idRestaurant}) => {
                     marginTop: "40px"
                   }}
                 >
-                  {categ.nameCategoria} :
+                  {categ.nameCategoria}
                 </h3>
                 {productos ? (
                   productos.map(product => {
                     return (
                       <Link
+                        style={{
+                          textDecoration: "none",
+                          color: "inherit"
+                        }}
                         to={`/${product.idRestaurant}/${product.idMenu}/${product.idCategoria}/${product.idProduct}/${idTable}/client`}
                       >
                         {product.nameCateg === categ.nameCategoria ? (
@@ -96,6 +99,37 @@ export default ({ productos, categoria , idTable, idRestaurant}) => {
         ) : (
           <h1>---</h1>
         )}
+        <div
+          className="card text-center"
+          style={{
+            borderColor: "#ffffff"
+          }}
+        >
+          <div
+            className="card-body"
+            style={{
+              padding: "20px",
+              paddingBottom: "0px"
+            }}
+          >
+            <Link
+              style={{
+                textDecoration: "none",
+                color: "#ffffff",
+                backgroundColor: "#ff2068",
+                borderColor: "#ff2068",
+                padding: "15px 110px",
+                margin: "10px",
+                marginBottom: "40px",
+                fontSize: "20px"
+              }}
+              className="btn btn-primary"
+              to={`/${idRestaurant}/cart/${idTable}`}
+            >
+              Go to Cart
+            </Link>
+          </div>
+        </div>
       </div>
     </div>
   );

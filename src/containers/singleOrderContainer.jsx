@@ -64,7 +64,6 @@ class SingleOrderContainer extends React.Component {
       <div>
         <SidebarContainer />
         <SingleOrder order={this.state} />
-        <FooterContainer />
       </div>
     );
   }
