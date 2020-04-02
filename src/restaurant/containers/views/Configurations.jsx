@@ -1,8 +1,8 @@
 import React from "react";
-import firebase from "../services/firebase";
-import SidebarContainer from "./SidebarContainer";
-import FooterContainer from "./FooterContainer";
-import Configurations from "../components/Configurations";
+import firebase from "../../../services/firebase";
+import Sidebar from "../general/Sidebar";
+import Footer from "../general/Footer";
+import Configurations from "../../../components/Configurations";
 import { connect } from "react-redux";
 
 const mapStateToProps = state => {
@@ -18,9 +18,9 @@ class ConfigurationsContainer extends React.Component {
   render() {
     return (
       <div>
-        <SidebarContainer />
+        <Sidebar />
         <Configurations restaurantId={this.props.restaurantId} />
-        <FooterContainer />
+        <Footer />
       </div>
     );
   }

@@ -1,9 +1,9 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
-import firebase from "../services/firebase";
+import firebase from "../../../services/firebase";
 import { connect } from "react-redux";
-import { saveLoginClient } from "../store/actions/loginClientAction";
-import ClientLogin from "../components/ClientLogin";
+import { saveLoginClient } from "../../../store/actions/loginClientAction";
+import ClientLogin from "../../../components/ClientLogin";
 
 const DB = firebase.db;
 let ClientActualApp = 0;

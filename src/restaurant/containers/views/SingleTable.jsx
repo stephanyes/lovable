@@ -1,14 +1,13 @@
 import React from "react";
-import firebase from "../services/firebase";
-import SingleTable from "../components/SingleTable";
-import SidebarContainer from "../containers/SidebarContainer";
+import firebase from "../../../services/firebase";
+import SingleTable from "../../../components/SingleTable";
+import Sidebar from "../general/Sidebar";
 import { connect } from "react-redux";
 
 const DB = firebase.db;
 
 let tablesDoc;
 let tableActual;
-
 
 const mapStateToProps = (state, ownprops) => {
   return {
@@ -41,7 +40,7 @@ class SingleTableContainer extends React.Component {
               state: doc.data().state,
               waiter: doc.data().waiter,
               pay: doc.data().pay,
-              orderStatus:doc.data().orderStatus,
+              orderStatus: doc.data().orderStatus,
               id: doc.id
             }
           });
@@ -57,19 +56,25 @@ class SingleTableContainer extends React.Component {
   handlerButton(e) {
     e.preventDefault();
     let TableActual = DB.collection("restaurants")
-                      .doc(`${this.props.userLogin}`)
-                      .collection("tables")
-                      .doc(`${this.props.match.params.idTable}`);
-                      TableActual.update({ clientActual: 0, orderActual:0,orderStatus:"",secretCode:0, state:"free",pay:false,waiter:false});
-                      this.props.history.push(`/dashboard`);
-                    }
-
-  
+      .doc(`${this.props.userLogin}`)
+      .collection("tables")
+      .doc(`${this.props.match.params.idTable}`);
+    TableActual.update({
+      clientActual: 0,
+      orderActual: 0,
+      orderStatus: "",
+      secretCode: 0,
+      state: "free",
+      pay: false,
+      waiter: false
+    });
+    this.props.history.push(`/dashboard`);
+  }
 
   render() {
     return (
       <div>
-        <SidebarContainer />
+        <Sidebar />
         <SingleTable
           table={this.state.table}
           buttonClick={this.handlerButton}

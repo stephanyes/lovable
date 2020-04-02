@@ -1,8 +1,8 @@
 import React from "react";
-import firebase from "../services/firebase";
-import SidebarContainer from "../containers/SidebarContainer";
-import FooterContainer from "./FooterContainer";
-import Tables from "../components/Tables";
+import firebase from "../../../services/firebase";
+import Sidebar from "../general/Sidebar";
+import Footer from "../general/Footer";
+import Tables from "../../../components/Tables";
 import { connect } from "react-redux";
 
 const DB = firebase.db;
@@ -40,16 +40,13 @@ class TablesContainer extends React.Component {
           state: doc.data().state,
           waiter: doc.data().waiter,
           pay: doc.data().pay,
-          orderStatus:doc.data().orderStatus,
+          orderStatus: doc.data().orderStatus,
           id: doc.id
         });
-        this.setState({ tables },
-          this.ordenar(this.state.tables))
-      })
+        this.setState({ tables }, this.ordenar(this.state.tables));
+      });
     });
   }
-
-
 
   handlerButton(e, tableId) {
     e.preventDefault();
@@ -79,9 +76,9 @@ class TablesContainer extends React.Component {
   render() {
     return (
       <div>
-        <SidebarContainer />
+        <Sidebar />
         <Tables tables={this.state.tables} buttonClick={this.handlerButton} />
-        <FooterContainer />
+        <Footer />
       </div>
     );
   }

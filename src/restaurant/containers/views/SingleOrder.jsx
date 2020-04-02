@@ -1,8 +1,7 @@
 import React from "react";
-import firebase from "../services/firebase";
-import SidebarContainer from "../containers/SidebarContainer";
-import FooterContainer from "./FooterContainer";
-import SingleOrder from "../components/singleOrder";
+import firebase from "../../../services/firebase";
+import Sidebar from "../general/Sidebar";
+import SingleOrder from "../../../components/singleOrder";
 import { connect } from "react-redux";
 const DB = firebase.db;
 let doc;
@@ -62,7 +61,7 @@ class SingleOrderContainer extends React.Component {
   render() {
     return (
       <div>
-        <SidebarContainer />
+        <Sidebar />
         <SingleOrder order={this.state} />
       </div>
     );

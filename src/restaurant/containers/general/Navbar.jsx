@@ -1,9 +1,9 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
-import firebase from "../services/firebase";
+import firebase from "../../../services/firebase";
 import { connect } from "react-redux";
-import Navbar from "../components/Navbar";
-import { userLogout } from "../store/actions/loginAction";
+import Navbar from "../../../components/Navbar";
+import { userLogout } from "../../../store/actions/loginAction";
 
 const mapDispatchToProps = dispatch => {
   return {

@@ -1,6 +1,6 @@
 import React from "react";
-import firebase from "../services/firebase";
-import ProductClienteInd from "../components/ProductClienteInd";
+import firebase from "../../../services/firebase";
+import ProductClienteInd from "../../../components/ProductClienteInd";
 
 const DB = firebase.db;
 let orderToUpdate;
@@ -14,7 +14,7 @@ class ProductContainer extends React.Component {
       order: {
         numberOfTable: "completar con INFO",
         status: "draft",
-        totalPrice: 0,
+        totalPrice: 0
       }
     };
     this.handleClick = this.handleClick.bind(this);
@@ -39,7 +39,7 @@ class ProductContainer extends React.Component {
           price: querySnapshot.data().price
         }
       })
-    ); 
+    );
   }
 
   handleClick(e) {
@@ -47,37 +47,50 @@ class ProductContainer extends React.Component {
     let RestaurantId = this.props.match.params.idRestaurant;
 
     let TablesRestaurant = DB.collection("restaurants")
-    .doc(RestaurantId)
-    .collection("tables").doc(this.props.match.params.idTable)
+      .doc(RestaurantId)
+      .collection("tables")
+      .doc(this.props.match.params.idTable);
 
-    let RestaurantDoc = DB.collection("restaurants").doc(RestaurantId)
-    
-    TablesRestaurant.get()
-    .then(result => {
-      this.setState({order: {numberOfTable : result.data().number, status: "draft",
-      totalPrice: 0}})
+    let RestaurantDoc = DB.collection("restaurants").doc(RestaurantId);
 
-      if(result.data().orderActual !== 0) { 
-        orderToUpdate = result.data().orderActual
-        
+    TablesRestaurant.get().then(result => {
+      this.setState({
+        order: {
+          numberOfTable: result.data().number,
+          status: "draft",
+          totalPrice: 0
+        }
+      });
+
+      if (result.data().orderActual !== 0) {
+        orderToUpdate = result.data().orderActual;
+
         let OrdersRestaurant = DB.collection("restaurants")
-        .doc(RestaurantId)
-        .collection("orders")
-        .doc(`${orderToUpdate}`)
-        OrdersRestaurant.collection("products").doc().set(this.state.product)
+          .doc(RestaurantId)
+          .collection("orders")
+          .doc(`${orderToUpdate}`);
+        OrdersRestaurant.collection("products")
+          .doc()
+          .set(this.state.product);
+      } else {
+        RestaurantDoc.get().then(result => {
+          orderToCreate = result.data().orderTotalNumber;
+          RestaurantDoc.update({ orderTotalNumber: orderToCreate + 1 });
+          TablesRestaurant.update({
+            orderActual: orderToCreate,
+            orderStatus: "draft"
+          });
+          let newOrder = RestaurantDoc.collection("orders").doc(
+            `${orderToCreate}`
+          );
+          newOrder.set(this.state.order);
+          newOrder
+            .collection("products")
+            .doc()
+            .set(this.state.product);
+        });
       }
-      else{
-        RestaurantDoc.get() 
-        .then(result => {
-          orderToCreate = result.data().orderTotalNumber
-          RestaurantDoc.update({orderTotalNumber : orderToCreate + 1})
-          TablesRestaurant.update({ orderActual: orderToCreate, orderStatus: "draft"})
-          let newOrder = RestaurantDoc.collection("orders").doc(`${orderToCreate}`)
-          newOrder.set(this.state.order)
-          newOrder.collection("products").doc().set(this.state.product)
-        })
-      }
-    })
+    });
   }
 
   render() {

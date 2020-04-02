@@ -1,7 +1,7 @@
 import React from "react";
-import firebase from "../services/firebase";
+import firebase from "../../../services/firebase";
 import { Route, Redirect, Switch, Link } from "react-router-dom";
-import ClientView from "../components/ClientView";
+import ClientView from "../../../components/ClientView";
 import { connect } from "react-redux";
 const DB = firebase.db;
 let tablesOfRestaurant;

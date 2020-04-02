@@ -1,8 +1,8 @@
 import React from "react";
-import firebase from "../services/firebase";
-import SidebarContainer from "../containers/SidebarContainer";
-import CreateProductView from "../components/CreateProductView";
+import firebase from "../../../services/firebase";
+import Sidebar from "../general/Sidebar";
 import { connect } from "react-redux";
+import CreateCategoryView from "../../../components/CreateCategoryView";
 const DB = firebase.db;
 
 const mapStateToProps = state => {
@@ -11,21 +11,17 @@ const mapStateToProps = state => {
   };
 };
 
-class CreateProductContainer extends React.Component {
+class CreateMenuContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       name: "",
-      description: "",
-      imageProduct: "",
-      price: "",
-      stock: true
+      imageCategory: ""
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInputs = this.handleInputs.bind(this);
   }
   menuId = this.props.match.params.id;
-  categoryId = this.props.match.params.categoryId;
 
   handleSubmit(e) {
     e.preventDefault();
@@ -34,12 +30,10 @@ class CreateProductContainer extends React.Component {
       .collection("menu")
       .doc(this.menuId)
       .collection("categories")
-      .doc(this.categoryId)
-      .collection("products")
       .doc();
     doc.set(this.state);
-    firebase.succesfullMsg("Product successfully added!");
-    this.props.history.push(`/menu/${this.menuId}/${this.categoryId}`);
+    firebase.succesfullMsg("Category succesfully created!");
+    this.props.history.push(`/menu/${this.menuId}`);
   }
   handleInputs(e) {
     let key = e.target.name;
@@ -48,11 +42,12 @@ class CreateProductContainer extends React.Component {
       [key]: input
     });
   }
+
   render() {
     return (
       <div>
-        <SidebarContainer />
-        <CreateProductView
+        <Sidebar />
+        <CreateCategoryView
           submit={this.handleSubmit}
           inputs={this.handleInputs}
         />
@@ -61,4 +56,4 @@ class CreateProductContainer extends React.Component {
   }
 }
 
-export default connect(mapStateToProps)(CreateProductContainer);
+export default connect(mapStateToProps)(CreateMenuContainer);

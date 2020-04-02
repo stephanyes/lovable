@@ -1,8 +1,8 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
-import Login from "../components/Login";
-import firebase from "../services/firebase";
-import { loginUser } from "../store/actions/loginAction";
+import Login from "../../../components/Login";
+import firebase from "../../../services/firebase";
+import { loginUser } from "../../../store/actions/loginAction";
 import { connect } from "react-redux";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";

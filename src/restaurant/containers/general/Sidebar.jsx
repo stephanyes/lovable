@@ -1,23 +1,21 @@
 import React, { useEffect } from "react";
 import { Redirect } from "react-router-dom";
-import Sidebar from "../components/Sidebar";
-import TablesContainer from "../containers/TablesContainer";
-import NavbarContainer from "../containers/NavbarContainer";
-import FooterContainer from "../containers/FooterContainer";
+import Sidebar from "../../../components/Sidebar";
+import Navbar from "../general/Navbar";
 import { connect, useSelector } from "react-redux";
 
 const SidebarContainer = () => {
   const isAuth = useSelector(state => state.user.isAuth);
-  useEffect(() => { }, [isAuth]);
+  useEffect(() => {}, [isAuth]);
   //console.log(isAuth);
   return isAuth ? (
     <div>
       <Sidebar />
-      <NavbarContainer />
+      <Navbar />
     </div>
   ) : (
-      <Redirect to="/" />
-    );
+    <Redirect to="/" />
+  );
 };
 
 export default SidebarContainer;

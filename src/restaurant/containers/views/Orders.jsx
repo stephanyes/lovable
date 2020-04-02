@@ -1,8 +1,7 @@
 import React from "react";
-import firebase from "../services/firebase";
-import SidebarContainer from "../containers/SidebarContainer";
-import FooterContainer from "./FooterContainer";
-import Orders from "../components/Orders";
+import firebase from "../../../services/firebase";
+import Sidebar from "../general/Sidebar";
+import Orders from "../../../components/Orders";
 import { toast } from "react-toastify";
 
 import { connect } from "react-redux";
@@ -70,7 +69,7 @@ class OrdersContainer extends React.Component {
     // console.log(this.state);
     return (
       <div>
-        <SidebarContainer />
+        <Sidebar />
         <Orders
           orders={this.state.ordersArray}
           handleClickStatus={this.handleClickStatus}

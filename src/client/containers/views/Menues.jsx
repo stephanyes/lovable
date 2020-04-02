@@ -1,6 +1,6 @@
 import React from "react";
-import MenuCategoriasClient from "../components/MenuCategoriasClient";
-import firebase from "../services/firebase";
+import MenuCategoriasClient from "../../../components/MenuCategoriasClient";
+import firebase from "../../../services/firebase";
 const DB = firebase.db;
 
 class MenuContainerCliente extends React.Component {

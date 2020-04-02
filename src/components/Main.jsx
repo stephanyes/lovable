@@ -3,29 +3,31 @@ import { connect } from "react-redux";
 import { Route, Redirect, Switch, Link } from "react-router-dom";
 import Loader from "react-loader-spinner";
 import firebase from "../services/firebase";
-import LoginContainer from "../containers/LoginContainer";
-import TablesContainer from "../containers/TablesContainer";
-import ConfigurationsContainer from "../containers/ConfigurationsContainer";
-import ClientViewContainer from "../containers/ClientViewContainer";
-import ClientLoginContainer from "../containers/ClientLoginContainer";
-import OrdersContainer from "../containers/OrdersContainer";
-import RecoverPassword from "./RecoverPassword";
-import MenuContainer from "../containers/MenuContainer";
-import MenuIndividualContainer from "../containers/MenuIndividualContainer";
-import ProductsContainer from "../containers/ProductsContainer";
-import SingleTableContainer from "../containers/SingleTableContainer";
-import CreateMenuContainer from "../containers/CreateMenuContainer";
-import CreateCategoryContainer from "../containers/CreateCategoryContainer";
-import CreateProductContainer from "../containers/CreateProductContainer";
-import EditProductContainer from "../containers/EditProductContainer";
-import EditCategoryContainer from "../containers/EditCategoryContainer";
-import EditMenuContainer from "../containers/EditMenuContainer";
-import MenuContainerCliente from "../containers/MenuClienteContainer";
-import MenuContainerClientCategoria from "../containers/MenuContainerClientCategoria";
-import ProductClientIndividual from "../containers/ProductClientIndividual";
-import ViewCartContainer from "../containers/ViewCartContainer";
+import Login from "../restaurant/containers/views/Login";
+import Tables from "../restaurant/containers/views/Tables";
+import Configurations from "../restaurant/containers/views/Configurations";
+import Home from "../client/containers/views/Home";
+import LoginClient from "../client/containers/views/Login";
+import Orders from "../restaurant/containers/views/Orders";
 
-import SingleOrderContainer from "../containers/singleOrderContainer";
+import RecoverPassword from "./RecoverPassword";
+
+import Menues from "../restaurant/containers/views/Menues";
+import Categories from "../restaurant/containers/views/Categories";
+import Products from "../restaurant/containers/views/Products";
+import SingleTable from "../restaurant/containers/views/SingleTable";
+import CreateMenu from "../restaurant/containers/create/Menu";
+import CreateCategory from "../restaurant/containers/create/Category";
+import CreateProduct from "../restaurant/containers/create/Product";
+import EditProduct from "../restaurant/containers/edit/Product";
+import EditCategory from "../restaurant/containers/edit/Category";
+import EditMenu from "../restaurant/containers/edit/Menu";
+
+import MenuesClient from "../client/containers/views/Menues";
+import CategoriesClient from "../client/containers/views/Categories";
+import ProductsClient from "../client/containers/views/Product";
+import Cart from "../client/containers/views/Cart";
+import SingleOrder from "../restaurant/containers/views/SingleOrder";
 
 const mapStateToProps = state => {
   return {
@@ -54,57 +56,42 @@ class Main extends React.Component {
     return this.state.firebaseInitialized !== false ? (
       <div>
         <Switch>
-          <Route exact path="/" component={LoginContainer}></Route>
-          <Route path="/dashboard" component={TablesContainer}></Route>
+          <Route exact path="/" component={Login}></Route>
+          <Route path="/dashboard" component={Tables}></Route>
 
-          <Route
-            path="/orders/:orderId"
-            component={SingleOrderContainer}
-          ></Route>
-          <Route exact path="/orders" component={OrdersContainer}></Route>
-          <Route
-            path="/configuration"
-            component={ConfigurationsContainer}
-          ></Route>
+          <Route path="/orders/:orderId" component={SingleOrder}></Route>
+          <Route exact path="/orders" component={Orders}></Route>
+          <Route path="/configuration" component={Configurations}></Route>
           <Route path="/recover" component={RecoverPassword}></Route>
           {/* Create */}
-          <Route
-            path="/menu/createMenu"
-            component={CreateMenuContainer}
-          ></Route>
+          <Route path="/menu/createMenu" component={CreateMenu}></Route>
           <Route
             path="/menu/:id/createCategory"
-            component={CreateCategoryContainer}
+            component={CreateCategory}
           ></Route>
           <Route
             path="/menu/:id/:categoryId/createProduct"
-            component={CreateProductContainer}
+            component={CreateProduct}
           ></Route>
           {/* Edit */}
           <Route
             path="/menu/:id/:categoryId/editProduct/:productId"
-            component={EditProductContainer}
+            component={EditProduct}
           ></Route>
           <Route
             path="/menu/:id/:categoryId/editCategory"
-            component={EditCategoryContainer}
+            component={EditCategory}
           ></Route>
-          <Route
-            path="/menu/:id/editMenu"
-            component={EditMenuContainer}
-          ></Route>
+          <Route path="/menu/:id/editMenu" component={EditMenu}></Route>
           {/* Rutas a Menu/Categorias/Productos */}
-          <Route exact path="/menu" component={MenuContainer}></Route>
+          <Route exact path="/menu" component={Menues}></Route>
           <Route
             exact
             path="/menu/:id/:categoryId"
-            component={ProductsContainer}
+            component={Products}
           ></Route>
-          <Route path="/menu/:id" component={MenuIndividualContainer}></Route>
-          <Route
-            path="/configuration"
-            component={ConfigurationsContainer}
-          ></Route>
+          <Route path="/menu/:id" component={Categories}></Route>
+          <Route path="/configuration" component={Configurations}></Route>
           <Route
             path="/forms"
             component={() => {
@@ -113,34 +100,22 @@ class Main extends React.Component {
               return null;
             }}
           ></Route>
-          <Route
-            path="/tables/:idTable"
-            component={SingleTableContainer}
-          ></Route>
-          <Route
-            path="/:idRestaurant/cart/:idTable"
-            component={ViewCartContainer}
-          ></Route>
-          <Route
-            path="/:idRestaurant/tables"
-            component={ClientLoginContainer}
-          ></Route>
+          <Route path="/tables/:idTable" component={SingleTable}></Route>
+          <Route path="/:idRestaurant/cart/:idTable" component={Cart}></Route>
+          <Route path="/:idRestaurant/tables" component={LoginClient}></Route>
           <Route
             path="/:idRestaurant/:idTable/menu"
-            component={MenuContainerCliente}
+            component={MenuesClient}
           ></Route>
           <Route
             path="/:idRestaurant/menu/:idMenu/:idTable"
-            component={MenuContainerClientCategoria}
+            component={CategoriesClient}
           ></Route>
           <Route
             path="/:idRestaurant/:idMenu/:idCategoria/:idProduct/:idTable/client"
-            component={ProductClientIndividual}
+            component={ProductsClient}
           ></Route>
-          <Route
-            path="/:idRestaurant/:idTable"
-            component={ClientViewContainer}
-          ></Route>
+          <Route path="/:idRestaurant/:idTable" component={Home}></Route>
         </Switch>
       </div>
     ) : (
