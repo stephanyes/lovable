@@ -2,7 +2,7 @@ import React from "react";
 import firebase from "../../../services/firebase";
 import Sidebar from "../general/Sidebar";
 import Footer from "../general/Footer";
-import Tables from "../../../components/Tables";
+import Tables from "../../../restaurant/components/views/Tables";
 import { connect } from "react-redux";
 
 const DB = firebase.db;

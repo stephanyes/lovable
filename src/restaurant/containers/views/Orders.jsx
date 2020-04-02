@@ -1,7 +1,7 @@
 import React from "react";
 import firebase from "../../../services/firebase";
 import Sidebar from "../general/Sidebar";
-import Orders from "../../../components/Orders";
+import Orders from "../../../restaurant/components/views/Orders";
 import { toast } from "react-toastify";
 
 import { connect } from "react-redux";

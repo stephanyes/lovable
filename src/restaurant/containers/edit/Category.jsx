@@ -1,7 +1,7 @@
 import React from "react";
 import firebase from "../../../services/firebase";
 import Sidebar from "../general/Sidebar";
-import EditCategoryView from "../../../components/EditCategoryView";
+import Category from "../../../restaurant/components/edit/Category";
 import { connect } from "react-redux";
 const DB = firebase.db;
 
@@ -65,7 +65,7 @@ class EditCategoryContainer extends React.Component {
     return (
       <div>
         <Sidebar />
-        <EditCategoryView
+        <Category
           inputs={this.handleInputs}
           submit={this.handleSubmit}
           category={this.state}

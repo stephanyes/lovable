@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Footer from "../../../components/Footer";
+import Footer from "../../../restaurant/components/general/Footer";
 
 class FooterContainer extends Component {
   constructor(props) {

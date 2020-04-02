@@ -2,7 +2,7 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import firebase from "../../../services/firebase";
 import { connect } from "react-redux";
-import Navbar from "../../../components/Navbar";
+import Navbar from "../../../restaurant/components/general/Navbar";
 import { userLogout } from "../../../store/actions/loginAction";
 
 const mapDispatchToProps = dispatch => {

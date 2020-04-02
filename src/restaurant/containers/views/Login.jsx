@@ -1,6 +1,6 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
-import Login from "../../../components/Login";
+import Login from "../../../restaurant/components/views/Login";
 import firebase from "../../../services/firebase";
 import { loginUser } from "../../../store/actions/loginAction";
 import { connect } from "react-redux";

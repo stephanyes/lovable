@@ -1,7 +1,7 @@
 import React from "react";
 import firebase from "../../../services/firebase";
 import Sidebar from "../general/Sidebar";
-import CreateMenuView from "../../../components/CreateMenuView";
+import Menu from "../../../restaurant/components/create/Menu";
 import { connect } from "react-redux";
 const DB = firebase.db;
 
@@ -44,7 +44,7 @@ class CreateMenuContainer extends React.Component {
     return (
       <div>
         <Sidebar />
-        <CreateMenuView submit={this.handleSubmit} input={this.handleInput} />
+        <Menu submit={this.handleSubmit} input={this.handleInput} />
       </div>
     );
   }

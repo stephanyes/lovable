@@ -1,6 +1,6 @@
 import React from "react";
 import firebase from "../../../services/firebase";
-import ViewCart from "../../../components/ViewCart";
+import Cart from "../../../client/components/views/Cart";
 
 const DB = firebase.db;
 let order;
@@ -106,7 +106,7 @@ class ViewCartContainer extends React.Component {
   render() {
     return (
       <div>
-        <ViewCart
+        <Cart
           deleteClick={this.deleteClick}
           handlerSubmit={this.handlerSubmit}
           productos={this.state.productos}

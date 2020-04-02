@@ -1,6 +1,6 @@
 import React from "react";
 import firebase from "../../../services/firebase";
-import ProductClienteInd from "../../../components/ProductClienteInd";
+import Products from "../../components/views/Products";
 
 const DB = firebase.db;
 let orderToUpdate;
@@ -96,10 +96,7 @@ class ProductContainer extends React.Component {
   render() {
     return (
       <div>
-        <ProductClienteInd
-          handleClick={this.handleClick}
-          product={this.state.product}
-        />
+        <Products handleClick={this.handleClick} product={this.state.product} />
       </div>
     );
   }

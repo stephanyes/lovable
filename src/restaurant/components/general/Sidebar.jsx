@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default ({ }) => {
+export default ({}) => {
   return (
     <div className="wrapper">
       <nav
@@ -34,8 +34,7 @@ export default ({ }) => {
               className="nav-link active"
               style={{
                 padding: "20px",
-                paddingLeft: "20px",
-                
+                paddingLeft: "20px"
               }}
               to="/dashboard"
             >

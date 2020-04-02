@@ -1,7 +1,7 @@
 import React from "react";
 import firebase from "../../../services/firebase";
 import Sidebar from "../general/Sidebar";
-import SingleOrder from "../../../components/singleOrder";
+import SingleOrder from "../../../restaurant/components/views/SingleOrder";
 import { connect } from "react-redux";
 const DB = firebase.db;
 let doc;

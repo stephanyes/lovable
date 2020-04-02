@@ -1,7 +1,7 @@
 import React from "react";
 import firebase from "../../../services/firebase";
 import Sidebar from "../general/Sidebar";
-import EditProductView from "../../../components/EditProductView";
+import Product from "../../../restaurant/components/edit/Product";
 import { connect } from "react-redux";
 const DB = firebase.db;
 
@@ -75,7 +75,7 @@ class EditProductContainer extends React.Component {
     return (
       <div>
         <Sidebar />
-        <EditProductView
+        <Product
           inputs={this.handleInputs}
           submit={this.handleSubmit}
           product={this.state}

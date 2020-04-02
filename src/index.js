@@ -2,7 +2,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Route } from "react-router-dom";
-import Main from "./components/Main";
+import Main from "./Main";
 import { Provider } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";

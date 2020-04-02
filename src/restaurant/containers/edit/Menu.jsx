@@ -1,7 +1,7 @@
 import React from "react";
 import firebase from "../../../services/firebase";
 import Sidebar from "../general/Sidebar";
-import EditMenuView from "../../../components/EditMenuView";
+import Menu from "../../../restaurant/components/edit/Menu";
 import { connect } from "react-redux";
 const DB = firebase.db;
 
@@ -57,7 +57,7 @@ class EditMenuContainer extends React.Component {
     return (
       <div>
         <Sidebar />
-        <EditMenuView
+        <Menu
           inputs={this.handleInputs}
           submit={this.handleSubmit}
           menu={this.state}

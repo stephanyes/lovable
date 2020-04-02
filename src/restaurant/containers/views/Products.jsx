@@ -1,7 +1,7 @@
 import React from "react";
 import firebase from "../../../services/firebase";
 import Sidebar from "../general/Sidebar";
-import ProductsView from "../../../components/ProductsView";
+import Products from "../../../restaurant/components/views/Products";
 import { connect } from "react-redux";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
@@ -107,7 +107,7 @@ class ProductsContainer extends React.Component {
     return (
       <div>
         <Sidebar />
-        <ProductsView
+        <Products
           products={this.state.productsArray}
           menuId={this.props.match.params.id}
           catId={this.props.match.params.categoryId}

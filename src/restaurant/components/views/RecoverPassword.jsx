@@ -1,5 +1,5 @@
 import React from "react";
-import firebase from "../services/firebase";
+import firebase from "../../../services/firebase";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import { withRouter } from "react-router-dom";
@@ -56,7 +56,7 @@ const RecoverPassword = props => {
               <h1
                 className="font-weight-bold"
                 style={{
-                  paddingBottom: "10px", 
+                  paddingBottom: "10px"
                 }}
               >
                 Recover Password
@@ -92,7 +92,7 @@ const RecoverPassword = props => {
                 className="btn btn-primary"
                 style={{
                   backgroundColor: "#FF2068",
-                  borderColor: "#FF2068",
+                  borderColor: "#FF2068"
                 }}
               >
                 Recover password

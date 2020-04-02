@@ -1,6 +1,6 @@
 import React from "react";
 import firebase from "../../../services/firebase";
-import SingleTable from "../../../components/SingleTable";
+import SingleTable from "../../../restaurant/components/views/SingleTable";
 import Sidebar from "../general/Sidebar";
 import { connect } from "react-redux";
 

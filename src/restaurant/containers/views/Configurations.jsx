@@ -2,7 +2,7 @@ import React from "react";
 import firebase from "../../../services/firebase";
 import Sidebar from "../general/Sidebar";
 import Footer from "../general/Footer";
-import Configurations from "../../../components/Configurations";
+import Configurations from "../../../restaurant/components/views/Configurations";
 import { connect } from "react-redux";
 
 const mapStateToProps = state => {

@@ -2,32 +2,29 @@ import React from "react";
 import { connect } from "react-redux";
 import { Route, Redirect, Switch, Link } from "react-router-dom";
 import Loader from "react-loader-spinner";
-import firebase from "../services/firebase";
-import Login from "../restaurant/containers/views/Login";
-import Tables from "../restaurant/containers/views/Tables";
-import Configurations from "../restaurant/containers/views/Configurations";
-import Home from "../client/containers/views/Home";
-import LoginClient from "../client/containers/views/Login";
-import Orders from "../restaurant/containers/views/Orders";
-
-import RecoverPassword from "./RecoverPassword";
-
-import Menues from "../restaurant/containers/views/Menues";
-import Categories from "../restaurant/containers/views/Categories";
-import Products from "../restaurant/containers/views/Products";
-import SingleTable from "../restaurant/containers/views/SingleTable";
-import CreateMenu from "../restaurant/containers/create/Menu";
-import CreateCategory from "../restaurant/containers/create/Category";
-import CreateProduct from "../restaurant/containers/create/Product";
-import EditProduct from "../restaurant/containers/edit/Product";
-import EditCategory from "../restaurant/containers/edit/Category";
-import EditMenu from "../restaurant/containers/edit/Menu";
-
-import MenuesClient from "../client/containers/views/Menues";
-import CategoriesClient from "../client/containers/views/Categories";
-import ProductsClient from "../client/containers/views/Product";
-import Cart from "../client/containers/views/Cart";
-import SingleOrder from "../restaurant/containers/views/SingleOrder";
+import firebase from "./services/firebase";
+import Login from "./restaurant/containers/views/Login";
+import Tables from "./restaurant/containers/views/Tables";
+import Configurations from "./restaurant/containers/views/Configurations";
+import Home from "./client/containers/views/Home";
+import LoginClient from "./client/containers/views/Login";
+import Orders from "./restaurant/containers/views/Orders";
+import RecoverPassword from "./restaurant/components/views/RecoverPassword";
+import Menues from "./restaurant/containers/views/Menues";
+import Categories from "./restaurant/containers/views/Categories";
+import Products from "./restaurant/containers/views/Products";
+import SingleTable from "./restaurant/containers/views/SingleTable";
+import CreateMenu from "./restaurant/containers/create/Menu";
+import CreateCategory from "./restaurant/containers/create/Category";
+import CreateProduct from "./restaurant/containers/create/Product";
+import EditProduct from "./restaurant/containers/edit/Product";
+import EditCategory from "./restaurant/containers/edit/Category";
+import EditMenu from "./restaurant/containers/edit/Menu";
+import MenuesClient from "./client/containers/views/Menues";
+import CategoriesClient from "./client/containers/views/Categories";
+import ProductsClient from "./client/containers/views/Products";
+import Cart from "./client/containers/views/Cart";
+import SingleOrder from "./restaurant/containers/views/SingleOrder";
 
 const mapStateToProps = state => {
   return {

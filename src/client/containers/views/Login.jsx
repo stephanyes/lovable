@@ -3,7 +3,7 @@ import { withRouter } from "react-router-dom";
 import firebase from "../../../services/firebase";
 import { connect } from "react-redux";
 import { saveLoginClient } from "../../../store/actions/loginClientAction";
-import ClientLogin from "../../../components/ClientLogin";
+import Login from "../../../client/components/views/Login";
 
 const DB = firebase.db;
 let ClientActualApp = 0;
@@ -95,7 +95,7 @@ class ClientLoginContainer extends React.Component {
   render() {
     return (
       <div>
-        <ClientLogin
+        <Login
           handleClick={this.handleClick}
           handlerChange={this.handlerChange}
           handlerSubmit={this.handlerSubmit}

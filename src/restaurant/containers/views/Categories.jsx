@@ -1,7 +1,7 @@
 import React from "react";
 import firebase from "../../../services/firebase";
 import Sidebar from "../general/Sidebar";
-import MenuIndividualView from "../../../components/MenuIndividualView";
+import Categories from "../../../restaurant/components/views/Categories";
 import { connect } from "react-redux";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
@@ -90,7 +90,7 @@ class MenuIndividualContainer extends React.Component {
     return (
       <div>
         <Sidebar />
-        <MenuIndividualView
+        <Categories
           nombre={this.state.nombreMenu}
           categories={this.state.categoryArray}
           menuId={this.props.match.params.id}

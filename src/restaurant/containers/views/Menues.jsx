@@ -1,7 +1,7 @@
 import React from "react";
 import firebase from "../../../services/firebase";
 import Sidebar from "../general/Sidebar";
-import MenuView from "../../../components/MenuView";
+import Menues from "../../../restaurant/components/views/Menues";
 import { connect } from "react-redux";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
@@ -71,7 +71,7 @@ class MenuContainer extends React.Component {
       <div>
         <Sidebar />
 
-        <MenuView
+        <Menues
           menuObject={this.state.menuesAndNames}
           deleteFunc={this.handleDelete}
         />

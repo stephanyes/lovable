@@ -1,5 +1,5 @@
 import React from "react";
-import MenuCategoriasClient from "../../../components/MenuCategoriasClient";
+import Menues from "../../../client/components/views/Menues";
 import firebase from "../../../services/firebase";
 const DB = firebase.db;
 
@@ -31,7 +31,7 @@ class MenuContainerCliente extends React.Component {
   render() {
     return (
       <div>
-        <MenuCategoriasClient
+        <Menues
           idTable={this.props.match.params.idTable}
           idRestaurant={this.props.match.params.idRestaurant}
           menuObject={this.state.menuesAndNames}

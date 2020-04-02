@@ -2,7 +2,7 @@ import React from "react";
 import firebase from "../../../services/firebase";
 import Sidebar from "../general/Sidebar";
 import { connect } from "react-redux";
-import CreateCategoryView from "../../../components/CreateCategoryView";
+import Category from "../../../restaurant/components/create/Category";
 const DB = firebase.db;
 
 const mapStateToProps = state => {
@@ -47,10 +47,7 @@ class CreateMenuContainer extends React.Component {
     return (
       <div>
         <Sidebar />
-        <CreateCategoryView
-          submit={this.handleSubmit}
-          inputs={this.handleInputs}
-        />
+        <Category submit={this.handleSubmit} inputs={this.handleInputs} />
       </div>
     );
   }

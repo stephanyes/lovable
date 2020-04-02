@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Redirect } from "react-router-dom";
-import Sidebar from "../../../components/Sidebar";
+import Sidebar from "../../../restaurant/components/general/Sidebar";
 import Navbar from "../general/Navbar";
 import { connect, useSelector } from "react-redux";
 

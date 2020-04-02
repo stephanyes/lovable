@@ -1,7 +1,7 @@
 import React from "react";
 import firebase from "../../../services/firebase";
 import { Route, Redirect, Switch, Link } from "react-router-dom";
-import ClientView from "../../../components/ClientView";
+import Home from "../../../client/components/views/Home";
 import { connect } from "react-redux";
 const DB = firebase.db;
 let tablesOfRestaurant;
@@ -71,7 +71,7 @@ class ClientViewContainer extends React.Component {
   render() {
     return (
       <div>
-        <ClientView
+        <Home
           handleClick={this.handleClick}
           table={this.state.table}
           propsOfRestaurantId={this.props.match.params.idRestaurant}
