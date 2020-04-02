@@ -23,7 +23,6 @@ export default ({ productos, priceTotal, deleteClick, handlerSubmit }) => {
           <h1
             className="font-weight-bold"
             style={{
-              //padding: "10px",
               paddingTop: "10px",
               marginBottom: "40px"
             }}
@@ -36,7 +35,7 @@ export default ({ productos, priceTotal, deleteClick, handlerSubmit }) => {
         ? productos.map(product => {
             return (
               <li
-                class="list-group-item d-flex justify-content-between align-items-center"
+                className="list-group-item d-flex justify-content-between align-items-center"
                 style={{
                   padding: "12px"
                 }}
@@ -72,8 +71,6 @@ export default ({ productos, priceTotal, deleteClick, handlerSubmit }) => {
                       backgroundColor: "#ff2068",
                       borderColor: "#ff2068",
                       padding: "3px 12px",
-                      //margin: "10px",
-                      //marginBottom: "40px",
                       fontSize: "20px"
                     }}
                     className="btn btn-primary"

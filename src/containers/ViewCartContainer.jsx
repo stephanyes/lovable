@@ -3,7 +3,10 @@ import firebase from "../services/firebase";
 import ViewCart from "../components/ViewCart";
 
 const DB = firebase.db;
-let newOrder;
+let order;
+let orderPrice;
+let total;
+let productArray
 
 class ViewCartContainer extends React.Component {
   constructor(props) {
@@ -11,7 +14,8 @@ class ViewCartContainer extends React.Component {
     this.state = {
         productos : [],
         priceTotal: 0,
-        idOrder:""
+        idOrder:"",
+        idDelete: ""
   }
   this.deleteClick = this.deleteClick.bind(this)
   this.handlerSubmit = this.handlerSubmit.bind(this)
@@ -22,76 +26,49 @@ class ViewCartContainer extends React.Component {
         .doc(this.props.match.params.idRestaurant)
         .collection("tables")
         .doc(this.props.match.params.idTable)
-
+        
         doc.get()
         .then( data => {
-           let orderId = data.data().orderActual
-           const order = DB.collection("restaurants")
-           .doc(this.props.match.params.idRestaurant)
-           .collection("orders")
-           .doc(`${orderId}`)
-           .collection("products")
-
-           this.setState({
-               idOrder : orderId
-           })
-
-           order.get().then(
-
-               result => { result.forEach(product => {
-                    let total = this.state.priceTotal
-                    total += parseInt(product.data().price)
-                    this.setState({ priceTotal: total})
-
-                    let orderPrice = DB.collection("restaurants")
+            let orderId = data.data().orderActual
+            order = DB.collection("restaurants")
+            .doc(this.props.match.params.idRestaurant)
+            .collection("orders")
+            .doc(`${orderId}`)
+            .collection("products")
+            
+            order.onSnapshot(result => { 
+                total = this.state.priceTotal
+                productArray = [];
+                result.forEach(product => {
+                    orderPrice = DB.collection("restaurants")
                     .doc(this.props.match.params.idRestaurant)
                     .collection("orders")
                     .doc(`${orderId}`)
-                    orderPrice.update({totalPrice: this.state.priceTotal})
-            
-
-                    this.setState({ 
-                        productos: [...this.state.productos, {
-                            id: product.id,
-                            imageProduct: product.data().imageProduct,
-                            name: product.data().name,
-                            price: product.data().price, 
-                            description: product.data().description
-                    }]})
+                    
+                    productArray.push({
+                        id: product.id,
+                        imageProduct: product.data().imageProduct,
+                        name: product.data().name,
+                        price: product.data().price, 
+                        description: product.data().description
+                    });
+                })
+                if(this.state.priceTotal !== 0)  total=0
+                for(let i=0; i<productArray.length; i++){
+                    total+=parseInt(productArray[i].price)
+                }
+                orderPrice.update({totalPrice: total})
+                this.setState({
+                    productos: productArray,
+                    priceTotal: total, 
+                    idOrder : orderId
                 })
             }) 
-        })
-
-        newOrder = DB.collection("restaurants")
-        .doc(this.props.match.params.idRestaurant)
-        .collection("orders")
-        .doc(`${this.props.match.params.orderId}`)
-        .collection("products")
-
-        newOrder.onSnapshot(docSnapshot => {
-            docSnapshot.forEach(product => {
-
-                    let orderPrice = DB.collection("restaurants")
-                    .doc(this.props.match.params.idRestaurant)
-                    .collection("orders")
-                    .doc(`${this.state.idOrder}`)
-                    orderPrice.update({totalPrice: this.state.priceTotal})
-
-                    this.setState({ 
-                        productos: [...this.state.productos, {
-                            id: product.id,
-                            imageProduct: product.data().imageProduct,
-                            name: product.data().name,
-                            price: product.data().price, 
-                            description: product.data().description
-                    }]
-                })
-            })    
         })
     }
 
     componentWillUnmount() {
-        newOrder.onSnapshot(() => {});
+        order.onSnapshot(() => {});
     }
 
     deleteClick(e, id){
@@ -106,12 +83,9 @@ class ViewCartContainer extends React.Component {
             console.log("Document successfully deleted!")
             })
         .catch(error => 
-             console.error("Error removing document: ", error)
+            console.error("Error removing document: ", error)
         )
     }
-
-    // this.props.history.push(`/${this.props.match.params.idRestaurant}/${this.props.match.params.idTable}/menu`)
-
 
     handlerSubmit(e){
         e.preventDefault()
