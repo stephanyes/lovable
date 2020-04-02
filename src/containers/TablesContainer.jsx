@@ -46,8 +46,6 @@ class TablesContainer extends React.Component {
         this.setState({ tables },
           this.ordenar(this.state.tables))
       })
-      
-      
     });
   }
 
