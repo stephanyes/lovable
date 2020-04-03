@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default ({ productos, categoria, idTable, idRestaurant }) => {
+export default ({ productos, categoria, idTable, idRestaurant, numOrder, prod}) => {
   return (
     <div
       style={{
@@ -112,22 +112,47 @@ export default ({ productos, categoria, idTable, idRestaurant }) => {
               paddingBottom: "0px"
             }}
           >
-            <Link
-              style={{
-                textDecoration: "none",
-                color: "#ffffff",
-                backgroundColor: "#ff2068",
-                borderColor: "#ff2068",
-                padding: "15px 110px",
-                margin: "10px",
-                marginBottom: "40px",
-                fontSize: "20px"
-              }}
-              className="btn btn-primary"
-              to={`/${idRestaurant}/cart/${idTable}`}
-            >
-              Go to Cart
-            </Link>
+
+            {numOrder !== 0 && prod.length ?
+              (<Link
+                style={{
+                  textDecoration: "none",
+                  color: "#ffffff",
+                  backgroundColor: "#ff2068",
+                  borderColor: "#ff2068",
+                  padding: "15px 110px",
+                  margin: "10px",
+                  marginBottom: "40px",
+                  fontSize: "20px"
+                }}
+                className="btn btn-primary"
+                to={`/${idRestaurant}/cart/${idTable}`}
+              >
+                Go to Cart
+              </Link>
+              )
+              :
+                null
+                
+              // Tal vez, es mejor que en vez de hacer desaparecer el button de Go to Cart, que lo pongamos pero con alguna opacidad y que permanezca desabilitado
+
+              // (<Link
+              //   style={{
+              //     textDecoration: "none",
+              //     color: "#ffffff",
+              //     backgroundColor: "#ff2068",
+              //     borderColor: "#ff2068",
+              //     padding: "15px 110px",
+              //     margin: "10px",
+              //     marginBottom: "40px",
+              //     fontSize: "20px",
+              //     disable : "disable"
+              //   }}
+              //   className="btn btn-primary" disable={true}
+              // >
+              //   Go to Cart
+              // </Link>)
+            }
           </div>
         </div>
       </div>
