@@ -6,6 +6,7 @@ import withReactContent from "sweetalert2-react-content";
 
 const DB = firebase.db;
 const MySwal = withReactContent(Swal);
+
 let orderToUpdate;
 let orderToCreate;
 
