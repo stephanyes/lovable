@@ -7,14 +7,15 @@ export default ({ tables, buttonClick }) => {
       style={{
         backgroundColor: "white",
         marginLeft: "250px",
-        paddingBottom: "400px"
+        paddingBottom: "400px",
       }}
     >
       <div
         className="container"
         style={{
-          marginLeft: "20px",
-          paddingTop: "20px"
+          paddingLeft: "35px",
+          paddingRight: "35px",
+          paddingTop: "20px",
         }}
       >
         <h1 className="font-weight-bold">Dashboard</h1>
@@ -27,7 +28,7 @@ export default ({ tables, buttonClick }) => {
               className="nav-link"
               style={{
                 textDecoration: "none",
-                color: "inherit"
+                color: "inherit",
               }}
               to={`/tables/${table.id}`}
             >
@@ -41,7 +42,7 @@ export default ({ tables, buttonClick }) => {
                   padding: "0px",
                   borderStyle: "none",
                   boxShadow:
-                    "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"
+                    "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
                 }}
               >
                 <div className="row no-gutters">
@@ -96,7 +97,7 @@ export default ({ tables, buttonClick }) => {
                     <div
                       className="card-body"
                       style={{
-                        padding: "15px"
+                        padding: "15px",
                       }}
                     >
                       <h6 className="font-weight-normal">
@@ -107,7 +108,7 @@ export default ({ tables, buttonClick }) => {
                       <p
                         className="font-weight-normal"
                         style={{
-                          margin: "0px"
+                          margin: "0px",
                         }}
                       >
                         <small className="text-muted">
@@ -119,10 +120,10 @@ export default ({ tables, buttonClick }) => {
                                 backgroundColor: "#ffffff",
                                 borderColor: "#ffffff",
                                 color: "#000000",
-                                padding: "0px"
+                                padding: "0px",
                                 // height: "30%"
                               }}
-                              onClick={e => buttonClick(e, table.id)}
+                              onClick={(e) => buttonClick(e, table.id)}
                             >
                               New code
                             </button>
