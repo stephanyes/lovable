@@ -3,12 +3,16 @@ import Menu from "../../../client/components/views/Categories";
 import firebase from "../../../services/firebase";
 const DB = firebase.db;
 
+let idOrder
+let idProd
 class MenuContainerCliente extends React.Component {
   constructor(props) {
     super();
     this.state = {
       categorias: [],
-      producto: []
+      producto: [],
+      numOrder: 0,
+      prod: []
     };
   }
 
@@ -58,6 +62,29 @@ class MenuContainerCliente extends React.Component {
         });
       });
     });
+
+    idOrder = DB.collection("restaurants")
+      .doc(this.props.match.params.idRestaurant)
+      .collection("tables")
+      .doc(this.props.match.params.idTable)
+    idOrder.get()
+    .then(data => {
+        this.setState({numOrder: data.data().orderActual})
+        console.log(this.state.numOrder)
+    })
+    .then(() => {
+      idProd = DB.collection("restaurants")
+      .doc(this.props.match.params.idRestaurant)
+      .collection("orders")
+      .doc(`${this.state.numOrder}`)
+      .collection("products")
+      idProd.get()
+      .then(dataOrder => {
+        dataOrder.forEach(data => {
+          this.setState({prod: [...this.state.prod,{prod : data.data()}]})
+        })
+      })   
+    })
   }
 
   render() {
@@ -68,6 +95,8 @@ class MenuContainerCliente extends React.Component {
           idRestaurant={this.props.match.params.idRestaurant}
           categoria={this.state.categorias}
           productos={this.state.producto}
+          numOrder={this.state.numOrder}
+          prod={this.state.prod}
         />
       </div>
     );

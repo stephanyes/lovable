@@ -1,8 +1,12 @@
 import React from "react";
 import firebase from "../../../services/firebase";
 import Products from "../../components/views/Products";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 const DB = firebase.db;
+const MySwal = withReactContent(Swal);
+
 let orderToUpdate;
 let orderToCreate;
 
@@ -91,6 +95,21 @@ class ProductContainer extends React.Component {
         });
       }
     });
+
+    MySwal.fire({
+      title: "Are you sure to add to cart?",
+      text: "You won't be able to revert this!",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Confirm"
+    })
+    .then(result => {
+      if (result.value) {
+        MySwal.fire("Success!", `Your product has been added to cart.`, "success");
+      }
+    })
   }
 
   render() {

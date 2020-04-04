@@ -1,10 +1,16 @@
 import React from "react";
 import firebase from "../../../services/firebase";
-import { Route, Redirect, Switch, Link } from "react-router-dom";
 import Home from "../../../client/components/views/Home";
 import { connect } from "react-redux";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+
 const DB = firebase.db;
+const MySwal = withReactContent(Swal);
+
 let tablesOfRestaurant;
+let controlPay;
+let control
 
 const mapStateToProps = (state, ownprops) => {
   return {
@@ -43,6 +49,14 @@ class ClientViewContainer extends React.Component {
         }
       });
     });
+
+    controlPay = DB.collection("restaurants")
+    .doc(this.props.match.params.idRestaurant)
+    .collection("tables")
+    .doc(this.props.match.params.idTable)
+
+    controlPay.get()
+    .then(data => control = data.data().pay)
   }
 
   componentWillUnmount() {
@@ -50,21 +64,32 @@ class ClientViewContainer extends React.Component {
   }
 
   handleClick(type) {
-    let tableActual = DB.collection("restaurants").doc(
-      `${this.props.match.params.idRestaurant}/tables/${this.props.match.params.idTable}`
-    );
+    let tableActual = DB.collection("restaurants").doc(`${this.props.match.params.idRestaurant}/tables/${this.props.match.params.idTable}`);
+
     if (type === "waiter") {
-      if (this.state.table.waiter === false) {
-        tableActual.update({ waiter: true });
-      } else {
-        tableActual.update({ waiter: false });
-      }
-    } else if (type === "payment") {
-      if (this.state.table.pay === false) {
-        tableActual.update({ pay: true });
-      } else {
-        tableActual.update({ pay: false });
-      }
+      this.state.table.waiter === false ? (tableActual.update({ waiter: true })) : (tableActual.update({ waiter: false }))
+    } 
+    
+    if (!control && type === "payment") {
+      MySwal.fire({
+        title: "Are you sure you want to request bill?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Confirm"
+      })
+
+      .then(result => {
+        if (result.value) {
+          MySwal.fire("Success!", `Your bill has been to request.`, "success");
+          if (this.state.table.pay === false) {
+            tableActual.update({ pay: true });
+            control = true
+          }
+        }
+      })
     }
   }
 

@@ -103,7 +103,6 @@ class ProductsContainer extends React.Component {
     });
   }
   render() {
-    console.log(this.props.products);
     return (
       <div>
         <Sidebar />
