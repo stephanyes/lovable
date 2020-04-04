@@ -7,14 +7,15 @@ export default ({ orders, handleClickStatus }) => {
       style={{
         backgroundColor: "white",
         marginLeft: "250px",
-        paddingBottom: "400px"
+        paddingBottom: "400px",
       }}
     >
       <div
         className="container"
         style={{
-          marginLeft: "20px",
-          paddingTop: "20px"
+          paddingLeft: "35px",
+          paddingRight: "35px",
+          paddingTop: "20px",
         }}
       >
         <h1 className="font-weight-bold">Orders</h1>
@@ -24,23 +25,23 @@ export default ({ orders, handleClickStatus }) => {
         <ul
           class="list-group"
           style={{
-            marginTop: "30px"
+            marginTop: "30px",
           }}
         >
           {orders
-            ? orders.map(order => (
+            ? orders.map((order) => (
                 <li
                   key={order.idUser}
                   class="list-group-item d-flex justify-content-between align-items-center"
                 >
                   <div
                     style={{
-                      marginTop: "10px"
+                      marginTop: "10px",
                     }}
                   >
                     <div
                       style={{
-                        paddingBottom: "10px"
+                        paddingBottom: "10px",
                       }}
                     >
                       <Link to={`/orders/${order.id}`}>Pedido #{order.id}</Link>
@@ -60,11 +61,13 @@ export default ({ orders, handleClickStatus }) => {
 
                   <div>
                     <button
-                      onClick={e => handleClickStatus(e, order.id, "completed")}
+                      onClick={(e) =>
+                        handleClickStatus(e, order.id, "completed")
+                      }
                       style={{
                         backgroundColor: "#2EC4B6",
                         borderColor: "#2EC4B6",
-                        marginRight: "20px"
+                        marginRight: "20px",
                       }}
                       className="btn btn-primary btn-lg"
                     >
@@ -72,10 +75,12 @@ export default ({ orders, handleClickStatus }) => {
                     </button>
 
                     <button
-                      onClick={e => handleClickStatus(e, order.id, "canceled")}
+                      onClick={(e) =>
+                        handleClickStatus(e, order.id, "canceled")
+                      }
                       style={{
                         backgroundColor: "#ff2068",
-                        borderColor: "#ff2068"
+                        borderColor: "#ff2068",
                         //marginRight: "20px"
                       }}
                       className="btn btn-primary btn-lg"
