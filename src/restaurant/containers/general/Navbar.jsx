@@ -5,9 +5,9 @@ import { connect } from "react-redux";
 import Navbar from "../../../restaurant/components/general/Navbar";
 import { userLogout } from "../../../store/actions/loginAction";
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    chauUser: () => dispatch(userLogout())
+    chauUser: () => dispatch(userLogout()),
   };
 };
 

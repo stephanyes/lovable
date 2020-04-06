@@ -20,16 +20,18 @@ import CreateProduct from "./restaurant/containers/create/Product";
 import EditProduct from "./restaurant/containers/edit/Product";
 import EditCategory from "./restaurant/containers/edit/Category";
 import EditMenu from "./restaurant/containers/edit/Menu";
+import EditConfigurations from "./restaurant/containers/edit/Configurations";
 import MenuesClient from "./client/containers/views/Menues";
 import CategoriesClient from "./client/containers/views/Categories";
 import ProductsClient from "./client/containers/views/Products";
 import Cart from "./client/containers/views/Cart";
 import SingleOrder from "./restaurant/containers/views/SingleOrder";
+import Password from "./restaurant/components/edit/Password";
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     userLogin: state.user.loginUser,
-    isAuth: state.user.isAuth
+    isAuth: state.user.isAuth,
   };
 };
 
@@ -37,14 +39,14 @@ class Main extends React.Component {
   constructor() {
     super();
     this.state = {
-      firebaseInitialized: false
+      firebaseInitialized: false,
     };
   }
 
   componentDidMount() {
-    firebase.isInitialized().then(val => {
+    firebase.isInitialized().then((val) => {
       this.setState({
-        firebaseInitialized: val
+        firebaseInitialized: val,
       });
     });
   }
@@ -55,10 +57,21 @@ class Main extends React.Component {
         <Switch>
           <Route exact path="/" component={Login}></Route>
           <Route path="/dashboard" component={Tables}></Route>
-
+          <Route
+            path="/configuration/edit"
+            component={EditConfigurations}
+          ></Route>
           <Route path="/orders/:orderId" component={SingleOrder}></Route>
           <Route exact path="/orders" component={Orders}></Route>
-          <Route path="/configuration" component={Configurations}></Route>
+          <Route
+            exact
+            path="/configurations"
+            component={Configurations}
+          ></Route>
+          <Route
+            path="/configurations/resetpassword"
+            component={Password}
+          ></Route>
           <Route path="/recover" component={RecoverPassword}></Route>
           {/* Create */}
           <Route path="/menu/createMenu" component={CreateMenu}></Route>
@@ -88,7 +101,8 @@ class Main extends React.Component {
             component={Products}
           ></Route>
           <Route path="/menu/:id" component={Categories}></Route>
-          <Route path="/configuration" component={Configurations}></Route>
+
+          <Route path="/configurations" component={Configurations}></Route>
           <Route
             path="/forms"
             component={() => {

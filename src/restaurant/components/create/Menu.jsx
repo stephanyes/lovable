@@ -6,34 +6,35 @@ export default ({ submit, input }) => {
       style={{
         backgroundColor: "white",
         marginLeft: "250px",
-        paddingBottom: "400px"
+        paddingBottom: "400px",
       }}
     >
       <div
         className="container"
         style={{
-          marginLeft: "20px",
-          paddingTop: "20px"
+          paddingLeft: "35px",
+          paddingRight: "35px",
+          paddingTop: "20px",
         }}
       >
         <h1 className="font-weight-bold">Create Menu</h1>
         <div className="col">
           <form
-            onSubmit={e => submit(e)}
+            onSubmit={(e) => submit(e)}
             style={{
               padding: "40px",
-              marginRight: "20px"
+              marginRight: "20px",
             }}
           >
             <div
               className="form-group"
               style={{
-                paddingBottom: "20px"
+                paddingBottom: "20px",
               }}
             >
               <label>Name</label>
               <input
-                onChange={e => input(e)}
+                onChange={(e) => input(e)}
                 name="nameOfMenu"
                 type="text"
                 className="form-control"
@@ -46,7 +47,7 @@ export default ({ submit, input }) => {
               className="btn btn-primary"
               style={{
                 backgroundColor: "#FF2068",
-                borderColor: "#FF2068"
+                borderColor: "#FF2068",
               }}
             >
               Create
