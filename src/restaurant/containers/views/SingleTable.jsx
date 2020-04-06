@@ -6,10 +6,11 @@ import { connect } from "react-redux";
 
 const DB = firebase.db;
 
-let tablesDoc;
-let tableActual;
+let pruebaSingleTable;
+let orderQuery
+let productsTable
 
-const mapStateToProps = (state, ownprops) => {
+const mapStateToProps = (state) => {
   return {
     userLogin: state.user.loginUser.restaurantID
   };
@@ -19,38 +20,91 @@ class SingleTableContainer extends React.Component {
   constructor(props) {
     super();
     this.state = {
-      table: {}
+      table: {},
+      tableOrder: {},
+      productArray: []
     };
     this.handlerButton = this.handlerButton.bind(this);
+    this.orderHandler = this.orderHandler.bind(this);
+    this.tableHandler = this.tableHandler.bind(this);
   }
 
   componentDidMount() {
-    tablesDoc = DB.collection("restaurants")
+    pruebaSingleTable = DB.collection("restaurants")
       .doc(`${this.props.userLogin}`)
-      .collection("tables");
-    tablesDoc.onSnapshot(docSnapshot => {
-      docSnapshot.forEach(doc => {
-        if (doc.id == this.props.match.params.idTable) {
-          this.setState({
-            table: {
-              clientActual: doc.data().clientActual,
-              number: doc.data().number,
-              orderActual: doc.data().orderActual,
-              secretCode: doc.data().secretCode,
-              state: doc.data().state,
-              waiter: doc.data().waiter,
-              pay: doc.data().pay,
-              orderStatus: doc.data().orderStatus,
-              id: doc.id
-            }
-          });
+      .collection("tables").doc(this.props.match.params.idTable)
+    pruebaSingleTable.onSnapshot(tableDoc => {
+      this.setState({
+        table: {
+          clientActual: tableDoc.data().clientActual,
+          number: tableDoc.data().number,
+          orderActual: tableDoc.data().orderActual,
+          secretCode: tableDoc.data().secretCode,
+          state: tableDoc.data().state,
+          waiter: tableDoc.data().waiter,
+          pay: tableDoc.data().pay,
+          orderStatus: tableDoc.data().orderStatus,
+          id: tableDoc.id
         }
-      });
-    });
+      })
+      if (tableDoc.data().orderActual !== 0) {
+        let stringy = (tableDoc.data().orderActual).toString()
+        orderQuery = DB.collection("restaurants").doc(`${this.props.userLogin}`).collection("orders").doc(stringy)
+        orderQuery.onSnapshot(docSnapshot => {
+          this.setState({
+            tableOrder: {
+              status: docSnapshot.data().status,
+              totalPrice: docSnapshot.data().totalPrice
+            }
+          })
+          productsTable = orderQuery.collection('products')
+          productsTable.onSnapshot(prodDoc => {
+            let arrayHelper = []
+            prodDoc.forEach(singleProd => {
+              arrayHelper.push({
+                name: singleProd.data().name,
+                price: singleProd.data().price
+              })
+            })
+            this.setState({
+              productArray: arrayHelper
+            })
+          })
+        })
+      }
+
+    })
   }
 
   componentWillUnmount() {
-    tablesDoc.onSnapshot(() => {});
+    pruebaSingleTable.onSnapshot(() => { });
+    if (orderQuery && productsTable) {
+      orderQuery.onSnapshot(() => { });
+      productsTable.onSnapshot(() => { });
+    }
+
+  }
+
+  orderHandler(e, id, string) {
+    e.preventDefault();
+    let stringy = id.toString()
+    let doc = DB.collection('restaurants').doc(this.props.userLogin).collection('orders').doc(stringy)
+    doc.update({ status: string })
+    firebase.succesfullMsg(`Order ${string}`)
+  }
+
+  tableHandler(e, id, string) {
+    e.preventDefault()
+    let table = DB.collection('restaurants').doc(this.props.userLogin).collection('tables').doc(id)
+    if (string === 'waiter') {
+      table.update({
+        waiter: false
+      })
+    } else {
+      table.update({
+        pay: false
+      })
+    }
   }
 
   handlerButton(e) {
@@ -72,12 +126,17 @@ class SingleTableContainer extends React.Component {
   }
 
   render() {
+    console.log(this.state)
     return (
       <div>
         <Sidebar />
         <SingleTable
           table={this.state.table}
+          order={this.state.tableOrder}
+          productArray={this.state.productArray}
           buttonClick={this.handlerButton}
+          orderHandler={this.orderHandler}
+          tableHandler={this.tableHandler}
         />
       </div>
     );
