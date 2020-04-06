@@ -1,12 +1,12 @@
 import React from "react";
 
-export default ({ inputs, submit, product }) => {
+export default ({ inputs, submit, restaurant }) => {
   return (
     <div
       style={{
         backgroundColor: "white",
         marginLeft: "250px",
-        paddingBottom: "400px",
+        paddingBottom: "30px",
       }}
     >
       <div
@@ -17,7 +17,7 @@ export default ({ inputs, submit, product }) => {
           paddingTop: "20px",
         }}
       >
-        <h1 className="font-weight-bold">Edit Product</h1>
+        <h1 className="font-weight-bold">Edit Configurations</h1>
         <div className="col">
           <form
             onSubmit={(e) => submit(e)}
@@ -38,9 +38,9 @@ export default ({ inputs, submit, product }) => {
                 name="name"
                 type="text"
                 className="form-control"
-                placeholder="Product name..."
+                placeholder="Restaurant name..."
                 required
-                value={product.name}
+                value={restaurant.name}
               />
             </div>
             <div
@@ -49,15 +49,15 @@ export default ({ inputs, submit, product }) => {
                 paddingBottom: "20px",
               }}
             >
-              <label>Image display</label>
+              <label>Email</label>
               <input
                 onChange={(e) => inputs(e)}
-                name="imageProduct"
-                type="text"
+                name="mail"
+                type="email"
                 className="form-control"
-                placeholder="Image URL..."
+                placeholder="hi@email.com"
                 required
-                value={product.imageProduct}
+                value={restaurant.mail}
               />
             </div>
             <div
@@ -66,15 +66,15 @@ export default ({ inputs, submit, product }) => {
                 paddingBottom: "20px",
               }}
             >
-              <label>Description</label>
+              <label>Phone</label>
               <input
                 onChange={(e) => inputs(e)}
-                name="description"
-                type="text"
+                name="phone"
+                type="number"
                 className="form-control"
-                placeholder="Brief description of product..."
+                placeholder="+54 305 ..."
                 required
-                value={product.description}
+                value={restaurant.phone}
               />
             </div>
             <div
@@ -83,15 +83,32 @@ export default ({ inputs, submit, product }) => {
                 paddingBottom: "20px",
               }}
             >
-              <label>Price</label>
+              <label>Logo Image</label>
               <input
                 onChange={(e) => inputs(e)}
-                name="price"
+                name="logoImage"
                 type="text"
                 className="form-control"
-                placeholder="Price..."
+                placeholder="https://..."
                 required
-                value={product.price}
+                value={restaurant.logoImage}
+              />
+            </div>
+            <div
+              className="form-group"
+              style={{
+                paddingBottom: "20px",
+              }}
+            >
+              <label>Background Image</label>
+              <input
+                onChange={(e) => inputs(e)}
+                name="backgroundImage"
+                type="text"
+                className="form-control"
+                placeholder="ttps://..."
+                required
+                value={restaurant.backgroundImage}
               />
             </div>
             <button

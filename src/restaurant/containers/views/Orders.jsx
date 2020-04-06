@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import { connect } from "react-redux";
 const DB = firebase.db;
 let doc;
+let fecha = `${new Date()}`;
 
 const mapStateToProps = state => {
   return {
@@ -24,10 +25,11 @@ class OrdersContainer extends React.Component {
   }
 
   componentDidMount() {
+    let fecha = new Date();
     doc = DB.collection("restaurants")
       .doc(this.props.userLogin)
       .collection("orders")
-      .where("status", "==", "pending");
+      .where("date", "==", `${fecha}`);
 
     doc.onSnapshot(ordersDocuments => {
       let orders = [];
@@ -67,6 +69,7 @@ class OrdersContainer extends React.Component {
 
   render() {
     // console.log(this.state);
+    console.log("fecha: ", fecha.slice(0, 15));
     return (
       <div>
         <Sidebar />

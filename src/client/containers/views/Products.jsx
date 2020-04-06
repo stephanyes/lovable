@@ -1,8 +1,12 @@
 import React from "react";
 import firebase from "../../../services/firebase";
 import Products from "../../components/views/Products";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 const DB = firebase.db;
+const MySwal = withReactContent(Swal);
+
 let orderToUpdate;
 let orderToCreate;
 
@@ -12,9 +16,10 @@ class ProductContainer extends React.Component {
     this.state = {
       product: {},
       order: {
-        numberOfTable: "completar con INFO",
+        numberOfTable: "",
         status: "draft",
-        totalPrice: 0
+        totalPrice: 0,
+        date : ""
       }
     };
     this.handleClick = this.handleClick.bind(this);
@@ -58,7 +63,8 @@ class ProductContainer extends React.Component {
         order: {
           numberOfTable: result.data().number,
           status: "draft",
-          totalPrice: 0
+          totalPrice: 0,
+          date : new Date()
         }
       });
 
@@ -78,7 +84,7 @@ class ProductContainer extends React.Component {
           RestaurantDoc.update({ orderTotalNumber: orderToCreate + 1 });
           TablesRestaurant.update({
             orderActual: orderToCreate,
-            orderStatus: "draft"
+            orderStatus: "draft",
           });
           let newOrder = RestaurantDoc.collection("orders").doc(
             `${orderToCreate}`
@@ -91,6 +97,21 @@ class ProductContainer extends React.Component {
         });
       }
     });
+
+    MySwal.fire({
+      title: "Are you sure to add to cart?",
+      text: "You won't be able to revert this!",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Confirm"
+    })
+    .then(result => {
+      if (result.value) {
+        MySwal.fire("Success!", `Your product has been added to cart.`, "success");
+      }
+    })
   }
 
   render() {

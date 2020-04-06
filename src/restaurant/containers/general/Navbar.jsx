@@ -13,6 +13,7 @@ const mapStateToProps = state => {
     userLogin: state.user.loginUser.restaurantID
   };
 };
+
 const mapDispatchToProps = dispatch => {
   return {
     chauUser: () => dispatch(userLogout())

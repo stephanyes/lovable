@@ -14,8 +14,7 @@ class ViewCartContainer extends React.Component {
     this.state = {
       productos: [],
       priceTotal: 0,
-      idOrder: "",
-      idDelete: ""
+      idOrder: ""
     };
     this.deleteClick = this.deleteClick.bind(this);
     this.handlerSubmit = this.handlerSubmit.bind(this);
