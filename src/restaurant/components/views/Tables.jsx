@@ -21,10 +21,11 @@ export default ({ tables, buttonClick }) => {
         <h1 className="font-weight-bold">Dashboard</h1>
       </div>
 
-      <div class="row row-cols-1 row-cols-md-3" style={{ margin: "0" }}>
+      <div className="row row-cols-1 row-cols-md-3" style={{ margin: "0" }}>
         {tables.length ? (
           tables.map((table, index) => (
             <Link
+              key={index}
               className="nav-link"
               style={{
                 textDecoration: "none",
@@ -105,7 +106,7 @@ export default ({ tables, buttonClick }) => {
                       </h6>
                       <h3 className="font-weight-bold">Table {table.number}</h3>
 
-                      <p
+                      <div
                         className="font-weight-normal"
                         style={{
                           margin: "0px",
@@ -147,7 +148,7 @@ export default ({ tables, buttonClick }) => {
                               </div>
                             )}
                         </small>
-                      </p>
+                      </div>
                     </div>
                   </div>
                 </div>
