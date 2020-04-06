@@ -21,10 +21,11 @@ export default ({ tables, buttonClick }) => {
         <h1 className="font-weight-bold">Dashboard</h1>
       </div>
 
-      <div class="row row-cols-1 row-cols-md-3" style={{ margin: "0" }}>
+      <div className="row row-cols-1 row-cols-md-3" style={{ margin: "0" }}>
         {tables.length ? (
           tables.map((table, index) => (
             <Link
+              key={index}
               className="nav-link"
               style={{
                 textDecoration: "none",
@@ -54,44 +55,44 @@ export default ({ tables, buttonClick }) => {
                         alt="..."
                       />
                     ) : (
-                      <div>
-                        {table.orderStatus === "pending" ? (
-                          <img
-                            src="https://insideone.s3-sa-east-1.amazonaws.com/services-table-order.png"
-                            className="card-img"
-                            alt="..."
-                          />
-                        ) : (
-                          <div>
-                            {table.waiter == true ? (
-                              <img
-                                src="https://insideone.s3-sa-east-1.amazonaws.com/services-table-waiter.png"
-                                className="card-img"
-                                alt="..."
-                              />
-                            ) : (
+                        <div>
+                          {table.orderStatus === "pending" ? (
+                            <img
+                              src="https://insideone.s3-sa-east-1.amazonaws.com/services-table-order.png"
+                              className="card-img"
+                              alt="..."
+                            />
+                          ) : (
                               <div>
-                                {table.pay == true ? (
+                                {table.waiter === true ? (
                                   <img
-                                    src="https://insideone.s3-sa-east-1.amazonaws.com/services-table-pay.png"
+                                    src="https://insideone.s3-sa-east-1.amazonaws.com/services-table-waiter.png"
                                     className="card-img"
                                     alt="..."
                                   />
                                 ) : (
-                                  <div>
-                                    <img
-                                      src="https://insideone.s3-sa-east-1.amazonaws.com/services-table-busy.png"
-                                      className="card-img"
-                                      alt="..."
-                                    />
-                                  </div>
-                                )}
+                                    <div>
+                                      {table.pay === true ? (
+                                        <img
+                                          src="https://insideone.s3-sa-east-1.amazonaws.com/services-table-pay.png"
+                                          className="card-img"
+                                          alt="..."
+                                        />
+                                      ) : (
+                                          <div>
+                                            <img
+                                              src="https://insideone.s3-sa-east-1.amazonaws.com/services-table-busy.png"
+                                              className="card-img"
+                                              alt="..."
+                                            />
+                                          </div>
+                                        )}
+                                    </div>
+                                  )}
                               </div>
                             )}
-                          </div>
-                        )}
-                      </div>
-                    )}
+                        </div>
+                      )}
                   </div>
                   <div className="col-md-7">
                     <div
@@ -105,7 +106,7 @@ export default ({ tables, buttonClick }) => {
                       </h6>
                       <h3 className="font-weight-bold">Table {table.number}</h3>
 
-                      <p
+                      <div
                         className="font-weight-normal"
                         style={{
                           margin: "0px",
@@ -128,26 +129,26 @@ export default ({ tables, buttonClick }) => {
                               New code
                             </button>
                           ) : (
-                            <div>
-                              {table.orderStatus === "pending" ? (
-                                "Order Pending"
-                              ) : (
-                                <div>
-                                  {table.waiter == true ? (
-                                    "Waiter"
-                                  ) : (
+                              <div>
+                                {table.orderStatus === "pending" ? (
+                                  "Order Pending"
+                                ) : (
                                     <div>
-                                      {table.pay == true
-                                        ? "Payment"
-                                        : `Code ${table.secretCode}`}
+                                      {table.waiter === true ? (
+                                        "Waiter"
+                                      ) : (
+                                          <div>
+                                            {table.pay === true
+                                              ? "Payment"
+                                              : `Code ${table.secretCode}`}
+                                          </div>
+                                        )}
                                     </div>
                                   )}
-                                </div>
-                              )}
-                            </div>
-                          )}
+                              </div>
+                            )}
                         </small>
-                      </p>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -155,8 +156,8 @@ export default ({ tables, buttonClick }) => {
             </Link>
           ))
         ) : (
-          <h1> </h1>
-        )}
+            <h1> </h1>
+          )}
       </div>
     </div>
   );

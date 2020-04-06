@@ -20,7 +20,8 @@ class ProductContainer extends React.Component {
         numberOfTable: "",
         status: "draft",
         totalPrice: 0,
-        date : ""
+        date: "",
+        notify: false
       },
       comments: "This product has not a special comment",
       value: 1
@@ -75,7 +76,8 @@ class ProductContainer extends React.Component {
           numberOfTable: result.data().number,
           status: "draft",
           totalPrice: 0,
-          date : new Date()
+          date: new Date(),
+          notify: false
         }
       });
 
@@ -99,7 +101,7 @@ class ProductContainer extends React.Component {
           RestaurantDoc.update({ orderTotalNumber: orderToCreate + 1 });
           TablesRestaurant.update({
             orderActual: orderToCreate,
-            orderStatus: "draft",
+            orderStatus: "draft"
           });
           let newOrder = RestaurantDoc.collection("orders").doc(
             `${orderToCreate}`
@@ -124,12 +126,15 @@ class ProductContainer extends React.Component {
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Confirm"
-    })
-    .then(result => {
+    }).then(result => {
       if (result.value) {
-        MySwal.fire("Success!", `Your product has been added to cart.`, "success");
+        MySwal.fire(
+          "Success!",
+          `Your product has been added to cart.`,
+          "success"
+        );
       }
-    })
+    });
   }
 
   addProd(e){
