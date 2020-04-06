@@ -130,13 +130,13 @@ class Main extends React.Component {
         </Switch>
       </div>
     ) : (
-      <div
-        className="container"
-        style={{ textAlign: "center", alignContent: "center" }}
-      >
-        <Loader type="Hearts" color="red" height={80} width={80} />
-      </div>
-    );
+        <div
+          className="container"
+          style={{ textAlign: "center", alignContent: "center" }}
+        >
+          <Loader type="Hearts" color="red" height={80} width={80} />
+        </div>
+      );
   }
 }
 
