@@ -37,7 +37,7 @@ export default ({ menuObject, deleteFunc }) => {
         <hr />
 
         <ul
-          class="list-group"
+          className="list-group"
           style={{
             marginTop: "30px",
           }}
@@ -47,7 +47,7 @@ export default ({ menuObject, deleteFunc }) => {
               return (
                 <li
                   key={menu.id}
-                  class="list-group-item d-flex justify-content-between align-items-center"
+                  className="list-group-item d-flex justify-content-between align-items-center"
                 >
                   <Link to={`/menu/${menu.id}`}>{menu.name}</Link>
                   <div>
@@ -79,8 +79,8 @@ export default ({ menuObject, deleteFunc }) => {
               );
             })
           ) : (
-            <li>No Categories Found</li>
-          )}
+              <li>No Categories Found</li>
+            )}
         </ul>
 
         {/* <table className="table table-striped table-bordered">
