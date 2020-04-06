@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import { connect } from "react-redux";
 const DB = firebase.db;
 let doc;
+//let fecha = `${new Date()}`;
 
 const mapStateToProps = state => {
   return {
@@ -18,37 +19,80 @@ class OrdersContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      ordersArray: []
+      orderAcepted: [],
+      orderCanceled: [],
+      orderPending: []
     };
     this.handleClickStatus = this.handleClickStatus.bind(this);
   }
 
   componentDidMount() {
+    let that = this;
+    //let fecha = new Date();
     doc = DB.collection("restaurants")
       .doc(this.props.userLogin)
-      .collection("orders")
-      .where("status", "==", "pending");
+      .collection("orders");
+    //.orderBy("timestamp", "desc");
+    //.where("date", "==", `${fecha}`);
 
     doc.onSnapshot(ordersDocuments => {
-      let orders = [];
+      let pending = [];
+      let acepted = [];
+      let cancel = [];
+
       ordersDocuments.forEach(order => {
-        orders.push({
-          id: order.id,
-          idUser: order.data().idUser,
-          numberOfOrder: order.data().numberOfOrder,
-          numberOfTable: order.data().numberOfTable,
-          status: order.data().status,
-          totalPrice: order.data().totalPrice
-        });
-        //poner if para qe ejecute el msj solo cuando agrega no cuando algo se va
+        console.log("foEach=>", order.data().status);
         if (order.data().status === "pending") {
-          toast(`Table ${order.data().numberOfTable} is ordering!`, {
-            autoClose: false,
-            closeButton: true
+          pending.push({
+            id: order.id,
+            idUser: order.data().idUser,
+            numberOfOrder: order.data().numberOfOrder,
+            numberOfTable: order.data().numberOfTable,
+            status: order.data().status,
+            totalPrice: order.data().totalPrice,
+            notify: order.data().notify
           });
+          that.setState({ orderPending: pending });
+        } else if (order.data().status === "acepted") {
+          acepted.push({
+            id: order.id,
+            idUser: order.data().idUser,
+            numberOfOrder: order.data().numberOfOrder,
+            numberOfTable: order.data().numberOfTable,
+            status: order.data().status,
+            totalPrice: order.data().totalPrice,
+            notify: order.data().notify
+          });
+          that.setState({ orderAcepted: acepted });
+        } else if (order.data().status === "canceled") {
+          cancel.push({
+            id: order.id,
+            idUser: order.data().idUser,
+            numberOfOrder: order.data().numberOfOrder,
+            numberOfTable: order.data().numberOfTable,
+            status: order.data().status,
+            totalPrice: order.data().totalPrice,
+            notify: order.data().notify
+          });
+          that.setState({ orderCanceled: cancel });
         }
+
+        //poner if para qe ejecute el msj solo cuando agrega no cuando algo se va
       });
-      this.setState({ ordersArray: orders });
+      for (let i = 0; i < pending.length; i++) {
+        if (pending[i].notify === false) {
+          toast(`Table ${pending[i].numberOfTable} is ordering!`, {
+            autoClose: true,
+            closeButton: true,
+            delay: 1500
+          });
+          let singleOrder = DB.collection("restaurants")
+            .doc(this.props.userLogin)
+            .collection("orders")
+            .doc(pending[i].id);
+          singleOrder.update({ notify: true });
+        }
+      }
     });
   }
   componentWillUnmount() {
@@ -67,11 +111,14 @@ class OrdersContainer extends React.Component {
 
   render() {
     // console.log(this.state);
+    console.log("====>", this.state.orderPending);
     return (
       <div>
         <Sidebar />
         <Orders
-          orders={this.state.ordersArray}
+          acepted={this.state.ordersAcepted}
+          canceled={this.state.orderCanceled}
+          pending={this.state.orderPending}
           handleClickStatus={this.handleClickStatus}
         />
       </div>
