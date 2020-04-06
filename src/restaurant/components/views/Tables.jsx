@@ -53,44 +53,44 @@ export default ({ tables, buttonClick }) => {
                         alt="..."
                       />
                     ) : (
-                      <div>
-                        {table.orderStatus === "pending" ? (
-                          <img
-                            src="https://insideone.s3-sa-east-1.amazonaws.com/services-table-order.png"
-                            className="card-img"
-                            alt="..."
-                          />
-                        ) : (
-                          <div>
-                            {table.waiter == true ? (
-                              <img
-                                src="https://insideone.s3-sa-east-1.amazonaws.com/services-table-waiter.png"
-                                className="card-img"
-                                alt="..."
-                              />
-                            ) : (
+                        <div>
+                          {table.orderStatus === "pending" ? (
+                            <img
+                              src="https://insideone.s3-sa-east-1.amazonaws.com/services-table-order.png"
+                              className="card-img"
+                              alt="..."
+                            />
+                          ) : (
                               <div>
-                                {table.pay == true ? (
+                                {table.waiter === true ? (
                                   <img
-                                    src="https://insideone.s3-sa-east-1.amazonaws.com/services-table-pay.png"
+                                    src="https://insideone.s3-sa-east-1.amazonaws.com/services-table-waiter.png"
                                     className="card-img"
                                     alt="..."
                                   />
                                 ) : (
-                                  <div>
-                                    <img
-                                      src="https://insideone.s3-sa-east-1.amazonaws.com/services-table-busy.png"
-                                      className="card-img"
-                                      alt="..."
-                                    />
-                                  </div>
-                                )}
+                                    <div>
+                                      {table.pay === true ? (
+                                        <img
+                                          src="https://insideone.s3-sa-east-1.amazonaws.com/services-table-pay.png"
+                                          className="card-img"
+                                          alt="..."
+                                        />
+                                      ) : (
+                                          <div>
+                                            <img
+                                              src="https://insideone.s3-sa-east-1.amazonaws.com/services-table-busy.png"
+                                              className="card-img"
+                                              alt="..."
+                                            />
+                                          </div>
+                                        )}
+                                    </div>
+                                  )}
                               </div>
                             )}
-                          </div>
-                        )}
-                      </div>
-                    )}
+                        </div>
+                      )}
                   </div>
                   <div className="col-md-7">
                     <div
@@ -127,24 +127,24 @@ export default ({ tables, buttonClick }) => {
                               New code
                             </button>
                           ) : (
-                            <div>
-                              {table.orderStatus === "pending" ? (
-                                "Order Pending"
-                              ) : (
-                                <div>
-                                  {table.waiter == true ? (
-                                    "Waiter"
-                                  ) : (
+                              <div>
+                                {table.orderStatus === "pending" ? (
+                                  "Order Pending"
+                                ) : (
                                     <div>
-                                      {table.pay == true
-                                        ? "Payment"
-                                        : `Code ${table.secretCode}`}
+                                      {table.waiter === true ? (
+                                        "Waiter"
+                                      ) : (
+                                          <div>
+                                            {table.pay === true
+                                              ? "Payment"
+                                              : `Code ${table.secretCode}`}
+                                          </div>
+                                        )}
                                     </div>
                                   )}
-                                </div>
-                              )}
-                            </div>
-                          )}
+                              </div>
+                            )}
                         </small>
                       </p>
                     </div>
@@ -154,8 +154,8 @@ export default ({ tables, buttonClick }) => {
             </Link>
           ))
         ) : (
-          <h1> </h1>
-        )}
+            <h1> </h1>
+          )}
       </div>
     </div>
   );
