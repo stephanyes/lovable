@@ -1,6 +1,8 @@
 import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBell } from "@fortawesome/free-solid-svg-icons";
 
-export default ({ buttonClick }) => {
+export default ({ buttonClick, mesas }) => {
   return (
     <div>
       <nav
@@ -52,7 +54,37 @@ export default ({ buttonClick }) => {
               placeholder="Search"
               aria-label="Search"
             /> */}
+
             <ul className="navbar-nav mr-auto">
+              <li className="nav-item active">
+                <label for="cars">
+                  <FontAwesomeIcon
+                    style={{
+                      paddingRight: "15px",
+                      fontSize: "2.7rem",
+                      paddingBottom: "5px"
+                    }}
+                    icon={faBell}
+                  />
+                </label>
+                <select id="cars">
+                  {mesas.length ? (
+                    <option value="volvo">
+                      Table: {mesas.number} I order food
+                    </option>
+                  ) : null}
+                  {mesas.waiter ? (
+                    <option value="volvo">
+                      Table: {mesas.number} I call the waiter
+                    </option>
+                  ) : null}
+                  {mesas.pay ? (
+                    <option value="volvo">
+                      Table: {mesas.number} Asked for the bill
+                    </option>
+                  ) : null}
+                </select>
+              </li>
               <li className="nav-item active">
                 <button
                   type="button"
