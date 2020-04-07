@@ -9,9 +9,9 @@ const DB = firebase.db;
 let doc;
 //let fecha = `${new Date()}`;
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    userLogin: state.user.loginUser.restaurantID
+    userLogin: state.user.loginUser.restaurantID,
   };
 };
 
@@ -21,13 +21,13 @@ class OrdersContainer extends React.Component {
     this.state = {
       orderAcepted: [],
       orderCanceled: [],
-      orderPending: []
+      orderPending: [],
     };
     this.handleClickStatus = this.handleClickStatus.bind(this);
   }
 
   componentDidMount() {
-    let that = this;
+    //   let that = this;
     //let fecha = new Date();
     doc = DB.collection("restaurants")
       .doc(this.props.userLogin)
@@ -35,12 +35,12 @@ class OrdersContainer extends React.Component {
     //.orderBy("timestamp", "desc");
     //.where("date", "==", `${fecha}`);
 
-    doc.onSnapshot(ordersDocuments => {
+    doc.onSnapshot((ordersDocuments) => {
       let pending = [];
       let acepted = [];
       let cancel = [];
 
-      ordersDocuments.forEach(order => {
+      ordersDocuments.forEach((order) => {
         console.log("foEach=>", order.data().status);
         if (order.data().status === "pending") {
           pending.push({
@@ -50,9 +50,9 @@ class OrdersContainer extends React.Component {
             numberOfTable: order.data().numberOfTable,
             status: order.data().status,
             totalPrice: order.data().totalPrice,
-            notify: order.data().notify
+            notify: order.data().notify,
           });
-          that.setState({ orderPending: pending });
+          //   that.setState({ orderPending: pending });
         } else if (order.data().status === "acepted") {
           acepted.push({
             id: order.id,
@@ -61,9 +61,9 @@ class OrdersContainer extends React.Component {
             numberOfTable: order.data().numberOfTable,
             status: order.data().status,
             totalPrice: order.data().totalPrice,
-            notify: order.data().notify
+            notify: order.data().notify,
           });
-          that.setState({ orderAcepted: acepted });
+          // that.setState({ orderAcepted: acepted });
         } else if (order.data().status === "canceled") {
           cancel.push({
             id: order.id,
@@ -72,19 +72,24 @@ class OrdersContainer extends React.Component {
             numberOfTable: order.data().numberOfTable,
             status: order.data().status,
             totalPrice: order.data().totalPrice,
-            notify: order.data().notify
+            notify: order.data().notify,
           });
-          that.setState({ orderCanceled: cancel });
+          //   that.setState({ orderCanceled: cancel });
         }
 
         //poner if para qe ejecute el msj solo cuando agrega no cuando algo se va
+      });
+      this.setState({
+        orderPending: pending,
+        orderAcepted: acepted,
+        orderCanceled: cancel,
       });
       for (let i = 0; i < pending.length; i++) {
         if (pending[i].notify === false) {
           toast(`Table ${pending[i].numberOfTable} is ordering!`, {
             autoClose: true,
             closeButton: true,
-            delay: 1500
+            delay: 1500,
           });
           let singleOrder = DB.collection("restaurants")
             .doc(this.props.userLogin)
