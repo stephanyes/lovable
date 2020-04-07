@@ -9,6 +9,7 @@ const MySwal = withReactContent(Swal);
 
 let orderToUpdate;
 let orderToCreate;
+// let comment = "This product has not a special comment"
 
 class ProductContainer extends React.Component {
   constructor(props) {
@@ -21,9 +22,14 @@ class ProductContainer extends React.Component {
         totalPrice: 0,
         date: "",
         notify: false
-      }
+      },
+      comments: "This product has not a special comment",
+      value: 1
     };
     this.handleClick = this.handleClick.bind(this);
+    this.handlerChange = this.handlerChange.bind(this);
+    this.addProd = this.addProd.bind(this);
+    this.lessProd = this.lessProd.bind(this);
   }
 
   componentDidMount() {
@@ -42,10 +48,15 @@ class ProductContainer extends React.Component {
           description: querySnapshot.data().description,
           imageProduct: querySnapshot.data().imageProduct,
           name: querySnapshot.data().name,
-          price: querySnapshot.data().price
+          price: querySnapshot.data().price,
         }
       })
-    );
+      );
+    }
+
+  handlerChange(e) {
+      e.preventDefault()
+      this.setState({comments : e.target.value})
   }
 
   handleClick(e) {
@@ -77,6 +88,10 @@ class ProductContainer extends React.Component {
           .doc(RestaurantId)
           .collection("orders")
           .doc(`${orderToUpdate}`);
+        this.setState(state => ({ product: {
+          ...state.product, comments : state.comments, quantity: this.state.value
+        }}))
+
         OrdersRestaurant.collection("products")
           .doc()
           .set(this.state.product);
@@ -92,6 +107,9 @@ class ProductContainer extends React.Component {
             `${orderToCreate}`
           );
           newOrder.set(this.state.order);
+          this.setState(state => ({ product: {
+            ...state.product, comments : this.state.comments, quantity: this.state.value
+          }}))
           newOrder
             .collection("products")
             .doc()
@@ -119,10 +137,20 @@ class ProductContainer extends React.Component {
     });
   }
 
+  addProd(e){
+    e.preventDefault()
+    this.setState({value : this.state.value + 1})
+  }
+
+  lessProd(e){
+    e.preventDefault()
+    if(this.state.value > 1) this.setState({value : this.state.value - 1})
+  }
+
   render() {
     return (
       <div>
-        <Products handleClick={this.handleClick} product={this.state.product} />
+        <Products lessProd={this.lessProd} value={this.state.value} addProd={this.addProd} handlerChange={this.handlerChange} handleClick={this.handleClick} product={this.state.product} />
       </div>
     );
   }
