@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default ({ pending, acepted, canceled, handleClickStatus }) => {
+export default ({ pending, accepted, canceled, handleClickStatus }) => {
   return (
     <div
       style={{
@@ -62,7 +62,7 @@ export default ({ pending, acepted, canceled, handleClickStatus }) => {
 
                   <div>
                     <button
-                      onClick={e => handleClickStatus(e, order.id, "completed")}
+                      onClick={e => handleClickStatus(e, order.id, "accepted", order.numberOfTable)}
                       style={{
                         backgroundColor: "#2EC4B6",
                         borderColor: "#2EC4B6",
@@ -95,9 +95,9 @@ export default ({ pending, acepted, canceled, handleClickStatus }) => {
             marginTop: "30px"
           }}
         >
-          <h4>Acepted</h4>
-          {acepted
-            ? acepted.map(order => (
+          <h4>Accepted</h4>
+          {accepted
+            ? accepted.map(order => (
                 <li
                   key={order.idUser}
                   class="list-group-item d-flex justify-content-between align-items-center"
