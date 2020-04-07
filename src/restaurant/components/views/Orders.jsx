@@ -1,7 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default ({ pending, accepted, canceled, handleClickStatus }) => {
+export default ({
+  completedToday,
+  completedOld,
+  pending,
+  accepted,
+  canceled,
+  handleClickStatus,
+  showHistory,
+  history,
+  total
+}) => {
   return (
     <div
       style={{
@@ -62,7 +72,14 @@ export default ({ pending, accepted, canceled, handleClickStatus }) => {
 
                   <div>
                     <button
-                      onClick={e => handleClickStatus(e, order.id, "accepted", order.numberOfTable)}
+                      onClick={e =>
+                        handleClickStatus(
+                          e,
+                          order.id,
+                          "accepted",
+                          order.numberOfTable
+                        )
+                      }
                       style={{
                         backgroundColor: "#2EC4B6",
                         borderColor: "#2EC4B6",
@@ -176,7 +193,103 @@ export default ({ pending, accepted, canceled, handleClickStatus }) => {
               ))
             : null}
         </ul>
+        <ul
+          class="list-group"
+          style={{
+            marginTop: "30px"
+          }}
+        >
+          {" "}
+          <h4>Completed Today</h4>
+          {completedToday
+            ? completedToday.map(order => (
+                <li
+                  key={order.idUser}
+                  class="list-group-item d-flex justify-content-between align-items-center"
+                >
+                  <div
+                    style={{
+                      marginTop: "10px"
+                    }}
+                  >
+                    <div
+                      style={{
+                        paddingBottom: "10px"
+                      }}
+                    >
+                      {/*<Link to={`/orders/${order.id}`}>Pedido #{order.id}</Link> */}
+                    </div>
+                    {/* <td>{order.numberOfOrder}</td> */}
+
+                    <h5 className="font-weight-bold">
+                      Table {order.numberOfTable}
+                    </h5>
+                    <h6 className="font-weight-normal">
+                      Status: {order.status}
+                    </h6>
+                    <h6 className="font-weight-normal">
+                      Price: ${order.totalPrice}
+                    </h6>
+                  </div>
+
+                  <div></div>
+                </li>
+              ))
+            : null}
+        </ul>
+        <button
+          onClick={e => {
+            showHistory(e);
+          }}
+        >
+          {history ? (
+            <ul
+              class="list-group"
+              style={{
+                marginTop: "30px"
+              }}
+            >
+              <h4>History: Orders Completed</h4>
+              {completedOld
+                ? completedOld.map(order => (
+                    <li
+                      key={order.idUser}
+                      class="list-group-item d-flex justify-content-between align-items-center"
+                    >
+                      <div
+                        style={{
+                          marginTop: "10px"
+                        }}
+                      >
+                        <div
+                          style={{
+                            paddingBottom: "10px"
+                          }}
+                        >
+                          {/*<Link to={`/orders/${order.id}`}>Pedido #{order.id}</Link> */}
+                        </div>
+                        {/* <td>{order.numberOfOrder}</td> */}
+
+                        <h5 className="font-weight-bold">
+                          Table {order.numberOfTable}
+                        </h5>
+                        <h6 className="font-weight-normal">
+                          Status: {order.status}
+                        </h6>
+                        <h6 className="font-weight-normal">
+                          Price: ${order.totalPrice}
+                        </h6>
+                      </div>
+
+                      <div></div>
+                    </li>
+                  ))
+                : null}
+            </ul>
+          ) : null}
+        </button>
       </div>
+      <h2>{"Today : $" + total}</h2>
     </div>
   );
 };

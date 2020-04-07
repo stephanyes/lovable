@@ -5,9 +5,11 @@ import Orders from "../../../restaurant/components/views/Orders";
 import { toast } from "react-toastify";
 
 import { connect } from "react-redux";
+import { faTheaterMasks } from "@fortawesome/free-solid-svg-icons";
 const DB = firebase.db;
 let doc;
 let tableId;
+let dateNow = `${new Date()}`.slice(0, 15);
 
 const mapStateToProps = state => {
   return {
@@ -21,13 +23,17 @@ class OrdersContainer extends React.Component {
     this.state = {
       orderAccepted: [],
       orderCanceled: [],
-      orderPending: []
+      orderPending: [],
+      orderCompletedToday: [],
+      orderCompletedOld: [],
+      history: false,
+      total: 0
     };
     this.handleClickStatus = this.handleClickStatus.bind(this);
+    this.showHistory = this.showHistory.bind(this);
   }
 
   componentDidMount() {
-    let that = this;
     doc = DB.collection("restaurants")
       .doc(this.props.userLogin)
       .collection("orders");
@@ -36,9 +42,11 @@ class OrdersContainer extends React.Component {
       let pending = [];
       let accepted = [];
       let cancel = [];
+      let completedOld = [];
+      let completedToday = [];
+      let totalCobradoEnElDia = 0;
 
       ordersDocuments.forEach(order => {
-
         if (order.data().status === "pending") {
           pending.push({
             id: order.id,
@@ -59,7 +67,10 @@ class OrdersContainer extends React.Component {
             totalPrice: order.data().totalPrice,
             notify: order.data().notify
           });
-        } else if (order.data().status === "canceled") {
+        } else if (
+          order.data().status === "canceled" &&
+          order.data().date === dateNow
+        ) {
           cancel.push({
             id: order.id,
             idUser: order.data().idUser,
@@ -69,9 +80,47 @@ class OrdersContainer extends React.Component {
             totalPrice: order.data().totalPrice,
             notify: order.data().notify
           });
+        } else if (
+          order.data().status === "completed" &&
+          order.data().date === dateNow
+        ) {
+          completedToday.push({
+            id: order.id,
+            idUser: order.data().idUser,
+            numberOfOrder: order.data().numberOfOrder,
+            numberOfTable: order.data().numberOfTable,
+            status: order.data().status,
+            totalPrice: order.data().totalPrice,
+            notify: order.data().notify
+          });
+          totalCobradoEnElDia = totalCobradoEnElDia + order.data().totalPrice;
+        } else if (
+          order.data().status === "completed" &&
+          order.data().date !== dateNow
+        ) {
+          completedOld.push({
+            id: order.id,
+            idUser: order.data().idUser,
+            numberOfOrder: order.data().numberOfOrder,
+            numberOfTable: order.data().numberOfTable,
+            status: order.data().status,
+            totalPrice: order.data().totalPrice,
+            notify: order.data().notify
+          });
         }
-      })
-      that.setState({ orderPending: pending, orderAccepted: accepted, orderCanceled: cancel }, this.props.history.push("/orders"));
+      });
+
+      this.setState(
+        {
+          orderPending: pending,
+          orderAccepted: accepted,
+          orderCanceled: cancel,
+          orderCompletedToday: completedToday,
+          orderCompletedOld: completedOld,
+          total: totalCobradoEnElDia
+        },
+        this.props.history.push("/orders")
+      );
 
       for (let i = 0; i < pending.length; i++) {
         if (pending[i].notify === false) {
@@ -101,28 +150,33 @@ class OrdersContainer extends React.Component {
       .collection("orders")
       .doc(id);
     doc.update({ status: param });
-    
+
     let tableDoc = DB.collection("restaurants")
-    .doc(this.props.userLogin)
-    .collection("tables")
-    
-    tableDoc.get()
-    .then(data => {
-      data.forEach(res => {
-        if(res.data().number === numTable) tableId = res.id
-      })
-    })
-    .then(() => {
-      let idTable = DB.collection("restaurants")
       .doc(this.props.userLogin)
-      .collection("tables")
-      .doc(tableId)
-      
-      idTable.update({orderStatus: "accepted"})
-    })
-    
-    
+      .collection("tables");
+
+    tableDoc
+      .get()
+      .then(data => {
+        data.forEach(res => {
+          if (res.data().number === numTable) tableId = res.id;
+        });
+      })
+      .then(() => {
+        let idTable = DB.collection("restaurants")
+          .doc(this.props.userLogin)
+          .collection("tables")
+          .doc(tableId);
+
+        idTable.update({ orderStatus: "accepted" });
+      });
+
     firebase.succesfullMsg(`Order ${param}`);
+  }
+
+  showHistory(e) {
+    e.preventDefault();
+    this.setState({ history: true });
   }
 
   render() {
@@ -130,6 +184,11 @@ class OrdersContainer extends React.Component {
       <div>
         <Sidebar />
         <Orders
+          total={this.state.total}
+          history={this.state.history}
+          showHistory={this.showHistory}
+          completedToday={this.state.orderCompletedToday}
+          completedOld={this.state.orderCompletedOld}
           accepted={this.state.orderAccepted}
           canceled={this.state.orderCanceled}
           pending={this.state.orderPending}
