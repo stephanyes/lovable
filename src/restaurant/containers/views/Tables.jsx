@@ -64,15 +64,6 @@ class TablesContainer extends React.Component {
     tablesDoc.onSnapshot(() => {});
   }
 
-  //     // algo.get().then(algo => {
-  //     //   console.log(algo);
-  //     //   algo.forEach(doc => {
-  //     //     tables.push(doc.data());
-  //     //     this.setState({ tables });
-  //     //   });
-  //     // });
-  //   };
-
   render() {
     return (
       <div>
