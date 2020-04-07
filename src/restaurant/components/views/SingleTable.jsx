@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 export default ({ buttonClick, table, order, productArray, orderHandler, tableHandler }) => {
-  //let total = 0;
   return (
     <div
       style={{
@@ -90,8 +89,7 @@ export default ({ buttonClick, table, order, productArray, orderHandler, tableHa
         <div className="card-body">
           {table.state === "busy" ? (
             <button
-              onClick={e => buttonClick(e)}
-              // onClick={() => buttonClick(order.id)}
+              onClick={e => buttonClick(e, "completed")}
               className="btn btn-primary btn-lg"
               style={{
                 backgroundColor: "#ff2068",
@@ -116,7 +114,7 @@ export default ({ buttonClick, table, order, productArray, orderHandler, tableHa
         }}>
         <div className="card-body">
           <button
-            onClick={(e) => orderHandler(e, table.orderActual, "completed")}
+            onClick={(e) => orderHandler(e, table.orderActual, "accepted", table.number)}
             style={{
               backgroundColor: "#2EC4B6",
               borderColor: "#2EC4B6",
@@ -131,7 +129,6 @@ export default ({ buttonClick, table, order, productArray, orderHandler, tableHa
             style={{
               backgroundColor: "#ff2068",
               borderColor: "#ff2068"
-              //marginRight: "20px"
             }}
             className="btn btn-primary btn-lg">
             Cancel Button

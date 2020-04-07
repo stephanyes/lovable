@@ -5,7 +5,7 @@ import Orders from "../../../restaurant/components/views/Orders";
 import { toast } from "react-toastify";
 
 import { connect } from "react-redux";
-import { faTheaterMasks } from "@fortawesome/free-solid-svg-icons";
+//import { faTheaterMasks } from "@fortawesome/free-solid-svg-icons";
 const DB = firebase.db;
 let doc;
 let tableId;

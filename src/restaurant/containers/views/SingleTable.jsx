@@ -7,8 +7,10 @@ import { connect } from "react-redux";
 const DB = firebase.db;
 
 let pruebaSingleTable;
-let orderQuery
-let productsTable
+let orderQuery;
+let productsTable;
+let tableId
+let orderId
 
 const mapStateToProps = (state) => {
   return {
@@ -48,8 +50,9 @@ class SingleTableContainer extends React.Component {
         }
       })
       if (tableDoc.data().orderActual !== 0) {
-        let stringy = (tableDoc.data().orderActual).toString()
-        orderQuery = DB.collection("restaurants").doc(`${this.props.userLogin}`).collection("orders").doc(stringy)
+        orderId = (tableDoc.data().orderActual).toString()
+        console.log(orderId)
+        orderQuery = DB.collection("restaurants").doc(`${this.props.userLogin}`).collection("orders").doc(orderId)
         orderQuery.onSnapshot(docSnapshot => {
           this.setState({
             tableOrder: {
@@ -85,11 +88,33 @@ class SingleTableContainer extends React.Component {
 
   }
 
-  orderHandler(e, id, string) {
+  orderHandler(e, id, string, numTable) {
     e.preventDefault();
     let stringy = id.toString()
-    let doc = DB.collection('restaurants').doc(this.props.userLogin).collection('orders').doc(stringy)
+    let doc = DB.collection('restaurants')
+    .doc(this.props.userLogin)
+    .collection('orders')
+    .doc(stringy)
     doc.update({ status: string })
+    
+    let tableDoc = DB.collection("restaurants")
+    .doc(this.props.userLogin)
+    .collection("tables")
+    
+    tableDoc.get()
+    .then(data => {
+      data.forEach(res => {
+        if(res.data().number === numTable) tableId = res.id
+      })
+    })
+    .then(() => {
+      let idTable = DB.collection("restaurants")
+      .doc(this.props.userLogin)
+      .collection("tables")
+      .doc(tableId)
+      
+      idTable.update({orderStatus: "accepted"})
+    })
     firebase.succesfullMsg(`Order ${string}`)
   }
 
@@ -107,12 +132,20 @@ class SingleTableContainer extends React.Component {
     }
   }
 
-  handlerButton(e) {
+  handlerButton(e, string) {
     e.preventDefault();
+    let orderChange = DB.collection("restaurants")
+    .doc(`${this.props.userLogin}`)
+    .collection("orders")
+    .doc(orderId);
+
+    orderChange.update({status : string})
+
     let TableActual = DB.collection("restaurants")
       .doc(`${this.props.userLogin}`)
       .collection("tables")
       .doc(`${this.props.match.params.idTable}`);
+
     TableActual.update({
       clientActual: 0,
       orderActual: 0,
@@ -126,7 +159,6 @@ class SingleTableContainer extends React.Component {
   }
 
   render() {
-    console.log(this.state)
     return (
       <div>
         <Sidebar />

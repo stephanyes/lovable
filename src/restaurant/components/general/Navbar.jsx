@@ -1,8 +1,10 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 
-export default ({ buttonClick, mesas }) => {
+export default ({ buttonClick, mesas, isOpen, dropdown }) => {
+  const menuClass = `dropdown-menu${dropdown ? " show" : ""}`;
   return (
     <div>
       <nav
@@ -12,7 +14,7 @@ export default ({ buttonClick, mesas }) => {
           flexWrap: "wrap",
           justifyContent: "space-between",
           alignItems: "center",
-          backgroundColor: "#ffffff"
+          backgroundColor: "#ffffff",
           // display: "flex",
           // justifyContent: "space-between"
           // backgroundColor: "#999999",
@@ -57,33 +59,61 @@ export default ({ buttonClick, mesas }) => {
 
             <ul className="navbar-nav mr-auto">
               <li className="nav-item active">
-                <label for="cars">
-                  <FontAwesomeIcon
-                    style={{
-                      paddingRight: "15px",
-                      fontSize: "2.7rem",
-                      paddingBottom: "5px"
-                    }}
-                    icon={faBell}
-                  />
-                </label>
-                <select id="cars">
+                <ul className="navbar-nav mr-auto">
                   {mesas.length ? (
-                    <option value="volvo">
-                      Table: {mesas.number} I order food
-                    </option>
+                    <div className="dropdown" onClick={isOpen}>
+                      <button
+                        className="btn btn-secondary dropdown-toggle"
+                        type="button"
+                        id="dropdownMenuButton"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        style={{
+                          backgroundColor: "#2EC4B6",
+                          borderColor: "#2EC4B6",
+                        }}
+                      >
+                        <label for="cars">
+                          <FontAwesomeIcon
+                            style={{
+                              paddingRight: "15px",
+                              fontSize: "2.7rem",
+                              paddingBottom: "5px",
+                            }}
+                            icon={faBell}
+                          />
+                        </label>
+                      </button>
+                      <div
+                        className={`${menuClass} dropdown-menu-right`}
+                        aria-labelledby="dropdownMenuButton"
+                      >
+                        {mesas.map((tableProperty) =>
+                          tableProperty.pay === true &&
+                          tableProperty.waiter === true ? (
+                            <Link to={`/tables/${tableProperty.id}`}>
+                              Table {tableProperty.number} wants to pay and
+                              wants the waiter
+                            </Link>
+                          ) : tableProperty.pay === true ? (
+                            <Link to={`/tables/${tableProperty.id}`}>
+                              Table {tableProperty.number} wants to pay
+                            </Link>
+                          ) : tableProperty.waiter === true ? (
+                            <Link to={`/tables/${tableProperty.id}`}>
+                              Table {tableProperty.number} is requesting the
+                              waiter
+                            </Link>
+                          ) : tableProperty.orderStatus === "pending" ? (
+                            <Link to={`/tables/${tableProperty.id}`}>
+                              Table {tableProperty.number} is ordering
+                            </Link>
+                          ) : null
+                        )}
+                      </div>
+                    </div>
                   ) : null}
-                  {mesas.waiter ? (
-                    <option value="volvo">
-                      Table: {mesas.number} I call the waiter
-                    </option>
-                  ) : null}
-                  {mesas.pay ? (
-                    <option value="volvo">
-                      Table: {mesas.number} Asked for the bill
-                    </option>
-                  ) : null}
-                </select>
+                </ul>
               </li>
               <li className="nav-item active">
                 <button
@@ -91,9 +121,9 @@ export default ({ buttonClick, mesas }) => {
                   className="btn btn-primary"
                   style={{
                     backgroundColor: "#ff2068",
-                    borderColor: "#ff2068"
+                    borderColor: "#ff2068",
                   }}
-                  onClick={e => buttonClick(e)}
+                  onClick={(e) => buttonClick(e)}
                 >
                   Log out
                 </button>
