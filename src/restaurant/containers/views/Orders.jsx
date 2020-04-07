@@ -9,9 +9,9 @@ const DB = firebase.db;
 let doc;
 let tableId;
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    userLogin: state.user.loginUser.restaurantID
+    userLogin: state.user.loginUser.restaurantID,
   };
 };
 
@@ -21,21 +21,23 @@ class OrdersContainer extends React.Component {
     this.state = {
       orderAccepted: [],
       orderCanceled: [],
-      orderPending: []
+      orderPending: [],
     };
     this.handleClickStatus = this.handleClickStatus.bind(this);
   }
 
   componentDidMount() {
+
     let that = this;
     doc = DB.collection("restaurants")
       .doc(this.props.userLogin)
       .collection("orders");
 
-    doc.onSnapshot(ordersDocuments => {
+    doc.onSnapshot((ordersDocuments) => {
       let pending = [];
       let accepted = [];
       let cancel = [];
+
 
       ordersDocuments.forEach(order => {
 
@@ -47,8 +49,9 @@ class OrdersContainer extends React.Component {
             numberOfTable: order.data().numberOfTable,
             status: order.data().status,
             totalPrice: order.data().totalPrice,
-            notify: order.data().notify
+            notify: order.data().notify,
           });
+
         } else if (order.data().status === "accepted") {
           accepted.push({
             id: order.id,
@@ -57,8 +60,9 @@ class OrdersContainer extends React.Component {
             numberOfTable: order.data().numberOfTable,
             status: order.data().status,
             totalPrice: order.data().totalPrice,
-            notify: order.data().notify
+            notify: order.data().notify,
           });
+
         } else if (order.data().status === "canceled") {
           cancel.push({
             id: order.id,
@@ -67,18 +71,20 @@ class OrdersContainer extends React.Component {
             numberOfTable: order.data().numberOfTable,
             status: order.data().status,
             totalPrice: order.data().totalPrice,
-            notify: order.data().notify
+            notify: order.data().notify,
           });
+
         }
       })
       that.setState({ orderPending: pending, orderAccepted: accepted, orderCanceled: cancel }, this.props.history.push("/orders"));
+
 
       for (let i = 0; i < pending.length; i++) {
         if (pending[i].notify === false) {
           toast(`Table ${pending[i].numberOfTable} is ordering!`, {
             autoClose: true,
             closeButton: true,
-            delay: 1500
+            delay: 1500,
           });
           let singleOrder = DB.collection("restaurants")
             .doc(this.props.userLogin)
