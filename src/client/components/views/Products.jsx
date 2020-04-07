@@ -1,7 +1,6 @@
 import React from "react";
 
 export default ({ product, handleClick, handlerChange, addProd, value, lessProd}) => {
-  console.log(value)
   return (
     <div
       style={{

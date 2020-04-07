@@ -9,7 +9,7 @@ const MySwal = withReactContent(Swal);
 
 let orderToUpdate;
 let orderToCreate;
-// let comment = "This product has not a special comment"
+let resAddToCart
 
 class ProductContainer extends React.Component {
   constructor(props) {
@@ -64,13 +64,14 @@ class ProductContainer extends React.Component {
     let RestaurantId = this.props.match.params.idRestaurant;
 
     let TablesRestaurant = DB.collection("restaurants")
-      .doc(RestaurantId)
-      .collection("tables")
-      .doc(this.props.match.params.idTable);
-
+    .doc(RestaurantId)
+    .collection("tables")
+    .doc(this.props.match.params.idTable);
+    
     let RestaurantDoc = DB.collection("restaurants").doc(RestaurantId);
-
-    TablesRestaurant.get().then(result => {
+    
+    TablesRestaurant.get()
+    .then(result => {
       this.setState({
         order: {
           numberOfTable: result.data().number,
@@ -80,60 +81,66 @@ class ProductContainer extends React.Component {
           notify: false
         }
       });
-
-      if (result.data().orderActual !== 0) {
-        orderToUpdate = result.data().orderActual;
-
-        let OrdersRestaurant = DB.collection("restaurants")
-          .doc(RestaurantId)
-          .collection("orders")
-          .doc(`${orderToUpdate}`);
-        this.setState(state => ({ product: {
-          ...state.product, comments : state.comments, quantity: this.state.value
-        }}))
-
-        OrdersRestaurant.collection("products")
-          .doc()
-          .set(this.state.product);
-      } else {
-        RestaurantDoc.get().then(result => {
-          orderToCreate = result.data().orderTotalNumber;
-          RestaurantDoc.update({ orderTotalNumber: orderToCreate + 1 });
-          TablesRestaurant.update({
-            orderActual: orderToCreate,
-            orderStatus: "draft"
-          });
-          let newOrder = RestaurantDoc.collection("orders").doc(
-            `${orderToCreate}`
+      
+      MySwal.fire({
+        title: "Are you sure to add to cart?",
+        text: "You won't be able to revert this!",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Confirm"
+      })
+      .then(res => {
+        resAddToCart = res.value
+        if (res.value) {
+          MySwal.fire(
+            "Success!",
+            `Your product has been added to cart.`,
+            "success"
           );
-          newOrder.set(this.state.order);
+        }
+      })
+
+      .then(() => {
+        if (resAddToCart && result.data().orderActual !== 0) {
+          orderToUpdate = result.data().orderActual;
+  
+          let OrdersRestaurant = DB.collection("restaurants")
+            .doc(RestaurantId)
+            .collection("orders")
+            .doc(`${orderToUpdate}`);
           this.setState(state => ({ product: {
-            ...state.product, comments : this.state.comments, quantity: this.state.value
+            ...state.product, comments : state.comments, quantity: this.state.value
           }}))
-          newOrder
-            .collection("products")
+  
+          OrdersRestaurant.collection("products")
             .doc()
             .set(this.state.product);
-        });
-      }
-    });
-
-    MySwal.fire({
-      title: "Are you sure to add to cart?",
-      text: "You won't be able to revert this!",
-      icon: "question",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Confirm"
-    }).then(result => {
-      if (result.value) {
-        MySwal.fire(
-          "Success!",
-          `Your product has been added to cart.`,
-          "success"
-        );
-      }
+        } 
+        
+        else if (resAddToCart) { 
+          RestaurantDoc.get().then(result => {
+            orderToCreate = result.data().orderTotalNumber;
+            RestaurantDoc.update({ orderTotalNumber: orderToCreate + 1 });
+            TablesRestaurant.update({
+              orderActual: orderToCreate,
+              orderStatus: "draft"
+            });
+            let newOrder = RestaurantDoc.collection("orders").doc(
+              `${orderToCreate}`
+            );
+            newOrder.set(this.state.order);
+            this.setState(state => ({ product: {
+              ...state.product, comments : this.state.comments, quantity: this.state.value
+            }}))
+            newOrder
+              .collection("products")
+              .doc()
+              .set(this.state.product);
+          });
+        }
+      })
     });
   }
 
