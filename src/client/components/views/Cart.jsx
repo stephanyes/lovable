@@ -1,6 +1,6 @@
 import React from "react";
 
-export default ({ productos, priceTotal, deleteClick, handlerSubmit, quantity }) => {
+export default ({ productos, priceTotal, deleteClick, handlerSubmit}) => {
   return (
     <div
       style={{
@@ -81,7 +81,7 @@ export default ({ productos, priceTotal, deleteClick, handlerSubmit, quantity })
                   </div>
 
                   <div className="col-md-2">
-                    <h6>{quantity}</h6>
+                    <h6>{product.quantity}</h6>
                   </div>
 
                   <div className="col-md-2">
@@ -89,7 +89,7 @@ export default ({ productos, priceTotal, deleteClick, handlerSubmit, quantity })
                   </div>
 
                   <div className="col-md-2">
-                    <h6> ARS {`${product.price * quantity},00`}</h6>
+                    <h6> ARS {`${product.price * product.quantity},00`}</h6>
                   </div>
                
                   <div className="col-md-2">
