@@ -25,7 +25,6 @@ export default ({ buttonClick, mesas, isOpen, dropdown }) => {
             <ul className="navbar-nav mr-auto">
               <li className="nav-item active">
                 <ul className="navbar-nav mr-auto">
-                  {console.log("holaaaaa", mesas.length)}
                   {mesas.length ? (
                     <div className="dropdown" onClick={isOpen}>
                       <button
