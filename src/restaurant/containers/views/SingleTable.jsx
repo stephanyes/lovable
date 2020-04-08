@@ -7,12 +7,12 @@ import { connect } from "react-redux";
 const DB = firebase.db;
 
 let pruebaSingleTable;
-let orderQuery
-let productsTable
+let orderQuery;
+let productsTable;
 
 const mapStateToProps = (state) => {
   return {
-    userLogin: state.user.loginUser.restaurantID
+    userLogin: state.user.loginUser.restaurantID,
   };
 };
 
@@ -22,7 +22,7 @@ class SingleTableContainer extends React.Component {
     this.state = {
       table: {},
       tableOrder: {},
-      productArray: []
+      productArray: [],
     };
     this.handlerButton = this.handlerButton.bind(this);
     this.orderHandler = this.orderHandler.bind(this);
@@ -32,8 +32,9 @@ class SingleTableContainer extends React.Component {
   componentDidMount() {
     pruebaSingleTable = DB.collection("restaurants")
       .doc(`${this.props.userLogin}`)
-      .collection("tables").doc(this.props.match.params.idTable)
-    pruebaSingleTable.onSnapshot(tableDoc => {
+      .collection("tables")
+      .doc(this.props.match.params.idTable);
+    pruebaSingleTable.onSnapshot((tableDoc) => {
       this.setState({
         table: {
           clientActual: tableDoc.data().clientActual,
@@ -44,66 +45,74 @@ class SingleTableContainer extends React.Component {
           waiter: tableDoc.data().waiter,
           pay: tableDoc.data().pay,
           orderStatus: tableDoc.data().orderStatus,
-          id: tableDoc.id
-        }
-      })
+          id: tableDoc.id,
+        },
+      });
       if (tableDoc.data().orderActual !== 0) {
-        let stringy = (tableDoc.data().orderActual).toString()
-        orderQuery = DB.collection("restaurants").doc(`${this.props.userLogin}`).collection("orders").doc(stringy)
-        orderQuery.onSnapshot(docSnapshot => {
+        let stringy = tableDoc.data().orderActual.toString();
+        orderQuery = DB.collection("restaurants")
+          .doc(`${this.props.userLogin}`)
+          .collection("orders")
+          .doc(stringy);
+        orderQuery.onSnapshot((docSnapshot) => {
           this.setState({
             tableOrder: {
               status: docSnapshot.data().status,
-              totalPrice: docSnapshot.data().totalPrice
-            }
-          })
-          productsTable = orderQuery.collection('products')
-          productsTable.onSnapshot(prodDoc => {
-            let arrayHelper = []
-            prodDoc.forEach(singleProd => {
+              totalPrice: docSnapshot.data().totalPrice,
+              mail: docSnapshot.data().mail,
+            },
+          });
+          productsTable = orderQuery.collection("products");
+          productsTable.onSnapshot((prodDoc) => {
+            let arrayHelper = [];
+            prodDoc.forEach((singleProd) => {
               arrayHelper.push({
                 name: singleProd.data().name,
-                price: singleProd.data().price
-              })
-            })
+                price: singleProd.data().price,
+              });
+            });
             this.setState({
-              productArray: arrayHelper
-            })
-          })
-        })
+              productArray: arrayHelper,
+            });
+          });
+        });
       }
-
-    })
+    });
   }
 
   componentWillUnmount() {
-    pruebaSingleTable.onSnapshot(() => { });
+    pruebaSingleTable.onSnapshot(() => {});
     if (orderQuery && productsTable) {
-      orderQuery.onSnapshot(() => { });
-      productsTable.onSnapshot(() => { });
+      orderQuery.onSnapshot(() => {});
+      productsTable.onSnapshot(() => {});
     }
-
   }
 
   orderHandler(e, id, string) {
     e.preventDefault();
-    let stringy = id.toString()
-    let doc = DB.collection('restaurants').doc(this.props.userLogin).collection('orders').doc(stringy)
-    doc.update({ status: string })
-    firebase.succesfullMsg(`Order ${string}`)
+    let stringy = id.toString();
+    let doc = DB.collection("restaurants")
+      .doc(this.props.userLogin)
+      .collection("orders")
+      .doc(stringy);
+    doc.update({ status: string });
+    firebase.succesfullMsg(`Order ${string}`);
   }
 
   tableHandler(e, id, string) {
-    e.preventDefault()
-    let table = DB.collection('restaurants').doc(this.props.userLogin).collection('tables').doc(id)
-    if (string === 'waiter') {
+    e.preventDefault();
+    let table = DB.collection("restaurants")
+      .doc(this.props.userLogin)
+      .collection("tables")
+      .doc(id);
+    if (string === "waiter") {
       table.update({
-        waiter: false
-      })
+        waiter: false,
+      });
     } else {
       table.update({
-        pay: false
-      })
+        pay: false,
+      });
     }
   }
 
@@ -113,20 +122,26 @@ class SingleTableContainer extends React.Component {
       .doc(`${this.props.userLogin}`)
       .collection("tables")
       .doc(`${this.props.match.params.idTable}`);
-    TableActual.update({
-      clientActual: 0,
-      orderActual: 0,
-      orderStatus: "",
-      secretCode: 0,
-      state: "free",
-      pay: false,
-      waiter: false
+    orderQuery.get().then((order) => {
+      if (order.data().mail !== "") {
+        // distpachear mail
+        console.log("entre mail con", order.data().mail);
+      }
     });
+
+    // TableActual.update({
+    //   clientActual: 0,
+    //   orderActual: 0,
+    //   orderStatus: "",
+    //   secretCode: 0,
+    //   state: "free",
+    //   pay: false,
+    //   waiter: false,
+    // });
     this.props.history.push(`/dashboard`);
   }
 
   render() {
-    console.log(this.state)
     return (
       <div>
         <Sidebar />
