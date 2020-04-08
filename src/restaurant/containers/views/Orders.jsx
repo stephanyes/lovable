@@ -5,8 +5,11 @@ import Orders from "../../../restaurant/components/views/Orders";
 import { toast } from "react-toastify";
 
 import { connect } from "react-redux";
+//import { faTheaterMasks } from "@fortawesome/free-solid-svg-icons";
 const DB = firebase.db;
 let doc;
+let tableId;
+let dateNow = `${new Date()}`.slice(0, 15);
 
 const mapStateToProps = state => {
   return {
@@ -18,60 +21,177 @@ class OrdersContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      ordersArray: []
+      orderAccepted: [],
+      orderCanceled: [],
+      orderPending: [],
+      orderCompletedToday: [],
+      orderCompletedOld: [],
+      history: false,
+      total: 0
     };
     this.handleClickStatus = this.handleClickStatus.bind(this);
+    this.showHistory = this.showHistory.bind(this);
   }
 
   componentDidMount() {
     doc = DB.collection("restaurants")
       .doc(this.props.userLogin)
-      .collection("orders")
-      .where("status", "==", "pending");
+      .collection("orders");
 
     doc.onSnapshot(ordersDocuments => {
-      let orders = [];
+      let pending = [];
+      let accepted = [];
+      let cancel = [];
+      let completedOld = [];
+      let completedToday = [];
+      let totalCobradoEnElDia = 0;
+
       ordersDocuments.forEach(order => {
-        orders.push({
-          id: order.id,
-          idUser: order.data().idUser,
-          numberOfOrder: order.data().numberOfOrder,
-          numberOfTable: order.data().numberOfTable,
-          status: order.data().status,
-          totalPrice: order.data().totalPrice
-        });
-        //poner if para qe ejecute el msj solo cuando agrega no cuando algo se va
         if (order.data().status === "pending") {
-          toast(`Table ${order.data().numberOfTable} is ordering!`, {
-            autoClose: false,
-            closeButton: true
+          pending.push({
+            id: order.id,
+            idUser: order.data().idUser,
+            numberOfOrder: order.data().numberOfOrder,
+            numberOfTable: order.data().numberOfTable,
+            status: order.data().status,
+            totalPrice: order.data().totalPrice,
+            notify: order.data().notify
+          });
+        } else if (order.data().status === "accepted") {
+          accepted.push({
+            id: order.id,
+            idUser: order.data().idUser,
+            numberOfOrder: order.data().numberOfOrder,
+            numberOfTable: order.data().numberOfTable,
+            status: order.data().status,
+            totalPrice: order.data().totalPrice,
+            notify: order.data().notify
+          });
+        } else if (
+          order.data().status === "canceled" &&
+          order.data().date === dateNow
+        ) {
+          cancel.push({
+            id: order.id,
+            idUser: order.data().idUser,
+            numberOfOrder: order.data().numberOfOrder,
+            numberOfTable: order.data().numberOfTable,
+            status: order.data().status,
+            totalPrice: order.data().totalPrice,
+            notify: order.data().notify
+          });
+        } else if (
+          order.data().status === "completed" &&
+          order.data().date === dateNow
+        ) {
+          completedToday.push({
+            id: order.id,
+            idUser: order.data().idUser,
+            numberOfOrder: order.data().numberOfOrder,
+            numberOfTable: order.data().numberOfTable,
+            status: order.data().status,
+            totalPrice: order.data().totalPrice,
+            notify: order.data().notify
+          });
+          totalCobradoEnElDia = totalCobradoEnElDia + order.data().totalPrice;
+        } else if (
+          order.data().status === "completed" &&
+          order.data().date !== dateNow
+        ) {
+          completedOld.push({
+            id: order.id,
+            idUser: order.data().idUser,
+            numberOfOrder: order.data().numberOfOrder,
+            numberOfTable: order.data().numberOfTable,
+            status: order.data().status,
+            totalPrice: order.data().totalPrice,
+            notify: order.data().notify
           });
         }
       });
-      this.setState({ ordersArray: orders });
+
+      this.setState(
+        {
+          orderPending: pending,
+          orderAccepted: accepted,
+          orderCanceled: cancel,
+          orderCompletedToday: completedToday,
+          orderCompletedOld: completedOld,
+          total: totalCobradoEnElDia
+        },
+        this.props.history.push("/orders")
+      );
+
+      for (let i = 0; i < pending.length; i++) {
+        if (pending[i].notify === false) {
+          toast(`Table ${pending[i].numberOfTable} is ordering!`, {
+            autoClose: true,
+            closeButton: true,
+            delay: 1500
+          });
+          let singleOrder = DB.collection("restaurants")
+            .doc(this.props.userLogin)
+            .collection("orders")
+            .doc(pending[i].id);
+          singleOrder.update({ notify: true });
+        }
+      }
     });
   }
+
   componentWillUnmount() {
     doc.onSnapshot(() => {});
   }
 
-  handleClickStatus(e, id, param) {
+  handleClickStatus(e, id, param, numTable) {
     e.preventDefault();
     let doc = DB.collection("restaurants")
       .doc(this.props.userLogin)
       .collection("orders")
       .doc(id);
     doc.update({ status: param });
+
+    let tableDoc = DB.collection("restaurants")
+      .doc(this.props.userLogin)
+      .collection("tables");
+
+    tableDoc
+      .get()
+      .then(data => {
+        data.forEach(res => {
+          if (res.data().number === numTable) tableId = res.id;
+        });
+      })
+      .then(() => {
+        let idTable = DB.collection("restaurants")
+          .doc(this.props.userLogin)
+          .collection("tables")
+          .doc(tableId);
+
+        idTable.update({ orderStatus: "accepted" });
+      });
+
     firebase.succesfullMsg(`Order ${param}`);
   }
 
+  showHistory(e) {
+    e.preventDefault();
+    this.setState({ history: true });
+  }
+
   render() {
-    // console.log(this.state);
     return (
       <div>
         <Sidebar />
         <Orders
-          orders={this.state.ordersArray}
+          total={this.state.total}
+          history={this.state.history}
+          showHistory={this.showHistory}
+          completedToday={this.state.orderCompletedToday}
+          completedOld={this.state.orderCompletedOld}
+          accepted={this.state.orderAccepted}
+          canceled={this.state.orderCanceled}
+          pending={this.state.orderPending}
           handleClickStatus={this.handleClickStatus}
         />
       </div>

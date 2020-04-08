@@ -53,15 +53,6 @@ class Firebase {
       timer: 1500
     });
   }
-
-  succesfullMsgOrders(param) {
-    MySwal.fire({
-      position: "center",
-      icon: "success",
-      title: param,
-      showConfirmButton: true
-    });
-  }
 }
 
 export default new Firebase();

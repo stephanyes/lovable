@@ -9,14 +9,15 @@ export default ({ nombre, categories, menuId, deleteFunc }) => {
       style={{
         backgroundColor: "white",
         marginLeft: "250px",
-        paddingBottom: "400px"
+        paddingBottom: "400px",
       }}
     >
       <div
         className="container"
         style={{
-          marginLeft: "20px",
-          paddingTop: "20px"
+          paddingLeft: "35px",
+          paddingRight: "35px",
+          paddingTop: "20px",
         }}
       >
         <h1 className="font-weight-bold">{nombre}</h1>
@@ -28,7 +29,7 @@ export default ({ nombre, categories, menuId, deleteFunc }) => {
             backgroundColor: "#ff2068",
             borderColor: "#ff2068",
             marginTop: "20px",
-            marginBottom: "10px"
+            marginBottom: "10px",
           }}
           className="btn btn-primary"
           to={`/menu/${menuId}/createCategory`}
@@ -40,27 +41,27 @@ export default ({ nombre, categories, menuId, deleteFunc }) => {
         <ul
           class="list-group"
           style={{
-            marginTop: "30px"
+            marginTop: "30px",
           }}
         >
           {categories.length
-            ? categories.map(individual => {
+            ? categories.map((individual) => {
                 return (
                   <li
                     key={individual.categoryId}
+                    style={{ padding: "20px" }}
                     class="list-group-item d-flex justify-content-between align-items-center"
                   >
                     {/* <h5 style={{ textAlign: "center" }}>{individual.name}</h5> */}
                     <div>
+                      <img
+                        style={{ maxWidth: "100px", marginRight: "20px" }}
+                        src={individual.imageCategory}
+                        alt="category img"
+                      />
                       <Link to={`/menu/${menuId}/${individual.categoryId}`}>
                         {individual.name}
                       </Link>
-
-                      {/* <img
-                          style={{ width: "100px" }}
-                          src={individual.imageCategory}
-                          alt="category img"
-                        /> */}
                     </div>
                     <div>
                       <Link
@@ -70,7 +71,7 @@ export default ({ nombre, categories, menuId, deleteFunc }) => {
                           style={{
                             backgroundColor: "#2EC4B6",
                             borderColor: "#2EC4B6",
-                            marginRight: "20px"
+                            marginRight: "20px",
                           }}
                           className="btn btn-primary btn-lg"
                         >
@@ -79,10 +80,10 @@ export default ({ nombre, categories, menuId, deleteFunc }) => {
                       </Link>
 
                       <button
-                        onClick={e => deleteFunc(e, individual.categoryId)}
+                        onClick={(e) => deleteFunc(e, individual.categoryId)}
                         style={{
                           backgroundColor: "#ff2068",
-                          borderColor: "#ff2068"
+                          borderColor: "#ff2068",
                           //marginRight: "20px"
                         }}
                         className="btn btn-primary btn-lg"

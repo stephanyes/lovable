@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default ({ buttonClick, table }) => {
+export default ({ buttonClick, table, order, productArray, orderHandler, tableHandler }) => {
   return (
     <div
       style={{
@@ -32,21 +32,64 @@ export default ({ buttonClick, table }) => {
           </h1>
 
           <h5 className="font-weight-normal">
-            This are the resume of the table.
+            This is the resume of the table.
           </h5>
+          {/* Estado de la order */}
+
+          <div>
+            <div>
+
+              <table className="table table-bordered">
+                <thead>
+                  <th>Product</th>
+                  <th>Price</th>
+                </thead>
+                <tbody>
+                  {productArray
+                    ? productArray.map((product, index) => {
+                      return (<tr key={index}>
+                        <td>
+                          {product.name}
+                        </td>
+                        <td>
+                          {product.price}
+                        </td>
+                      </tr>)
+                    })
+                    : null}
+                  <tr>
+                    <td>Total</td>
+                    {/* {productArray ? productArray.reduce((misc, currentIndex) => (
+                      <td>{total += currentIndex.price}</td>
+                    ), 0) : null} */}
+                    <td>{order.totalPrice}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+          </div>
         </div>
       </div>
-      <div
-        class="card text-center"
+
+      <div class="card text-center"
         style={{
           borderColor: "#ffffff"
         }}
       >
-        <div class="card-body">
+        <h3>Payment: <strong>{order.status}</strong></h3>
+      </div>
+
+      <div
+        className="card text-center"
+        style={{
+          borderColor: "#ffffff"
+        }}
+      >
+        <div className="card-body">
           {table.state === "busy" ? (
             <button
-              onClick={e => buttonClick(e)}
-              // onClick={() => buttonClick(order.id)}
+              onClick={e => buttonClick(e, "completed")}
               className="btn btn-primary btn-lg"
               style={{
                 backgroundColor: "#ff2068",
@@ -57,9 +100,122 @@ export default ({ buttonClick, table }) => {
             >
               Close Table
             </button>
+
+
           ) : (
-            <div></div>
-          )}
+              <div></div>
+            )}
+        </div>
+      </div>
+      <div
+        className="card text-center"
+        style={{
+          borderColor: "#ffffff"
+        }}>
+        <div className="card-body">
+          <button
+            onClick={(e) => orderHandler(e, table.orderActual, "accepted", table.number)}
+            style={{
+              backgroundColor: "#2EC4B6",
+              borderColor: "#2EC4B6",
+              marginRight: "20px"
+            }}
+            className="btn btn-primary btn-lg">
+            Confirm Order
+                      </button>
+
+          <button
+            onClick={(e) => orderHandler(e, table.orderActual, "canceled")}
+            style={{
+              backgroundColor: "#ff2068",
+              borderColor: "#ff2068"
+            }}
+            className="btn btn-primary btn-lg">
+            Cancel Button
+                      </button>
+        </div>
+      </div>
+      <div>
+        <div>
+          <h3
+            style={{
+              marginTop: "30px",
+            }}
+            className="font-weight-bold"
+          >Services</h3>
+          <ul
+            className="list-group"
+            style={{
+              marginTop: "30px",
+            }}>
+            {/* Aca tiene que haber una logica dependiendo de si llama al Mozo o LLama para pagar o ambos */}
+            {/* waiter: false
+            pay: false */}
+            {table.waiter && table.pay ?
+              (<div>
+                <li className="list-group-item d-flex justify-content-between align-items-center">
+                  Customer is asking for his waiter! :)
+                  <button
+                    onClick={(e) => tableHandler(e, table.id, "waiter")}
+                    style={{
+                      backgroundColor: "#2EC4B6",
+                      borderColor: "#2EC4B6",
+                      marginRight: "20px"
+                    }}
+                    className="btn btn-primary btn-lg">
+                    Remove Waiter Alert
+                      </button>
+                </li>
+                <li className="list-group-item d-flex justify-content-between align-items-center">
+                  Customer wants to pay his bill! :)
+                  <button
+                    onClick={(e) => tableHandler(e, table.id, "pay")}
+                    style={{
+                      backgroundColor: "#ff2068",
+                      borderColor: "#ff2068"
+                      //marginRight: "20px"
+                    }}
+                    className="btn btn-primary btn-lg">
+                    Remove Bill Alert
+                      </button>
+                </li>
+              </div>)
+              :
+              table.waiter ?
+                (<li className="list-group-item d-flex justify-content-between align-items-center">
+                  Customer is asking for his waiter! :)
+                  <button
+                    onClick={(e) => tableHandler(e, table.id, "waiter")}
+                    style={{
+                      backgroundColor: "#2EC4B6",
+                      borderColor: "#2EC4B6",
+                      marginRight: "20px"
+                    }}
+                    className="btn btn-primary btn-lg">
+                    Remove Waiter Alert
+                      </button>
+                </li>)
+                :
+                table.pay ?
+                  (<li className="list-group-item d-flex justify-content-between align-items-center">
+                    Customer wants to pay his bill! :)
+                    <button
+                      onClick={(e) => tableHandler(e, table.id, "pay")}
+                      style={{
+                        backgroundColor: "#ff2068",
+                        borderColor: "#ff2068"
+                        //marginRight: "20px"
+                      }}
+                      className="btn btn-primary btn-lg">
+                      Remove Bill Alert
+                      </button>
+                  </li>)
+                  :
+                  (<li className="list-group-item d-flex justify-content-between align-items-center">
+                    No service being called :)
+                  </li>)}
+
+          </ul>
         </div>
       </div>
     </div>

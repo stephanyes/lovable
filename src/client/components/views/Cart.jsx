@@ -1,6 +1,6 @@
 import React from "react";
 
-export default ({ productos, priceTotal, deleteClick, handlerSubmit }) => {
+export default ({ productos, priceTotal, deleteClick, handlerSubmit}) => {
   return (
     <div
       style={{
@@ -31,55 +31,87 @@ export default ({ productos, priceTotal, deleteClick, handlerSubmit }) => {
           </h1>
         </div>
       </div>
+      <div className="row">
+        <div className="col-md-4" style={{margin: "0 auto"}}>
+          <h5>Products</h5>
+        </div>
+        <div className="col-md-2" style={{margin: "0 auto"}}>
+          <h5>Quantity</h5>
+        </div>
+        <div className="col-md-2" style={{margin: "0 auto"}}>
+          <h5>Single Price</h5>
+        </div>
+        <div className="col-md-2" style={{margin: "0 auto"}}>
+          <h5>Subtotal</h5>
+        </div>
+        <div className="col-md-2" style={{margin: "0 auto"}}>
+          <h5>Trash</h5>
+        </div>
+      </div>
+      <hr></hr>
       {productos
         ? productos.map(product => {
             return (
-              <li
-                className="list-group-item d-flex justify-content-between align-items-center"
-                style={{
-                  padding: "12px"
-                }}
-              >
-                <div>
-                  <img
-                    src={product.imageProduct}
-                    className="card-img"
-                    alt="..."
-                    style={{
-                      width: "60px",
-                      marginRight: "10px"
-                    }}
-                  />
-                  <span
-                    style={{
-                      margin: "20px",
-                      marginLeft: "0px"
-                    }}
-                  >
-                    {product.name}
-                  </span>
-                </div>
+              // <li
+              //   className="list-group-item d-flex justify-content-between align-items-center"
+              //   style={{
+              //     padding: "12px"
+              //   }}
+              // >
+              <div>
+                <div className="row">
+                  <div className="col-md-4">
+                    <img
+                      src={product.imageProduct}
+                      className="card-img"
+                      alt="..."
+                      style={{
+                        width: "60px",
+                        marginRight: "10px"
+                      }}
+                    />
+                    <span
+                      style={{
+                        margin: "20px",
+                        marginLeft: "0px"
+                      }}
+                    >
+                      {product.name}
+                    </span>
+                  </div>
 
-                <div>
-                  <h6>$ {product.price}</h6>
+                  <div className="col-md-2">
+                    <h6>{product.quantity}</h6>
+                  </div>
+
+                  <div className="col-md-2">
+                    <h6> ARS {`${product.price},00`}</h6>
+                  </div>
+
+                  <div className="col-md-2">
+                    <h6> ARS {`${product.price * product.quantity},00`}</h6>
+                  </div>
+               
+                  <div className="col-md-2">
+                    <button
+                      style={{
+                        textDecoration: "none",
+                        color: "#ffffff",
+                        backgroundColor: "#ff2068",
+                        borderColor: "#ff2068",
+                        padding: "3px 12px",
+                        fontSize: "15px"
+                      }}
+                      className="btn btn-primary"
+                      onClick={e => deleteClick(e, product.id)}
+                    >
+                      Delete
+                    </button>
+                  </div>
                 </div>
-                <div>
-                  <button
-                    style={{
-                      textDecoration: "none",
-                      color: "#ffffff",
-                      backgroundColor: "#ff2068",
-                      borderColor: "#ff2068",
-                      padding: "3px 12px",
-                      fontSize: "20px"
-                    }}
-                    className="btn btn-primary"
-                    onClick={e => deleteClick(e, product.id)}
-                  >
-                    X
-                  </button>
-                </div>
-              </li>
+                  <hr></hr>
+                {/* </li> */}
+              </div>
             );
           })
         : null}
@@ -103,7 +135,7 @@ export default ({ productos, priceTotal, deleteClick, handlerSubmit }) => {
               margin: "40px"
             }}
           >
-            Total ${priceTotal}
+            Total ARS {priceTotal}
           </h2>
 
           <button
@@ -120,7 +152,6 @@ export default ({ productos, priceTotal, deleteClick, handlerSubmit }) => {
             className="btn btn-primary"
             onClick={e => handlerSubmit(e)}
           >
-            {" "}
             Send Order
           </button>
         </div>

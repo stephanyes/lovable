@@ -6,34 +6,35 @@ export default ({ submit, inputs }) => {
       style={{
         backgroundColor: "white",
         marginLeft: "250px",
-        paddingBottom: "400px"
+        paddingBottom: "400px",
       }}
     >
       <div
         className="container"
         style={{
-          marginLeft: "20px",
-          paddingTop: "20px"
+          paddingLeft: "35px",
+          paddingRight: "35px",
+          paddingTop: "20px",
         }}
       >
         <h1 className="font-weight-bold">Add Product</h1>
         <div className="col">
           <form
-            onSubmit={e => submit(e)}
+            onSubmit={(e) => submit(e)}
             style={{
               padding: "40px",
-              marginRight: "20px"
+              marginRight: "20px",
             }}
           >
             <div
               className="form-group"
               style={{
-                paddingBottom: "20px"
+                paddingBottom: "20px",
               }}
             >
               <label>Name</label>
               <input
-                onChange={e => inputs(e)}
+                onChange={(e) => inputs(e)}
                 name="name"
                 type="text"
                 className="form-control"
@@ -44,12 +45,12 @@ export default ({ submit, inputs }) => {
             <div
               className="form-group"
               style={{
-                paddingBottom: "20px"
+                paddingBottom: "20px",
               }}
             >
               <label>Image URL</label>
               <input
-                onChange={e => inputs(e)}
+                onChange={(e) => inputs(e)}
                 name="imageProduct"
                 type="text"
                 className="form-control"
@@ -60,12 +61,12 @@ export default ({ submit, inputs }) => {
             <div
               className="form-group"
               style={{
-                paddingBottom: "20px"
+                paddingBottom: "20px",
               }}
             >
               <label>Description</label>
               <input
-                onChange={e => inputs(e)}
+                onChange={(e) => inputs(e)}
                 name="description"
                 type="text"
                 className="form-control"
@@ -76,12 +77,12 @@ export default ({ submit, inputs }) => {
             <div
               className="form-group"
               style={{
-                paddingBottom: "20px"
+                paddingBottom: "20px",
               }}
             >
               <label>Price</label>
               <input
-                onChange={e => inputs(e)}
+                onChange={(e) => inputs(e)}
                 name="price"
                 type="text"
                 className="form-control"
@@ -94,7 +95,7 @@ export default ({ submit, inputs }) => {
               className="btn btn-primary"
               style={{
                 backgroundColor: "#FF2068",
-                borderColor: "#FF2068"
+                borderColor: "#FF2068",
               }}
             >
               Create

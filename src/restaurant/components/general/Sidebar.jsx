@@ -7,7 +7,7 @@ export default ({}) => {
       <nav
         id="sidebar"
         style={{
-          backgroundColor: "#000000"
+          backgroundColor: "#000000",
         }}
       >
         <div id="dismiss">
@@ -34,7 +34,7 @@ export default ({}) => {
               className="nav-link active"
               style={{
                 padding: "20px",
-                paddingLeft: "20px"
+                paddingLeft: "20px",
               }}
               to="/dashboard"
             >
@@ -47,7 +47,7 @@ export default ({}) => {
               className="nav-link active"
               style={{
                 padding: "20px",
-                paddingLeft: "20px"
+                paddingLeft: "20px",
               }}
               to="/orders"
             >
@@ -59,7 +59,7 @@ export default ({}) => {
               className="nav-link"
               style={{
                 padding: "20px",
-                paddingLeft: "20px"
+                paddingLeft: "20px",
               }}
               to="/menu"
             >
@@ -71,9 +71,9 @@ export default ({}) => {
               className="nav-link"
               style={{
                 padding: "20px",
-                paddingLeft: "20px"
+                paddingLeft: "20px",
               }}
-              to="/configuration"
+              to="/configurations"
             >
               Configuration
             </Link>

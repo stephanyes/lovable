@@ -7,14 +7,15 @@ export default ({ menuObject, deleteFunc }) => {
       style={{
         backgroundColor: "white",
         marginLeft: "250px",
-        paddingBottom: "400px"
+        paddingBottom: "400px",
       }}
     >
       <div
         className="container"
         style={{
-          marginLeft: "20px",
-          paddingTop: "20px"
+          paddingLeft: "35px",
+          paddingRight: "35px",
+          paddingTop: "20px",
         }}
       >
         <h1 className="font-weight-bold">Current Menues</h1>
@@ -25,7 +26,7 @@ export default ({ menuObject, deleteFunc }) => {
             backgroundColor: "#ff2068",
             borderColor: "#ff2068",
             marginTop: "20px",
-            marginBottom: "10px"
+            marginBottom: "10px",
           }}
           className="btn btn-primary"
           to="/menu/createMenu"
@@ -36,17 +37,17 @@ export default ({ menuObject, deleteFunc }) => {
         <hr />
 
         <ul
-          class="list-group"
+          className="list-group"
           style={{
-            marginTop: "30px"
+            marginTop: "30px",
           }}
         >
           {menuObject ? (
-            menuObject.map(menu => {
+            menuObject.map((menu) => {
               return (
                 <li
                   key={menu.id}
-                  class="list-group-item d-flex justify-content-between align-items-center"
+                  className="list-group-item d-flex justify-content-between align-items-center"
                 >
                   <Link to={`/menu/${menu.id}`}>{menu.name}</Link>
                   <div>
@@ -55,7 +56,7 @@ export default ({ menuObject, deleteFunc }) => {
                         style={{
                           backgroundColor: "#2EC4B6",
                           borderColor: "#2EC4B6",
-                          marginRight: "20px"
+                          marginRight: "20px",
                         }}
                         className="btn btn-primary btn-lg"
                       >
@@ -63,10 +64,10 @@ export default ({ menuObject, deleteFunc }) => {
                       </button>
                     </Link>
                     <button
-                      onClick={e => deleteFunc(e, menu.id)}
+                      onClick={(e) => deleteFunc(e, menu.id)}
                       style={{
                         backgroundColor: "#ff2068",
-                        borderColor: "#ff2068"
+                        borderColor: "#ff2068",
                         //marginRight: "20px"
                       }}
                       className="btn btn-primary btn-lg"
@@ -78,8 +79,8 @@ export default ({ menuObject, deleteFunc }) => {
               );
             })
           ) : (
-            <li>No Categories Found</li>
-          )}
+              <li>No Categories Found</li>
+            )}
         </ul>
 
         {/* <table className="table table-striped table-bordered">
