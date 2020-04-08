@@ -1,10 +1,15 @@
 import React from "react";
 import firebase from "../../../services/firebase";
 import Products from "../../components/views/Products";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 const DB = firebase.db;
+const MySwal = withReactContent(Swal);
+
 let orderToUpdate;
 let orderToCreate;
+let resAddToCart;
 
 class ProductContainer extends React.Component {
   constructor(props) {
@@ -12,12 +17,19 @@ class ProductContainer extends React.Component {
     this.state = {
       product: {},
       order: {
-        numberOfTable: "completar con INFO",
+        numberOfTable: "",
         status: "draft",
-        totalPrice: 0
-      }
+        totalPrice: 0,
+        date: "",
+        notify: false
+      },
+      comments: "This product has not a special comment",
+      value: 1
     };
     this.handleClick = this.handleClick.bind(this);
+    this.handlerChange = this.handlerChange.bind(this);
+    this.addProd = this.addProd.bind(this);
+    this.lessProd = this.lessProd.bind(this);
   }
 
   componentDidMount() {
@@ -42,6 +54,11 @@ class ProductContainer extends React.Component {
     );
   }
 
+  handlerChange(e) {
+    e.preventDefault();
+    this.setState({ comments: e.target.value });
+  }
+
   handleClick(e) {
     e.preventDefault();
     let RestaurantId = this.props.match.params.idRestaurant;
@@ -58,45 +75,101 @@ class ProductContainer extends React.Component {
         order: {
           numberOfTable: result.data().number,
           status: "draft",
-          totalPrice: 0
+          totalPrice: 0,
+          date: `${new Date()}`.slice(0, 15),
+          notify: false
         }
       });
 
-      if (result.data().orderActual !== 0) {
-        orderToUpdate = result.data().orderActual;
+      MySwal.fire({
+        title: "Are you sure to add to cart?",
+        text: "You won't be able to revert this!",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Confirm"
+      })
+        .then(res => {
+          resAddToCart = res.value;
+          if (res.value) {
+            MySwal.fire(
+              "Success!",
+              `Your product has been added to cart.`,
+              "success"
+            );
+          }
+        })
 
-        let OrdersRestaurant = DB.collection("restaurants")
-          .doc(RestaurantId)
-          .collection("orders")
-          .doc(`${orderToUpdate}`);
-        OrdersRestaurant.collection("products")
-          .doc()
-          .set(this.state.product);
-      } else {
-        RestaurantDoc.get().then(result => {
-          orderToCreate = result.data().orderTotalNumber;
-          RestaurantDoc.update({ orderTotalNumber: orderToCreate + 1 });
-          TablesRestaurant.update({
-            orderActual: orderToCreate,
-            orderStatus: "draft"
-          });
-          let newOrder = RestaurantDoc.collection("orders").doc(
-            `${orderToCreate}`
-          );
-          newOrder.set(this.state.order);
-          newOrder
-            .collection("products")
-            .doc()
-            .set(this.state.product);
+        .then(() => {
+          if (resAddToCart && result.data().orderActual !== 0) {
+            orderToUpdate = result.data().orderActual;
+
+            let OrdersRestaurant = DB.collection("restaurants")
+              .doc(RestaurantId)
+              .collection("orders")
+              .doc(`${orderToUpdate}`);
+            this.setState(state => ({
+              product: {
+                ...state.product,
+                comments: state.comments,
+                quantity: this.state.value
+              }
+            }));
+
+            OrdersRestaurant.collection("products")
+              .doc()
+              .set(this.state.product);
+          } else if (resAddToCart) {
+            RestaurantDoc.get().then(result => {
+              orderToCreate = result.data().orderTotalNumber;
+              RestaurantDoc.update({ orderTotalNumber: orderToCreate + 1 });
+              TablesRestaurant.update({
+                orderActual: orderToCreate,
+                orderStatus: "draft"
+              });
+              let newOrder = RestaurantDoc.collection("orders").doc(
+                `${orderToCreate}`
+              );
+              newOrder.set(this.state.order);
+              this.setState(state => ({
+                product: {
+                  ...state.product,
+                  comments: this.state.comments,
+                  quantity: this.state.value
+                }
+              }));
+              newOrder
+                .collection("products")
+                .doc()
+                .set(this.state.product);
+            });
+          }
         });
-      }
     });
+  }
+
+  addProd(e) {
+    e.preventDefault();
+    this.setState({ value: this.state.value + 1 });
+  }
+
+  lessProd(e) {
+    e.preventDefault();
+    if (this.state.value > 1) this.setState({ value: this.state.value - 1 });
   }
 
   render() {
     return (
       <div>
-        <Products handleClick={this.handleClick} product={this.state.product} />
+        <Products
+          lessProd={this.lessProd}
+          value={this.state.value}
+          addProd={this.addProd}
+          handlerChange={this.handlerChange}
+          handleClick={this.handleClick}
+          product={this.state.product}
+        />
       </div>
     );
   }
