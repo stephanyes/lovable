@@ -3,7 +3,7 @@ import firebase from "../../../services/firebase";
 import SingleTable from "../../../restaurant/components/views/SingleTable";
 import Sidebar from "../general/Sidebar";
 import { connect } from "react-redux";
-//import nodemailer from "nodemailer";
+import nodemailer from "nodemailer";
 //const nodemailer = require("nodemailer");
 
 const DB = firebase.db;
@@ -199,18 +199,18 @@ class SingleTableContainer extends React.Component {
       });
     }
 
-    // TableActual.update({
-    //   clientActual: 0,
-    //   orderActual: 0,
-    //   orderStatus: "",
-    //   secretCode: 0,
-    //   state: "free",
-    //   pay: false,
-    //   waiter: false,
-    //    mail:""
-    // });
+    SingleTable.update({
+      clientActual: 0,
+      orderActual: 0,
+      orderStatus: "",
+      secretCode: 0,
+      state: "free",
+      pay: false,
+      waiter: false,
+      mail: "",
+    });
 
-    // this.props.history.push(`/dashboard`);
+    this.props.history.push(`/dashboard`);
   }
 
   render() {

@@ -87,12 +87,20 @@ class ClientViewContainer extends React.Component {
         text: "You won't be able to revert this!",
         icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
+        confirmButtonColor: "#2EC4B6",
+        cancelButtonColor: "#ff2068",
         confirmButtonText: "Confirm",
       }).then((result) => {
         if (result.value) {
-          MySwal.fire("Success!", `Your bill has been to request.`, "success");
+          MySwal.fire({
+            title: "Success!",
+            text: "Your bill has been to request.",
+            icon: "success",
+            showCancelButton: false,
+            confirmButtonColor: "#ff2068",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Continue",
+          });
           if (this.state.table.pay === false) {
             tableActual.update({ pay: true });
             control = true;

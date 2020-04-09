@@ -58,18 +58,15 @@ export default ({
       >
         {table.state === "busy" ? (
           <div>
-            <h3
-              style={{
-                marginTop: "30px",
-              }}
-              className="font-weight-bold"
-            >
-              {`Order #${orderId}`}
-            </h3>
+            <h3 className="font-weight-bold">{`Order #${orderId}`}</h3>
 
             <div>
               {table.orderStatus !== "" && table.orderStatus !== "draft" ? (
-                <div>
+                <div
+                  style={{
+                    marginTop: "20px",
+                  }}
+                >
                   <table className="table table-bordered">
                     <thead>
                       <th>Product</th>
@@ -88,9 +85,6 @@ export default ({
                         : null}
                       <tr>
                         <td>Total</td>
-                        {/* {productArray ? productArray.reduce((misc, currentIndex) => (
-                  <td>{total += currentIndex.price}</td>
-                ), 0) : null} */}
                         <td>{order.totalPrice}</td>
                       </tr>
                     </tbody>
@@ -102,7 +96,11 @@ export default ({
                       borderColor: "#ffffff",
                     }}
                   >
-                    <h3>
+                    <h3
+                      style={{
+                        marginTop: "20px",
+                      }}
+                    >
                       Status: <strong>{order.status}</strong>
                     </h3>
 
@@ -139,7 +137,7 @@ export default ({
                             }}
                             className="btn btn-primary btn-lg"
                           >
-                            Cancel Button
+                            Cancel Order
                           </button>
                         </div>
                       ) : (
@@ -149,9 +147,16 @@ export default ({
                   </div>
                 </div>
               ) : (
-                <div>
-                  <h5 className="font-weight-normal">No Order</h5>
-                </div>
+                <ul
+                  className="list-group"
+                  style={{
+                    marginTop: "30px",
+                  }}
+                >
+                  <li className="list-group-item d-flex justify-content-between align-items-center">
+                    No orders.
+                  </li>
+                </ul>
               )}
             </div>
 
@@ -173,13 +178,13 @@ export default ({
               {table.waiter && table.pay ? (
                 <div>
                   <li className="list-group-item d-flex justify-content-between align-items-center">
-                    Customer is asking for his waiter!
+                    Customer is asking for his waiter
                     <button
                       onClick={(e) => tableHandler(e, table.id, "waiter")}
                       style={{
-                        backgroundColor: "#2EC4B6",
-                        borderColor: "#2EC4B6",
-                        marginRight: "20px",
+                        backgroundColor: "#ff2068",
+                        borderColor: "#ff2068",
+                        width: "250px",
                       }}
                       className="btn btn-primary btn-lg"
                     >
@@ -187,13 +192,13 @@ export default ({
                     </button>
                   </li>
                   <li className="list-group-item d-flex justify-content-between align-items-center">
-                    Customer wants to pay his bill!
+                    Customer wants to pay his bill
                     <button
                       onClick={(e) => tableHandler(e, table.id, "pay")}
                       style={{
                         backgroundColor: "#ff2068",
                         borderColor: "#ff2068",
-                        //marginRight: "20px"
+                        width: "250px",
                       }}
                       className="btn btn-primary btn-lg"
                     >
@@ -206,13 +211,13 @@ export default ({
                   {" "}
                   {table.waiter ? (
                     <li className="list-group-item d-flex justify-content-between align-items-center">
-                      Customer is asking for his waiter!
+                      Customer is asking for his waiter
                       <button
                         onClick={(e) => tableHandler(e, table.id, "waiter")}
                         style={{
-                          backgroundColor: "#2EC4B6",
-                          borderColor: "#2EC4B6",
-                          marginRight: "20px",
+                          backgroundColor: "#ff2068",
+                          borderColor: "#ff2068",
+                          width: "250px",
                         }}
                         className="btn btn-primary btn-lg"
                       >
@@ -223,13 +228,13 @@ export default ({
                     <div>
                       {table.pay ? (
                         <li className="list-group-item d-flex justify-content-between align-items-center">
-                          Customer wants to pay his bill!
+                          Customer wants to pay his bill
                           <button
                             onClick={(e) => tableHandler(e, table.id, "pay")}
                             style={{
                               backgroundColor: "#ff2068",
                               borderColor: "#ff2068",
-                              //marginRight: "20px"
+                              width: "250px",
                             }}
                             className="btn btn-primary btn-lg"
                           >
@@ -257,7 +262,12 @@ export default ({
           borderColor: "#ffffff",
         }}
       >
-        <div className="card-body">
+        <div
+          className="card-body"
+          style={{
+            marginTop: "40px",
+          }}
+        >
           {table.state === "busy" ? (
             <button
               onClick={(e) => buttonClick(e, "completed")}

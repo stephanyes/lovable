@@ -19,10 +19,14 @@ class Mail extends React.Component {
 
   handlerClick(e) {
     e.preventDefault();
-    MySwal.fire("Thank you!");
+    MySwal.fire({
+      title: "Thank you!",
+      icon: "success",
+      confirmButtonColor: "#ff2068",
+      confirmButtonText: "Continue",
+    });
     let RestaurantId = this.props.match.params.idRestaurant;
     let TableId = this.props.match.params.idTable;
-    console.log();
     let TableActual = DB.collection("restaurants")
       .doc(RestaurantId)
       .collection("tables")
@@ -56,61 +60,64 @@ class Mail extends React.Component {
             <h1
               className="font-weight-bold"
               style={{
-                paddingTop: "10px",
+                marginTop: "100px",
                 marginBottom: "40px",
               }}
             >
               Let your Mail
             </h1>
-            <form
-              onSubmit={(e) => this.handlerClick(e)}
-              style={{
-                padding: "40px",
-                marginRight: "20px",
-              }}
-            >
+            <form onSubmit={(e) => this.handlerClick(e)}>
               <div className="form-group">
                 <p
                   id="emailHelp"
                   className="form-text text-muted"
                   style={{ fontSize: "15px", marginBottom: "30px" }}
                 >
-                  For restore your password, enter your email address. You may
-                  have to check your spam folder or unblock the address{" "}
+                  For exclusive promotions and discount, you could give us your
+                  email adress.
                 </p>
-                <div
-                  className="form-group"
-                  style={{
-                    paddingBottom: "20px",
-                  }}
-                >
-                  <label>Email</label>
-                  <input
-                    onChange={(e) => this.handleInput(e)}
-                    name="email"
-                    type="email"
-                    className="form-control"
-                    id="inputEmail"
-                    aria-describedby="emailHelp"
-                    placeholder="your@email.com"
-                    required
-                  />
-                </div>
+
+                <input
+                  style={{ marginBottom: "20px" }}
+                  onChange={(e) => this.handleInput(e)}
+                  name="email"
+                  type="email"
+                  className="form-control"
+                  id="inputEmail"
+                  aria-describedby="emailHelp"
+                  placeholder="your@email.com"
+                  required
+                />
                 <button
                   type="submit"
                   className="btn btn-primary"
                   style={{
-                    backgroundColor: "#FF2068",
-                    borderColor: "#FF2068",
+                    textDecoration: "none",
+                    color: "#ffffff",
+                    backgroundColor: "#ff2068",
+                    borderColor: "#ff2068",
+                    padding: "15px 130px",
+                    margin: "10px",
+                    fontSize: "20px",
                   }}
                 >
-                  Let Email
+                  Done
                 </button>
-                <Link
-                  to={`/${this.props.match.params.idRestaurant}/${this.props.match.params.idTable}`}
+                <div
+                  style={{
+                    margin: "30px",
+                  }}
                 >
-                  I don't want
-                </Link>
+                  <Link
+                    style={{
+                      textDecoration: "none",
+                      color: "#000000",
+                    }}
+                    to={`/${this.props.match.params.idRestaurant}/${this.props.match.params.idTable}`}
+                  >
+                    <h5>I don't want</h5>
+                  </Link>
+                </div>
               </div>
             </form>
           </div>

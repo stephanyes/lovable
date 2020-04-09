@@ -11,9 +11,9 @@ let doc;
 let tableId;
 let dateNow = `${new Date()}`.slice(0, 15);
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    userLogin: state.user.loginUser.restaurantID
+    userLogin: state.user.loginUser.restaurantID,
   };
 };
 
@@ -27,7 +27,7 @@ class OrdersContainer extends React.Component {
       orderCompletedToday: [],
       orderCompletedOld: [],
       history: false,
-      total: 0
+      total: 0,
     };
     this.handleClickStatus = this.handleClickStatus.bind(this);
     this.showHistory = this.showHistory.bind(this);
@@ -38,7 +38,7 @@ class OrdersContainer extends React.Component {
       .doc(this.props.userLogin)
       .collection("orders");
 
-    doc.onSnapshot(ordersDocuments => {
+    doc.onSnapshot((ordersDocuments) => {
       let pending = [];
       let accepted = [];
       let cancel = [];
@@ -46,7 +46,7 @@ class OrdersContainer extends React.Component {
       let completedToday = [];
       let totalCobradoEnElDia = 0;
 
-      ordersDocuments.forEach(order => {
+      ordersDocuments.forEach((order) => {
         if (order.data().status === "pending") {
           pending.push({
             id: order.id,
@@ -55,7 +55,7 @@ class OrdersContainer extends React.Component {
             numberOfTable: order.data().numberOfTable,
             status: order.data().status,
             totalPrice: order.data().totalPrice,
-            notify: order.data().notify
+            notify: order.data().notify,
           });
         } else if (order.data().status === "accepted") {
           accepted.push({
@@ -65,7 +65,7 @@ class OrdersContainer extends React.Component {
             numberOfTable: order.data().numberOfTable,
             status: order.data().status,
             totalPrice: order.data().totalPrice,
-            notify: order.data().notify
+            notify: order.data().notify,
           });
         } else if (
           order.data().status === "canceled" &&
@@ -78,7 +78,7 @@ class OrdersContainer extends React.Component {
             numberOfTable: order.data().numberOfTable,
             status: order.data().status,
             totalPrice: order.data().totalPrice,
-            notify: order.data().notify
+            notify: order.data().notify,
           });
         } else if (
           order.data().status === "completed" &&
@@ -91,7 +91,7 @@ class OrdersContainer extends React.Component {
             numberOfTable: order.data().numberOfTable,
             status: order.data().status,
             totalPrice: order.data().totalPrice,
-            notify: order.data().notify
+            notify: order.data().notify,
           });
           totalCobradoEnElDia = totalCobradoEnElDia + order.data().totalPrice;
         } else if (
@@ -105,7 +105,7 @@ class OrdersContainer extends React.Component {
             numberOfTable: order.data().numberOfTable,
             status: order.data().status,
             totalPrice: order.data().totalPrice,
-            notify: order.data().notify
+            notify: order.data().notify,
           });
         }
       });
@@ -117,17 +117,17 @@ class OrdersContainer extends React.Component {
           orderCanceled: cancel,
           orderCompletedToday: completedToday,
           orderCompletedOld: completedOld,
-          total: totalCobradoEnElDia
+          total: totalCobradoEnElDia,
         },
         this.props.history.push("/orders")
       );
 
       for (let i = 0; i < pending.length; i++) {
         if (pending[i].notify === false) {
-          toast(`Table ${pending[i].numberOfTable} is ordering!`, {
-            autoClose: true,
+          toast.info(`Table ${pending[i].numberOfTable} is ordering!`, {
+            autoClose: false,
             closeButton: true,
-            delay: 1500
+            delay: 1500,
           });
           let singleOrder = DB.collection("restaurants")
             .doc(this.props.userLogin)
@@ -157,8 +157,8 @@ class OrdersContainer extends React.Component {
 
     tableDoc
       .get()
-      .then(data => {
-        data.forEach(res => {
+      .then((data) => {
+        data.forEach((res) => {
           if (res.data().number === numTable) tableId = res.id;
         });
       })
