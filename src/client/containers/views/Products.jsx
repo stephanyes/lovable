@@ -80,7 +80,7 @@ class ProductContainer extends React.Component {
           notify: false,
         },
       });
-
+      resAddToCart = true;
       MySwal.fire({
         title: "Success!",
         text: "Your product has been added to cart.",
@@ -89,9 +89,8 @@ class ProductContainer extends React.Component {
         confirmButtonColor: "#ff2068",
         cancelButtonColor: "#d33",
         confirmButtonText: "Continue",
-      })
-      .then(() => {
-        if (result.data().orderActual !== 0) {
+      }).then(() => {
+        if (resAddToCart && result.data().orderActual !== 0) {
           orderToUpdate = result.data().orderActual;
 
           let OrdersRestaurant = DB.collection("restaurants")
