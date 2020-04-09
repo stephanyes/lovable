@@ -15,7 +15,6 @@ class ViewCartContainer extends React.Component {
       productos: [],
       priceTotal: 0,
       idOrder: "", 
-      quantity: 1
     };
     this.deleteClick = this.deleteClick.bind(this);
     this.handlerSubmit = this.handlerSubmit.bind(this);
@@ -44,19 +43,18 @@ class ViewCartContainer extends React.Component {
             .collection("orders")
             .doc(`${orderId}`);
 
-          this.setState({quantity : product.data().quantity})
-
           productArray.push({
             id: product.id,
             imageProduct: product.data().imageProduct,
             name: product.data().name,
             price: product.data().price,
-            description: product.data().description
+            description: product.data().description,
+            quantity: product.data().quantity
           });
         });
         if (this.state.priceTotal !== 0) total = 0;
         for (let i = 0; i < productArray.length; i++) {
-          total += parseInt(productArray[i].price) * this.state.quantity;
+          total += parseInt(productArray[i].price) * productArray[i].quantity;
         }
         orderPrice.update({ totalPrice: total });
         this.setState({
@@ -113,8 +111,6 @@ class ViewCartContainer extends React.Component {
           handlerSubmit={this.handlerSubmit}
           productos={this.state.productos}
           priceTotal={this.state.priceTotal}
-          quantity={this.state.quantity}
-
         />
       </div>
     );

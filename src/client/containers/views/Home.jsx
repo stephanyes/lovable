@@ -96,6 +96,9 @@ class ClientViewContainer extends React.Component {
           if (this.state.table.pay === false) {
             tableActual.update({ pay: true });
             control = true;
+            this.props.history.push(
+              `/${this.props.match.params.idRestaurant}/${this.props.match.params.idTable}/mail`
+            );
           }
         }
       });

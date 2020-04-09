@@ -8,6 +8,7 @@ export default ({
   productArray,
   orderHandler,
   tableHandler,
+  orderId,
 }) => {
   return (
     <div
@@ -63,7 +64,7 @@ export default ({
               }}
               className="font-weight-bold"
             >
-              Order
+              {`Order #${orderId}`}
             </h3>
 
             <div>
@@ -110,7 +111,12 @@ export default ({
                         <div>
                           <button
                             onClick={(e) =>
-                              orderHandler(e, table.orderActual, "completed")
+                              orderHandler(
+                                e,
+                                table.orderActual,
+                                "accepted",
+                                table.number
+                              )
                             }
                             style={{
                               backgroundColor: "#2EC4B6",
@@ -254,8 +260,7 @@ export default ({
         <div className="card-body">
           {table.state === "busy" ? (
             <button
-              onClick={(e) => buttonClick(e)}
-              // onClick={() => buttonClick(order.id)}
+              onClick={(e) => buttonClick(e, "completed")}
               className="btn btn-primary btn-lg"
               style={{
                 backgroundColor: "#ff2068",

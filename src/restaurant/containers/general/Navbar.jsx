@@ -25,8 +25,10 @@ class NavbarContainer extends React.Component {
     super();
     this.state = {
       mesas: [],
+      isOpen: false,
     };
     this.logoutButton = this.logoutButton.bind(this);
+    this.toggleOpen = this.toggleOpen.bind(this);
   }
 
   async logoutButton(e) {
@@ -35,31 +37,36 @@ class NavbarContainer extends React.Component {
     this.props.chauUser();
     this.props.history.replace("/");
   }
+  toggleOpen() {
+    if (!this.state.isOpen) {
+      this.setState({
+        isOpen: true,
+      });
+    } else {
+      this.setState({
+        isOpen: false,
+      });
+    }
+  }
 
   componentDidMount() {
-    let that = this;
     doc = DB.collection("restaurants")
       .doc(this.props.userLogin)
       .collection("tables");
     // .where("status", "==", "pending");
 
-    doc.onSnapshot(function (snapshot) {
+    doc.onSnapshot((tables) => {
       let mesas = [];
-      snapshot.docChanges().forEach(function (change) {
-        if (
-          change.type === "modified" &&
-          change.doc.data().orderStatus === "pending"
-        ) {
-          mesas.push({
-            number: change.doc.data().number,
-            pay: change.doc.data().pay,
-            waiter: change.doc.data().waiter,
-            orderStatus: change.doc.data().orderStatus,
-          });
-
-          that.setState({ mesas });
-        }
+      tables.forEach((change) => {
+        mesas.push({
+          id: change.id,
+          number: change.data().number,
+          pay: change.data().pay,
+          waiter: change.data().waiter,
+          orderStatus: change.data().orderStatus,
+        });
       });
+      this.setState({ mesas });
     });
 
     // doc.onSnapshot(ordersDocuments => {
@@ -89,9 +96,15 @@ class NavbarContainer extends React.Component {
   }
 
   render() {
+    console.log(this.state);
     return (
       <div>
-        <Navbar mesas={this.state.mesas} buttonClick={this.logoutButton} />
+        <Navbar
+          mesas={this.state.mesas}
+          buttonClick={this.logoutButton}
+          isOpen={this.toggleOpen}
+          dropdown={this.state.isOpen}
+        />
       </div>
     );
   }

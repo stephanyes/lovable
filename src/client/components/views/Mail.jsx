@@ -1,0 +1,123 @@
+import React from "react";
+import firebase from "../../../services/firebase";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+import { withRouter, Link } from "react-router-dom";
+
+const DB = firebase.db;
+const MySwal = withReactContent(Swal);
+
+class Mail extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { email: "" };
+  }
+
+  handleInput = (e) => {
+    this.setState({ email: e.target.value });
+  };
+
+  handlerClick(e) {
+    e.preventDefault();
+    MySwal.fire("Thank you!");
+    let RestaurantId = this.props.match.params.idRestaurant;
+    let TableId = this.props.match.params.idTable;
+    console.log();
+    let TableActual = DB.collection("restaurants")
+      .doc(RestaurantId)
+      .collection("tables")
+      .doc(TableId);
+    TableActual.update({ mail: this.state.email });
+    this.props.history.push(
+      `/${this.props.match.params.idRestaurant}/${this.props.match.params.idTable}`
+    );
+  }
+
+  render() {
+    return (
+      <div
+        style={{
+          backgroundColor: "#ffffff",
+        }}
+      >
+        <div
+          className="card text-center"
+          style={{
+            borderColor: "#ffffff",
+          }}
+        >
+          <div
+            className="card-body"
+            style={{
+              padding: "20px",
+              paddingBottom: "0px",
+            }}
+          >
+            <h1
+              className="font-weight-bold"
+              style={{
+                paddingTop: "10px",
+                marginBottom: "40px",
+              }}
+            >
+              Let your Mail
+            </h1>
+            <form
+              onSubmit={(e) => this.handlerClick(e)}
+              style={{
+                padding: "40px",
+                marginRight: "20px",
+              }}
+            >
+              <div className="form-group">
+                <p
+                  id="emailHelp"
+                  className="form-text text-muted"
+                  style={{ fontSize: "15px", marginBottom: "30px" }}
+                >
+                  For restore your password, enter your email address. You may
+                  have to check your spam folder or unblock the address{" "}
+                </p>
+                <div
+                  className="form-group"
+                  style={{
+                    paddingBottom: "20px",
+                  }}
+                >
+                  <label>Email</label>
+                  <input
+                    onChange={(e) => this.handleInput(e)}
+                    name="email"
+                    type="email"
+                    className="form-control"
+                    id="inputEmail"
+                    aria-describedby="emailHelp"
+                    placeholder="your@email.com"
+                    required
+                  />
+                </div>
+                <button
+                  type="submit"
+                  className="btn btn-primary"
+                  style={{
+                    backgroundColor: "#FF2068",
+                    borderColor: "#FF2068",
+                  }}
+                >
+                  Let Email
+                </button>
+                <Link
+                  to={`/${this.props.match.params.idRestaurant}/${this.props.match.params.idTable}`}
+                >
+                  I don't want
+                </Link>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
+
+export default withRouter(Mail);
