@@ -9,19 +9,21 @@ const DB = firebase.db;
 const MySwal = withReactContent(Swal);
 
 let tablesOfRestaurant;
+let restaurantInfo;
 let controlPay;
-let control
+let control;
 
 const mapStateToProps = (state, ownprops) => {
   return {
-    userLogin: state.user.loginUser.restaurantID
+    userLogin: state.user.loginUser.restaurantID,
   };
 };
 class ClientViewContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      table: {}
+      table: {},
+      restaurant: {},
     };
     this.handleClick = this.handleClick.bind(this);
   }
@@ -30,8 +32,14 @@ class ClientViewContainer extends React.Component {
     tablesOfRestaurant = DB.collection("restaurants")
       .doc(`${this.props.match.params.idRestaurant}`)
       .collection("tables");
-    tablesOfRestaurant.onSnapshot(docSnapshot => {
-      docSnapshot.forEach(doc => {
+    restaurantInfo = DB.collection("restaurants").doc(
+      `${this.props.match.params.idRestaurant}`
+    );
+    restaurantInfo.get().then((doc) => {
+      this.setState({ restaurant: doc.data() });
+    });
+    tablesOfRestaurant.onSnapshot((docSnapshot) => {
+      docSnapshot.forEach((doc) => {
         if (doc.id == this.props.match.params.idTable) {
           this.setState({
             table: {
@@ -43,20 +51,19 @@ class ClientViewContainer extends React.Component {
               waiter: doc.data().waiter,
               pay: doc.data().pay,
               orderStatus: doc.data().orderStatus,
-              id: doc.id
-            }
+              id: doc.id,
+            },
           });
         }
       });
     });
 
     controlPay = DB.collection("restaurants")
-    .doc(this.props.match.params.idRestaurant)
-    .collection("tables")
-    .doc(this.props.match.params.idTable)
+      .doc(this.props.match.params.idRestaurant)
+      .collection("tables")
+      .doc(this.props.match.params.idTable);
 
-    controlPay.get()
-    .then(data => control = data.data().pay)
+    controlPay.get().then((data) => (control = data.data().pay));
   }
 
   componentWillUnmount() {
@@ -64,32 +71,45 @@ class ClientViewContainer extends React.Component {
   }
 
   handleClick(type) {
-    let tableActual = DB.collection("restaurants").doc(`${this.props.match.params.idRestaurant}/tables/${this.props.match.params.idTable}`);
+    let tableActual = DB.collection("restaurants").doc(
+      `${this.props.match.params.idRestaurant}/tables/${this.props.match.params.idTable}`
+    );
 
     if (type === "waiter") {
-      this.state.table.waiter === false ? (tableActual.update({ waiter: true })) : (tableActual.update({ waiter: false }))
-    } 
-    
+      this.state.table.waiter === false
+        ? tableActual.update({ waiter: true })
+        : tableActual.update({ waiter: false });
+    }
+
     if (!control && type === "payment") {
       MySwal.fire({
         title: "Are you sure you want to request bill?",
         text: "You won't be able to revert this!",
         icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Confirm"
-      })
-
-      .then(result => {
+        confirmButtonColor: "#2EC4B6",
+        cancelButtonColor: "#ff2068",
+        confirmButtonText: "Confirm",
+      }).then((result) => {
         if (result.value) {
-          MySwal.fire("Success!", `Your bill has been to request.`, "success");
+          MySwal.fire({
+            title: "Success!",
+            text: "Your bill has been to request.",
+            icon: "success",
+            showCancelButton: false,
+            confirmButtonColor: "#ff2068",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Continue",
+          });
           if (this.state.table.pay === false) {
             tableActual.update({ pay: true });
-            control = true
+            control = true;
+            this.props.history.push(
+              `/${this.props.match.params.idRestaurant}/${this.props.match.params.idTable}/mail`
+            );
           }
         }
-      })
+      });
     }
   }
 
@@ -99,6 +119,7 @@ class ClientViewContainer extends React.Component {
         <Home
           handleClick={this.handleClick}
           table={this.state.table}
+          restaurant={this.state.restaurant}
           propsOfRestaurantId={this.props.match.params.idRestaurant}
           propsOfTabletId={this.props.match.params.idTable}
         />
