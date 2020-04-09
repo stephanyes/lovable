@@ -128,7 +128,7 @@ export default ({ productos, priceTotal, deleteClick, handlerSubmit }) => {
               borderColor: "#ff2068",
               padding: "15px 110px",
               margin: "10px",
-              marginBottom: "40px",
+              marginBottom: "45px",
               fontSize: "20px",
             }}
             className="btn btn-primary"
