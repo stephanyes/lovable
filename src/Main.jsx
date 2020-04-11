@@ -27,6 +27,7 @@ import ProductsClient from "./client/containers/views/Products";
 import Cart from "./client/containers/views/Cart";
 import SingleOrder from "./restaurant/containers/views/SingleOrder";
 import Password from "./restaurant/components/edit/Password";
+import Mail from "./client/components/views/Mail";
 
 const mapStateToProps = (state) => {
   return {
@@ -130,6 +131,7 @@ class Main extends React.Component {
             path="/:idRestaurant/:idMenu/:idCategoria/:idProduct/:idTable/client"
             component={ProductsClient}
           ></Route>
+          <Route path="/:idRestaurant/:idTable/mail" component={Mail}></Route>
           <Route path="/:idRestaurant/:idTable" component={Home}></Route>
         </Switch>
       </div>

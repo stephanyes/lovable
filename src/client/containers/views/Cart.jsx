@@ -1,6 +1,10 @@
 import React from "react";
 import firebase from "../../../services/firebase";
 import Cart from "../../../client/components/views/Cart";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+import { withRouter, Link } from "react-router-dom";
+const MySwal = withReactContent(Swal);
 
 const DB = firebase.db;
 let order;
@@ -102,6 +106,16 @@ class ViewCartContainer extends React.Component {
       .doc(`${this.props.match.params.idTable}`);
 
     tables.update({ orderStatus: "pending" });
+    MySwal.fire({
+      title: "Excellent!",
+      text: "Your Order is on the way.",
+      icon: "success",
+      confirmButtonColor: "#ff2068",
+      confirmButtonText: "Continue"
+    });
+    this.props.history.push(
+      `/${this.props.match.params.idRestaurant}/${this.props.match.params.idTable}`
+    );
   }
 
   render() {
