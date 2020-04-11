@@ -3,8 +3,8 @@ import Menu from "../../../client/components/views/Categories";
 import firebase from "../../../services/firebase";
 const DB = firebase.db;
 
-let idOrder
-let idProd
+let idOrder;
+let idProd;
 class MenuContainerCliente extends React.Component {
   constructor(props) {
     super();
@@ -40,6 +40,7 @@ class MenuContainerCliente extends React.Component {
             }
           ]
         });
+
         productos.get().then(querySnap => {
           querySnap.forEach(product => {
             this.setState({
@@ -54,7 +55,8 @@ class MenuContainerCliente extends React.Component {
                   description: product.data().description,
                   imageProduct: product.data().imageProduct,
                   name: product.data().name,
-                  price: product.data().price
+                  price: product.data().price,
+                  numberOfBuys: product.data().numberOfBuys
                 }
               ]
             });
@@ -66,25 +68,26 @@ class MenuContainerCliente extends React.Component {
     idOrder = DB.collection("restaurants")
       .doc(this.props.match.params.idRestaurant)
       .collection("tables")
-      .doc(this.props.match.params.idTable)
-    idOrder.get()
-    .then(data => {
-        this.setState({numOrder: data.data().orderActual})
-        console.log(this.state.numOrder)
-    })
-    .then(() => {
-      idProd = DB.collection("restaurants")
-      .doc(this.props.match.params.idRestaurant)
-      .collection("orders")
-      .doc(`${this.state.numOrder}`)
-      .collection("products")
-      idProd.get()
-      .then(dataOrder => {
-        dataOrder.forEach(data => {
-          this.setState({prod: [...this.state.prod,{prod : data.data()}]})
-        })
-      })   
-    })
+      .doc(this.props.match.params.idTable);
+    idOrder
+      .get()
+      .then(data => {
+        this.setState({ numOrder: data.data().orderActual });
+      })
+      .then(() => {
+        idProd = DB.collection("restaurants")
+          .doc(this.props.match.params.idRestaurant)
+          .collection("orders")
+          .doc(`${this.state.numOrder}`)
+          .collection("products");
+        idProd.get().then(dataOrder => {
+          dataOrder.forEach(data => {
+            this.setState({
+              prod: [...this.state.prod, { prod: data.data() }]
+            });
+          });
+        });
+      });
   }
 
   render() {

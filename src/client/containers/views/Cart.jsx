@@ -14,7 +14,7 @@ class ViewCartContainer extends React.Component {
     this.state = {
       productos: [],
       priceTotal: 0,
-      idOrder: "", 
+      idOrder: ""
     };
     this.deleteClick = this.deleteClick.bind(this);
     this.handlerSubmit = this.handlerSubmit.bind(this);
@@ -60,7 +60,7 @@ class ViewCartContainer extends React.Component {
         this.setState({
           productos: productArray,
           priceTotal: total,
-          idOrder: orderId,
+          idOrder: orderId
         });
       });
     });
@@ -72,6 +72,7 @@ class ViewCartContainer extends React.Component {
 
   deleteClick(e, id) {
     e.preventDefault();
+
     const order = DB.collection("restaurants")
       .doc(this.props.match.params.idRestaurant)
       .collection("orders")
