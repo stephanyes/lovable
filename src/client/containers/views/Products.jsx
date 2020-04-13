@@ -21,10 +21,10 @@ class ProductContainer extends React.Component {
         status: "draft",
         totalPrice: 0,
         date: "",
-        notify: false
+        notify: false,
       },
       comments: "This product has not a special comment",
-      value: 1
+      value: 1,
     };
     this.handleClick = this.handleClick.bind(this);
     this.handlerChange = this.handlerChange.bind(this);
@@ -42,14 +42,14 @@ class ProductContainer extends React.Component {
       .collection("products")
       .doc(this.props.match.params.idProduct);
 
-    doc.get().then(querySnapshot =>
+    doc.get().then((querySnapshot) =>
       this.setState({
         product: {
           description: querySnapshot.data().description,
           imageProduct: querySnapshot.data().imageProduct,
           name: querySnapshot.data().name,
-          price: querySnapshot.data().price
-        }
+          price: querySnapshot.data().price,
+        },
       })
     );
   }
@@ -70,82 +70,65 @@ class ProductContainer extends React.Component {
 
     let RestaurantDoc = DB.collection("restaurants").doc(RestaurantId);
 
-    TablesRestaurant.get().then(result => {
+    TablesRestaurant.get().then((result) => {
       this.setState({
         order: {
           numberOfTable: result.data().number,
           status: "draft",
           totalPrice: 0,
           date: `${new Date()}`.slice(0, 15),
-          notify: false
-        }
+          notify: false,
+        },
       });
-
+      resAddToCart = true;
       MySwal.fire({
-        title: "Are you sure to add to cart?",
-        text: "You won't be able to revert this!",
-        icon: "question",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
+        title: "Success!",
+        text: "Your product has been added to cart.",
+        icon: "success",
+        showCancelButton: false,
+        confirmButtonColor: "#ff2068",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Confirm"
-      })
-        .then(res => {
-          resAddToCart = res.value;
-          if (res.value) {
-            MySwal.fire(
-              "Success!",
-              `Your product has been added to cart.`,
-              "success"
+        confirmButtonText: "Continue",
+      }).then(() => {
+        if (resAddToCart && result.data().orderActual !== 0) {
+          orderToUpdate = result.data().orderActual;
+
+          let OrdersRestaurant = DB.collection("restaurants")
+            .doc(RestaurantId)
+            .collection("orders")
+            .doc(`${orderToUpdate}`);
+          this.setState((state) => ({
+            product: {
+              ...state.product,
+              comments: state.comments,
+              quantity: this.state.value,
+            },
+          }));
+
+          OrdersRestaurant.collection("products").doc().set(this.state.product);
+        } else if (resAddToCart) {
+          RestaurantDoc.get().then((result) => {
+            orderToCreate = result.data().orderTotalNumber;
+            RestaurantDoc.update({ orderTotalNumber: orderToCreate + 1 });
+            TablesRestaurant.update({
+              orderActual: orderToCreate,
+              orderStatus: "draft",
+            });
+            let newOrder = RestaurantDoc.collection("orders").doc(
+              `${orderToCreate}`
             );
-          }
-        })
-
-        .then(() => {
-          if (resAddToCart && result.data().orderActual !== 0) {
-            orderToUpdate = result.data().orderActual;
-
-            let OrdersRestaurant = DB.collection("restaurants")
-              .doc(RestaurantId)
-              .collection("orders")
-              .doc(`${orderToUpdate}`);
-            this.setState(state => ({
+            newOrder.set(this.state.order);
+            this.setState((state) => ({
               product: {
                 ...state.product,
-                comments: state.comments,
-                quantity: this.state.value
-              }
+                comments: this.state.comments,
+                quantity: this.state.value,
+              },
             }));
-
-            OrdersRestaurant.collection("products")
-              .doc()
-              .set(this.state.product);
-          } else if (resAddToCart) {
-            RestaurantDoc.get().then(result => {
-              orderToCreate = result.data().orderTotalNumber;
-              RestaurantDoc.update({ orderTotalNumber: orderToCreate + 1 });
-              TablesRestaurant.update({
-                orderActual: orderToCreate,
-                orderStatus: "draft"
-              });
-              let newOrder = RestaurantDoc.collection("orders").doc(
-                `${orderToCreate}`
-              );
-              newOrder.set(this.state.order);
-              this.setState(state => ({
-                product: {
-                  ...state.product,
-                  comments: this.state.comments,
-                  quantity: this.state.value
-                }
-              }));
-              newOrder
-                .collection("products")
-                .doc()
-                .set(this.state.product);
-            });
-          }
-        });
+            newOrder.collection("products").doc().set(this.state.product);
+          });
+        }
+      });
     });
   }
 
