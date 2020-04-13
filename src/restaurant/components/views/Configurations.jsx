@@ -49,7 +49,7 @@ export default ({ restaurantId, restaurantInfo }) => {
             marginBottom: "10px",
           }}
           className="btn btn-primary"
-          to="/configuration/edit"
+          to="/configuration/addTable"
         >
           Add Tables
         </Link>

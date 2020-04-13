@@ -78,6 +78,7 @@ class ProductContainer extends React.Component {
           totalPrice: 0,
           date: `${new Date()}`.slice(0, 15),
           notify: false,
+          tableID: result.id
         },
       });
       resAddToCart = true;
