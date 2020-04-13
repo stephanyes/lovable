@@ -1,7 +1,25 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default ({ productos, categoria, idTable, idRestaurant, numOrder, prod}) => {
+export default ({
+  productos,
+  categoria,
+  idTable,
+  idRestaurant,
+  numOrder,
+  prod
+}) => {
+  const productosOrdenados = productos.sort(function(a, b) {
+    return b.numberOfBuys - a.numberOfBuys;
+  });
+  const tresProductosMasVendidos = [];
+  if (productosOrdenados.length) {
+    console.log("productos ordenados ==>", productosOrdenados);
+    for (var i = 0; i < 3; i++) {
+      tresProductosMasVendidos.push(productosOrdenados[i]);
+    }
+  }
+
   return (
     <div
       style={{
@@ -33,7 +51,63 @@ export default ({ productos, categoria, idTable, idRestaurant, numOrder, prod}) 
           </h1>
         </div>
       </div>
+
       <div>
+        <div>
+          <h3
+            className="font-weight-bold"
+            style={{
+              margin: "20px",
+              marginTop: "40px"
+            }}
+          >
+            Product suggestions
+          </h3>
+          {tresProductosMasVendidos[2] ? (
+            tresProductosMasVendidos.map(product => {
+              return (
+                <Link
+                  style={{
+                    textDecoration: "none",
+                    color: "inherit"
+                  }}
+                  to={`/${product.idRestaurant}/${product.idMenu}/${product.idCategoria}/${product.idProduct}/${idTable}/client`}
+                >
+                  <li
+                    class="list-group-item d-flex justify-content-between align-items-center"
+                    style={{
+                      padding: "12px"
+                    }}
+                  >
+                    <div>
+                      <img
+                        src={product.imageProduct}
+                        className="card-img"
+                        alt="..."
+                        style={{
+                          width: "60px",
+                          marginRight: "10px"
+                        }}
+                      />
+                      <span
+                        style={{
+                          margin: "20px",
+                          marginLeft: "0px"
+                        }}
+                      >
+                        {product.name}
+                      </span>
+                    </div>
+
+                    <div>$ {product.price}</div>
+                  </li>
+                </Link>
+              );
+            })
+          ) : (
+            <h1> No hay Productos</h1>
+          )}
+        </div>
         {categoria ? (
           categoria.map(categ => {
             return (
@@ -112,9 +186,8 @@ export default ({ productos, categoria, idTable, idRestaurant, numOrder, prod}) 
               paddingBottom: "0px"
             }}
           >
-
-            {numOrder !== 0 && prod.length ?
-              (<Link
+            {numOrder !== 0 && prod.length ? (
+              <Link
                 style={{
                   textDecoration: "none",
                   color: "#ffffff",
@@ -130,28 +203,26 @@ export default ({ productos, categoria, idTable, idRestaurant, numOrder, prod}) 
               >
                 Go to Cart
               </Link>
-              )
-              :
-                null
-                
-              // Tal vez, es mejor que en vez de hacer desaparecer el button de Go to Cart, que lo pongamos pero con alguna opacidad y que permanezca desabilitado
+            ) : null
 
-              // (<Link
-              //   style={{
-              //     textDecoration: "none",
-              //     color: "#ffffff",
-              //     backgroundColor: "#ff2068",
-              //     borderColor: "#ff2068",
-              //     padding: "15px 110px",
-              //     margin: "10px",
-              //     marginBottom: "40px",
-              //     fontSize: "20px",
-              //     disable : "disable"
-              //   }}
-              //   className="btn btn-primary" disable={true}
-              // >
-              //   Go to Cart
-              // </Link>)
+            // Tal vez, es mejor que en vez de hacer desaparecer el button de Go to Cart, que lo pongamos pero con alguna opacidad y que permanezca desabilitado
+
+            // (<Link
+            //   style={{
+            //     textDecoration: "none",
+            //     color: "#ffffff",
+            //     backgroundColor: "#ff2068",
+            //     borderColor: "#ff2068",
+            //     padding: "15px 110px",
+            //     margin: "10px",
+            //     marginBottom: "40px",
+            //     fontSize: "20px",
+            //     disable : "disable"
+            //   }}
+            //   className="btn btn-primary" disable={true}
+            // >
+            //   Go to Cart
+            // </Link>)
             }
           </div>
         </div>
