@@ -76,7 +76,7 @@ export default ({
                       paddingBottom: "10px",
                     }}
                   >
-                    <Link to={`/orders/${order.id}`}>Pedido #{order.id}</Link>
+                    <Link to={`/tables/${order.tableID}`}>Pedido #{order.id}</Link>
                   </div>
                   {/* <td>{order.numberOfOrder}</td> */}
 
@@ -124,10 +124,10 @@ export default ({
               </li>
             ))
           ) : (
-            <li className="list-group-item d-flex justify-content-between align-items-center">
-              No orders here.
-            </li>
-          )}
+              <li className="list-group-item d-flex justify-content-between align-items-center">
+                No orders here.
+              </li>
+            )}
         </ul>
         <h3
           style={{
@@ -176,10 +176,10 @@ export default ({
               </li>
             ))
           ) : (
-            <li className="list-group-item d-flex justify-content-between align-items-center">
-              No orders here.
-            </li>
-          )}
+              <li className="list-group-item d-flex justify-content-between align-items-center">
+                No orders here.
+              </li>
+            )}
         </ul>
         <h3
           style={{
@@ -228,10 +228,10 @@ export default ({
               </li>
             ))
           ) : (
-            <li className="list-group-item d-flex justify-content-between align-items-center">
-              No orders here.
-            </li>
-          )}
+              <li className="list-group-item d-flex justify-content-between align-items-center">
+                No orders here.
+              </li>
+            )}
         </ul>
         <h3
           style={{
@@ -280,10 +280,10 @@ export default ({
               </li>
             ))
           ) : (
-            <li className="list-group-item d-flex justify-content-between align-items-center">
-              No orders here.
-            </li>
-          )}
+              <li className="list-group-item d-flex justify-content-between align-items-center">
+                No orders here.
+              </li>
+            )}
         </ul>
         {/* <button
           onClick={(e) => {
