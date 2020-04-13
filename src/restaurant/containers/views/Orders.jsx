@@ -176,7 +176,7 @@ class OrdersContainer extends React.Component {
 
   showHistory(e) {
     e.preventDefault();
-    this.setState({ history: true });
+    this.setState({ history: !this.state.history });
   }
 
   render() {
