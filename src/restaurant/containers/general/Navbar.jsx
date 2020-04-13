@@ -53,50 +53,31 @@ class NavbarContainer extends React.Component {
     doc = DB.collection("restaurants")
       .doc(this.props.userLogin)
       .collection("tables");
-    // .where("status", "==", "pending");
 
     doc.onSnapshot((tables) => {
       let mesas = [];
       tables.forEach((change) => {
-        mesas.push({
-          id: change.id,
-          number: change.data().number,
-          pay: change.data().pay,
-          waiter: change.data().waiter,
-          orderStatus: change.data().orderStatus,
-        });
+        if (
+          change.data().pay ||
+          change.data().waiter ||
+          change.data().orderStatus === "pending"
+        )
+          mesas.push({
+            id: change.id,
+            number: change.data().number,
+            pay: change.data().pay,
+            waiter: change.data().waiter,
+            orderStatus: change.data().orderStatus,
+          });
       });
-      this.setState({ mesas });
+      this.setState({ mesas: mesas });
     });
-
-    // doc.onSnapshot(ordersDocuments => {
-    //   let orders = [];
-    //   ordersDocuments.forEach(order => {
-    //     orders.push({
-    //       id: order.id,
-    //       idUser: order.data().idUser,
-    //       numberOfOrder: order.data().numberOfOrder,
-    //       numberOfTable: order.data().numberOfTable,
-    //       status: order.data().status,
-    //       totalPrice: order.data().totalPrice
-    //     });
-    //     //poner if para qe ejecute el msj solo cuando agrega no cuando algo se va
-    //     if (order.data().status === "pending") {
-    //       toast(`Table ${order.data().numberOfTable} is ordering!`, {
-    //         autoClose: false,
-    //         closeButton: true
-    //       });
-    //     }
-    //   });
-    //   this.setState({ ordersArray: orders });
-    // });
   }
   componentWillUnmount() {
     doc.onSnapshot(() => {});
   }
 
   render() {
-    console.log(this.state);
     return (
       <div>
         <Navbar

@@ -4,40 +4,65 @@ import { Link } from "react-router-dom";
 export default ({
   handleClick,
   table,
+  restaurant,
   propsOfRestaurantId,
-  propsOfTabletId
+  propsOfTabletId,
 }) => {
   return (
     <div
       style={{
         display: "flex",
-        justifyContent: "center"
+        justifyContent: "center",
       }}
     >
-      <img
-        src="https://insideone.s3-sa-east-1.amazonaws.com/backgroundRestaurant-image.png"
-        className="img-fluid"
-        alt="Responsive image"
-        style={{
-          maxHeight: "660px"
-        }}
-      />
-      <img
-        src="https://insideone.s3-sa-east-1.amazonaws.com/logo-lovable.png"
-        style={{
-          position: "absolute",
-          marginTop: "60px"
-        }}
-        height="50"
-        alt=""
-      />
+      {restaurant.backgroundImage ? (
+        <img
+          src={restaurant.backgroundImage}
+          className="img-fluid"
+          alt="Responsive image"
+          style={{
+            maxHeight: "660px",
+          }}
+        />
+      ) : (
+        <img
+          src="https://insideone.s3-sa-east-1.amazonaws.com/backgroundRestaurant-image.png"
+          className="img-fluid"
+          alt="Responsive image"
+          style={{
+            maxHeight: "660px",
+          }}
+        />
+      )}
+      {restaurant.backgroundImage ? (
+        <img
+          src={restaurant.logoImage}
+          style={{
+            position: "absolute",
+            marginTop: "60px",
+          }}
+          height="50"
+          alt=""
+        />
+      ) : (
+        <img
+          src="https://insideone.s3-sa-east-1.amazonaws.com/logo-lovable.png"
+          style={{
+            position: "absolute",
+            marginTop: "60px",
+          }}
+          height="50"
+          alt=""
+        />
+      )}
+
       <div
         style={{
           display: "flex",
           justifyContent: "center",
           //   flexWrap: "wrap",
           position: "absolute",
-          marginTop: "150px"
+          marginTop: "150px",
         }}
       >
         <Link
@@ -50,7 +75,7 @@ export default ({
             color: "inherit",
             position: "absolute",
             marginTop: "70px",
-            marginLeft: "-70px"
+            marginLeft: "-70px",
           }}
         >
           <img
@@ -79,7 +104,7 @@ export default ({
             color: "inherit",
             position: "absolute",
             marginTop: "70px",
-            marginLeft: "70px"
+            marginLeft: "70px",
           }}
           to={`/${propsOfRestaurantId}/${propsOfTabletId}`}
         >
@@ -119,7 +144,7 @@ export default ({
             color: "inherit",
             position: "absolute",
             marginTop: "200px",
-            marginLeft: "-70px"
+            marginLeft: "-70px",
           }}
           to={`/${propsOfRestaurantId}/${propsOfTabletId}`}
         >
@@ -157,7 +182,7 @@ export default ({
             color: "inherit",
             position: "absolute",
             marginTop: "200px",
-            marginLeft: "70px"
+            marginLeft: "70px",
           }}
           to="/forms"
         >
@@ -182,7 +207,7 @@ export default ({
           style={{
             position: "center",
             marginTop: "350px",
-            color: "white"
+            color: "white",
           }}
         >
           MESA {table.number}
