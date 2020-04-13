@@ -1,6 +1,10 @@
 import React from "react";
 import firebase from "../../../services/firebase";
 import Cart from "../../../client/components/views/Cart";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+import { withRouter, Link } from "react-router-dom";
+const MySwal = withReactContent(Swal);
 
 const DB = firebase.db;
 let order;
@@ -14,8 +18,7 @@ class ViewCartContainer extends React.Component {
     this.state = {
       productos: [],
       priceTotal: 0,
-      idOrder: "", 
-      quantity: 1
+      idOrder: "",
     };
     this.deleteClick = this.deleteClick.bind(this);
     this.handlerSubmit = this.handlerSubmit.bind(this);
@@ -27,7 +30,7 @@ class ViewCartContainer extends React.Component {
       .collection("tables")
       .doc(this.props.match.params.idTable);
 
-    doc.get().then(data => {
+    doc.get().then((data) => {
       let orderId = data.data().orderActual;
       order = DB.collection("restaurants")
         .doc(this.props.match.params.idRestaurant)
@@ -35,28 +38,27 @@ class ViewCartContainer extends React.Component {
         .doc(`${orderId}`)
         .collection("products");
 
-      order.onSnapshot(result => {
+      order.onSnapshot((result) => {
         total = this.state.priceTotal;
         productArray = [];
-        result.forEach(product => {
+        result.forEach((product) => {
           orderPrice = DB.collection("restaurants")
             .doc(this.props.match.params.idRestaurant)
             .collection("orders")
             .doc(`${orderId}`);
-
-          this.setState({quantity : product.data().quantity})
 
           productArray.push({
             id: product.id,
             imageProduct: product.data().imageProduct,
             name: product.data().name,
             price: product.data().price,
-            description: product.data().description
+            description: product.data().description,
+            quantity: product.data().quantity,
           });
         });
         if (this.state.priceTotal !== 0) total = 0;
         for (let i = 0; i < productArray.length; i++) {
-          total += parseInt(productArray[i].price) * this.state.quantity;
+          total += parseInt(productArray[i].price) * productArray[i].quantity;
         }
         orderPrice.update({ totalPrice: total });
         this.setState({
@@ -85,7 +87,7 @@ class ViewCartContainer extends React.Component {
       .then(() => {
         console.log("Document successfully deleted!");
       })
-      .catch(error => console.error("Error removing document: ", error));
+      .catch((error) => console.error("Error removing document: ", error));
   }
 
   handlerSubmit(e) {
@@ -103,6 +105,16 @@ class ViewCartContainer extends React.Component {
       .doc(`${this.props.match.params.idTable}`);
 
     tables.update({ orderStatus: "pending" });
+    MySwal.fire({
+      title: "Excellent!",
+      text: "Your Order is on the way.",
+      icon: "success",
+      confirmButtonColor: "#ff2068",
+      confirmButtonText: "Continue",
+    });
+    this.props.history.push(
+      `/${this.props.match.params.idRestaurant}/${this.props.match.params.idTable}`
+    );
   }
 
   render() {
@@ -113,8 +125,6 @@ class ViewCartContainer extends React.Component {
           handlerSubmit={this.handlerSubmit}
           productos={this.state.productos}
           priceTotal={this.state.priceTotal}
-          quantity={this.state.quantity}
-
         />
       </div>
     );

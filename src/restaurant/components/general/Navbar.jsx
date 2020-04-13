@@ -1,8 +1,10 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 
-export default ({ buttonClick, mesas }) => {
+export default ({ buttonClick, mesas, isOpen, dropdown }) => {
+  const menuClass = `dropdown-menu${dropdown ? " show" : ""}`;
   return (
     <div>
       <nav
@@ -12,78 +14,109 @@ export default ({ buttonClick, mesas }) => {
           flexWrap: "wrap",
           justifyContent: "space-between",
           alignItems: "center",
-          backgroundColor: "#ffffff"
-          // display: "flex",
-          // justifyContent: "space-between"
-          // backgroundColor: "#999999",
-          // marginLeft: "250px",
-          // flexWrap: "wrap"
-
-          // height: "100%",
-          // minHeight: "100%",
-          // display: "flex",
-          // flexDirection: "column",
-          // textAlign: "center",
-          // color: "white",
-          // fontFamily: "sans-serif",
-          // fontSize: "36px",
-          // padding: "20px",
-          // justifyContent: "center"
+          backgroundColor: "#ffffff",
         }}
       >
-        {/* <Link className="navbar-brand" to="/">
-          <img
-            src="https://insideone.s3-sa-east-1.amazonaws.com/flyapp-logo.png"
-            height="40"
-            alt=""
-          />
-        </Link> */}
-
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav mr-auto">
             <li className="nav-item active"></li>
           </ul>
-          <form
-            //onSubmit={handleSubmit}
-            className="form-inline my-2 my-lg-0"
-          >
-            {/* <input
-              //onChange={handleChange}
-              className="form-control mr-sm-2"
-              type="search"
-              placeholder="Search"
-              aria-label="Search"
-            /> */}
-
+          <div className="form-inline my-2 my-lg-0">
             <ul className="navbar-nav mr-auto">
               <li className="nav-item active">
-                <label for="cars">
-                  <FontAwesomeIcon
-                    style={{
-                      paddingRight: "15px",
-                      fontSize: "2.7rem",
-                      paddingBottom: "5px"
-                    }}
-                    icon={faBell}
-                  />
-                </label>
-                <select id="cars">
+                <ul className="navbar-nav mr-auto">
                   {mesas.length ? (
-                    <option value="volvo">
-                      Table: {mesas.number} I order food
-                    </option>
+                    <div
+                      className="dropdown"
+                      onClick={isOpen}
+                      style={{
+                        marginRight: "10px",
+                      }}
+                    >
+                      <button
+                        className="btn btn-secondary"
+                        type="button"
+                        id="dropdownMenuButton"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        style={{
+                          backgroundColor: "#2EC4B6",
+                          borderColor: "#2EC4B6",
+                        }}
+                      >
+                        <label for="cars">
+                          <FontAwesomeIcon
+                            style={{
+                              paddingRight: "0px",
+                              fontSize: "2.7rem",
+                              height: "20px",
+                            }}
+                            icon={faBell}
+                          />
+                          <b
+                            style={{
+                              paddingRight: "10px",
+                            }}
+                          >
+                            {mesas.length}
+                          </b>
+                        </label>
+                      </button>
+                      <div
+                        className={`${menuClass} dropdown-menu-right`}
+                        aria-labelledby="dropdownMenuButton"
+                      >
+                        {mesas.map((tableProperty) =>
+                          tableProperty.pay === true &&
+                          tableProperty.waiter === true ? (
+                            <div>
+                              <Link
+                                class="dropdown-item"
+                                to={`/tables/${tableProperty.id}`}
+                              >
+                                Table {tableProperty.number} wants to pay and
+                                wants the waiter.
+                              </Link>
+                              <div class="dropdown-divider"></div>
+                            </div>
+                          ) : tableProperty.pay === true ? (
+                            <div>
+                              <Link
+                                class="dropdown-item"
+                                to={`/tables/${tableProperty.id}`}
+                              >
+                                Table {tableProperty.number} wants to pay.
+                              </Link>
+                              <div class="dropdown-divider"></div>
+                            </div>
+                          ) : tableProperty.waiter === true ? (
+                            <div>
+                              {" "}
+                              <Link
+                                class="dropdown-item"
+                                to={`/tables/${tableProperty.id}`}
+                              >
+                                Table {tableProperty.number} is requesting the
+                                waiter.
+                              </Link>
+                              <div class="dropdown-divider"></div>
+                            </div>
+                          ) : tableProperty.orderStatus === "pending" ? (
+                            <div>
+                              <Link
+                                class="dropdown-item"
+                                to={`/tables/${tableProperty.id}`}
+                              >
+                                Table {tableProperty.number} is ordering.
+                              </Link>
+                              <div class="dropdown-divider"></div>
+                            </div>
+                          ) : null
+                        )}
+                      </div>
+                    </div>
                   ) : null}
-                  {mesas.waiter ? (
-                    <option value="volvo">
-                      Table: {mesas.number} I call the waiter
-                    </option>
-                  ) : null}
-                  {mesas.pay ? (
-                    <option value="volvo">
-                      Table: {mesas.number} Asked for the bill
-                    </option>
-                  ) : null}
-                </select>
+                </ul>
               </li>
               <li className="nav-item active">
                 <button
@@ -91,15 +124,15 @@ export default ({ buttonClick, mesas }) => {
                   className="btn btn-primary"
                   style={{
                     backgroundColor: "#ff2068",
-                    borderColor: "#ff2068"
+                    borderColor: "#ff2068",
                   }}
-                  onClick={e => buttonClick(e)}
+                  onClick={(e) => buttonClick(e)}
                 >
                   Log out
                 </button>
               </li>
             </ul>
-          </form>
+          </div>
         </div>
       </nav>
     </div>

@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Route, Redirect, Switch, Link } from "react-router-dom";
+import { Route, Redirect, Switch, Link, withRouter } from "react-router-dom";
 import Loader from "react-loader-spinner";
 import firebase from "./services/firebase";
 import Login from "./restaurant/containers/views/Login";
@@ -28,6 +28,7 @@ import Cart from "./client/containers/views/Cart";
 import SingleOrder from "./restaurant/containers/views/SingleOrder";
 import Password from "./restaurant/components/edit/Password";
 import AddTables from './restaurant/containers/edit/AddTables'
+import Mail from "./client/components/views/Mail";
 
 const mapStateToProps = (state) => {
   return {
@@ -113,7 +114,11 @@ class Main extends React.Component {
               return null;
             }}
           ></Route>
-          <Route path="/tables/:idTable" component={SingleTable}></Route>
+          <Route
+            exact
+            path="/tables/:idTable"
+            component={withRouter(SingleTable)}
+          ></Route>
           <Route path="/:idRestaurant/cart/:idTable" component={Cart}></Route>
           <Route path="/:idRestaurant/tables" component={LoginClient}></Route>
           <Route
@@ -128,17 +133,18 @@ class Main extends React.Component {
             path="/:idRestaurant/:idMenu/:idCategoria/:idProduct/:idTable/client"
             component={ProductsClient}
           ></Route>
+          <Route path="/:idRestaurant/:idTable/mail" component={Mail}></Route>
           <Route path="/:idRestaurant/:idTable" component={Home}></Route>
         </Switch>
       </div>
     ) : (
-        <div
-          className="container"
-          style={{ textAlign: "center", alignContent: "center" }}
-        >
-          <Loader type="Hearts" color="red" height={80} width={80} />
-        </div>
-      );
+      <div
+        className="container"
+        style={{ textAlign: "center", alignContent: "center" }}
+      >
+        <Loader type="Hearts" color="red" height={80} width={80} />
+      </div>
+    );
   }
 }
 

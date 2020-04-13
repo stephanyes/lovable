@@ -8,15 +8,15 @@ import { userLogout } from "../../../store/actions/loginAction";
 const DB = firebase.db;
 let doc;
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    userLogin: state.user.loginUser.restaurantID
+    userLogin: state.user.loginUser.restaurantID,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    chauUser: () => dispatch(userLogout())
+    chauUser: () => dispatch(userLogout()),
   };
 };
 
@@ -24,9 +24,11 @@ class NavbarContainer extends React.Component {
   constructor() {
     super();
     this.state = {
-      mesas: []
+      mesas: [],
+      isOpen: false,
     };
     this.logoutButton = this.logoutButton.bind(this);
+    this.toggleOpen = this.toggleOpen.bind(this);
   }
 
   async logoutButton(e) {
@@ -35,55 +37,41 @@ class NavbarContainer extends React.Component {
     this.props.chauUser();
     this.props.history.replace("/");
   }
+  toggleOpen() {
+    if (!this.state.isOpen) {
+      this.setState({
+        isOpen: true,
+      });
+    } else {
+      this.setState({
+        isOpen: false,
+      });
+    }
+  }
 
   componentDidMount() {
-    let that = this;
     doc = DB.collection("restaurants")
       .doc(this.props.userLogin)
       .collection("tables");
-    // .where("status", "==", "pending");
 
-    doc.onSnapshot(function(snapshot) {
+    doc.onSnapshot((tables) => {
       let mesas = [];
-      snapshot.docChanges().forEach(function(change) {
+      tables.forEach((change) => {
         if (
-          change.type === "modified" &&
-          change.doc.data().orderStatus === "pending"
-        ) {
-          console.log("Modified city: ", change.doc.data());
+          change.data().pay ||
+          change.data().waiter ||
+          change.data().orderStatus === "pending"
+        )
           mesas.push({
-            number: change.doc.data().number,
-            pay: change.doc.data().pay,
-            waiter: change.doc.data().waiter,
-            orderStatus: change.doc.data().orderStatus
+            id: change.id,
+            number: change.data().number,
+            pay: change.data().pay,
+            waiter: change.data().waiter,
+            orderStatus: change.data().orderStatus,
           });
-
-          that.setState({ mesas });
-        }
       });
+      this.setState({ mesas: mesas });
     });
-
-    // doc.onSnapshot(ordersDocuments => {
-    //   let orders = [];
-    //   ordersDocuments.forEach(order => {
-    //     orders.push({
-    //       id: order.id,
-    //       idUser: order.data().idUser,
-    //       numberOfOrder: order.data().numberOfOrder,
-    //       numberOfTable: order.data().numberOfTable,
-    //       status: order.data().status,
-    //       totalPrice: order.data().totalPrice
-    //     });
-    //     //poner if para qe ejecute el msj solo cuando agrega no cuando algo se va
-    //     if (order.data().status === "pending") {
-    //       toast(`Table ${order.data().numberOfTable} is ordering!`, {
-    //         autoClose: false,
-    //         closeButton: true
-    //       });
-    //     }
-    //   });
-    //   this.setState({ ordersArray: orders });
-    // });
   }
   componentWillUnmount() {
     doc.onSnapshot(() => {});
@@ -92,7 +80,12 @@ class NavbarContainer extends React.Component {
   render() {
     return (
       <div>
-        <Navbar mesas={this.state.mesas} buttonClick={this.logoutButton} />
+        <Navbar
+          mesas={this.state.mesas}
+          buttonClick={this.logoutButton}
+          isOpen={this.toggleOpen}
+          dropdown={this.state.isOpen}
+        />
       </div>
     );
   }

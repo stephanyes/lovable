@@ -1,13 +1,23 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default ({ pending, acepted, canceled, handleClickStatus }) => {
+export default ({
+  completedToday,
+  completedOld,
+  pending,
+  accepted,
+  canceled,
+  handleClickStatus,
+  showHistory,
+  history,
+  total,
+}) => {
   return (
     <div
       style={{
         backgroundColor: "white",
         marginLeft: "250px",
-        paddingBottom: "400px"
+        marginBottom: "30px",
       }}
     >
       <div
@@ -15,167 +25,332 @@ export default ({ pending, acepted, canceled, handleClickStatus }) => {
         style={{
           paddingLeft: "35px",
           paddingRight: "35px",
-          paddingTop: "20px"
+          paddingTop: "20px",
         }}
       >
         <h1 className="font-weight-bold">Orders</h1>
+        <Link
+          style={{
+            textDecoration: "none",
+            color: "#ffffff",
+            backgroundColor: "#ff2068",
+            borderColor: "#ff2068",
+            marginTop: "20px",
+            marginBottom: "10px",
+          }}
+          className="btn btn-primary"
+          to="/dashboard"
+        >
+          History Orders
+        </Link>
 
         <hr />
 
+        <h3
+          style={{
+            marginTop: "30px",
+          }}
+          className="font-weight-bold"
+        >
+          Pending
+        </h3>
         <ul
           class="list-group"
           style={{
-            marginTop: "30px"
+            marginTop: "30px",
           }}
         >
-          <h4>Pending</h4>
-          {pending
-            ? pending.map(order => (
-                <li
-                  key={order.idUser}
-                  class="list-group-item d-flex justify-content-between align-items-center"
+          {pending.length ? (
+            pending.map((order) => (
+              <li
+                key={order.idUser}
+                class="list-group-item d-flex justify-content-between align-items-center"
+              >
+                <div
+                  style={{
+                    marginTop: "10px",
+                  }}
                 >
                   <div
                     style={{
-                      marginTop: "10px"
+                      paddingBottom: "10px",
                     }}
                   >
-                    <div
-                      style={{
-                        paddingBottom: "10px"
-                      }}
-                    >
-                      <Link to={`/orders/${order.id}`}>Pedido #{order.id}</Link>
-                    </div>
-                    {/* <td>{order.numberOfOrder}</td> */}
-
-                    <h5 className="font-weight-bold">
-                      Table {order.numberOfTable}
-                    </h5>
-                    <h6 className="font-weight-normal">
-                      Status: {order.status}
-                    </h6>
-                    <h6 className="font-weight-normal">
-                      Price: ${order.totalPrice}
-                    </h6>
+                    <Link to={`/orders/${order.id}`}>Pedido #{order.id}</Link>
                   </div>
+                  {/* <td>{order.numberOfOrder}</td> */}
 
-                  <div>
-                    <button
-                      onClick={e => handleClickStatus(e, order.id, "completed")}
-                      style={{
-                        backgroundColor: "#2EC4B6",
-                        borderColor: "#2EC4B6",
-                        marginRight: "20px"
-                      }}
-                      className="btn btn-primary btn-lg"
-                    >
-                      Accept
-                    </button>
+                  <h5 className="font-weight-bold">
+                    Table {order.numberOfTable}
+                  </h5>
+                  <h6 className="font-weight-normal">Status: {order.status}</h6>
+                  <h6 className="font-weight-normal">
+                    Price: ${order.totalPrice}
+                  </h6>
+                </div>
 
-                    <button
-                      onClick={e => handleClickStatus(e, order.id, "canceled")}
-                      style={{
-                        backgroundColor: "#ff2068",
-                        borderColor: "#ff2068"
-                        //marginRight: "20px"
-                      }}
-                      className="btn btn-primary btn-lg"
-                    >
-                      Cancel
-                    </button>
-                  </div>
-                </li>
-              ))
-            : null}
+                <div>
+                  <button
+                    onClick={(e) =>
+                      handleClickStatus(
+                        e,
+                        order.id,
+                        "accepted",
+                        order.numberOfTable
+                      )
+                    }
+                    style={{
+                      backgroundColor: "#2EC4B6",
+                      borderColor: "#2EC4B6",
+                      marginRight: "20px",
+                    }}
+                    className="btn btn-primary btn-lg"
+                  >
+                    Accept
+                  </button>
+
+                  <button
+                    onClick={(e) => handleClickStatus(e, order.id, "canceled")}
+                    style={{
+                      backgroundColor: "#ff2068",
+                      borderColor: "#ff2068",
+                      //marginRight: "20px"
+                    }}
+                    className="btn btn-primary btn-lg"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </li>
+            ))
+          ) : (
+            <li className="list-group-item d-flex justify-content-between align-items-center">
+              No orders here.
+            </li>
+          )}
         </ul>
+        <h3
+          style={{
+            marginTop: "30px",
+          }}
+          className="font-weight-bold"
+        >
+          Accepted
+        </h3>
         <ul
           class="list-group"
           style={{
-            marginTop: "30px"
+            marginTop: "30px",
           }}
         >
-          <h4>Acepted</h4>
-          {acepted
-            ? acepted.map(order => (
-                <li
-                  key={order.idUser}
-                  class="list-group-item d-flex justify-content-between align-items-center"
+          {accepted.length ? (
+            accepted.map((order) => (
+              <li
+                key={order.idUser}
+                class="list-group-item d-flex justify-content-between align-items-center"
+              >
+                <div
+                  style={{
+                    marginTop: "10px",
+                  }}
                 >
                   <div
                     style={{
-                      marginTop: "10px"
+                      paddingBottom: "10px",
                     }}
                   >
-                    <div
-                      style={{
-                        paddingBottom: "10px"
-                      }}
-                    >
-                      {/*<Link to={`/orders/${order.id}`}>Pedido #{order.id}</Link> */}
-                    </div>
-                    {/* <td>{order.numberOfOrder}</td> */}
-
-                    <h5 className="font-weight-bold">
-                      Table {order.numberOfTable}
-                    </h5>
-                    <h6 className="font-weight-normal">
-                      Status: {order.status}
-                    </h6>
-                    <h6 className="font-weight-normal">
-                      Price: ${order.totalPrice}
-                    </h6>
+                    {/*<Link to={`/orders/${order.id}`}>Pedido #{order.id}</Link> */}
                   </div>
+                  {/* <td>{order.numberOfOrder}</td> */}
 
-                  <div></div>
-                </li>
-              ))
-            : null}
+                  <h5 className="font-weight-bold">
+                    Table {order.numberOfTable}
+                  </h5>
+                  <h6 className="font-weight-normal">Status: {order.status}</h6>
+                  <h6 className="font-weight-normal">
+                    Price: ${order.totalPrice}
+                  </h6>
+                </div>
+
+                <div></div>
+              </li>
+            ))
+          ) : (
+            <li className="list-group-item d-flex justify-content-between align-items-center">
+              No orders here.
+            </li>
+          )}
         </ul>
+        <h3
+          style={{
+            marginTop: "30px",
+          }}
+          className="font-weight-bold"
+        >
+          Canceled
+        </h3>
         <ul
           class="list-group"
           style={{
-            marginTop: "30px"
+            marginTop: "30px",
           }}
         >
-          {" "}
-          <h4>Canceled</h4>
-          {canceled
-            ? canceled.map(order => (
-                <li
-                  key={order.idUser}
-                  class="list-group-item d-flex justify-content-between align-items-center"
+          {canceled.length ? (
+            canceled.map((order) => (
+              <li
+                key={order.idUser}
+                class="list-group-item d-flex justify-content-between align-items-center"
+              >
+                <div
+                  style={{
+                    marginTop: "10px",
+                  }}
                 >
                   <div
                     style={{
-                      marginTop: "10px"
+                      paddingBottom: "10px",
                     }}
                   >
-                    <div
-                      style={{
-                        paddingBottom: "10px"
-                      }}
-                    >
-                      {/*<Link to={`/orders/${order.id}`}>Pedido #{order.id}</Link> */}
-                    </div>
-                    {/* <td>{order.numberOfOrder}</td> */}
-
-                    <h5 className="font-weight-bold">
-                      Table {order.numberOfTable}
-                    </h5>
-                    <h6 className="font-weight-normal">
-                      Status: {order.status}
-                    </h6>
-                    <h6 className="font-weight-normal">
-                      Price: ${order.totalPrice}
-                    </h6>
+                    {/*<Link to={`/orders/${order.id}`}>Pedido #{order.id}</Link> */}
                   </div>
+                  {/* <td>{order.numberOfOrder}</td> */}
 
-                  <div></div>
-                </li>
-              ))
-            : null}
+                  <h5 className="font-weight-bold">
+                    Table {order.numberOfTable}
+                  </h5>
+                  <h6 className="font-weight-normal">Status: {order.status}</h6>
+                  <h6 className="font-weight-normal">
+                    Price: ${order.totalPrice}
+                  </h6>
+                </div>
+
+                <div></div>
+              </li>
+            ))
+          ) : (
+            <li className="list-group-item d-flex justify-content-between align-items-center">
+              No orders here.
+            </li>
+          )}
         </ul>
+        <h3
+          style={{
+            marginTop: "30px",
+          }}
+          className="font-weight-bold"
+        >
+          Completed Today
+        </h3>
+        <ul
+          class="list-group"
+          style={{
+            marginTop: "30px",
+          }}
+        >
+          {completedToday.length ? (
+            completedToday.map((order) => (
+              <li
+                key={order.idUser}
+                class="list-group-item d-flex justify-content-between align-items-center"
+              >
+                <div
+                  style={{
+                    marginTop: "10px",
+                  }}
+                >
+                  <div
+                    style={{
+                      paddingBottom: "10px",
+                    }}
+                  >
+                    {/*<Link to={`/orders/${order.id}`}>Pedido #{order.id}</Link> */}
+                  </div>
+                  {/* <td>{order.numberOfOrder}</td> */}
+
+                  <h5 className="font-weight-bold">
+                    Table {order.numberOfTable}
+                  </h5>
+                  <h6 className="font-weight-normal">Status: {order.status}</h6>
+                  <h6 className="font-weight-normal">
+                    Price: ${order.totalPrice}
+                  </h6>
+                </div>
+
+                <div></div>
+              </li>
+            ))
+          ) : (
+            <li className="list-group-item d-flex justify-content-between align-items-center">
+              No orders here.
+            </li>
+          )}
+        </ul>
+        {/* <button
+          onClick={(e) => {
+            showHistory(e);
+          }}
+        >
+          {history ? (
+            <ul
+              class="list-group"
+              style={{
+                marginTop: "30px",
+              }}
+            >
+              <h4>History: Orders Completed</h4>
+              {completedOld
+                ? completedOld.map((order) => (
+                    <li
+                      key={order.idUser}
+                      class="list-group-item d-flex justify-content-between align-items-center"
+                    >
+                      <div
+                        style={{
+                          marginTop: "10px",
+                        }}
+                      >
+                        <div
+                          style={{
+                            paddingBottom: "10px",
+                          }}
+                        >
+                     
+                        </div>
+                    
+
+                        <h5 className="font-weight-bold">
+                          Table {order.numberOfTable}
+                        </h5>
+                        <h6 className="font-weight-normal">
+                          Status: {order.status}
+                        </h6>
+                        <h6 className="font-weight-normal">
+                          Price: ${order.totalPrice}
+                        </h6>
+                      </div>
+
+                      <div></div>
+                    </li>
+                  ))
+                : null}
+            </ul>
+          ) : null}
+        </button> */}
+      </div>
+      <div
+        className="card text-center"
+        style={{
+          borderColor: "#ffffff",
+        }}
+      >
+        <div
+          className="card-body"
+          style={{
+            marginTop: "40px",
+          }}
+        >
+          <h2 className="font-weight-bold">{"Today: $" + total}</h2>
+        </div>
       </div>
     </div>
   );
