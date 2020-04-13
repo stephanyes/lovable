@@ -27,6 +27,7 @@ import ProductsClient from "./client/containers/views/Products";
 import Cart from "./client/containers/views/Cart";
 import SingleOrder from "./restaurant/containers/views/SingleOrder";
 import Password from "./restaurant/components/edit/Password";
+import AddTables from './restaurant/containers/edit/AddTables'
 
 const mapStateToProps = (state) => {
   return {
@@ -72,6 +73,7 @@ class Main extends React.Component {
             path="/configurations/resetpassword"
             component={Password}
           ></Route>
+          <Route path="/configuration/addTable" component={AddTables}></Route>
           <Route path="/recover" component={RecoverPassword}></Route>
           {/* Create */}
           <Route path="/menu/createMenu" component={CreateMenu}></Route>
