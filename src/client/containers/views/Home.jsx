@@ -4,6 +4,7 @@ import Home from "../../../client/components/views/Home";
 import { connect } from "react-redux";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import Nodemailer from "nodemailer"
 
 const DB = firebase.db;
 const MySwal = withReactContent(Swal);
