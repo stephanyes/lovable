@@ -74,8 +74,10 @@ class SingleTableContainer extends React.Component {
             let arrayHelper = [];
             prodDoc.forEach((singleProd) => {
               arrayHelper.push({
+                comments: singleProd.data().comments,
                 name: singleProd.data().name,
                 price: singleProd.data().price,
+                quantity: singleProd.data().quantity,
               });
             });
             this.setState({

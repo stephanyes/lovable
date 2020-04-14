@@ -19,6 +19,7 @@ class ConfigurationsContainer extends React.Component {
     super(props);
     this.state = {
       restaurantInfo: {},
+      quantityMesas: 0,
     };
   }
 
@@ -41,6 +42,10 @@ class ConfigurationsContainer extends React.Component {
         },
       });
     });
+    restaurantDoc
+      .collection("tables")
+      .get()
+      .then((mesas) => this.setState({ quantityMesas: mesas.size }));
   }
 
   render() {
@@ -50,6 +55,7 @@ class ConfigurationsContainer extends React.Component {
         <Configurations
           restaurantInfo={this.state.restaurantInfo}
           restaurantId={this.props.restaurantId}
+          quantityMesas={this.state.quantityMesas}
         />
         <Footer />
       </div>
