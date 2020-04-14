@@ -27,7 +27,7 @@ class OrdersContainer extends React.Component {
       orderCompletedToday: [],
       orderCompletedOld: [],
       history: false,
-      total: 0,
+      total: 0
     };
     this.handleClickStatus = this.handleClickStatus.bind(this);
     this.showHistory = this.showHistory.bind(this);
@@ -56,6 +56,7 @@ class OrdersContainer extends React.Component {
             status: order.data().status,
             totalPrice: order.data().totalPrice,
             notify: order.data().notify,
+            tableID: order.data().tableID
           });
         } else if (order.data().status === "accepted") {
           accepted.push({
@@ -140,7 +141,7 @@ class OrdersContainer extends React.Component {
   }
 
   componentWillUnmount() {
-    doc.onSnapshot(() => {});
+    doc.onSnapshot(() => { });
   }
 
   handleClickStatus(e, id, param, numTable) {
@@ -176,7 +177,7 @@ class OrdersContainer extends React.Component {
 
   showHistory(e) {
     e.preventDefault();
-    this.setState({ history: true });
+    this.setState({ history: !this.state.history });
   }
 
   render() {
