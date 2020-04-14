@@ -2,7 +2,6 @@ import React from "react";
 import firebase from "../../../services/firebase";
 import Sidebar from "../general/Sidebar";
 import Orders from "../../../restaurant/components/views/Orders";
-import { toast } from "react-toastify";
 
 import { connect } from "react-redux";
 //import { faTheaterMasks } from "@fortawesome/free-solid-svg-icons";
@@ -27,7 +26,7 @@ class OrdersContainer extends React.Component {
       orderCompletedToday: [],
       orderCompletedOld: [],
       history: false,
-      total: 0
+      total: 0,
     };
     this.handleClickStatus = this.handleClickStatus.bind(this);
     this.showHistory = this.showHistory.bind(this);
@@ -56,7 +55,7 @@ class OrdersContainer extends React.Component {
             status: order.data().status,
             totalPrice: order.data().totalPrice,
             notify: order.data().notify,
-            tableID: order.data().tableID
+            tableID: order.data().tableID,
           });
         } else if (order.data().status === "accepted") {
           accepted.push({
@@ -110,38 +109,20 @@ class OrdersContainer extends React.Component {
           });
         }
       });
-
-      this.setState(
-        {
-          orderPending: pending,
-          orderAccepted: accepted,
-          orderCanceled: cancel,
-          orderCompletedToday: completedToday,
-          orderCompletedOld: completedOld,
-          total: totalCobradoEnElDia,
-        },
-        this.props.history.push("/orders")
-      );
-
-      for (let i = 0; i < pending.length; i++) {
-        if (pending[i].notify === false) {
-          toast.info(`Table ${pending[i].numberOfTable} is ordering!`, {
-            autoClose: false,
-            closeButton: true,
-            delay: 1500,
-          });
-          let singleOrder = DB.collection("restaurants")
-            .doc(this.props.userLogin)
-            .collection("orders")
-            .doc(pending[i].id);
-          singleOrder.update({ notify: true });
-        }
-      }
+      console.log(pending);
+      this.setState({
+        orderPending: pending,
+        orderAccepted: accepted,
+        orderCanceled: cancel,
+        orderCompletedToday: completedToday,
+        orderCompletedOld: completedOld,
+        total: totalCobradoEnElDia,
+      });
     });
   }
 
   componentWillUnmount() {
-    doc.onSnapshot(() => { });
+    doc.onSnapshot(() => {});
   }
 
   handleClickStatus(e, id, param, numTable) {

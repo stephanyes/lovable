@@ -4,9 +4,11 @@ import firebase from "../../../services/firebase";
 import { connect } from "react-redux";
 import Navbar from "../../../restaurant/components/general/Navbar";
 import { userLogout } from "../../../store/actions/loginAction";
+import { toast } from "react-toastify";
 
 const DB = firebase.db;
 let doc;
+let orderQuery;
 
 const mapStateToProps = (state) => {
   return {
@@ -25,6 +27,7 @@ class NavbarContainer extends React.Component {
     super();
     this.state = {
       mesas: [],
+      ordersArray: [],
       isOpen: false,
     };
     this.logoutButton = this.logoutButton.bind(this);
@@ -53,7 +56,6 @@ class NavbarContainer extends React.Component {
     doc = DB.collection("restaurants")
       .doc(this.props.userLogin)
       .collection("tables");
-
     doc.onSnapshot((tables) => {
       let mesas = [];
       tables.forEach((change) => {
@@ -70,12 +72,51 @@ class NavbarContainer extends React.Component {
             orderStatus: change.data().orderStatus,
           });
       });
-      this.setState({ mesas: mesas });
+
+      orderQuery = DB.collection("restaurants")
+        .doc(this.props.userLogin)
+        .collection("orders");
+      // .where("status", "==", "pending");
+      orderQuery.onSnapshot((ordenes) => {
+        let orders = [];
+        ordenes.forEach((orden) => {
+          if (orden.data().status === "pending") {
+            orders.push({
+              id: orden.id,
+              idUser: orden.data().idUser,
+              numberOfOrder: orden.data().numberOfOrder,
+              numberOfTable: orden.data().numberOfTable,
+              status: orden.data().status,
+              totalPrice: orden.data().totalPrice,
+              notify: orden.data().notify,
+              tableID: orden.data().tableID,
+            });
+          }
+        });
+        this.setState({ ordersArray: orders, mesas: mesas });
+        for (let i = 0; i < orders.length + 1 - 1; i++) {
+          if (orders[i].notify === false) {
+            toast.info(`Table ${orders[i].numberOfTable} is ordering!`, {
+              autoClose: false,
+              closeButton: true,
+              delay: 1500,
+            });
+            let singleOrder = DB.collection("restaurants")
+              .doc(this.props.userLogin)
+              .collection("orders")
+              .doc(orders[i].id);
+            singleOrder.update({ notify: true });
+          }
+        }
+      });
     });
   }
-  componentWillUnmount() {
-    doc.onSnapshot(() => {});
-  }
+  //El navbar se renderiza en todos los componentes y nunca se desmonta
+
+  // componentWillUnmount() {
+  //   doc.onSnapshot(() => {});
+  //   orderQuery.onSnapshot(() => {});
+  // }
 
   render() {
     return (
