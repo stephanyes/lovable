@@ -4,6 +4,8 @@ import Sidebar from "../general/Sidebar";
 import Footer from "../general/Footer";
 import Tables from "../../../restaurant/components/views/Tables";
 import { connect } from "react-redux";
+import FullPageLoader from "../../components/FullPageLoader/FullPageLoader";
+import { showLoader, hideLoader } from "../../../store/actions/loginAction";
 
 const DB = firebase.db;
 
@@ -25,10 +27,20 @@ class TablesContainer extends React.Component {
     this.handlerButton = this.handlerButton.bind(this);
   }
 
+  // updateLoader = () => {
+
+
+  //   setTimeout(() => {
+  //     this.props.dispatch(hideLoader())
+  //   }, 2000)
+  // }
+
   componentDidMount() {
+    this.props.dispatch(showLoader())
     tablesDoc = DB.collection("restaurants")
       .doc(`${this.props.userLogin}`)
       .collection("tables");
+
     tablesDoc.onSnapshot(docSnapshot => {
       let tables = [];
       docSnapshot.forEach(doc => {
@@ -44,6 +56,7 @@ class TablesContainer extends React.Component {
           id: doc.id
         });
         this.setState({ tables }, this.ordenar(this.state.tables));
+        this.props.dispatch(hideLoader())
       });
     });
   }
@@ -54,14 +67,14 @@ class TablesContainer extends React.Component {
     tablesDoc.doc(tableId).update({ secretCode: newCode, state: "busy" });
   }
 
-  ordenar = function(arr) {
-    arr.sort(function(a, b) {
+  ordenar = function (arr) {
+    arr.sort(function (a, b) {
       return a.number - b.number;
     });
   };
 
   componentWillUnmount() {
-    tablesDoc.onSnapshot(() => {});
+    tablesDoc.onSnapshot(() => { });
   }
 
   render() {
@@ -70,6 +83,9 @@ class TablesContainer extends React.Component {
         <Sidebar />
         <Tables tables={this.state.tables} buttonClick={this.handlerButton} />
         <Footer />
+        <div>
+          <FullPageLoader />
+        </div>
       </div>
     );
   }

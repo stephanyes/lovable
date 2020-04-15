@@ -29,3 +29,15 @@ export const userLogout = () => (dispatch) =>
     type: "SET_LOGOUT",
     logout: {},
   });
+
+export const showLoader = () => dispatch => {
+  dispatch({
+    type: "SHOW_LOADER"
+  })
+}
+
+export const hideLoader = () => dispatch => {
+  dispatch({
+    type: "HIDE_LOADER"
+  })
+}
