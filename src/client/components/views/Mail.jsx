@@ -33,13 +33,16 @@ class Mail extends React.Component {
       .collection("tables")
       .doc(TableId);
     TableActual.update({ mail: this.state.email })
-    .then(() => {
-      console.log("Enviando mail")
-      // http://localhost:5000/lovable-qr/us-central1/app/api/mail
-      axios.post("http://localhost:5000/lovable-qr/us-central1/app/api/mail", this.state)
-      .then(res => console.log(res))
-      .catch(err => console.error(err))
-    })
+    // .then(() => {
+    //   axios({
+    //     headers: {"Access-Control-Allow-Origin" : "*"},
+    //     method: "post",
+    //     data : this.state,
+    //     url : "http://localhost:5000/lovable-qr/us-central1/app/api/mail"
+    //   })
+    //   .then(res => console.log(res))
+    //   .catch(err => console.error(err))
+    // })
     this.props.history.push(
       `/${this.props.match.params.idRestaurant}/${this.props.match.params.idTable}`
     );
