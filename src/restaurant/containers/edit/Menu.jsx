@@ -5,9 +5,10 @@ import Menu from "../../../restaurant/components/edit/Menu";
 import { connect } from "react-redux";
 const DB = firebase.db;
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    restoId: state.user.loginUser.restaurantID
+    restoId: state.user.loginUser.restaurantID,
+    isAuth: state.user.isAuth,
   };
 };
 
@@ -15,7 +16,7 @@ class EditMenuContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      nameOfMenu: ""
+      nameOfMenu: "",
     };
     this.handleInputs = this.handleInputs.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -23,15 +24,19 @@ class EditMenuContainer extends React.Component {
 
   menuId = this.props.match.params.id;
   componentDidMount() {
-    let doc = DB.collection("restaurants")
-      .doc(this.props.restoId)
-      .collection("menu")
-      .doc(this.menuId);
-    doc.get().then(menu => {
-      this.setState({
-        nameOfMenu: menu.data().nameOfMenu
+    if (this.props.isAuth == false) {
+      this.props.history.push("/");
+    } else {
+      let doc = DB.collection("restaurants")
+        .doc(this.props.restoId)
+        .collection("menu")
+        .doc(this.menuId);
+      doc.get().then((menu) => {
+        this.setState({
+          nameOfMenu: menu.data().nameOfMenu,
+        });
       });
-    });
+    }
   }
 
   handleSubmit(e) {
@@ -49,7 +54,7 @@ class EditMenuContainer extends React.Component {
     let key = e.target.name;
     let input = e.target.value;
     this.setState({
-      [key]: input
+      [key]: input,
     });
   }
 

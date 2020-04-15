@@ -76,7 +76,6 @@ class NavbarContainer extends React.Component {
       orderQuery = DB.collection("restaurants")
         .doc(this.props.userLogin)
         .collection("orders");
-      // .where("status", "==", "pending");
       orderQuery.onSnapshot((ordenes) => {
         let orders = [];
         ordenes.forEach((orden) => {
@@ -111,12 +110,6 @@ class NavbarContainer extends React.Component {
       });
     });
   }
-  //El navbar se renderiza en todos los componentes y nunca se desmonta
-
-  // componentWillUnmount() {
-  //   doc.onSnapshot(() => {});
-  //   orderQuery.onSnapshot(() => {});
-  // }
 
   render() {
     return (

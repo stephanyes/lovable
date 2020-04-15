@@ -14,6 +14,12 @@ class LoginContainer extends React.Component {
     this.handlerChange = this.handlerChange.bind(this);
     this.handlerSubmit = this.handlerSubmit.bind(this);
   }
+  componentDidUpdate(prevState) {
+    this.props.isAuth &&
+      this.props.userLogin.name &&
+      prevState.isAuth !== this.props.isAuth &&
+      this.props.history.push("/dashboard");
+  }
 
   handlerChange(e) {
     const key = e.target.name;
@@ -26,10 +32,11 @@ class LoginContainer extends React.Component {
   handlerSubmit(e) {
     e.preventDefault();
     this.props.loggeado(this.state.email, this.state.password);
-    this.props.history.push(`/dashboard/`);
+    this.props.history.push(`/dashboard`);
   }
 
   render() {
+    this.props.isAuth && this.props.history.replace("/dashboard");
     return (
       <div>
         <Login

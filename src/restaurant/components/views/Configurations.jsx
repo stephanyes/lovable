@@ -12,7 +12,6 @@ export default ({ restaurantId, restaurantInfo, quantityMesas }) => {
         backgroundColor: "white",
         marginLeft: "250px",
         marginBottom: "30px",
-        //paddingBottom: "400px",
       }}
     >
       <div
@@ -82,9 +81,6 @@ export default ({ restaurantId, restaurantInfo, quantityMesas }) => {
                   color: "#ffffff",
                   backgroundColor: "#000000",
                   borderColor: "#000000",
-                  // marginTop: "20px",
-                  // marginLeft: "20px",
-                  // marginBottom: "10px",
                 }}
                 className="btn btn-primary"
                 to="/configurations/resetpassword"
@@ -180,7 +176,6 @@ export default ({ restaurantId, restaurantInfo, quantityMesas }) => {
         >
           QR Code
         </h3>
-        {/* <QRCode size="128" includeMargin="true" value={restaurantURL} /> */}
       </div>
     </div>
   );

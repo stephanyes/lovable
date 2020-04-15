@@ -5,46 +5,45 @@ export default ({ menuObject, idRestaurant, idTable }) => {
   return (
     <div
       style={{
-        backgroundColor: "#ffffff"
+        backgroundColor: "#ffffff",
       }}
     >
       <div
         className="card text-center"
         style={{
-          borderColor: "#ffffff"
+          borderColor: "#ffffff",
         }}
       >
         <div
           className="card-body"
           style={{
             padding: "20px",
-            paddingBottom: "0px"
+            paddingBottom: "0px",
           }}
         >
           <h1
             className="font-weight-bold"
             style={{
-              //padding: "10px",
               paddingTop: "10px",
-              marginBottom: "80px"
+              marginBottom: "80px",
             }}
           >
             Menu´s
           </h1>
           {menuObject
-            ? menuObject.map(menu => (
+            ? menuObject.map((menu) => (
                 <div key={menu.id}>
                   <Link
                     style={{
                       textDecoration: "none",
-                      color: "grey"
+                      color: "grey",
                     }}
                     to={`/${idRestaurant}/menu/${menu.id}/${idTable}`}
                   >
                     <h4
                       className="font-weight-bold"
                       style={{
-                        margin: "30px"
+                        margin: "30px",
                       }}
                     >
                       {menu.name}

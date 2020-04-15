@@ -5,9 +5,10 @@ import Menu from "../../../restaurant/components/create/Menu";
 import { connect } from "react-redux";
 const DB = firebase.db;
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    userLogin: state.user.loginUser.restaurantID
+    isAuth: state.user.isAuth,
+    userLogin: state.user.loginUser.restaurantID,
   };
 };
 
@@ -15,10 +16,13 @@ class CreateMenuContainer extends React.Component {
   constructor(props) {
     super();
     this.state = {
-      nameOfMenu: ""
+      nameOfMenu: "",
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInput = this.handleInput.bind(this);
+  }
+  componentDidMount() {
+    if (this.props.isAuth == false) this.props.history.push("/");
   }
 
   handleSubmit(e) {
@@ -36,7 +40,7 @@ class CreateMenuContainer extends React.Component {
     let key = e.target.name;
     let input = e.target.value;
     this.setState({
-      [key]: input
+      [key]: input,
     });
   }
 
