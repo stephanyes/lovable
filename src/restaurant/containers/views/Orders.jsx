@@ -2,6 +2,9 @@ import React from "react";
 import firebase from "../../../services/firebase";
 import Sidebar from "../general/Sidebar";
 import Orders from "../../../restaurant/components/views/Orders";
+import FullPageLoader from "../../components/FullPageLoader/FullPageLoader";
+import { showLoader, hideLoader } from "../../../store/actions/loginAction";
+
 
 import { connect } from "react-redux";
 const DB = firebase.db;
@@ -36,10 +39,10 @@ class OrdersContainer extends React.Component {
     if (this.props.isAuth == false) {
       this.props.history.push("/");
     } else {
+      this.props.dispatch(showLoader())
       doc = DB.collection("restaurants")
         .doc(this.props.userLogin)
         .collection("orders");
-
       doc.onSnapshot((ordersDocuments) => {
         let pending = [];
         let accepted = [];
@@ -120,12 +123,13 @@ class OrdersContainer extends React.Component {
           orderCompletedOld: completedOld,
           total: totalCobradoEnElDia,
         });
+        this.props.dispatch(hideLoader())
       });
     }
   }
 
   componentWillUnmount() {
-    if (doc) doc.onSnapshot(() => {});
+    if (doc) doc.onSnapshot(() => { });
   }
 
   handleClickStatus(e, id, param, numTable) {
@@ -179,6 +183,9 @@ class OrdersContainer extends React.Component {
           pending={this.state.orderPending}
           handleClickStatus={this.handleClickStatus}
         />
+        <div>
+          <FullPageLoader />
+        </div>
       </div>
     );
   }
