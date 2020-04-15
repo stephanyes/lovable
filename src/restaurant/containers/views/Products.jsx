@@ -61,7 +61,7 @@ class ProductsContainer extends React.Component {
     }
   }
   componentWillUnmount() {
-    if (doc) doc.onSnapshot(() => {});
+    if (doc) doc.onSnapshot(() => { });
   }
   handleStock(e, id) {
     e.preventDefault();

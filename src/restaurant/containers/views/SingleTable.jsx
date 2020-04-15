@@ -3,6 +3,8 @@ import axios from "axios";
 import firebase from "../../../services/firebase";
 import SingleTable from "../../../restaurant/components/views/SingleTable";
 import Sidebar from "../general/Sidebar";
+import FullPageLoader from "../../components/FullPageLoader/FullPageLoader";
+import { showLoader, hideLoader } from "../../../store/actions/loginAction";
 import { connect } from "react-redux";
 
 const DB = firebase.db;
@@ -35,9 +37,10 @@ class SingleTableContainer extends React.Component {
   }
 
   componentDidMount() {
-    if (this.props.isAuth == false) {
+    if (this.props.isAuth === false) {
       this.props.history.push("/");
     } else {
+      this.props.dispatch(showLoader())
       pruebaSingleTable = DB.collection("restaurants")
         .doc(`${this.props.userLogin}`)
         .collection("tables")
@@ -85,6 +88,7 @@ class SingleTableContainer extends React.Component {
               this.setState({
                 productArray: arrayHelper,
               });
+              this.props.dispatch(hideLoader())
             });
           });
         }
@@ -94,11 +98,11 @@ class SingleTableContainer extends React.Component {
 
   componentWillUnmount() {
     if (pruebaSingleTable) {
-      pruebaSingleTable.onSnapshot(() => {});
+      pruebaSingleTable.onSnapshot(() => { });
     }
     if (orderQuery && productsTable) {
-      orderQuery.onSnapshot(() => {});
-      productsTable.onSnapshot(() => {});
+      orderQuery.onSnapshot(() => { });
+      productsTable.onSnapshot(() => { });
     }
   }
 
@@ -162,36 +166,36 @@ class SingleTableContainer extends React.Component {
         .collection("orders")
         .doc(orderId);
       SingleTable.get()
-      .then((table) => {
-        if (table.data().mail) {
-          orderChange.update({ status: string, mail : table.data().mail })
+        .then((table) => {
+          if (table.data().mail) {
+            orderChange.update({ status: string, mail: table.data().mail })
             axios({
-              headers: {"Access-Control-Allow-Origin" : "*"},
+              headers: { "Access-Control-Allow-Origin": "*" },
               method: "post",
-              data : {mail : table.data().mail},
-              url : "http://localhost:5000/lovable-qr/us-central1/app/api/mail"
+              data: { mail: table.data().mail },
+              url: "http://localhost:5000/lovable-qr/us-central1/app/api/mail"
             })
-            .then(res => console.log(res))
-            .catch(err => console.error(err))
-        } 
-        else {
-          orderChange.update({ status: string });
-        }
-      })
+              .then(res => console.log(res))
+              .catch(err => console.error(err))
+          }
+          else {
+            orderChange.update({ status: string });
+          }
+        })
     } else {
       SingleTable.get()
-      .then((table) => {
-        if (table.data().mail) {
-          axios({
-            headers: {"Access-Control-Allow-Origin" : "*"},
-            method: "post",
-            data : {mail : table.data().mail},
-            url : "http://localhost:5000/lovable-qr/us-central1/app/api/mail"
-          })
-          .then(res => console.log(res))
-          .catch(err => console.error(err))
-        }
-      });
+        .then((table) => {
+          if (table.data().mail) {
+            axios({
+              headers: { "Access-Control-Allow-Origin": "*" },
+              method: "post",
+              data: { mail: table.data().mail },
+              url: "http://localhost:5000/lovable-qr/us-central1/app/api/mail"
+            })
+              .then(res => console.log(res))
+              .catch(err => console.error(err))
+          }
+        });
     }
     SingleTable.update({
       clientActual: 0,
@@ -219,6 +223,9 @@ class SingleTableContainer extends React.Component {
           orderHandler={this.orderHandler}
           tableHandler={this.tableHandler}
         />
+        <div>
+          <FullPageLoader />
+        </div>
       </div>
     );
   }

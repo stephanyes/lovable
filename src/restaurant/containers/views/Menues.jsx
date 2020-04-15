@@ -1,6 +1,7 @@
 import React from "react";
 import Sidebar from "../general/Sidebar";
 import Menues from "../../../restaurant/components/views/Menues";
+import FullPageLoader from "../../components/FullPageLoader/FullPageLoader";
 import { connect } from "react-redux";
 import { getMenu, deleteMenu } from "../../../store/actions/menuActions";
 
@@ -31,6 +32,9 @@ class MenuContainer extends React.Component {
           menuObject={this.props.menuArray}
           deleteFunc={this.handleDelete}
         />
+        <div>
+          <FullPageLoader />
+        </div>
       </div>
     );
   }
@@ -47,7 +51,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     buscandoMenu: (restoID) => dispatch(getMenu(restoID)),
     eliminar: (restoID, id, history) =>
-      dispatch(deleteMenu(restoID, id, history)),
+      dispatch(deleteMenu(restoID, id, history))
   };
 };
 

@@ -1,4 +1,5 @@
 import firebase from "../../services/firebase";
+import { showLoader, hideLoader } from "./loginAction";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 const DB = firebase.db;
@@ -6,6 +7,7 @@ const MySwal = withReactContent(Swal);
 
 export const getMenu = (restoID) => (dispatch) => {
   let array = [];
+  dispatch(showLoader())
   let doc = DB.collection("restaurants").doc(restoID).collection("menu");
   doc.get().then((menuIndividual) => {
     menuIndividual.forEach((menuesFB) => {
@@ -16,6 +18,7 @@ export const getMenu = (restoID) => (dispatch) => {
       menues: array,
     });
   });
+  dispatch(hideLoader())
 };
 
 export const deleteMenu = (restoID, id, history) => (dispatch) => {
