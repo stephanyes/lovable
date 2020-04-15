@@ -70,11 +70,9 @@ class ProductContainer extends React.Component {
       .collection("products")
       .doc(this.props.match.params.idProduct);
 
-    doc.get().then(data => {
+    doc.get().then((data) => {
       doc.update({ numberOfBuys: data.data().numberOfBuys + this.state.value });
     });
-
-    // doc.update({ numberOfBuys: doc.data().numberOfBuys + this.state.value });
 
     let RestaurantId = this.props.match.params.idRestaurant;
 
@@ -93,7 +91,7 @@ class ProductContainer extends React.Component {
           totalPrice: 0,
           date: `${new Date()}`.slice(0, 15),
           notify: false,
-          tableID: result.id
+          tableID: result.id,
         },
       });
       resAddToCart = true;

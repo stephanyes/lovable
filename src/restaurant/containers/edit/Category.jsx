@@ -8,6 +8,7 @@ const DB = firebase.db;
 const mapStateToProps = (state) => {
   return {
     restoId: state.user.loginUser.restaurantID,
+    isAuth: state.user.isAuth,
   };
 };
 
@@ -26,20 +27,23 @@ class EditCategoryContainer extends React.Component {
   categoryId = this.props.match.params.categoryId;
 
   componentDidMount() {
-    let doc = DB.collection("restaurants")
-      .doc(this.props.restoId)
-      .collection("menu")
-      .doc(this.menuId)
-      .collection("categories")
-      .doc(this.categoryId);
-    doc.get().then((category) => {
-      this.setState({
-        name: category.data().name,
-        imageCategory: category.data().imageCategory,
+    if (this.props.isAuth == false) {
+      this.props.history.push("/");
+    } else {
+      let doc = DB.collection("restaurants")
+        .doc(this.props.restoId)
+        .collection("menu")
+        .doc(this.menuId)
+        .collection("categories")
+        .doc(this.categoryId);
+      doc.get().then((category) => {
+        this.setState({
+          name: category.data().name,
+          imageCategory: category.data().imageCategory,
+        });
       });
-    });
+    }
   }
-
   handleSubmit(e) {
     e.preventDefault();
     let doc = DB.collection("restaurants")

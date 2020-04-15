@@ -55,44 +55,44 @@ export default ({ tables, buttonClick }) => {
                         alt="..."
                       />
                     ) : (
-                        <div>
-                          {table.orderStatus === "pending" ? (
-                            <img
-                              src="https://insideone.s3-sa-east-1.amazonaws.com/services-table-order.png"
-                              className="card-img"
-                              alt="..."
-                            />
-                          ) : (
+                      <div>
+                        {table.orderStatus === "pending" ? (
+                          <img
+                            src="https://insideone.s3-sa-east-1.amazonaws.com/services-table-order.png"
+                            className="card-img"
+                            alt="..."
+                          />
+                        ) : (
+                          <div>
+                            {table.waiter === true ? (
+                              <img
+                                src="https://insideone.s3-sa-east-1.amazonaws.com/services-table-waiter.png"
+                                className="card-img"
+                                alt="..."
+                              />
+                            ) : (
                               <div>
-                                {table.waiter === true ? (
+                                {table.pay === true ? (
                                   <img
-                                    src="https://insideone.s3-sa-east-1.amazonaws.com/services-table-waiter.png"
+                                    src="https://insideone.s3-sa-east-1.amazonaws.com/services-table-pay.png"
                                     className="card-img"
                                     alt="..."
                                   />
                                 ) : (
-                                    <div>
-                                      {table.pay === true ? (
-                                        <img
-                                          src="https://insideone.s3-sa-east-1.amazonaws.com/services-table-pay.png"
-                                          className="card-img"
-                                          alt="..."
-                                        />
-                                      ) : (
-                                          <div>
-                                            <img
-                                              src="https://insideone.s3-sa-east-1.amazonaws.com/services-table-busy.png"
-                                              className="card-img"
-                                              alt="..."
-                                            />
-                                          </div>
-                                        )}
-                                    </div>
-                                  )}
+                                  <div>
+                                    <img
+                                      src="https://insideone.s3-sa-east-1.amazonaws.com/services-table-busy.png"
+                                      className="card-img"
+                                      alt="..."
+                                    />
+                                  </div>
+                                )}
                               </div>
                             )}
-                        </div>
-                      )}
+                          </div>
+                        )}
+                      </div>
+                    )}
                   </div>
                   <div className="col-md-7">
                     <div
@@ -122,31 +122,30 @@ export default ({ tables, buttonClick }) => {
                                 borderColor: "#ffffff",
                                 color: "#000000",
                                 padding: "0px",
-                                // height: "30%"
                               }}
                               onClick={(e) => buttonClick(e, table.id)}
                             >
                               New code
                             </button>
                           ) : (
-                              <div>
-                                {table.orderStatus === "pending" ? (
-                                  "Order Pending"
-                                ) : (
+                            <div>
+                              {table.orderStatus === "pending" ? (
+                                "Order Pending"
+                              ) : (
+                                <div>
+                                  {table.waiter === true ? (
+                                    "Waiter"
+                                  ) : (
                                     <div>
-                                      {table.waiter === true ? (
-                                        "Waiter"
-                                      ) : (
-                                          <div>
-                                            {table.pay === true
-                                              ? "Payment"
-                                              : `Code ${table.secretCode}`}
-                                          </div>
-                                        )}
+                                      {table.pay === true
+                                        ? "Payment"
+                                        : `Code ${table.secretCode}`}
                                     </div>
                                   )}
-                              </div>
-                            )}
+                                </div>
+                              )}
+                            </div>
+                          )}
                         </small>
                       </div>
                     </div>
@@ -156,8 +155,8 @@ export default ({ tables, buttonClick }) => {
             </Link>
           ))
         ) : (
-            <h1> </h1>
-          )}
+          <h1> </h1>
+        )}
       </div>
     </div>
   );

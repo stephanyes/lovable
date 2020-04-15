@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Carousel from "@brainhubeu/react-carousel";
 import "@brainhubeu/react-carousel/lib/style.css";
 
 export default ({ nombre, categories, menuId, deleteFunc }) => {
@@ -52,7 +51,6 @@ export default ({ nombre, categories, menuId, deleteFunc }) => {
                     style={{ padding: "20px" }}
                     class="list-group-item d-flex justify-content-between align-items-center"
                   >
-                    {/* <h5 style={{ textAlign: "center" }}>{individual.name}</h5> */}
                     <div>
                       <img
                         style={{ maxWidth: "100px", marginRight: "20px" }}
@@ -84,7 +82,6 @@ export default ({ nombre, categories, menuId, deleteFunc }) => {
                         style={{
                           backgroundColor: "#ff2068",
                           borderColor: "#ff2068",
-                          //marginRight: "20px"
                         }}
                         className="btn btn-primary btn-lg"
                       >
@@ -100,38 +97,3 @@ export default ({ nombre, categories, menuId, deleteFunc }) => {
     </div>
   );
 };
-
-// {categories.length ? (
-//     <Carousel centered infinite arrows slidesPerPage={1}>
-//       {categories.map(individual => (
-//         <div key={individual.categoryId}>
-//           <h5 style={{ textAlign: "center" }}>{individual.name}</h5>
-//           <ul>
-//             <li>
-//               <Link
-//                 to={`/menu/${menuId}/${individual.categoryId}/editCategory`}
-//               >
-//                 Edit Category
-//               </Link>
-//             </li>
-//             <li>
-//               <button
-//                 onClick={e => deleteFunc(e, individual.categoryId)}
-//                 type="button"
-//                 className="btn btn-pill btn-danger"
-//               >
-//                 Delete Category
-//               </button>
-//             </li>
-//           </ul>
-//           <Link to={`/menu/${menuId}/${individual.categoryId}`}>
-//             <img
-//               style={{ width: "auto", height: "auto" }}
-//               src={individual.imageCategory}
-//               alt="category img"
-//             ></img>
-//           </Link>
-//         </div>
-//       ))}
-//     </Carousel>
-//   ) : null}

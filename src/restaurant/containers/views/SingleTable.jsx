@@ -16,6 +16,7 @@ let orderId;
 const mapStateToProps = (state) => {
   return {
     userLogin: state.user.loginUser.restaurantID,
+    isAuth: state.user.isAuth,
   };
 };
 
@@ -34,61 +35,67 @@ class SingleTableContainer extends React.Component {
   }
 
   componentDidMount() {
-    pruebaSingleTable = DB.collection("restaurants")
-      .doc(`${this.props.userLogin}`)
-      .collection("tables")
-      .doc(this.props.match.params.idTable);
-    pruebaSingleTable.onSnapshot((tableDoc) => {
-      this.setState({
-        table: {
-          clientActual: tableDoc.data().clientActual,
-          number: tableDoc.data().number,
-          orderActual: tableDoc.data().orderActual,
-          secretCode: tableDoc.data().secretCode,
-          state: tableDoc.data().state,
-          waiter: tableDoc.data().waiter,
-          pay: tableDoc.data().pay,
-          orderStatus: tableDoc.data().orderStatus,
-          id: tableDoc.id,
-        },
-      });
-      if (tableDoc.data().orderActual !== 0) {
-        orderId = tableDoc.data().orderActual.toString();
-        this.setState({ order: orderId });
-        orderQuery = DB.collection("restaurants")
-          .doc(`${this.props.userLogin}`)
-          .collection("orders")
-          .doc(orderId);
-        orderQuery.onSnapshot((docSnapshot) => {
-          this.setState({
-            tableOrder: {
-              status: docSnapshot.data().status,
-              totalPrice: docSnapshot.data().totalPrice,
-              mail: docSnapshot.data().mail,
-            },
-          });
-          productsTable = orderQuery.collection("products");
-          productsTable.onSnapshot((prodDoc) => {
-            let arrayHelper = [];
-            prodDoc.forEach((singleProd) => {
-              arrayHelper.push({
-                comments: singleProd.data().comments,
-                name: singleProd.data().name,
-                price: singleProd.data().price,
-                quantity: singleProd.data().quantity,
+    if (this.props.isAuth == false) {
+      this.props.history.push("/");
+    } else {
+      pruebaSingleTable = DB.collection("restaurants")
+        .doc(`${this.props.userLogin}`)
+        .collection("tables")
+        .doc(this.props.match.params.idTable);
+      pruebaSingleTable.onSnapshot((tableDoc) => {
+        this.setState({
+          table: {
+            clientActual: tableDoc.data().clientActual,
+            number: tableDoc.data().number,
+            orderActual: tableDoc.data().orderActual,
+            secretCode: tableDoc.data().secretCode,
+            state: tableDoc.data().state,
+            waiter: tableDoc.data().waiter,
+            pay: tableDoc.data().pay,
+            orderStatus: tableDoc.data().orderStatus,
+            id: tableDoc.id,
+          },
+        });
+        if (tableDoc.data().orderActual !== 0) {
+          orderId = tableDoc.data().orderActual.toString();
+          this.setState({ order: orderId });
+          orderQuery = DB.collection("restaurants")
+            .doc(`${this.props.userLogin}`)
+            .collection("orders")
+            .doc(orderId);
+          orderQuery.onSnapshot((docSnapshot) => {
+            this.setState({
+              tableOrder: {
+                status: docSnapshot.data().status,
+                totalPrice: docSnapshot.data().totalPrice,
+                mail: docSnapshot.data().mail,
+              },
+            });
+            productsTable = orderQuery.collection("products");
+            productsTable.onSnapshot((prodDoc) => {
+              let arrayHelper = [];
+              prodDoc.forEach((singleProd) => {
+                arrayHelper.push({
+                  comments: singleProd.data().comments,
+                  name: singleProd.data().name,
+                  price: singleProd.data().price,
+                  quantity: singleProd.data().quantity,
+                });
+              });
+              this.setState({
+                productArray: arrayHelper,
               });
             });
-            this.setState({
-              productArray: arrayHelper,
-            });
           });
-        });
-      }
-    });
+        }
+      });
+    }
   }
 
   componentWillUnmount() {
-    pruebaSingleTable.onSnapshot(() => {});
+    if (pruebaSingleTable) {
+      pruebaSingleTable.onSnapshot(() => {});
+    }
     if (orderQuery && productsTable) {
       orderQuery.onSnapshot(() => {});
       productsTable.onSnapshot(() => {});

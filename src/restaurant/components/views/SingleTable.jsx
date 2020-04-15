@@ -138,7 +138,6 @@ export default ({
                             style={{
                               backgroundColor: "#ff2068",
                               borderColor: "#ff2068",
-                              //marginRight: "20px"
                             }}
                             className="btn btn-primary btn-lg"
                           >

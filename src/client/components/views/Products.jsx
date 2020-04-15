@@ -63,13 +63,6 @@ export default ({
               borderColor: "#ffffff",
             }}
           >
-            {/* <div
-              className="card-body"
-              style={{
-                padding: "20px",
-                paddingBottom: "0px",
-              }}
-            ></div> */}
             <button
               type="button"
               className="btn btn-success btn-circle btn-xl"
@@ -130,7 +123,6 @@ export default ({
           onClick={(e) => handleClick(e)}
         >
           Add {value} to Cart
-          {/* Add {value} to Cart · ARS {`${product.price * value},00`} */}
         </button>
       </div>
     </div>

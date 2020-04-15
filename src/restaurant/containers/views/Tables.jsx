@@ -11,14 +11,15 @@ let tablesDoc;
 
 const mapStateToProps = (state, ownprops) => {
   return {
-    userLogin: state.user.loginUser.restaurantID
+    userLogin: state.user.loginUser.restaurantID,
+    isAuth: state.user.isAuth,
   };
 };
 class TablesContainer extends React.Component {
   constructor(props) {
     super();
     this.state = {
-      tables: []
+      tables: [],
     };
 
     this.ordenar = this.ordenar.bind(this);
@@ -26,42 +27,45 @@ class TablesContainer extends React.Component {
   }
 
   componentDidMount() {
-    tablesDoc = DB.collection("restaurants")
-      .doc(`${this.props.userLogin}`)
-      .collection("tables");
-    tablesDoc.onSnapshot(docSnapshot => {
-      let tables = [];
-      docSnapshot.forEach(doc => {
-        tables.push({
-          clientActual: doc.data().clientActual,
-          number: doc.data().number,
-          orderActual: doc.data().orderActual,
-          secretCode: doc.data().secretCode,
-          state: doc.data().state,
-          waiter: doc.data().waiter,
-          pay: doc.data().pay,
-          orderStatus: doc.data().orderStatus,
-          id: doc.id
+    if (this.props.isAuth == false) {
+      this.props.history.push("/");
+    } else {
+      tablesDoc = DB.collection("restaurants")
+        .doc(`${this.props.userLogin}`)
+        .collection("tables");
+      tablesDoc.onSnapshot((docSnapshot) => {
+        let tables = [];
+        docSnapshot.forEach((doc) => {
+          tables.push({
+            clientActual: doc.data().clientActual,
+            number: doc.data().number,
+            orderActual: doc.data().orderActual,
+            secretCode: doc.data().secretCode,
+            state: doc.data().state,
+            waiter: doc.data().waiter,
+            pay: doc.data().pay,
+            orderStatus: doc.data().orderStatus,
+            id: doc.id,
+          });
+          this.setState({ tables }, this.ordenar(this.state.tables));
         });
-        this.setState({ tables }, this.ordenar(this.state.tables));
       });
-    });
+    }
   }
-
   handlerButton(e, tableId) {
     e.preventDefault();
     let newCode = Math.round(Math.random() * 9000 + 1000);
     tablesDoc.doc(tableId).update({ secretCode: newCode, state: "busy" });
   }
 
-  ordenar = function(arr) {
-    arr.sort(function(a, b) {
+  ordenar = function (arr) {
+    arr.sort(function (a, b) {
       return a.number - b.number;
     });
   };
 
   componentWillUnmount() {
-    tablesDoc.onSnapshot(() => {});
+    if (tablesDoc) tablesDoc.onSnapshot(() => {});
   }
 
   render() {

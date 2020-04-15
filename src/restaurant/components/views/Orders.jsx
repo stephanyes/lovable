@@ -30,45 +30,6 @@ export default ({
       >
         <h1 className="font-weight-bold">Orders</h1>
 
-
-        <hr />
-
-        <h3
-          style={{
-            marginTop: "30px",
-          }}
-          className="font-weight-bold"
-        >
-          Pending
-        </h3>
-        <ul
-          className="list-group"
-          style={{
-            marginTop: "30px",
-          }}
-        >
-          {pending.length ? (
-            pending.map((order) => (
-              <li
-                key={order.idUser}
-                className="list-group-item d-flex justify-content-between align-items-center"
-              >
-                <div
-                  style={{
-                    marginTop: "10px",
-                  }}
-                >
-                  <div
-                    style={{
-                      paddingBottom: "10px",
-                    }}
-                  >
-                    <Link to={`/tables/${order.tableID}`}>
-                      Pedido #{order.id}
-                    </Link>
-                  </div>
-                  {/* <td>{order.numberOfOrder}</td> */}
-
         <div>
           {history ? (
             <div>
@@ -132,32 +93,6 @@ export default ({
               </ul>
             </div>
           ) : (
-
-            <li className="list-group-item d-flex justify-content-between align-items-center">
-              No orders here.
-            </li>
-          )}
-        </ul>
-        <h3
-          style={{
-            marginTop: "30px",
-          }}
-          className="font-weight-bold"
-        >
-          Accepted
-        </h3>
-        <ul
-          className="list-group"
-          style={{
-            marginTop: "30px",
-          }}
-        >
-          {accepted.length ? (
-            accepted.map((order) => (
-              <li
-                key={order.idUser}
-                className="list-group-item d-flex justify-content-between align-items-center"
-
             <div>
               <button
                 style={{
@@ -172,7 +107,6 @@ export default ({
                 onClick={(e) => {
                   showHistory(e);
                 }}
-
               >
                 History Orders
               </button>
@@ -208,41 +142,10 @@ export default ({
                             paddingBottom: "10px",
                           }}
                         >
-                          <Link to={`/orders/${order.id}`}>
+                          <Link to={`/tables/${order.tableID}`}>
                             Pedido #{order.id}
                           </Link>
                         </div>
-                        {/* <td>{order.numberOfOrder}</td> */}
-
-
-                <div></div>
-              </li>
-            ))
-          ) : (
-            <li className="list-group-item d-flex justify-content-between align-items-center">
-              No orders here.
-            </li>
-          )}
-        </ul>
-        <h3
-          style={{
-            marginTop: "30px",
-          }}
-          className="font-weight-bold"
-        >
-          Canceled
-        </h3>
-        <ul
-          className="list-group"
-          style={{
-            marginTop: "30px",
-          }}
-        >
-          {canceled.length ? (
-            canceled.map((order) => (
-              <li
-                key={order.idUser}
-                className="list-group-item d-flex justify-content-between align-items-center"
 
                         <h5 className="font-weight-bold">
                           Table {order.numberOfTable}
@@ -282,7 +185,6 @@ export default ({
                           style={{
                             backgroundColor: "#ff2068",
                             borderColor: "#ff2068",
-                            //marginRight: "20px"
                           }}
                           className="btn btn-primary btn-lg"
                         >
@@ -302,7 +204,6 @@ export default ({
                   marginTop: "30px",
                 }}
                 className="font-weight-bold"
-
               >
                 Accepted
               </h3>
@@ -327,10 +228,7 @@ export default ({
                           style={{
                             paddingBottom: "10px",
                           }}
-                        >
-                          {/*<Link to={`/orders/${order.id}`}>Pedido #{order.id}</Link> */}
-                        </div>
-                        {/* <td>{order.numberOfOrder}</td> */}
+                        ></div>
 
                         <h5 className="font-weight-bold">
                           Table {order.numberOfTable}
@@ -342,36 +240,6 @@ export default ({
                           Price: ${order.totalPrice}
                         </h6>
                       </div>
-
-
-                <div></div>
-              </li>
-            ))
-          ) : (
-            <li className="list-group-item d-flex justify-content-between align-items-center">
-              No orders here.
-            </li>
-          )}
-        </ul>
-        <h3
-          style={{
-            marginTop: "30px",
-          }}
-          className="font-weight-bold"
-        >
-          Completed Today
-        </h3>
-        <ul
-          className="list-group"
-          style={{
-            marginTop: "30px",
-          }}
-        >
-          {completedToday.length ? (
-            completedToday.map((order) => (
-              <li
-                key={order.idUser}
-                className="list-group-item d-flex justify-content-between align-items-center"
 
                       <div></div>
                     </li>
@@ -387,7 +255,6 @@ export default ({
                   marginTop: "30px",
                 }}
                 className="font-weight-bold"
-
               >
                 Canceled
               </h3>
@@ -412,10 +279,7 @@ export default ({
                           style={{
                             paddingBottom: "10px",
                           }}
-                        >
-                          {/*<Link to={`/orders/${order.id}`}>Pedido #{order.id}</Link> */}
-                        </div>
-                        {/* <td>{order.numberOfOrder}</td> */}
+                        ></div>
 
                         <h5 className="font-weight-bold">
                           Table {order.numberOfTable}
@@ -427,32 +291,6 @@ export default ({
                           Price: ${order.totalPrice}
                         </h6>
                       </div>
-
-
-                <div></div>
-              </li>
-            ))
-          ) : (
-            <li className="list-group-item d-flex justify-content-between align-items-center">
-              No orders here.
-            </li>
-          )}
-        </ul>
-        {/* <button
-          onClick={(e) => {
-            showHistory(e);
-          }}
-        >
-          {history ? (
-            <ul
-              class="list-group"
-              style={{
-                marginTop: "30px",
-              }}
-            >
-              <h4>History: Orders Completed</h4>
-              {completedOld
-                ? completedOld.map((order) => (
 
                       <div></div>
                     </li>
@@ -479,7 +317,6 @@ export default ({
               >
                 {completedToday.length ? (
                   completedToday.map((order) => (
-
                     <li
                       key={order.idUser}
                       class="list-group-item d-flex justify-content-between align-items-center"
@@ -493,10 +330,7 @@ export default ({
                           style={{
                             paddingBottom: "10px",
                           }}
-                        >
-                          {/*<Link to={`/orders/${order.id}`}>Pedido #{order.id}</Link> */}
-                        </div>
-                        {/* <td>{order.numberOfOrder}</td> */}
+                        ></div>
 
                         <h5 className="font-weight-bold">
                           Table {order.numberOfTable}
