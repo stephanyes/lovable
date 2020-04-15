@@ -1,10 +1,9 @@
 import React from "react";
+import axios from "axios";
 import firebase from "../../../services/firebase";
 import SingleTable from "../../../restaurant/components/views/SingleTable";
 import Sidebar from "../general/Sidebar";
 import { connect } from "react-redux";
-import nodemailer from "nodemailer";
-//const nodemailer = require("nodemailer");
 
 const DB = firebase.db;
 
@@ -32,7 +31,6 @@ class SingleTableContainer extends React.Component {
     this.handlerButton = this.handlerButton.bind(this);
     this.orderHandler = this.orderHandler.bind(this);
     this.tableHandler = this.tableHandler.bind(this);
-    this.sendMailToUser = this.sendMailToUser.bind(this);
   }
 
   componentDidMount() {
@@ -143,35 +141,8 @@ class SingleTableContainer extends React.Component {
     }
   }
 
-  sendMailToUser(email) {
-    console.log("llegue adentro de la funcion con este mail", email);
-    // sendMail(dueñoTarjeta, numTarj, email, total, dir){
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: "winesellectionp5@gmail.com",
-        pass: "plataforma5",
-      },
-    });
-    const mailOptions = {
-      from: "winesellectionp5@gmail.com",
-      to: `${email}`,
-      subject: "Gracias por elegirnos!",
-      text: `Estimado/a. Su compra se ha efectudo satisfactoriamente al numero de tarjeta por un monto total de. Dicha entrega será en en aproximadamente 3 días. Recuerde que puede dejar una reseña ingresando a nuestra página.
-        Muchas gracias por elegirnos`,
-    };
-    transporter.sendMail(mailOptions, function (error, info) {
-      if (error) {
-        console.log(error);
-      } else {
-        console.log("Se ha enviando el mail");
-      }
-    });
-  }
-
   handlerButton(e, string) {
     e.preventDefault();
-    let mailToSend;
     let SingleTable = DB.collection("restaurants")
       .doc(`${this.props.userLogin}`)
       .collection("tables")
@@ -181,24 +152,38 @@ class SingleTableContainer extends React.Component {
         .doc(`${this.props.userLogin}`)
         .collection("orders")
         .doc(orderId);
-      SingleTable.get().then((table) => {
+      SingleTable.get()
+      .then((table) => {
         if (table.data().mail) {
-          mailToSend = table.data().mail;
-          this.sendMailToUser(mailToSend);
-          orderChange.update({ status: string, mail: mailToSend });
-        } else {
+          orderChange.update({ status: string, mail : table.data().mail })
+            axios({
+              headers: {"Access-Control-Allow-Origin" : "*"},
+              method: "post",
+              data : {mail : table.data().mail},
+              url : "http://localhost:5000/lovable-qr/us-central1/app/api/mail"
+            })
+            .then(res => console.log(res))
+            .catch(err => console.error(err))
+        } 
+        else {
           orderChange.update({ status: string });
         }
-      });
+      })
     } else {
-      SingleTable.get().then((table) => {
+      SingleTable.get()
+      .then((table) => {
         if (table.data().mail) {
-          mailToSend = table.data().mail;
-          this.sendMailToUser(mailToSend);
+          axios({
+            headers: {"Access-Control-Allow-Origin" : "*"},
+            method: "post",
+            data : {mail : table.data().mail},
+            url : "http://localhost:5000/lovable-qr/us-central1/app/api/mail"
+          })
+          .then(res => console.log(res))
+          .catch(err => console.error(err))
         }
       });
     }
-
     SingleTable.update({
       clientActual: 0,
       orderActual: 0,
@@ -209,7 +194,6 @@ class SingleTableContainer extends React.Component {
       waiter: false,
       mail: "",
     });
-
     this.props.history.push(`/dashboard`);
   }
 
