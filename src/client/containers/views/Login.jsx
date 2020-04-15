@@ -13,7 +13,7 @@ class ClientLoginContainer extends React.Component {
     super(props);
     this.state = {
       numberOfTable: "",
-      code: ""
+      code: "",
     };
     this.handlerChange = this.handlerChange.bind(this);
     this.handlerSubmit = this.handlerSubmit.bind(this);
@@ -23,7 +23,7 @@ class ClientLoginContainer extends React.Component {
     const key = e.target.name;
     const value = e.target.value;
     this.setState({
-      [key]: value
+      [key]: value,
     });
   }
 
@@ -35,8 +35,8 @@ class ClientLoginContainer extends React.Component {
     let TablesRestaurant = DB.collection("restaurants")
       .doc(RestaurantId)
       .collection("tables");
-    TablesRestaurant.get().then(result => {
-      result.forEach(doc => {
+    TablesRestaurant.get().then((result) => {
+      result.forEach((doc) => {
         //Aca comparamos si el numero de mesa y el codigo secreto son correctos.
         if (
           doc.data().number == this.state.numberOfTable &&
@@ -60,7 +60,7 @@ class ClientLoginContainer extends React.Component {
             const RestaurantDoc = DB.collection("restaurants").doc(
               RestaurantId
             );
-            RestaurantDoc.get().then(result => {
+            RestaurantDoc.get().then((result) => {
               let res = result.data();
               //Esta variable toma el valor preparado para el proximo cliente
               clientTotal = res.clientTotalNumber;
@@ -70,8 +70,8 @@ class ClientLoginContainer extends React.Component {
               ClientActualApp = clientTotal;
               const client = { RestaurantId, TableIdActual, ClientActualApp };
               this.props.saveLoginClient(client);
-              TablesRestaurant.get().then(result => {
-                result.forEach(doc => {
+              TablesRestaurant.get().then((result) => {
+                result.forEach((doc) => {
                   if (doc.data().number == this.state.numberOfTable) {
                     //En esta variable creamos la ruta para actualizar la mesa actual.
                     const TableActual = DB.collection("restaurants")
@@ -107,7 +107,7 @@ class ClientLoginContainer extends React.Component {
 
 const mapDispatchToProps = (dispatch, state) => {
   return {
-    saveLoginClient: client => dispatch(saveLoginClient(client))
+    saveLoginClient: (client) => dispatch(saveLoginClient(client)),
   };
 };
 

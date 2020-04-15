@@ -11,6 +11,7 @@ let restaurantDoc;
 const mapStateToProps = (state) => {
   return {
     restaurantId: state.user.loginUser.restaurantID,
+    isAuth: state.user.isAuth,
   };
 };
 
@@ -19,28 +20,37 @@ class ConfigurationsContainer extends React.Component {
     super(props);
     this.state = {
       restaurantInfo: {},
+      quantityMesas: 0,
     };
   }
 
   componentDidMount() {
-    restaurantDoc = DB.collection("restaurants").doc(
-      `${this.props.restaurantId}`
-    );
-    restaurantDoc.get().then((doc) => {
-      this.setState({
-        restaurantInfo: {
-          backgroundImage: doc.data().backgroundImage,
-          clientTotalNumber: doc.data().clientTotalNumber,
-          logoImage: doc.data().logoImage,
-          mail: doc.data().mail,
-          name: doc.data().name,
-          orderTotalNumber: doc.data().orderTotalNumber,
-          orderStatus: doc.data().orderStatus,
-          phone: doc.data().phone,
-          id: doc.id,
-        },
+    if (this.props.isAuth == false) {
+      this.props.history.push("/");
+    } else {
+      restaurantDoc = DB.collection("restaurants").doc(
+        `${this.props.restaurantId}`
+      );
+      restaurantDoc.get().then((doc) => {
+        this.setState({
+          restaurantInfo: {
+            backgroundImage: doc.data().backgroundImage,
+            clientTotalNumber: doc.data().clientTotalNumber,
+            logoImage: doc.data().logoImage,
+            mail: doc.data().mail,
+            name: doc.data().name,
+            orderTotalNumber: doc.data().orderTotalNumber,
+            orderStatus: doc.data().orderStatus,
+            phone: doc.data().phone,
+            id: doc.id,
+          },
+        });
       });
-    });
+      restaurantDoc
+        .collection("tables")
+        .get()
+        .then((mesas) => this.setState({ quantityMesas: mesas.size }));
+    }
   }
 
   render() {
@@ -50,6 +60,7 @@ class ConfigurationsContainer extends React.Component {
         <Configurations
           restaurantInfo={this.state.restaurantInfo}
           restaurantId={this.props.restaurantId}
+          quantityMesas={this.state.quantityMesas}
         />
         <Footer />
       </div>

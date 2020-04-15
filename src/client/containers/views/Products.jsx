@@ -61,6 +61,19 @@ class ProductContainer extends React.Component {
 
   handleClick(e) {
     e.preventDefault();
+    const doc = DB.collection("restaurants")
+      .doc(this.props.match.params.idRestaurant)
+      .collection("menu")
+      .doc(this.props.match.params.idMenu)
+      .collection("categories")
+      .doc(this.props.match.params.idCategoria)
+      .collection("products")
+      .doc(this.props.match.params.idProduct);
+
+    doc.get().then((data) => {
+      doc.update({ numberOfBuys: data.data().numberOfBuys + this.state.value });
+    });
+
     let RestaurantId = this.props.match.params.idRestaurant;
 
     let TablesRestaurant = DB.collection("restaurants")
@@ -78,7 +91,7 @@ class ProductContainer extends React.Component {
           totalPrice: 0,
           date: `${new Date()}`.slice(0, 15),
           notify: false,
-          tableID: result.id
+          tableID: result.id,
         },
       });
       resAddToCart = true;

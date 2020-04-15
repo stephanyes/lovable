@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 const QRCode = require("qrcode.react");
 
-export default ({ restaurantId, restaurantInfo }) => {
+export default ({ restaurantId, restaurantInfo, quantityMesas }) => {
   let restaurantURL =
     "https://lovable-qr.firebaseapp.com/" + restaurantId + "/tables";
 
@@ -12,7 +12,6 @@ export default ({ restaurantId, restaurantInfo }) => {
         backgroundColor: "white",
         marginLeft: "250px",
         marginBottom: "30px",
-        //paddingBottom: "400px",
       }}
     >
       <div
@@ -82,9 +81,6 @@ export default ({ restaurantId, restaurantInfo }) => {
                   color: "#ffffff",
                   backgroundColor: "#000000",
                   borderColor: "#000000",
-                  // marginTop: "20px",
-                  // marginLeft: "20px",
-                  // marginBottom: "10px",
                 }}
                 className="btn btn-primary"
                 to="/configurations/resetpassword"
@@ -169,7 +165,7 @@ export default ({ restaurantId, restaurantInfo }) => {
         >
           <li className="list-group-item d-flex justify-content-between align-items-center">
             <span>Tables:</span>
-            <span>{restaurantInfo.clientTotalNumber}</span>
+            <span>{quantityMesas}</span>
           </li>
         </ul>
         <h3
@@ -180,7 +176,6 @@ export default ({ restaurantId, restaurantInfo }) => {
         >
           QR Code
         </h3>
-        <QRCode size="128" includeMargin="true" value={restaurantURL} />
       </div>
     </div>
   );

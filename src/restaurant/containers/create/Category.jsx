@@ -5,9 +5,10 @@ import { connect } from "react-redux";
 import Category from "../../../restaurant/components/create/Category";
 const DB = firebase.db;
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    userLogin: state.user.loginUser.restaurantID
+    userLogin: state.user.loginUser.restaurantID,
+    isAuth: state.user.isAuth,
   };
 };
 
@@ -16,13 +17,16 @@ class CreateMenuContainer extends React.Component {
     super(props);
     this.state = {
       name: "",
-      imageCategory: ""
+      imageCategory: "",
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInputs = this.handleInputs.bind(this);
   }
   menuId = this.props.match.params.id;
 
+  componentDidMount() {
+    if (this.props.isAuth == false) this.props.history.push("/");
+  }
   handleSubmit(e) {
     e.preventDefault();
     let doc = DB.collection("restaurants")
@@ -39,7 +43,7 @@ class CreateMenuContainer extends React.Component {
     let key = e.target.name;
     let input = e.target.value;
     this.setState({
-      [key]: input
+      [key]: input,
     });
   }
 

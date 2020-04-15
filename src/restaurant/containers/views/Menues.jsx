@@ -12,7 +12,11 @@ class MenuContainer extends React.Component {
   }
 
   componentDidMount() {
-    this.props.buscandoMenu(this.props.restaurantID);
+    if (this.props.isAuth == false) {
+      this.props.history.push("/");
+    } else {
+      this.props.buscandoMenu(this.props.restaurantID);
+    }
   }
   handleDelete(e, id) {
     e.preventDefault();
@@ -36,6 +40,7 @@ const mapStateToProps = (state) => {
   return {
     restaurantID: state.user.loginUser.restaurantID,
     menuArray: state.menuArray.menuArray,
+    isAuth: state.user.isAuth,
   };
 };
 const mapDispatchToProps = (dispatch) => {

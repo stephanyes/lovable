@@ -9,6 +9,7 @@ const DB = firebase.db;
 const mapStateToProps = (state) => {
   return {
     restaurantId: state.user.loginUser.restaurantID,
+    isAuth: state.user.isAuth,
   };
 };
 
@@ -27,18 +28,21 @@ class EditConfigurations extends React.Component {
   }
 
   componentDidMount() {
-    let doc = DB.collection("restaurants").doc(this.props.restaurantId);
-    doc.get().then((restaurantInfo) => {
-      this.setState({
-        name: restaurantInfo.data().name,
-        mail: restaurantInfo.data().mail,
-        phone: restaurantInfo.data().phone,
-        logoImage: restaurantInfo.data().logoImage,
-        backgroundImage: restaurantInfo.data().backgroundImage,
+    if (this.props.isAuth == false) {
+      this.props.history.push("/");
+    } else {
+      let doc = DB.collection("restaurants").doc(this.props.restaurantId);
+      doc.get().then((restaurantInfo) => {
+        this.setState({
+          name: restaurantInfo.data().name,
+          mail: restaurantInfo.data().mail,
+          phone: restaurantInfo.data().phone,
+          logoImage: restaurantInfo.data().logoImage,
+          backgroundImage: restaurantInfo.data().backgroundImage,
+        });
       });
-    });
+    }
   }
-
   handleSubmit(e) {
     e.preventDefault();
     let docRestaurant = DB.collection("restaurants").doc(

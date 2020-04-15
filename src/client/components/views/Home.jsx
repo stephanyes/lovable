@@ -60,7 +60,6 @@ export default ({
         style={{
           display: "flex",
           justifyContent: "center",
-          //   flexWrap: "wrap",
           position: "absolute",
           marginTop: "150px",
         }}
@@ -84,15 +83,6 @@ export default ({
             height="75"
             alt=""
           />
-          {/* <h6
-            style={{
-              position: "center",
-              marginTop: "10px",
-              color: "white"
-            }}
-          >
-            ORDER
-          </h6> */}
         </Link>
         <Link
           onClick={() => handleClick("waiter")}
@@ -123,16 +113,6 @@ export default ({
               alt=""
             />
           )}
-
-          {/* <h6
-            style={{
-              position: "center",
-              marginTop: "10px",
-              color: "white"
-            }}
-          >
-            WAITER
-          </h6> */}
         </Link>
         <Link
           onClick={() => handleClick("payment")}
@@ -163,15 +143,6 @@ export default ({
               alt=""
             />
           )}
-          {/* <h6
-            style={{
-              position: "center",
-              marginTop: "10px",
-              color: "white"
-            }}
-          >
-            PAY
-          </h6> */}
         </Link>
         <Link
           style={{
@@ -192,15 +163,6 @@ export default ({
             height="75"
             alt=""
           />
-          {/* <h6
-            style={{
-              position: "center",
-              marginTop: "10px",
-              color: "white"
-            }}
-          >
-            SURVEY
-          </h6> */}
         </Link>
         <h2
           className="font-weight-bold"
