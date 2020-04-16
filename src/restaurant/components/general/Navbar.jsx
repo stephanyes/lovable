@@ -44,7 +44,7 @@ export default ({ buttonClick, mesas, isOpen, dropdown }) => {
                           borderColor: "#2EC4B6",
                         }}
                       >
-                        <label for="cars">
+                        <label htmlFor="cars">
                           <FontAwesomeIcon
                             style={{
                               paddingRight: "0px",
@@ -66,50 +66,62 @@ export default ({ buttonClick, mesas, isOpen, dropdown }) => {
                         className={`${menuClass} dropdown-menu-right`}
                         aria-labelledby="dropdownMenuButton"
                       >
-                        {mesas.map((tableProperty) =>
+                        {mesas.map((tableProperty, index) =>
                           tableProperty.pay === true &&
                           tableProperty.waiter === true ? (
-                            <div>
+                            <div key={index}>
                               <Link
-                                class="dropdown-item"
+                                className="dropdown-item"
                                 to={`/tables/${tableProperty.id}`}
                               >
                                 Table {tableProperty.number} wants to pay and
                                 wants the waiter.
                               </Link>
-                              <div class="dropdown-divider"></div>
+                              <div className="dropdown-divider"></div>
+                            </div>
+                          ) : (tableProperty.orderStatus === "pending") ===
+                              true && tableProperty.waiter === true ? (
+                            <div key={index}>
+                              <Link
+                                className="dropdown-item"
+                                to={`/tables/${tableProperty.id}`}
+                              >
+                                Table {tableProperty.number} wants to order and
+                                wants the waiter.
+                              </Link>
+                              <div className="dropdown-divider"></div>
                             </div>
                           ) : tableProperty.pay === true ? (
-                            <div>
+                            <div key={index}>
                               <Link
-                                class="dropdown-item"
+                                className="dropdown-item"
                                 to={`/tables/${tableProperty.id}`}
                               >
                                 Table {tableProperty.number} wants to pay.
                               </Link>
-                              <div class="dropdown-divider"></div>
+                              <div className="dropdown-divider"></div>
                             </div>
                           ) : tableProperty.waiter === true ? (
-                            <div>
+                            <div key={index}>
                               {" "}
                               <Link
-                                class="dropdown-item"
+                                className="dropdown-item"
                                 to={`/tables/${tableProperty.id}`}
                               >
                                 Table {tableProperty.number} is requesting the
                                 waiter.
                               </Link>
-                              <div class="dropdown-divider"></div>
+                              <div className="dropdown-divider"></div>
                             </div>
                           ) : tableProperty.orderStatus === "pending" ? (
-                            <div>
+                            <div key={index}>
                               <Link
-                                class="dropdown-item"
+                                className="dropdown-item"
                                 to={`/tables/${tableProperty.id}`}
                               >
                                 Table {tableProperty.number} is ordering.
                               </Link>
-                              <div class="dropdown-divider"></div>
+                              <div className="dropdown-divider"></div>
                             </div>
                           ) : null
                         )}

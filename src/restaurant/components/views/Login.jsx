@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default ({ handlerSubmit, handlerChange, buttonClick }) => {
+export default ({ handlerSubmit, handlerChange }) => {
   return (
     <div>
       <div
@@ -47,13 +47,6 @@ export default ({ handlerSubmit, handlerChange, buttonClick }) => {
                 id="exampleInputEmail1"
                 aria-describedby="emailHelp"
                 onChange={handlerChange}
-                // style={
-                //   state.error && !state.email
-                //     ? {
-                //         borderColor: "red"
-                //       }
-                //     : null
-                // }
               />
               <small id="emailHelp" className="form-text text-muted">
                 We'll never share your email with anyone else.
@@ -75,7 +68,7 @@ export default ({ handlerSubmit, handlerChange, buttonClick }) => {
               />
             </div>
             <button
-              //onClick={buttonClick}
+              onClick={(e) => handlerSubmit(e)}
               type="submit"
               className="btn btn-primary"
               style={{
@@ -94,12 +87,6 @@ export default ({ handlerSubmit, handlerChange, buttonClick }) => {
             >
               Forgot password?
             </Link>
-            {/* {state.error ? (
-              <div>
-                <br />
-                <p>Invalid email and/or password</p>
-              </div>
-            ) : null} */}
           </form>
         </div>
       </div>

@@ -4,11 +4,14 @@ import Sidebar from "../general/Sidebar";
 import Product from "../../../restaurant/components/edit/Configurations";
 import { connect } from "react-redux";
 import Configurations from "../../../restaurant/components/edit/Configurations";
+import { showLoader, hideLoader } from "../../../store/actions/loginAction";
+import FullPageLoader from "../../components/FullPageLoader/FullPageLoader";
 const DB = firebase.db;
 
 const mapStateToProps = (state) => {
   return {
     restaurantId: state.user.loginUser.restaurantID,
+    isAuth: state.user.isAuth,
   };
 };
 
@@ -27,18 +30,25 @@ class EditConfigurations extends React.Component {
   }
 
   componentDidMount() {
-    let doc = DB.collection("restaurants").doc(this.props.restaurantId);
-    doc.get().then((restaurantInfo) => {
-      this.setState({
-        name: restaurantInfo.data().name,
-        mail: restaurantInfo.data().mail,
-        phone: restaurantInfo.data().phone,
-        logoImage: restaurantInfo.data().logoImage,
-        backgroundImage: restaurantInfo.data().backgroundImage,
+    if (this.props.isAuth === false) {
+      this.props.history.push("/");
+    } else {
+      this.props.dispatch(showLoader())
+      let doc = DB.collection("restaurants").doc(this.props.restaurantId);
+      doc.get().then((restaurantInfo) => {
+        this.setState({
+          name: restaurantInfo.data().name,
+          mail: restaurantInfo.data().mail,
+          phone: restaurantInfo.data().phone,
+          logoImage: restaurantInfo.data().logoImage,
+          backgroundImage: restaurantInfo.data().backgroundImage,
+        });
+        setTimeout(() => {
+          this.props.dispatch(hideLoader())
+        }, 500)
       });
-    });
+    }
   }
-
   handleSubmit(e) {
     e.preventDefault();
     let docRestaurant = DB.collection("restaurants").doc(
@@ -66,6 +76,9 @@ class EditConfigurations extends React.Component {
           submit={this.handleSubmit}
           restaurant={this.state}
         />
+        <div>
+          <FullPageLoader />
+        </div>
       </div>
     );
   }

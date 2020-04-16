@@ -2,12 +2,15 @@ import React from "react";
 import firebase from "../../../services/firebase";
 import Sidebar from "../general/Sidebar";
 import Menu from "../../../restaurant/components/edit/Menu";
+import FullPageLoader from "../../components/FullPageLoader/FullPageLoader"
 import { connect } from "react-redux";
+import { showLoader, hideLoader } from "../../../store/actions/loginAction";
 const DB = firebase.db;
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    restoId: state.user.loginUser.restaurantID
+    restoId: state.user.loginUser.restaurantID,
+    isAuth: state.user.isAuth,
   };
 };
 
@@ -15,7 +18,7 @@ class EditMenuContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      nameOfMenu: ""
+      nameOfMenu: "",
     };
     this.handleInputs = this.handleInputs.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -23,15 +26,23 @@ class EditMenuContainer extends React.Component {
 
   menuId = this.props.match.params.id;
   componentDidMount() {
-    let doc = DB.collection("restaurants")
-      .doc(this.props.restoId)
-      .collection("menu")
-      .doc(this.menuId);
-    doc.get().then(menu => {
-      this.setState({
-        nameOfMenu: menu.data().nameOfMenu
+    if (this.props.isAuth === false) {
+      this.props.history.push("/");
+    } else {
+      this.props.dispatch(showLoader())
+      let doc = DB.collection("restaurants")
+        .doc(this.props.restoId)
+        .collection("menu")
+        .doc(this.menuId);
+      doc.get().then((menu) => {
+        this.setState({
+          nameOfMenu: menu.data().nameOfMenu,
+        });
+        setTimeout(() => {
+          this.props.dispatch(hideLoader())
+        })
       });
-    });
+    }
   }
 
   handleSubmit(e) {
@@ -49,7 +60,7 @@ class EditMenuContainer extends React.Component {
     let key = e.target.name;
     let input = e.target.value;
     this.setState({
-      [key]: input
+      [key]: input,
     });
   }
 
@@ -62,6 +73,9 @@ class EditMenuContainer extends React.Component {
           submit={this.handleSubmit}
           menu={this.state}
         />
+        <div>
+          <FullPageLoader />
+        </div>
       </div>
     );
   }

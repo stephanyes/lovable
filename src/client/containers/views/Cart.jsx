@@ -3,7 +3,6 @@ import firebase from "../../../services/firebase";
 import Cart from "../../../client/components/views/Cart";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
-import { withRouter, Link } from "react-router-dom";
 const MySwal = withReactContent(Swal);
 
 const DB = firebase.db;
@@ -76,6 +75,7 @@ class ViewCartContainer extends React.Component {
 
   deleteClick(e, id) {
     e.preventDefault();
+
     const order = DB.collection("restaurants")
       .doc(this.props.match.params.idRestaurant)
       .collection("orders")

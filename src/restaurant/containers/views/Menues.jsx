@@ -1,6 +1,7 @@
 import React from "react";
 import Sidebar from "../general/Sidebar";
 import Menues from "../../../restaurant/components/views/Menues";
+import FullPageLoader from "../../components/FullPageLoader/FullPageLoader";
 import { connect } from "react-redux";
 import { getMenu, deleteMenu } from "../../../store/actions/menuActions";
 
@@ -12,7 +13,11 @@ class MenuContainer extends React.Component {
   }
 
   componentDidMount() {
-    this.props.buscandoMenu(this.props.restaurantID);
+    if (this.props.isAuth === false) {
+      this.props.history.push("/");
+    } else {
+      this.props.buscandoMenu(this.props.restaurantID);
+    }
   }
   handleDelete(e, id) {
     e.preventDefault();
@@ -27,6 +32,9 @@ class MenuContainer extends React.Component {
           menuObject={this.props.menuArray}
           deleteFunc={this.handleDelete}
         />
+        <div>
+          <FullPageLoader />
+        </div>
       </div>
     );
   }
@@ -36,13 +44,14 @@ const mapStateToProps = (state) => {
   return {
     restaurantID: state.user.loginUser.restaurantID,
     menuArray: state.menuArray.menuArray,
+    isAuth: state.user.isAuth,
   };
 };
 const mapDispatchToProps = (dispatch) => {
   return {
     buscandoMenu: (restoID) => dispatch(getMenu(restoID)),
     eliminar: (restoID, id, history) =>
-      dispatch(deleteMenu(restoID, id, history)),
+      dispatch(deleteMenu(restoID, id, history))
   };
 };
 

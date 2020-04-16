@@ -5,9 +5,10 @@ import Product from "../../../restaurant/components/create/Product";
 import { connect } from "react-redux";
 const DB = firebase.db;
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    userLogin: state.user.loginUser.restaurantID
+    isAuth: state.user.isAuth,
+    userLogin: state.user.loginUser.restaurantID,
   };
 };
 
@@ -19,13 +20,17 @@ class CreateProductContainer extends React.Component {
       description: "",
       imageProduct: "",
       price: "",
-      stock: true
+      stock: true,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInputs = this.handleInputs.bind(this);
   }
   menuId = this.props.match.params.id;
   categoryId = this.props.match.params.categoryId;
+
+  componentDidMount() {
+    if (this.props.isAuth == false) this.props.history.push("/");
+  }
 
   handleSubmit(e) {
     e.preventDefault();
@@ -45,7 +50,7 @@ class CreateProductContainer extends React.Component {
     let key = e.target.name;
     let input = e.target.value;
     this.setState({
-      [key]: input
+      [key]: input,
     });
   }
   render() {

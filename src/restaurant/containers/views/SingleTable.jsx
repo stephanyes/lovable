@@ -1,10 +1,11 @@
 import React from "react";
+import axios from "axios";
 import firebase from "../../../services/firebase";
 import SingleTable from "../../../restaurant/components/views/SingleTable";
 import Sidebar from "../general/Sidebar";
+import FullPageLoader from "../../components/FullPageLoader/FullPageLoader";
+import { showLoader, hideLoader } from "../../../store/actions/loginAction";
 import { connect } from "react-redux";
-import nodemailer from "nodemailer";
-//const nodemailer = require("nodemailer");
 
 const DB = firebase.db;
 
@@ -17,6 +18,7 @@ let orderId;
 const mapStateToProps = (state) => {
   return {
     userLogin: state.user.loginUser.restaurantID,
+    isAuth: state.user.isAuth,
   };
 };
 
@@ -32,66 +34,78 @@ class SingleTableContainer extends React.Component {
     this.handlerButton = this.handlerButton.bind(this);
     this.orderHandler = this.orderHandler.bind(this);
     this.tableHandler = this.tableHandler.bind(this);
-    this.sendMailToUser = this.sendMailToUser.bind(this);
   }
 
   componentDidMount() {
-    pruebaSingleTable = DB.collection("restaurants")
-      .doc(`${this.props.userLogin}`)
-      .collection("tables")
-      .doc(this.props.match.params.idTable);
-    pruebaSingleTable.onSnapshot((tableDoc) => {
-      this.setState({
-        table: {
-          clientActual: tableDoc.data().clientActual,
-          number: tableDoc.data().number,
-          orderActual: tableDoc.data().orderActual,
-          secretCode: tableDoc.data().secretCode,
-          state: tableDoc.data().state,
-          waiter: tableDoc.data().waiter,
-          pay: tableDoc.data().pay,
-          orderStatus: tableDoc.data().orderStatus,
-          id: tableDoc.id,
-        },
-      });
-      if (tableDoc.data().orderActual !== 0) {
-        orderId = tableDoc.data().orderActual.toString();
-        this.setState({ order: orderId });
-        orderQuery = DB.collection("restaurants")
-          .doc(`${this.props.userLogin}`)
-          .collection("orders")
-          .doc(orderId);
-        orderQuery.onSnapshot((docSnapshot) => {
-          this.setState({
-            tableOrder: {
-              status: docSnapshot.data().status,
-              totalPrice: docSnapshot.data().totalPrice,
-              mail: docSnapshot.data().mail,
-            },
-          });
-          productsTable = orderQuery.collection("products");
-          productsTable.onSnapshot((prodDoc) => {
-            let arrayHelper = [];
-            prodDoc.forEach((singleProd) => {
-              arrayHelper.push({
-                name: singleProd.data().name,
-                price: singleProd.data().price,
+    if (this.props.isAuth === false) {
+      this.props.history.push("/");
+    } else {
+      this.props.dispatch(showLoader())
+      pruebaSingleTable = DB.collection("restaurants")
+        .doc(`${this.props.userLogin}`)
+        .collection("tables")
+        .doc(this.props.match.params.idTable);
+      pruebaSingleTable.onSnapshot((tableDoc) => {
+        this.setState({
+          table: {
+            clientActual: tableDoc.data().clientActual,
+            number: tableDoc.data().number,
+            orderActual: tableDoc.data().orderActual,
+            secretCode: tableDoc.data().secretCode,
+            state: tableDoc.data().state,
+            waiter: tableDoc.data().waiter,
+            pay: tableDoc.data().pay,
+            orderStatus: tableDoc.data().orderStatus,
+            id: tableDoc.id,
+          },
+        });
+        if (tableDoc.data().orderActual !== 0) {
+          orderId = tableDoc.data().orderActual.toString();
+          this.setState({ order: orderId });
+          orderQuery = DB.collection("restaurants")
+            .doc(`${this.props.userLogin}`)
+            .collection("orders")
+            .doc(orderId);
+          orderQuery.onSnapshot((docSnapshot) => {
+            this.setState({
+              tableOrder: {
+                status: docSnapshot.data().status,
+                totalPrice: docSnapshot.data().totalPrice,
+                mail: docSnapshot.data().mail,
+              },
+            });
+            productsTable = orderQuery.collection("products");
+            productsTable.onSnapshot((prodDoc) => {
+              let arrayHelper = [];
+              prodDoc.forEach((singleProd) => {
+                arrayHelper.push({
+                  comments: singleProd.data().comments,
+                  name: singleProd.data().name,
+                  price: singleProd.data().price,
+                  quantity: singleProd.data().quantity,
+                });
+              });
+              this.setState({
+                productArray: arrayHelper,
               });
             });
-            this.setState({
-              productArray: arrayHelper,
-            });
           });
-        });
-      }
-    });
+        }
+      });
+      setTimeout(() => {
+        this.props.dispatch(hideLoader())
+      }, 500)
+
+    }
   }
 
   componentWillUnmount() {
-    pruebaSingleTable.onSnapshot(() => {});
+    if (pruebaSingleTable) {
+      pruebaSingleTable.onSnapshot(() => { });
+    }
     if (orderQuery && productsTable) {
-      orderQuery.onSnapshot(() => {});
-      productsTable.onSnapshot(() => {});
+      orderQuery.onSnapshot(() => { });
+      productsTable.onSnapshot(() => { });
     }
   }
 
@@ -143,35 +157,8 @@ class SingleTableContainer extends React.Component {
     }
   }
 
-  sendMailToUser(email) {
-    console.log("llegue adentro de la funcion con este mail", email);
-    // sendMail(dueñoTarjeta, numTarj, email, total, dir){
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: "winesellectionp5@gmail.com",
-        pass: "plataforma5",
-      },
-    });
-    const mailOptions = {
-      from: "winesellectionp5@gmail.com",
-      to: `${email}`,
-      subject: "Gracias por elegirnos!",
-      text: `Estimado/a. Su compra se ha efectudo satisfactoriamente al numero de tarjeta por un monto total de. Dicha entrega será en en aproximadamente 3 días. Recuerde que puede dejar una reseña ingresando a nuestra página.
-        Muchas gracias por elegirnos`,
-    };
-    transporter.sendMail(mailOptions, function (error, info) {
-      if (error) {
-        console.log(error);
-      } else {
-        console.log("Se ha enviando el mail");
-      }
-    });
-  }
-
   handlerButton(e, string) {
     e.preventDefault();
-    let mailToSend;
     let SingleTable = DB.collection("restaurants")
       .doc(`${this.props.userLogin}`)
       .collection("tables")
@@ -181,24 +168,38 @@ class SingleTableContainer extends React.Component {
         .doc(`${this.props.userLogin}`)
         .collection("orders")
         .doc(orderId);
-      SingleTable.get().then((table) => {
-        if (table.data().mail) {
-          mailToSend = table.data().mail;
-          this.sendMailToUser(mailToSend);
-          orderChange.update({ status: string, mail: mailToSend });
-        } else {
-          orderChange.update({ status: string });
-        }
-      });
+      SingleTable.get()
+        .then((table) => {
+          if (table.data().mail) {
+            orderChange.update({ status: string, mail: table.data().mail })
+            axios({
+              headers: { "Access-Control-Allow-Origin": "*" },
+              method: "post",
+              data: { mail: table.data().mail },
+              url: "http://localhost:5000/lovable-qr/us-central1/app/api/mail"
+            })
+              .then(res => console.log(res))
+              .catch(err => console.error(err))
+          }
+          else {
+            orderChange.update({ status: string });
+          }
+        })
     } else {
-      SingleTable.get().then((table) => {
-        if (table.data().mail) {
-          mailToSend = table.data().mail;
-          this.sendMailToUser(mailToSend);
-        }
-      });
+      SingleTable.get()
+        .then((table) => {
+          if (table.data().mail) {
+            axios({
+              headers: { "Access-Control-Allow-Origin": "*" },
+              method: "post",
+              data: { mail: table.data().mail },
+              url: "http://localhost:5000/lovable-qr/us-central1/app/api/mail"
+            })
+              .then(res => console.log(res))
+              .catch(err => console.error(err))
+          }
+        });
     }
-
     SingleTable.update({
       clientActual: 0,
       orderActual: 0,
@@ -209,7 +210,6 @@ class SingleTableContainer extends React.Component {
       waiter: false,
       mail: "",
     });
-
     this.props.history.push(`/dashboard`);
   }
 
@@ -226,6 +226,9 @@ class SingleTableContainer extends React.Component {
           orderHandler={this.orderHandler}
           tableHandler={this.tableHandler}
         />
+        <div>
+          <FullPageLoader />
+        </div>
       </div>
     );
   }

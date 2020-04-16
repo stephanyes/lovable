@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
 export default ({
   buttonClick,
@@ -70,7 +69,9 @@ export default ({
                   <table className="table table-bordered">
                     <thead>
                       <th>Product</th>
+                      <th>Quantity</th>
                       <th>Price</th>
+                      <th>Comments</th>
                     </thead>
                     <tbody>
                       {productArray
@@ -78,13 +79,17 @@ export default ({
                             return (
                               <tr key={index}>
                                 <td>{product.name}</td>
+                                <td>{product.quantity}</td>
                                 <td>{product.price}</td>
+                                <td>{product.comments}</td>
                               </tr>
                             );
                           })
                         : null}
                       <tr>
                         <td>Total</td>
+                        <td></td>
+                        <td></td>
                         <td>{order.totalPrice}</td>
                       </tr>
                     </tbody>
@@ -133,7 +138,6 @@ export default ({
                             style={{
                               backgroundColor: "#ff2068",
                               borderColor: "#ff2068",
-                              //marginRight: "20px"
                             }}
                             className="btn btn-primary btn-lg"
                           >

@@ -23,12 +23,6 @@ export default ({}) => {
         </div>
 
         <ul className="list-unstyled components">
-          {/* // <p>Dashboard</p> */}
-          {/* <li class="active">
-            <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false">
-              Dashboard
-            </a>
-          </li> */}
           <li>
             <Link
               className="nav-link active"

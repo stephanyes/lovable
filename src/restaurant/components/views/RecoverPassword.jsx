@@ -4,24 +4,23 @@ import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import { withRouter } from "react-router-dom";
 
-const RecoverPassword = props => {
+const RecoverPassword = (props) => {
   let email = "";
   const MySwal = withReactContent(Swal);
 
-  const handleInput = e => {
+  const handleInput = (e) => {
     email = e.target.value;
   };
-  const handlerClick = function(e) {
+  const handlerClick = function (e) {
     e.preventDefault();
     let auth = firebase.auth;
-    //let emailAddress = e.target.value;
     auth
       .sendPasswordResetEmail(email)
-      .then(function() {
+      .then(function () {
         MySwal.fire("Please go checkout your email");
         props.history.push("/");
       })
-      .catch(function(error) {
+      .catch(function (error) {
         MySwal.fire(error.message);
       });
   };
@@ -30,14 +29,14 @@ const RecoverPassword = props => {
       <div
         className="row align-items-center"
         style={{
-          backgroundColor: "#ffffff"
+          backgroundColor: "#ffffff",
         }}
       >
         <div className="col">
           <img
             style={{
               height: "760px",
-              opacity: "0.85"
+              opacity: "0.85",
             }}
             src="https://insideone.s3-sa-east-1.amazonaws.com/login-lovable-image.png"
             className="img-fluid"
@@ -46,17 +45,17 @@ const RecoverPassword = props => {
         </div>
         <div className="col">
           <form
-            onSubmit={e => handlerClick(e)}
+            onSubmit={(e) => handlerClick(e)}
             style={{
               padding: "40px",
-              marginRight: "20px"
+              marginRight: "20px",
             }}
           >
             <div className="form-group">
               <h1
                 className="font-weight-bold"
                 style={{
-                  paddingBottom: "10px"
+                  paddingBottom: "10px",
                 }}
               >
                 Recover Password
@@ -73,12 +72,12 @@ const RecoverPassword = props => {
               <div
                 className="form-group"
                 style={{
-                  paddingBottom: "20px"
+                  paddingBottom: "20px",
                 }}
               >
                 <label>Email address</label>
                 <input
-                  onChange={e => handleInput(e)}
+                  onChange={(e) => handleInput(e)}
                   name="email"
                   type="email"
                   className="form-control"
@@ -92,7 +91,7 @@ const RecoverPassword = props => {
                 className="btn btn-primary"
                 style={{
                   backgroundColor: "#FF2068",
-                  borderColor: "#FF2068"
+                  borderColor: "#FF2068",
                 }}
               >
                 Recover password

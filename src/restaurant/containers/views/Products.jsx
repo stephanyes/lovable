@@ -5,12 +5,15 @@ import Products from "../../../restaurant/components/views/Products";
 import { connect } from "react-redux";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import FullPageLoader from "../../components/FullPageLoader/FullPageLoader";
+import { hideLoader, showLoader } from "../../../store/actions/loginAction";
 
 const DB = firebase.db;
 let doc;
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    userLogin: state.user.loginUser.restaurantID
+    userLogin: state.user.loginUser.restaurantID,
+    isAuth: state.user.isAuth,
   };
 };
 
@@ -19,7 +22,7 @@ class ProductsContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      productsArray: []
+      productsArray: [],
     };
     this.handleDelete = this.handleDelete.bind(this);
     this.handleStock = this.handleStock.bind(this);
@@ -28,35 +31,43 @@ class ProductsContainer extends React.Component {
   categoryId = this.props.match.params.categoryId;
 
   componentDidMount() {
-    doc = DB.collection("restaurants")
-      .doc(this.props.userLogin)
-      .collection("menu")
-      .doc(this.menuId)
-      .collection("categories")
-      .doc(this.categoryId)
-      .collection("products");
-    //Doc en este container es un array de IDS en referencia a todos los productos que van a haber
-    doc.onSnapshot(productDocument => {
-      let product = [];
-      productDocument.forEach(ind => {
-        //ind.id me da el id de cada producto que vaya a haber
-        //Eventualmente el id de cada producto lo vamos a necesitar para reflejarlo en el carrito y editar
-        product.push({
-          id: ind.id,
-          name: ind.data().name,
-          imageProduct: ind.data().imageProduct,
-          price: ind.data().price,
-          description: ind.data().description,
-          stock: ind.data().stock
+    if (this.props.isAuth === false) {
+      this.props.history.push("/");
+    } else {
+      this.props.dispatch(showLoader())
+      doc = DB.collection("restaurants")
+        .doc(this.props.userLogin)
+        .collection("menu")
+        .doc(this.menuId)
+        .collection("categories")
+        .doc(this.categoryId)
+        .collection("products");
+      //Doc en este container es un array de IDS en referencia a todos los productos que van a haber
+      doc.onSnapshot((productDocument) => {
+        let product = [];
+        productDocument.forEach((ind) => {
+          //ind.id me da el id de cada producto que vaya a haber
+          //Eventualmente el id de cada producto lo vamos a necesitar para reflejarlo en el carrito y editar
+          product.push({
+            id: ind.id,
+            name: ind.data().name,
+            imageProduct: ind.data().imageProduct,
+            price: ind.data().price,
+            description: ind.data().description,
+            stock: ind.data().stock,
+          });
         });
+        this.setState({
+          productsArray: product,
+        });
+        setTimeout(() => {
+          this.props.dispatch(hideLoader())
+        }, 500)
       });
-      this.setState({
-        productsArray: product
-      });
-    });
+    }
   }
   componentWillUnmount() {
-    doc.onSnapshot(() => {});
+    if (doc) doc.onSnapshot(() => { });
   }
   handleStock(e, id) {
     e.preventDefault();
@@ -68,7 +79,7 @@ class ProductsContainer extends React.Component {
       .doc(this.categoryId)
       .collection("products")
       .doc(id);
-    documento.get().then(producto => {
+    documento.get().then((producto) => {
       let boolean = producto.data().stock;
       documento.update({ stock: !boolean });
     });
@@ -93,8 +104,8 @@ class ProductsContainer extends React.Component {
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Confirm"
-    }).then(result => {
+      confirmButtonText: "Confirm",
+    }).then((result) => {
       if (result.value) {
         MySwal.fire("Deleted!", `Your product has been deleted.`, "success");
         doc.delete();
@@ -113,6 +124,9 @@ class ProductsContainer extends React.Component {
           deleteFunc={this.handleDelete}
           handleStock={this.handleStock}
         />
+        <div>
+          <FullPageLoader />
+        </div>
       </div>
     );
   }
