@@ -59,7 +59,9 @@ class TablesContainer extends React.Component {
             id: doc.id,
           });
           this.setState({ tables }, this.ordenar(this.state.tables));
-          this.props.dispatch(hideLoader())
+          setTimeout(() => {
+            this.props.dispatch(hideLoader())
+          }, 500)
         });
       });
     }
@@ -77,7 +79,7 @@ class TablesContainer extends React.Component {
   };
 
   componentWillUnmount() {
-    if (tablesDoc) tablesDoc.onSnapshot(() => {});
+    if (tablesDoc) tablesDoc.onSnapshot(() => { });
   }
 
   render() {

@@ -4,6 +4,8 @@ import Sidebar from "../general/Sidebar";
 import Product from "../../../restaurant/components/edit/Configurations";
 import { connect } from "react-redux";
 import Configurations from "../../../restaurant/components/edit/Configurations";
+import { showLoader, hideLoader } from "../../../store/actions/loginAction";
+import FullPageLoader from "../../components/FullPageLoader/FullPageLoader";
 const DB = firebase.db;
 
 const mapStateToProps = (state) => {
@@ -28,9 +30,10 @@ class EditConfigurations extends React.Component {
   }
 
   componentDidMount() {
-    if (this.props.isAuth == false) {
+    if (this.props.isAuth === false) {
       this.props.history.push("/");
     } else {
+      this.props.dispatch(showLoader())
       let doc = DB.collection("restaurants").doc(this.props.restaurantId);
       doc.get().then((restaurantInfo) => {
         this.setState({
@@ -40,6 +43,9 @@ class EditConfigurations extends React.Component {
           logoImage: restaurantInfo.data().logoImage,
           backgroundImage: restaurantInfo.data().backgroundImage,
         });
+        setTimeout(() => {
+          this.props.dispatch(hideLoader())
+        }, 500)
       });
     }
   }
@@ -70,6 +76,9 @@ class EditConfigurations extends React.Component {
           submit={this.handleSubmit}
           restaurant={this.state}
         />
+        <div>
+          <FullPageLoader />
+        </div>
       </div>
     );
   }

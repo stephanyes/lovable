@@ -36,7 +36,7 @@ class OrdersContainer extends React.Component {
   }
 
   componentDidMount() {
-    if (this.props.isAuth == false) {
+    if (this.props.isAuth === false) {
       this.props.history.push("/");
     } else {
       this.props.dispatch(showLoader())
@@ -112,6 +112,7 @@ class OrdersContainer extends React.Component {
               status: order.data().status,
               totalPrice: order.data().totalPrice,
               notify: order.data().notify,
+              date: order.data().date
             });
           }
         });
@@ -123,7 +124,9 @@ class OrdersContainer extends React.Component {
           orderCompletedOld: completedOld,
           total: totalCobradoEnElDia,
         });
-        this.props.dispatch(hideLoader())
+        setTimeout(() => {
+          this.props.dispatch(hideLoader())
+        }, 500)
       });
     }
   }

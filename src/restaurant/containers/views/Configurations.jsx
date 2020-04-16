@@ -2,7 +2,9 @@ import React from "react";
 import firebase from "../../../services/firebase";
 import Sidebar from "../general/Sidebar";
 import Footer from "../general/Footer";
+import FullPageLoader from '../../components/FullPageLoader/FullPageLoader'
 import Configurations from "../../../restaurant/components/views/Configurations";
+import { hideLoader, showLoader } from '../../../store/actions/loginAction'
 import { connect } from "react-redux";
 
 const DB = firebase.db;
@@ -25,9 +27,10 @@ class ConfigurationsContainer extends React.Component {
   }
 
   componentDidMount() {
-    if (this.props.isAuth == false) {
+    if (this.props.isAuth === false) {
       this.props.history.push("/");
     } else {
+      this.props.dispatch(showLoader())
       restaurantDoc = DB.collection("restaurants").doc(
         `${this.props.restaurantId}`
       );
@@ -45,6 +48,9 @@ class ConfigurationsContainer extends React.Component {
             id: doc.id,
           },
         });
+        setTimeout(() => {
+          this.props.dispatch(hideLoader())
+        }, 500)
       });
       restaurantDoc
         .collection("tables")
@@ -62,6 +68,9 @@ class ConfigurationsContainer extends React.Component {
           restaurantId={this.props.restaurantId}
           quantityMesas={this.state.quantityMesas}
         />
+        <div>
+          <FullPageLoader />
+        </div>
         <Footer />
       </div>
     );

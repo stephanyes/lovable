@@ -3,6 +3,8 @@ import firebase from "../../../services/firebase";
 import Sidebar from "../general/Sidebar";
 import Product from "../../../restaurant/components/edit/Product";
 import { connect } from "react-redux";
+import { showLoader, hideLoader } from "../../../store/actions/loginAction";
+import FullPageLoader from "../../components/FullPageLoader/FullPageLoader";
 const DB = firebase.db;
 
 const mapStateToProps = (state) => {
@@ -30,9 +32,10 @@ class EditProductContainer extends React.Component {
   productId = this.props.match.params.productId;
 
   componentDidMount() {
-    if (this.props.isAuth == false) {
+    if (this.props.isAuth === false) {
       this.props.history.push("/");
     } else {
+      this.props.dispatch(showLoader())
       let doc = DB.collection("restaurants")
         .doc(this.props.restoId)
         .collection("menu")
@@ -48,6 +51,9 @@ class EditProductContainer extends React.Component {
           imageProduct: product.data().imageProduct,
           price: product.data().price,
         });
+        setTimeout(() => {
+          this.props.dispatch(hideLoader())
+        }, 500)
       });
     }
   }
@@ -84,6 +90,9 @@ class EditProductContainer extends React.Component {
           submit={this.handleSubmit}
           product={this.state}
         />
+        <div>
+          <FullPageLoader />
+        </div>
       </div>
     );
   }

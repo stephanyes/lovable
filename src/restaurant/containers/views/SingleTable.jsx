@@ -88,11 +88,14 @@ class SingleTableContainer extends React.Component {
               this.setState({
                 productArray: arrayHelper,
               });
-              this.props.dispatch(hideLoader())
             });
           });
         }
       });
+      setTimeout(() => {
+        this.props.dispatch(hideLoader())
+      }, 500)
+
     }
   }
 

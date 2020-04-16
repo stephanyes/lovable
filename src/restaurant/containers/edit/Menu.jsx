@@ -2,7 +2,9 @@ import React from "react";
 import firebase from "../../../services/firebase";
 import Sidebar from "../general/Sidebar";
 import Menu from "../../../restaurant/components/edit/Menu";
+import FullPageLoader from "../../components/FullPageLoader/FullPageLoader"
 import { connect } from "react-redux";
+import { showLoader, hideLoader } from "../../../store/actions/loginAction";
 const DB = firebase.db;
 
 const mapStateToProps = (state) => {
@@ -24,9 +26,10 @@ class EditMenuContainer extends React.Component {
 
   menuId = this.props.match.params.id;
   componentDidMount() {
-    if (this.props.isAuth == false) {
+    if (this.props.isAuth === false) {
       this.props.history.push("/");
     } else {
+      this.props.dispatch(showLoader())
       let doc = DB.collection("restaurants")
         .doc(this.props.restoId)
         .collection("menu")
@@ -35,6 +38,9 @@ class EditMenuContainer extends React.Component {
         this.setState({
           nameOfMenu: menu.data().nameOfMenu,
         });
+        setTimeout(() => {
+          this.props.dispatch(hideLoader())
+        })
       });
     }
   }
@@ -67,6 +73,9 @@ class EditMenuContainer extends React.Component {
           submit={this.handleSubmit}
           menu={this.state}
         />
+        <div>
+          <FullPageLoader />
+        </div>
       </div>
     );
   }

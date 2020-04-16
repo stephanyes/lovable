@@ -5,6 +5,8 @@ import Categories from "../../../restaurant/components/views/Categories";
 import { connect } from "react-redux";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import FullPageLoader from "../../components/FullPageLoader/FullPageLoader";
+import { showLoader, hideLoader } from "../../../store/actions/loginAction";
 const DB = firebase.db;
 
 const mapStateToProps = (state) => {
@@ -26,9 +28,10 @@ class MenuIndividualContainer extends React.Component {
   }
   menuId = this.props.match.params.id;
   componentDidMount() {
-    if (this.props.isAuth == false) {
+    if (this.props.isAuth === false) {
       this.props.history.push("/");
     } else {
+      this.props.dispatch(showLoader())
       let doc = DB.collection("restaurants")
         .doc(this.props.userLogin)
         .collection("menu")
@@ -57,7 +60,11 @@ class MenuIndividualContainer extends React.Component {
               });
             });
           });
+        setTimeout(() => {
+          this.props.dispatch(hideLoader())
+        }, 500)
       });
+
     }
   }
 
@@ -101,6 +108,9 @@ class MenuIndividualContainer extends React.Component {
           menuId={this.props.match.params.id}
           deleteFunc={this.handleDelete}
         />
+        <div>
+          <FullPageLoader />
+        </div>
       </div>
     );
   }
