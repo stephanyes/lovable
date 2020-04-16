@@ -7,33 +7,34 @@ export default ({ handlerSubmit, handlerChange, buttonClick }) => {
       <div
         className="row align-items-center"
         style={{
-          backgroundColor: "#ffffff"
+          backgroundColor: "#ffffff",
         }}
       >
-        <div className="col">
-          <img
-            style={{
-              height: "760px",
-              opacity: "0.85"
-            }}
-            src="https://insideone.s3-sa-east-1.amazonaws.com/login-lovable-image.png"
-            className="img-fluid"
-            alt="Responsive"
-          />
-        </div>
+        <div
+          className="col"
+          style={{
+            width: "100%",
+            height: "1050px",
+            backgroundImage: `url(${"https://insideone.s3-sa-east-1.amazonaws.com/login-lovable-x1.png"})`,
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+            //backgroundSize: "100% auto",
+            //  border: "1px solid red",
+          }}
+        ></div>
         <div className="col">
           <form
-            onSubmit={e => handlerSubmit(e)}
+            onSubmit={(e) => handlerSubmit(e)}
             style={{
               padding: "40px",
-              marginRight: "20px"
+              marginRight: "20px",
             }}
           >
             <div className="form-group">
               <h1
                 className="font-weight-bold"
                 style={{
-                  paddingBottom: "20px"
+                  paddingBottom: "20px",
                 }}
               >
                 Login
@@ -61,7 +62,7 @@ export default ({ handlerSubmit, handlerChange, buttonClick }) => {
             <div
               className="form-group"
               style={{
-                paddingBottom: "20px"
+                paddingBottom: "20px",
               }}
             >
               <label>Password</label>
@@ -79,7 +80,7 @@ export default ({ handlerSubmit, handlerChange, buttonClick }) => {
               className="btn btn-primary"
               style={{
                 backgroundColor: "#FF2068",
-                borderColor: "#FF2068"
+                borderColor: "#FF2068",
               }}
             >
               Log in
@@ -87,7 +88,7 @@ export default ({ handlerSubmit, handlerChange, buttonClick }) => {
 
             <Link
               style={{
-                marginLeft: "20px"
+                marginLeft: "20px",
               }}
               to="/recover"
             >
@@ -102,6 +103,7 @@ export default ({ handlerSubmit, handlerChange, buttonClick }) => {
           </form>
         </div>
       </div>
+      <div></div>
     </div>
   );
 };
