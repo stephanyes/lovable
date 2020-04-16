@@ -18,7 +18,9 @@ export const getMenu = (restoID) => (dispatch) => {
       menues: array,
     });
   });
-  dispatch(hideLoader())
+  setTimeout(() => {
+    dispatch(hideLoader())
+  }, 500)
 };
 
 export const deleteMenu = (restoID, id, history) => (dispatch) => {

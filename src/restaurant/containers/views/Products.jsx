@@ -5,6 +5,8 @@ import Products from "../../../restaurant/components/views/Products";
 import { connect } from "react-redux";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import FullPageLoader from "../../components/FullPageLoader/FullPageLoader";
+import { hideLoader, showLoader } from "../../../store/actions/loginAction";
 
 const DB = firebase.db;
 let doc;
@@ -29,9 +31,10 @@ class ProductsContainer extends React.Component {
   categoryId = this.props.match.params.categoryId;
 
   componentDidMount() {
-    if (this.props.isAuth == false) {
+    if (this.props.isAuth === false) {
       this.props.history.push("/");
     } else {
+      this.props.dispatch(showLoader())
       doc = DB.collection("restaurants")
         .doc(this.props.userLogin)
         .collection("menu")
@@ -57,6 +60,9 @@ class ProductsContainer extends React.Component {
         this.setState({
           productsArray: product,
         });
+        setTimeout(() => {
+          this.props.dispatch(hideLoader())
+        }, 500)
       });
     }
   }
@@ -118,6 +124,9 @@ class ProductsContainer extends React.Component {
           deleteFunc={this.handleDelete}
           handleStock={this.handleStock}
         />
+        <div>
+          <FullPageLoader />
+        </div>
       </div>
     );
   }

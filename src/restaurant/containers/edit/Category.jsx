@@ -3,6 +3,8 @@ import firebase from "../../../services/firebase";
 import Sidebar from "../general/Sidebar";
 import Category from "../../../restaurant/components/edit/Category";
 import { connect } from "react-redux";
+import FullPageLoader from "../../components/FullPageLoader/FullPageLoader";
+import { showLoader, hideLoader } from "../../../store/actions/loginAction";
 const DB = firebase.db;
 
 const mapStateToProps = (state) => {
@@ -27,9 +29,10 @@ class EditCategoryContainer extends React.Component {
   categoryId = this.props.match.params.categoryId;
 
   componentDidMount() {
-    if (this.props.isAuth == false) {
+    if (this.props.isAuth === false) {
       this.props.history.push("/");
     } else {
+      this.props.dispatch(showLoader())
       let doc = DB.collection("restaurants")
         .doc(this.props.restoId)
         .collection("menu")
@@ -41,6 +44,9 @@ class EditCategoryContainer extends React.Component {
           name: category.data().name,
           imageCategory: category.data().imageCategory,
         });
+        setTimeout(() => {
+          this.props.dispatch(hideLoader())
+        }, 500)
       });
     }
   }
@@ -74,6 +80,9 @@ class EditCategoryContainer extends React.Component {
           submit={this.handleSubmit}
           category={this.state}
         />
+        <div>
+          <FullPageLoader />
+        </div>
       </div>
     );
   }

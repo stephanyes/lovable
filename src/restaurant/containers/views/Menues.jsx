@@ -13,7 +13,7 @@ class MenuContainer extends React.Component {
   }
 
   componentDidMount() {
-    if (this.props.isAuth == false) {
+    if (this.props.isAuth === false) {
       this.props.history.push("/");
     } else {
       this.props.buscandoMenu(this.props.restaurantID);
