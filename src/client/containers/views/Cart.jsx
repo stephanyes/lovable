@@ -70,7 +70,7 @@ class ViewCartContainer extends React.Component {
   }
 
   componentWillUnmount() {
-    order.onSnapshot(() => {});
+    order.onSnapshot(() => { });
   }
 
   deleteClick(e, id) {

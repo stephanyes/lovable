@@ -7,6 +7,11 @@ import Configurations from "../../../restaurant/components/edit/Configurations";
 import { showLoader, hideLoader } from "../../../store/actions/loginAction";
 import FullPageLoader from "../../components/FullPageLoader/FullPageLoader";
 const DB = firebase.db;
+let local = JSON.parse(window.localStorage.getItem('persist:lovableLogin'))
+let userLS
+if (local) {
+  userLS = JSON.parse(local.user)
+}
 
 const mapStateToProps = (state) => {
   return {
@@ -30,11 +35,11 @@ class EditConfigurations extends React.Component {
   }
 
   componentDidMount() {
-    if (this.props.isAuth === false) {
+    if (userLS.isAuth === false) {
       this.props.history.push("/");
     } else {
       this.props.dispatch(showLoader())
-      let doc = DB.collection("restaurants").doc(this.props.restaurantId);
+      let doc = DB.collection("restaurants").doc(userLS.loginUser.restaurantID);
       doc.get().then((restaurantInfo) => {
         this.setState({
           name: restaurantInfo.data().name,
