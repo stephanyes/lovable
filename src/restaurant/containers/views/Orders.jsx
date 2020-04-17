@@ -4,20 +4,16 @@ import Sidebar from "../general/Sidebar";
 import Orders from "../../../restaurant/components/views/Orders";
 import FullPageLoader from "../../components/FullPageLoader/FullPageLoader";
 import { showLoader, hideLoader } from "../../../store/actions/loginAction";
-
-
 import { connect } from "react-redux";
 const DB = firebase.db;
 let doc;
 let tableId;
 let dateNow = `${new Date()}`.slice(0, 15);
-
-const mapStateToProps = (state) => {
-  return {
-    userLogin: state.user.loginUser.restaurantID,
-    isAuth: state.user.isAuth,
-  };
-};
+let local = JSON.parse(window.localStorage.getItem('persist:lovableLogin'))
+let userLS
+if (local) {
+  userLS = JSON.parse(local.user)
+}
 
 class OrdersContainer extends React.Component {
   constructor(props) {
@@ -36,12 +32,12 @@ class OrdersContainer extends React.Component {
   }
 
   componentDidMount() {
-    if (this.props.isAuth === false) {
+    if (userLS.isAuth === false) {
       this.props.history.push("/");
     } else {
       this.props.dispatch(showLoader())
       doc = DB.collection("restaurants")
-        .doc(this.props.userLogin)
+        .doc(userLS.loginUser.restaurantID)
         .collection("orders");
       doc.onSnapshot((ordersDocuments) => {
         let pending = [];
@@ -100,20 +96,6 @@ class OrdersContainer extends React.Component {
               notify: order.data().notify,
             });
             totalCobradoEnElDia = totalCobradoEnElDia + order.data().totalPrice;
-          } else if (
-            order.data().status === "completed" &&
-            order.data().date !== dateNow
-          ) {
-            completedOld.push({
-              id: order.id,
-              idUser: order.data().idUser,
-              numberOfOrder: order.data().numberOfOrder,
-              numberOfTable: order.data().numberOfTable,
-              status: order.data().status,
-              totalPrice: order.data().totalPrice,
-              notify: order.data().notify,
-              date: order.data().date
-            });
           }
         });
         this.setState({
@@ -180,7 +162,7 @@ class OrdersContainer extends React.Component {
           history={this.state.history}
           showHistory={this.showHistory}
           completedToday={this.state.orderCompletedToday}
-          completedOld={this.state.orderCompletedOld}
+          //completedOld={this.state.orderCompletedOld}
           accepted={this.state.orderAccepted}
           canceled={this.state.orderCanceled}
           pending={this.state.orderPending}
@@ -193,5 +175,12 @@ class OrdersContainer extends React.Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    userLogin: state.user.loginUser.restaurantID,
+    isAuth: state.user.isAuth,
+  };
+};
 
 export default connect(mapStateToProps)(OrdersContainer);

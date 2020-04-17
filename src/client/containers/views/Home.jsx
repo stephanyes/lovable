@@ -4,6 +4,8 @@ import Home from "../../../client/components/views/Home";
 import { connect } from "react-redux";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import { hideLoader, showLoader } from '../../../store/actions/loginAction'
+import FullPageLoader from '../../../restaurant/components/FullPageLoader/FullPageLoader'
 import Nodemailer from "nodemailer"
 
 const DB = firebase.db;
@@ -30,6 +32,7 @@ class ClientViewContainer extends React.Component {
   }
 
   componentDidMount() {
+    this.props.dispatch(showLoader())
     tablesOfRestaurant = DB.collection("restaurants")
       .doc(`${this.props.match.params.idRestaurant}`)
       .collection("tables");
@@ -41,7 +44,7 @@ class ClientViewContainer extends React.Component {
     });
     tablesOfRestaurant.onSnapshot((docSnapshot) => {
       docSnapshot.forEach((doc) => {
-        if (doc.id == this.props.match.params.idTable) {
+        if (doc.id === this.props.match.params.idTable) {
           this.setState({
             table: {
               clientActual: doc.data().clientActual,
@@ -58,7 +61,9 @@ class ClientViewContainer extends React.Component {
         }
       });
     });
-
+    setTimeout(() => {
+      this.props.dispatch(hideLoader())
+    }, 500)
     controlPay = DB.collection("restaurants")
       .doc(this.props.match.params.idRestaurant)
       .collection("tables")
@@ -68,7 +73,7 @@ class ClientViewContainer extends React.Component {
   }
 
   componentWillUnmount() {
-    tablesOfRestaurant.onSnapshot(() => {});
+    tablesOfRestaurant.onSnapshot(() => { });
   }
 
   handleClick(type) {
@@ -124,6 +129,9 @@ class ClientViewContainer extends React.Component {
           propsOfRestaurantId={this.props.match.params.idRestaurant}
           propsOfTabletId={this.props.match.params.idTable}
         />
+        <div>
+          <FullPageLoader />
+        </div>
       </div>
     );
   }

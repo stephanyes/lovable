@@ -2,10 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 const QRCode = require("qrcode.react");
 
-export default ({ restaurantId, restaurantInfo, quantityMesas }) => {
+export default ({ restaurantId, restaurantInfo, quantityMesas, addTable, deleteTable }) => {
   let restaurantURL =
     "https://lovable-qr.firebaseapp.com/" + restaurantId + "/tables";
-
   return (
     <div
       style={{
@@ -37,7 +36,7 @@ export default ({ restaurantId, restaurantInfo, quantityMesas }) => {
         >
           Edit Information
         </Link>
-        <Link
+        <button
           style={{
             textDecoration: "none",
             color: "#ffffff",
@@ -48,10 +47,25 @@ export default ({ restaurantId, restaurantInfo, quantityMesas }) => {
             marginBottom: "10px",
           }}
           className="btn btn-primary"
-          to="/configuration/addTable"
+          onClick={(e) => addTable(e, restaurantId)}
         >
-          Add Tables
-        </Link>
+          Add Table
+        </button>
+        <button
+          style={{
+            textDecoration: "none",
+            color: "#ffffff",
+            backgroundColor: "#ff2068",
+            borderColor: "#ff2068",
+            marginTop: "20px",
+            marginLeft: "20px",
+            marginBottom: "10px",
+          }}
+          className="btn btn-primary"
+          onClick={(e) => deleteTable(e, restaurantId)}
+        >
+          Delete Table
+        </button>
         <hr />
         <ul
           className="list-group"

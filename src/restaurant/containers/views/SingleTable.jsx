@@ -15,6 +15,12 @@ let productsTable;
 let tableId;
 let orderId;
 
+let local = JSON.parse(window.localStorage.getItem('persist:lovableLogin'))
+let userLS
+if (local) {
+  userLS = JSON.parse(local.user)
+}
+
 const mapStateToProps = (state) => {
   return {
     userLogin: state.user.loginUser.restaurantID,
@@ -37,12 +43,12 @@ class SingleTableContainer extends React.Component {
   }
 
   componentDidMount() {
-    if (this.props.isAuth === false) {
+    if (userLS.isAuth === false) {
       this.props.history.push("/");
     } else {
       this.props.dispatch(showLoader());
       pruebaSingleTable = DB.collection("restaurants")
-        .doc(`${this.props.userLogin}`)
+        .doc(userLS.loginUser.restaurantID)
         .collection("tables")
         .doc(this.props.match.params.idTable);
       pruebaSingleTable.onSnapshot((tableDoc) => {
@@ -124,15 +130,19 @@ class SingleTableContainer extends React.Component {
     tableDoc
       .get()
       .then((data) => {
+        let mesaID;
         data.forEach((res) => {
-          if (res.data().number === numTable) tableId = res.id;
+          if (res.data().number === numTable) {
+            mesaID = res.id;
+          }
         });
+        return mesaID
       })
-      .then(() => {
+      .then((mesaID) => {
         let idTable = DB.collection("restaurants")
           .doc(this.props.userLogin)
           .collection("tables")
-          .doc(tableId);
+          .doc(mesaID);
 
         idTable.update({ orderStatus: "accepted" });
       });

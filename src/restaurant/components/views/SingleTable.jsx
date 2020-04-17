@@ -42,8 +42,8 @@ export default ({
               This is the resume of the table.
             </h5>
           ) : (
-            <h5 className="font-weight-normal">This table is closed.</h5>
-          )}
+              <h5 className="font-weight-normal">This table is closed.</h5>
+            )}
         </div>
       </div>
 
@@ -80,15 +80,15 @@ export default ({
                     <tbody>
                       {productArray
                         ? productArray.map((product, index) => {
-                            return (
-                              <tr key={index}>
-                                <td>{product.name}</td>
-                                <td>{product.quantity}</td>
-                                <td>{product.price}</td>
-                                <td>{product.comments}</td>
-                              </tr>
-                            );
-                          })
+                          return (
+                            <tr key={index}>
+                              <td>{product.name}</td>
+                              <td>{product.quantity}</td>
+                              <td>{product.price}</td>
+                              <td>{product.comments}</td>
+                            </tr>
+                          );
+                        })
                         : null}
                       <tr>
                         <td>Total</td>
@@ -137,7 +137,7 @@ export default ({
 
                           <button
                             onClick={(e) =>
-                              orderHandler(e, table.orderActual, "canceled")
+                              orderHandler(e, table.orderActual, "canceled", table.number)
                             }
                             style={{
                               backgroundColor: "#ff2068",
@@ -149,23 +149,23 @@ export default ({
                           </button>
                         </div>
                       ) : (
-                        <div></div>
-                      )}
+                          <div></div>
+                        )}
                     </div>
                   </div>
                 </div>
               ) : (
-                <ul
-                  className="list-group"
-                  style={{
-                    marginTop: "30px",
-                  }}
-                >
-                  <li className="list-group-item d-flex justify-content-between align-items-center">
-                    No orders.
+                  <ul
+                    className="list-group"
+                    style={{
+                      marginTop: "30px",
+                    }}
+                  >
+                    <li className="list-group-item d-flex justify-content-between align-items-center">
+                      No orders.
                   </li>
-                </ul>
-              )}
+                  </ul>
+                )}
             </div>
 
             <h3
@@ -215,54 +215,54 @@ export default ({
                   </li>
                 </div>
               ) : (
-                <div>
-                  {" "}
-                  {table.waiter ? (
-                    <li className="list-group-item d-flex justify-content-between align-items-center">
-                      Customer is asking for his waiter
-                      <button
-                        onClick={(e) => tableHandler(e, table.id, "waiter")}
-                        style={{
-                          backgroundColor: "#ff2068",
-                          borderColor: "#ff2068",
-                          width: "250px",
-                        }}
-                        className="btn btn-primary btn-lg"
-                      >
-                        Remove Waiter Alert
+                  <div>
+                    {" "}
+                    {table.waiter ? (
+                      <li className="list-group-item d-flex justify-content-between align-items-center">
+                        Customer is asking for his waiter
+                        <button
+                          onClick={(e) => tableHandler(e, table.id, "waiter")}
+                          style={{
+                            backgroundColor: "#ff2068",
+                            borderColor: "#ff2068",
+                            width: "250px",
+                          }}
+                          className="btn btn-primary btn-lg"
+                        >
+                          Remove Waiter Alert
                       </button>
-                    </li>
-                  ) : (
-                    <div>
-                      {table.pay ? (
-                        <li className="list-group-item d-flex justify-content-between align-items-center">
-                          Customer wants to pay his bill
-                          <button
-                            onClick={(e) => tableHandler(e, table.id, "pay")}
-                            style={{
-                              backgroundColor: "#ff2068",
-                              borderColor: "#ff2068",
-                              width: "250px",
-                            }}
-                            className="btn btn-primary btn-lg"
-                          >
-                            Remove Bill Alert
+                      </li>
+                    ) : (
+                        <div>
+                          {table.pay ? (
+                            <li className="list-group-item d-flex justify-content-between align-items-center">
+                              Customer wants to pay his bill
+                              <button
+                                onClick={(e) => tableHandler(e, table.id, "pay")}
+                                style={{
+                                  backgroundColor: "#ff2068",
+                                  borderColor: "#ff2068",
+                                  width: "250px",
+                                }}
+                                className="btn btn-primary btn-lg"
+                              >
+                                Remove Bill Alert
                           </button>
-                        </li>
-                      ) : (
-                        <li className="list-group-item d-flex justify-content-between align-items-center">
-                          No service being called.
-                        </li>
+                            </li>
+                          ) : (
+                              <li className="list-group-item d-flex justify-content-between align-items-center">
+                                No service being called.
+                              </li>
+                            )}
+                        </div>
                       )}
-                    </div>
-                  )}
-                </div>
-              )}
+                  </div>
+                )}
             </ul>
           </div>
         ) : (
-          <div></div>
-        )}
+            <div></div>
+          )}
       </div>
       <div
         className="card text-center"
@@ -290,8 +290,8 @@ export default ({
               Close Table
             </button>
           ) : (
-            <div></div>
-          )}
+              <div></div>
+            )}
         </div>
       </div>
     </div>
