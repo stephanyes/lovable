@@ -32,17 +32,18 @@ const RecoverPassword = (props) => {
           backgroundColor: "#ffffff",
         }}
       >
-        <div className="col">
-          <img
-            style={{
-              height: "760px",
-              opacity: "0.85",
-            }}
-            src="https://insideone.s3-sa-east-1.amazonaws.com/login-lovable-image.png"
-            className="img-fluid"
-            alt="Responsive"
-          />
-        </div>
+        <div
+          className="col"
+          style={{
+            width: "100%",
+            height: "1050px",
+            backgroundImage: `url(${"https://insideone.s3-sa-east-1.amazonaws.com/login-lovable-x1.png"})`,
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+            //backgroundSize: "100% auto",
+            //  border: "1px solid red",
+          }}
+        ></div>
         <div className="col">
           <form
             onSubmit={(e) => handlerClick(e)}

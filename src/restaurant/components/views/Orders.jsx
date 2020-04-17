@@ -32,7 +32,7 @@ export default ({
 
         <div>
           <div>
-            <Link
+            {/* <Link
               to="/orders/history"
               style={{
                 textDecoration: "none",
@@ -43,12 +43,12 @@ export default ({
                 marginBottom: "10px",
               }}
               className="btn btn-primary"
-            // onClick={(e) => {
-            //   showHistory(e);
-            // }}
+              // onClick={(e) => {
+              //   showHistory(e);
+              // }}
             >
               Past Orders
-              </Link>
+            </Link> */}
 
             <hr />
             <h3
@@ -58,7 +58,7 @@ export default ({
               className="font-weight-bold"
             >
               Pending
-              </h3>
+            </h3>
             <ul
               class="list-group"
               style={{
@@ -115,7 +115,7 @@ export default ({
                         className="btn btn-primary btn-lg"
                       >
                         Accept
-                        </button>
+                      </button>
 
                       <button
                         onClick={(e) =>
@@ -128,15 +128,15 @@ export default ({
                         className="btn btn-primary btn-lg"
                       >
                         Cancel
-                        </button>
+                      </button>
                     </div>
                   </li>
                 ))
               ) : (
-                  <li className="list-group-item d-flex justify-content-between align-items-center">
-                    No orders here.
-                  </li>
-                )}
+                <li className="list-group-item d-flex justify-content-between align-items-center">
+                  No orders here.
+                </li>
+              )}
             </ul>
             <h3
               style={{
@@ -145,7 +145,7 @@ export default ({
               className="font-weight-bold"
             >
               Accepted
-              </h3>
+            </h3>
             <ul
               class="list-group"
               style={{
@@ -184,10 +184,10 @@ export default ({
                   </li>
                 ))
               ) : (
-                  <li className="list-group-item d-flex justify-content-between align-items-center">
-                    No orders here.
-                  </li>
-                )}
+                <li className="list-group-item d-flex justify-content-between align-items-center">
+                  No orders here.
+                </li>
+              )}
             </ul>
             <h3
               style={{
@@ -196,7 +196,7 @@ export default ({
               className="font-weight-bold"
             >
               Canceled
-              </h3>
+            </h3>
             <ul
               class="list-group"
               style={{
@@ -235,10 +235,10 @@ export default ({
                   </li>
                 ))
               ) : (
-                  <li className="list-group-item d-flex justify-content-between align-items-center">
-                    No orders here.
-                  </li>
-                )}
+                <li className="list-group-item d-flex justify-content-between align-items-center">
+                  No orders here.
+                </li>
+              )}
             </ul>
             <h3
               style={{
@@ -247,7 +247,7 @@ export default ({
               className="font-weight-bold"
             >
               Completed Today
-              </h3>
+            </h3>
             <ul
               class="list-group"
               style={{
@@ -286,13 +286,12 @@ export default ({
                   </li>
                 ))
               ) : (
-                  <li className="list-group-item d-flex justify-content-between align-items-center">
-                    No orders here.
-                  </li>
-                )}
+                <li className="list-group-item d-flex justify-content-between align-items-center">
+                  No orders here.
+                </li>
+              )}
             </ul>
           </div>
-
         </div>
       </div>
 
@@ -311,7 +310,6 @@ export default ({
           <h2 className="font-weight-bold">{"Today: $" + total}</h2>
         </div>
       </div>
-
     </div>
   );
 };
