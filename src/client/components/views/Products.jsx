@@ -122,7 +122,8 @@ export default ({
           className="btn btn-primary"
           onClick={(e) => handleClick(e)}
         >
-          Add {value} to Cart
+          Add {value} to Cart · ${`${product.price * value}`}
+          {/* Add {value} to Cart · ARS {`${product.price * value},00`} */}
         </button>
       </div>
     </div>

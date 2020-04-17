@@ -60,7 +60,7 @@ export default ({
               marginTop: "40px",
             }}
           >
-            Product suggestions
+            Suggestions
           </h3>
           {tresProductosMasVendidos[2] ? (
             tresProductosMasVendidos.map((product) => {
@@ -104,7 +104,7 @@ export default ({
               );
             })
           ) : (
-            <h1> No hay Productos</h1>
+            <h1></h1>
           )}
         </div>
         {categoria ? (
@@ -164,7 +164,7 @@ export default ({
                     );
                   })
                 ) : (
-                  <h1> No hay Productos</h1>
+                  <h1></h1>
                 )}
               </div>
             );

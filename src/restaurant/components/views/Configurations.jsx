@@ -176,6 +176,7 @@ export default ({ restaurantId, restaurantInfo, quantityMesas }) => {
         >
           QR Code
         </h3>
+        <QRCode size="128" includeMargin="true" value={restaurantURL} />
       </div>
     </div>
   );

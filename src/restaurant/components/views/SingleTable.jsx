@@ -57,7 +57,11 @@ export default ({
       >
         {table.state === "busy" ? (
           <div>
-            <h3 className="font-weight-bold">{`Order ${orderId}`}</h3>
+            {table.orderActual !== 0 ? (
+              <h3 className="font-weight-bold">{`Order ${orderId}`}</h3>
+            ) : (
+              <h3 className="font-weight-bold">{`Order`}</h3>
+            )}
 
             <div>
               {table.orderStatus !== "" && table.orderStatus !== "draft" ? (

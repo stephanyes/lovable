@@ -40,7 +40,7 @@ class SingleTableContainer extends React.Component {
     if (this.props.isAuth === false) {
       this.props.history.push("/");
     } else {
-      this.props.dispatch(showLoader())
+      this.props.dispatch(showLoader());
       pruebaSingleTable = DB.collection("restaurants")
         .doc(`${this.props.userLogin}`)
         .collection("tables")
@@ -93,19 +93,18 @@ class SingleTableContainer extends React.Component {
         }
       });
       setTimeout(() => {
-        this.props.dispatch(hideLoader())
-      }, 500)
-
+        this.props.dispatch(hideLoader());
+      }, 500);
     }
   }
 
   componentWillUnmount() {
     if (pruebaSingleTable) {
-      pruebaSingleTable.onSnapshot(() => { });
+      pruebaSingleTable.onSnapshot(() => {});
     }
     if (orderQuery && productsTable) {
-      orderQuery.onSnapshot(() => { });
-      productsTable.onSnapshot(() => { });
+      orderQuery.onSnapshot(() => {});
+      productsTable.onSnapshot(() => {});
     }
   }
 
@@ -168,37 +167,36 @@ class SingleTableContainer extends React.Component {
         .doc(`${this.props.userLogin}`)
         .collection("orders")
         .doc(orderId);
-      SingleTable.get()
-        .then((table) => {
-          if (table.data().mail) {
-            orderChange.update({ status: string, mail: table.data().mail })
-            axios({
-              headers: { "Access-Control-Allow-Origin": "*" },
-              method: "post",
-              data: { mail: table.data().mail },
-              url: "http://localhost:5000/lovable-qr/us-central1/app/api/mail"
-            })
-              .then(res => console.log(res))
-              .catch(err => console.error(err))
-          }
-          else {
-            orderChange.update({ status: string });
-          }
-        })
+      SingleTable.get().then((table) => {
+        if (table.data().mail) {
+          orderChange.update({ status: string, mail: table.data().mail });
+          axios({
+            headers: { "Access-Control-Allow-Origin": "*" },
+            method: "post",
+            data: { mail: table.data().mail },
+            //url: "http://localhost:5000/lovable-qr/us-central1/app/api/mail",
+            url: "https://lovable-qr.web.app/api/mail",
+          })
+            .then((res) => console.log(res))
+            .catch((err) => console.error(err));
+        } else {
+          orderChange.update({ status: string });
+        }
+      });
     } else {
-      SingleTable.get()
-        .then((table) => {
-          if (table.data().mail) {
-            axios({
-              headers: { "Access-Control-Allow-Origin": "*" },
-              method: "post",
-              data: { mail: table.data().mail },
-              url: "http://localhost:5000/lovable-qr/us-central1/app/api/mail"
-            })
-              .then(res => console.log(res))
-              .catch(err => console.error(err))
-          }
-        });
+      SingleTable.get().then((table) => {
+        if (table.data().mail) {
+          axios({
+            headers: { "Access-Control-Allow-Origin": "*" },
+            method: "post",
+            data: { mail: table.data().mail },
+            // url: "http://localhost:5000/lovable-qr/us-central1/app/api/mail",
+            url: "https://lovable-qr.web.app/api/mail",
+          })
+            .then((res) => console.log(res))
+            .catch((err) => console.error(err));
+        }
+      });
     }
     SingleTable.update({
       clientActual: 0,

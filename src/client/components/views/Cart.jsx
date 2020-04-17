@@ -84,12 +84,12 @@ export default ({ productos, priceTotal, deleteClick, handlerSubmit }) => {
                   }}
                 >
                   <div>
-                    <h6> ARS {`${product.price},00`}</h6>
+                    <h6> $ {`${product.price},00`}</h6>
                     <h6>Quantity: {product.quantity}</h6>
 
                     <h6>
                       {" "}
-                      Subtotal: ARS {`${product.price * product.quantity},00`}
+                      Subtotal: $ {`${product.price * product.quantity},00`}
                     </h6>
                   </div>
                 </li>
