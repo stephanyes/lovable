@@ -5,7 +5,7 @@ const DB = firebase.db;
 
 class MenuContainerCliente extends React.Component {
   constructor(props) {
-    super();
+    super(props);
     this.state = {
       menuesAndNames: []
     };

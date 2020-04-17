@@ -37,6 +37,7 @@ class ClientLoginContainer extends React.Component {
       .collection("tables");
     TablesRestaurant.get().then((result) => {
       result.forEach((doc) => {
+        console.log(doc.data())
         //Aca comparamos si el numero de mesa y el codigo secreto son correctos.
         if (
           doc.data().number == this.state.numberOfTable &&
@@ -52,6 +53,7 @@ class ClientLoginContainer extends React.Component {
             const client = { RestaurantId, TableIdActual, ClientActualApp };
             this.props.saveLoginClient(client);
             //Le agrega a la URL la mesa ingresada si es correcto.
+            console.log("oda bebe")
             this.props.history.push(`/${RestaurantId}/${doc.id}`);
           } else {
             //En esta parte, entramos al restaurante actual y buscamos el ultimo numero preparado para cliente. Le asignamos ese numero a la mesa actual. Y le sumamos 1 a ese indicador para dejarlo listo para el proximo cliente.

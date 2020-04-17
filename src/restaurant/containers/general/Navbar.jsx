@@ -34,9 +34,9 @@ class NavbarContainer extends React.Component {
     this.toggleOpen = this.toggleOpen.bind(this);
   }
 
-  async logoutButton(e) {
+  logoutButton(e) {
     e.preventDefault();
-    await firebase.logout();
+    firebase.logout();
     this.props.chauUser();
     this.props.history.replace("/");
   }
@@ -76,10 +76,11 @@ class NavbarContainer extends React.Component {
       orderQuery = DB.collection("restaurants")
         .doc(this.props.userLogin)
         .collection("orders");
+
       orderQuery.onSnapshot((ordenes) => {
         let orders = [];
         ordenes.forEach((orden) => {
-          if (orden.data().status === "pending") {
+          if (orden.data().status === "pending" && orden.data().notify === false) {
             orders.push({
               id: orden.id,
               idUser: orden.data().idUser,
@@ -93,22 +94,28 @@ class NavbarContainer extends React.Component {
           }
         });
         this.setState({ ordersArray: orders, mesas: mesas });
-        for (let i = 0; i < orders.length + 1 - 1; i++) {
-          if (orders[i].notify === false) {
-            toast.info(`Table ${orders[i].numberOfTable} is ordering!`, {
-              autoClose: false,
-              closeButton: true,
-              delay: 1500,
-            });
-            let singleOrder = DB.collection("restaurants")
-              .doc(this.props.userLogin)
-              .collection("orders")
-              .doc(orders[i].id);
-            singleOrder.update({ notify: true });
-          }
-        }
       });
     });
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.ordersArray.length !== this.state.ordersArray.length) {
+      let arr = this.state.ordersArray
+      for (let i = 0; i < arr.length + 1 - 1; i++) {
+        if (arr[i].notify === false) {
+          toast.info(`Table ${arr[i].numberOfTable} is ordering!`, {
+            autoClose: false,
+            closeButton: true,
+            delay: 1500,
+          });
+          let singleOrder = DB.collection("restaurants")
+            .doc(this.props.userLogin)
+            .collection("orders")
+            .doc(arr[i].id);
+          singleOrder.update({ notify: true });
+        }
+      }
+    }
   }
 
   render() {

@@ -4,6 +4,12 @@ import Sidebar from "../general/Sidebar";
 import Menu from "../../../restaurant/components/create/Menu";
 import { connect } from "react-redux";
 const DB = firebase.db;
+let local = JSON.parse(window.localStorage.getItem('persist:lovableLogin'))
+let userLS
+if (local) {
+  userLS = JSON.parse(local.user)
+}
+
 
 const mapStateToProps = (state) => {
   return {
@@ -22,13 +28,13 @@ class CreateMenuContainer extends React.Component {
     this.handleInput = this.handleInput.bind(this);
   }
   componentDidMount() {
-    if (this.props.isAuth == false) this.props.history.push("/");
+    if (userLS.isAuth === false) this.props.history.push("/");
   }
 
   handleSubmit(e) {
     e.preventDefault();
     let doc = DB.collection("restaurants")
-      .doc(this.props.userLogin)
+      .doc(userLS.loginUser.restaurantID)
       .collection("menu")
       .doc();
     doc.set(this.state);

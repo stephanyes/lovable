@@ -4,7 +4,7 @@ import withReactContent from "sweetalert2-react-content";
 const MySwal = withReactContent(Swal);
 const DB_users = firebase.db.collection("users");
 
-export const loginUser = (user, pass) => (dispatch) => {
+export const loginUser = (user, pass, ruta) => (dispatch) => {
   const auth = firebase.auth;
   const promise = auth.signInWithEmailAndPassword(user, pass);
   promise
@@ -19,7 +19,7 @@ export const loginUser = (user, pass) => (dispatch) => {
               restaurantID: user.data().restaurantID,
             },
           });
-        });
+        }).then(() => ruta.push(`/dashboard`))
     })
     .catch((e) => MySwal.fire(e.message));
 };
@@ -40,4 +40,8 @@ export const hideLoader = () => dispatch => {
   dispatch({
     type: "HIDE_LOADER"
   })
+}
+
+export const fetchUserFireBase = () => {
+  return firebase.auth.currentUser
 }

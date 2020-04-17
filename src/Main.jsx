@@ -25,9 +25,7 @@ import MenuesClient from "./client/containers/views/Menues";
 import CategoriesClient from "./client/containers/views/Categories";
 import ProductsClient from "./client/containers/views/Products";
 import Cart from "./client/containers/views/Cart";
-import SingleOrder from "./restaurant/containers/views/SingleOrder";
 import Password from "./restaurant/components/edit/Password";
-import AddTables from "./restaurant/containers/edit/AddTables";
 import Mail from "./client/components/views/Mail";
 import Navbar from "./restaurant/containers/general/Navbar";
 
@@ -53,11 +51,11 @@ class Main extends React.Component {
       });
     });
   }
-  componentDidUpdate(prevState) {
-    prevState.isAuth !== this.props.isAuth &&
-      this.props.userLogin.name &&
-      this.props.history.push("/dashboard");
-  }
+  // componentDidUpdate(prevState) {
+  //   prevState.isAuth !== this.props.isAuth &&
+  //     this.props.userLogin.name &&
+  //     this.props.history.push("/dashboard");
+  // }
 
   render() {
     return this.props.userLogin.name ? (
@@ -67,11 +65,9 @@ class Main extends React.Component {
           {/* Views */}
           <Route path="/dashboard" component={Tables} />
           <Route path="/configuration/edit" component={EditConfigurations} />
-          <Route path="/orders/:orderId" component={SingleOrder} />
           <Route exact path="/orders" component={Orders} />
           <Route exact path="/configurations" component={Configurations} />
           <Route path="/configurations/resetpassword" component={Password} />
-          <Route path="/configuration/addTable" component={AddTables} />
           <Route path="/recover" component={RecoverPassword} />
           {/* Create */}
           <Route path="/menu/createMenu" component={CreateMenu} />
@@ -129,73 +125,71 @@ class Main extends React.Component {
         </Switch>
       </div>
     ) : (
-      <div>
-        <Switch>
-          {/* Views */}
-          <Route path="/dashboard" component={Tables} />
-          <Route path="/configuration/edit" component={EditConfigurations} />
-          <Route path="/orders/:orderId" component={SingleOrder} />
-          <Route exact path="/orders" component={Orders} />
-          <Route exact path="/configurations" component={Configurations} />
-          <Route path="/configurations/resetpassword" component={Password} />
-          <Route path="/configuration/addTable" component={AddTables} />
-          <Route path="/recover" component={RecoverPassword} />
-          {/* Create */}
-          <Route path="/menu/createMenu" component={CreateMenu} />
-          <Route path="/menu/:id/createCategory" component={CreateCategory} />
-          <Route
-            path="/menu/:id/:categoryId/createProduct"
-            component={CreateProduct}
-          />
-          {/* Edit */}
-          <Route
-            path="/menu/:id/:categoryId/editProduct/:productId"
-            component={EditProduct}
-          />
-          <Route
-            path="/menu/:id/:categoryId/editCategory"
-            component={EditCategory}
-          />
-          <Route path="/menu/:id/editMenu" component={EditMenu} />
-          {/* Rutas a Menu/Categorias/Productos */}
-          <Route exact path="/menu" component={Menues} />
-          <Route exact path="/menu/:id/:categoryId" component={Products} />
-          <Route path="/menu/:id" component={Categories} />
+        <div>
+          <Switch>
+            {/* Views */}
+            <Route path="/dashboard" component={Tables} />
+            <Route path="/configuration/edit" component={EditConfigurations} />
+            <Route exact path="/orders" component={Orders} />
+            <Route exact path="/configurations" component={Configurations} />
+            <Route path="/configurations/resetpassword" component={Password} />
+            <Route path="/recover" component={RecoverPassword} />
+            {/* Create */}
+            <Route path="/menu/createMenu" component={CreateMenu} />
+            <Route path="/menu/:id/createCategory" component={CreateCategory} />
+            <Route
+              path="/menu/:id/:categoryId/createProduct"
+              component={CreateProduct}
+            />
+            {/* Edit */}
+            <Route
+              path="/menu/:id/:categoryId/editProduct/:productId"
+              component={EditProduct}
+            />
+            <Route
+              path="/menu/:id/:categoryId/editCategory"
+              component={EditCategory}
+            />
+            <Route path="/menu/:id/editMenu" component={EditMenu} />
+            {/* Rutas a Menu/Categorias/Productos */}
+            <Route exact path="/menu" component={Menues} />
+            <Route exact path="/menu/:id/:categoryId" component={Products} />
+            <Route path="/menu/:id" component={Categories} />
 
-          <Route path="/configurations" component={Configurations} />
-          <Route
-            path="/forms"
-            component={() => {
-              window.location.href =
-                "https://alexk321099.typeform.com/to/BxGprT";
-              return null;
-            }}
-          />
-          <Route
-            exact
-            path="/tables/:idTable"
-            component={withRouter(SingleTable)}
-          />
+            <Route path="/configurations" component={Configurations} />
+            <Route
+              path="/forms"
+              component={() => {
+                window.location.href =
+                  "https://alexk321099.typeform.com/to/BxGprT";
+                return null;
+              }}
+            />
+            <Route
+              exact
+              path="/tables/:idTable"
+              component={withRouter(SingleTable)}
+            />
 
-          <Route exact path="/" component={Login}></Route>
-          {/* Cliente */}
-          <Route exact path="/" component={Login}></Route>
-          <Route path="/:idRestaurant/cart/:idTable" component={Cart} />
-          <Route path="/:idRestaurant/tables" component={LoginClient} />
-          <Route path="/:idRestaurant/:idTable/menu" component={MenuesClient} />
-          <Route
-            path="/:idRestaurant/menu/:idMenu/:idTable"
-            component={CategoriesClient}
-          />
-          <Route
-            path="/:idRestaurant/:idMenu/:idCategoria/:idProduct/:idTable/client"
-            component={ProductsClient}
-          />
-          <Route path="/:idRestaurant/:idTable/mail" component={Mail} />
-          <Route path="/:idRestaurant/:idTable" component={Home} />
-        </Switch>
-      </div>
-    );
+            <Route exact path="/" component={Login}></Route>
+            {/* Cliente */}
+            <Route exact path="/" component={Login}></Route>
+            <Route path="/:idRestaurant/cart/:idTable" component={Cart} />
+            <Route path="/:idRestaurant/tables" component={LoginClient} />
+            <Route path="/:idRestaurant/:idTable/menu" component={MenuesClient} />
+            <Route
+              path="/:idRestaurant/menu/:idMenu/:idTable"
+              component={CategoriesClient}
+            />
+            <Route
+              path="/:idRestaurant/:idMenu/:idCategoria/:idProduct/:idTable/client"
+              component={ProductsClient}
+            />
+            <Route path="/:idRestaurant/:idTable/mail" component={Mail} />
+            <Route path="/:idRestaurant/:idTable" component={Home} />
+          </Switch>
+        </div>
+      );
   }
 }
 

@@ -8,6 +8,11 @@ import withReactContent from "sweetalert2-react-content";
 import FullPageLoader from "../../components/FullPageLoader/FullPageLoader";
 import { showLoader, hideLoader } from "../../../store/actions/loginAction";
 const DB = firebase.db;
+let local = JSON.parse(window.localStorage.getItem('persist:lovableLogin'))
+let userLS
+if (local) {
+  userLS = JSON.parse(local.user)
+}
 
 const mapStateToProps = (state) => {
   return {
@@ -28,12 +33,12 @@ class MenuIndividualContainer extends React.Component {
   }
   menuId = this.props.match.params.id;
   componentDidMount() {
-    if (this.props.isAuth === false) {
+    if (userLS.isAuth === false) {
       this.props.history.push("/");
     } else {
       this.props.dispatch(showLoader())
       let doc = DB.collection("restaurants")
-        .doc(this.props.userLogin)
+        .doc(userLS.loginUser.restaurantID)
         .collection("menu")
         .doc(this.menuId);
       //Aca saco el nombre del menu

@@ -10,6 +10,12 @@ import { showLoader, hideLoader } from "../../../store/actions/loginAction";
 const DB = firebase.db;
 
 let tablesDoc;
+let local = JSON.parse(window.localStorage.getItem('persist:lovableLogin'))
+let userLS
+if (local) {
+  userLS = JSON.parse(local.user)
+}
+
 
 const mapStateToProps = (state, ownprops) => {
   return {
@@ -28,16 +34,8 @@ class TablesContainer extends React.Component {
     this.handlerButton = this.handlerButton.bind(this);
   }
 
-  // updateLoader = () => {
-
-
-  //   setTimeout(() => {
-  //     this.props.dispatch(hideLoader())
-  //   }, 2000)
-  // }
-
   componentDidMount() {
-    if (this.props.isAuth == false) {
+    if (userLS.isAuth === false) {
       this.props.history.push("/");
     } else {
       this.props.dispatch(showLoader())
